@@ -1,0 +1,132 @@
+<!-- LESSON NOTE MODAL -->
+  <div id="noteModal" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200 no-print">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 transform scale-95 transition-transform duration-200" id="noteModalCard">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-note-sticky"></i>
+          </div>
+          <div>
+            <h4 class="font-display font-bold text-sm text-slate-900" id="modalLessonTitle">ملاحظات الدرس</h4>
+            <span class="text-[11px] text-slate-500" id="modalSubjectTitle">اسم المادة</span>
+          </div>
+        </div>
+        <button onclick="closeNoteModal()" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div>
+        <textarea 
+          id="modalNoteText" 
+          rows="5" 
+          placeholder="اكتب التريكات، القوانين، القيود المحاسبية، أسئلة الامتحانات المهمة لهذا الدرس..." 
+          class="w-full p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"
+        ></textarea>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+        <button onclick="closeNoteModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">إلغاء</button>
+        <button onclick="saveCurrentLessonNote()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-check"></i> حفظ الملاحظة
+        </button>
+      </div>
+    </div>
+  </div>
+
+<!-- DAILY SUBMIT RESULT MODAL -->
+  <div id="dailyResultModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200 no-print">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 text-center space-y-5 transform scale-95 transition-transform duration-200" id="dailyResultModalCard">
+      <!-- Icon & Status -->
+      <div id="resultModalIconBox" class="w-20 h-20 mx-auto rounded-3xl flex items-center justify-center text-3xl shadow-lg">
+        <!-- Dynamic Icon -->
+      </div>
+
+      <div class="space-y-2">
+        <span id="resultModalTag" class="text-xs font-black font-display px-3.5 py-1 rounded-full border inline-block">
+          <!-- Tag -->
+        </span>
+        <h3 id="resultModalTitle" class="font-display font-black text-xl sm:text-2xl text-slate-900 leading-snug">
+          <!-- Title -->
+        </h3>
+        <p id="resultModalMessage" class="text-xs sm:text-sm font-medium text-slate-600 leading-relaxed max-w-sm mx-auto">
+          <!-- Motivational Message -->
+        </p>
+      </div>
+
+      <div class="pt-2">
+        <button 
+          onclick="closeDailyResultModal()" 
+          id="resultModalActionBtn"
+          class="w-full py-3.5 px-5 rounded-2xl font-display font-black text-sm text-white shadow-lg transition active:scale-95 flex items-center justify-center gap-2"
+        >
+          <!-- Button text -->
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOUD SYNC MODAL (Google Firebase Firestore Setup) -->
+  <div id="cloudSyncModal" class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-200 no-print">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5 transform scale-95 transition-transform duration-200" id="cloudSyncModalCard">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center text-lg shadow-md shadow-orange-500/30">
+            <i class="fa-solid fa-fire"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-black text-lg text-slate-900">سحابة Google Firebase 🔥</h3>
+            <span class="text-xs text-slate-500 font-medium">مزامنة حية ولحظية بين اللابتوب والموبايل</span>
+          </div>
+        </div>
+        <button onclick="app.closeCloudSyncModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center gap-2.5">
+          <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>
+          <div class="text-xs">
+            <span class="font-black text-emerald-950 block">مشروعك متصل بنجاح: (janaklis-os) 🟢</span>
+            <span class="text-emerald-700 font-medium">قاعدة بيانات Google Firestore جاهزة وتعمل الآن!</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-bold text-slate-700 block mb-1.5">معرف الحساب / الخزنة السحابية (Sync Key):</label>
+          <div class="flex gap-2">
+            <input 
+              type="text" 
+              id="cloudSyncKeyInput" 
+              value="main_user"
+              placeholder="مثال: main_user أو اسمك" 
+              class="flex-1 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold focus:ring-2 focus:ring-indigo-500 text-slate-900"
+            />
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+            جميع بياناتك تُحفظ في قاعدة بيانات Firestore الخاصة بك. عند فتح الموقع من الموبايل أو أي جهاز آخر ستتزامن تلقائياً في نفس اللحظة!
+          </p>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 space-y-2">
+          <span class="text-xs font-bold text-indigo-950 block">📱 رابط المزامنة المباشر للموبايل:</span>
+          <div class="flex items-center gap-2">
+            <input type="text" id="cloudShareableUrlInput" readonly class="flex-1 p-2 rounded-lg bg-white border border-indigo-200 text-[11px] font-mono text-slate-700 select-all" />
+            <button onclick="app.copyCloudShareableUrl()" class="px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shrink-0 flex items-center gap-1">
+              <i class="fa-solid fa-copy"></i> نسخ
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+        <button onclick="resetRoutineHistory()" class="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold transition">
+          تصفير سجل الروتين فقط 🔄
+        </button>
+        <button onclick="app.connectAndSyncCloud()" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-md shadow-amber-500/20 flex items-center gap-1.5">
+          <i class="fa-solid fa-rotate"></i> مزامنة فورية مع Firebase ⚡
+        </button>
+      </div>
+    </div>
+  </div>
