@@ -333,24 +333,30 @@ class AppController {
         [today]: this.storageService.createDefaultDayLog()
       };
 
-      // 2. Save locally and sync to Firebase
-      this.saveAndRefreshViews();
-      this.renderRoutine();
-      this.renderAchievements();
+      // 2. Save locally
+      this.storageService.save(this.state);
 
-      // 3. Force push to Firebase Firestore
-      if (this.cloudSyncService.firestoreDb) {
+      // 3. Force push direct overwrite to Firebase Firestore (without merge)
+      if (this.cloudSyncService && this.cloudSyncService.firestoreDb) {
         try {
           const docRef = this.cloudSyncService.firestoreDb.collection('academic_os').doc(this.cloudSyncService.syncKey || 'main_user');
           await docRef.set({
             state: this.state,
-            updatedAt: new Date().toISOString()
-          }, { merge: true });
-        } catch (e) {}
+            updatedAt: new Date().toISOString(),
+            lastDevice: navigator.userAgent
+          });
+        } catch (e) {
+          console.warn('Firebase reset note:', e);
+        }
       }
 
+      // 4. Update and refresh all views immediately
+      this.renderRoutine();
+      this.renderAchievements();
+      HeaderView.render(this.state);
+
       SoundService.playSuccess();
-      alert('✅ تم تصفير سجل أيام الروتين بنجاح (0 يوم) مع الحفاظ على تقدمك في المواد الدراسية! 🔄');
+      alert('✅ تم تصفير سجل أيام الروتين بنجاح (0 يوم)! 🔄');
     }
   }
 

@@ -176,7 +176,7 @@ class CloudSyncService {
             state: state,
             updatedAt: new Date().toISOString(),
             lastDevice: navigator.userAgent
-          }, { merge: true });
+          });
         }
         this.status = 'connected';
       } catch (e) {
