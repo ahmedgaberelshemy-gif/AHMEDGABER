@@ -58,8 +58,8 @@ class AppController {
   // ==========================================
   // Navigation: 4 Master Tabs
   // ==========================================
-    switchTab(tabId) {
-    if (!['routine', 'achievements', 'programming'].includes(tabId)) {
+      switchTab(tabId) {
+    if (!['routine', 'curriculum', 'achievements', 'programming'].includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
@@ -78,14 +78,17 @@ class AppController {
     }
 
     const routineSec = document.getElementById('section-routine');
+    const curricSec = document.getElementById('section-curriculum');
     const achieveSec = document.getElementById('section-achievements');
     const progSec = document.getElementById('section-programming');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
+    if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
     if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
 
     if (tabId === 'routine') this.renderRoutine();
+    if (tabId === 'curriculum') this.renderCurriculum();
     if (tabId === 'achievements') this.renderAchievements();
     if (tabId === 'programming') this.renderProgramming();
 
@@ -262,6 +265,38 @@ class AppController {
   }
 
         // ==========================================
+    // ==========================================
+  // Curriculum Handlers (Subjects Only)
+  // ==========================================
+  renderCurriculum() {
+    this.state.subjectsProgress = this.state.subjectsProgress || {};
+    CurriculumView.render(this.state.subjectsProgress);
+  }
+
+  toggleSubjectCompletion(subjectId) {
+    if (subjectId === undefined || subjectId === null) return;
+    try {
+      this.state.subjectsProgress = this.state.subjectsProgress || {};
+      const isNowDone = !Boolean(this.state.subjectsProgress[subjectId]);
+      this.state.subjectsProgress[subjectId] = isNowDone;
+
+      if (isNowDone) {
+        SoundService.playSuccess();
+        CelebrationService.smallPop();
+      } else {
+        SoundService.playCheck();
+      }
+
+      this.storageService.save(this.state);
+      this.cloudSyncService.push(this.state);
+      HeaderView.render(this.state);
+      this.renderCurriculum();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling subject:', err);
+    }
+  }
+
   // Programming Track Handlers
   // ==========================================
   renderProgramming() {
@@ -617,8 +652,10 @@ function copyCloudShareableUrl() { app.copyCloudShareableUrl(); }
 function connectAndSyncCloud() { app.connectAndSyncCloud(); }
 function disconnectCloudSync() { app.disconnectCloudSync(); }
 function resetEntireSystem() { app.resetEntireSystem(); }
+function toggleSubjectCompletion(id) { app.toggleSubjectCompletion(id); }
 function toggleProgrammingCourse(id) { app.toggleProgrammingCourse(id); }
 if (typeof window !== 'undefined') {
+  window.toggleSubjectCompletion = toggleSubjectCompletion;
   window.toggleProgrammingCourse = toggleProgrammingCourse;
 }
 function toggleIncompleteDetailsSection() {

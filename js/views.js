@@ -184,202 +184,80 @@ class RoutineView {
   }
 }
 
-// 2. CURRICULUM VIEW (6 Subjects Navigation & 10 Weeks Breakdown per Subject)
+// 2. CURRICULUM VIEW (Subjects Only - Clean Cards)
 class CurriculumView {
-  static render(activeSubject, lessonProgress, lessonNotes) {
-    const subjIdx = (typeof activeSubject === 'number' && activeSubject >= 0 && activeSubject < APP_CONFIG.SUBJECT_NAMES.length) 
-      ? activeSubject 
-      : 0;
-    this.renderSubjectPills(subjIdx, lessonProgress);
-    this.renderActiveSubjectWeeks(subjIdx, lessonProgress, lessonNotes);
-  }
-
-  static renderSubjectPills(activeSubject, lessonProgress) {
-    const container = document.getElementById('weekPillsBar');
-    if (!container) return;
-    container.innerHTML = '';
-
-    APP_CONFIG.SUBJECTS.forEach((subj, sIdx) => {
-      const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, sIdx);
-      const isActive = sIdx === activeSubject;
-      const style = colorStyles[subj.color] || colorStyles.blue;
-
-      const btn = document.createElement('button');
-      btn.className = `p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 text-right ${
-        isActive 
-          ? `${style.cardBg} ${style.border} ring-2 ring-indigo-500 shadow-md text-slate-950 font-black` 
-          : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-300 shadow-2xs'
-      }`;
-
-      btn.innerHTML = `
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl ${isActive ? style.iconBg : 'bg-slate-100'} ${isActive ? style.iconColor : 'text-slate-600'} flex items-center justify-center text-sm shrink-0 shadow-2xs">
-            <i class="fa-solid ${subj.icon}"></i>
-          </div>
-          <span class="text-xs sm:text-sm font-black text-slate-900 font-display">${subj.name}</span>
-        </div>
-        <span class="text-xs font-mono font-black px-2.5 py-1 rounded-xl ${isActive ? style.badge : 'bg-slate-100 text-slate-700 border border-slate-200'} shrink-0">
-          ${stats.percentage}%
-        </span>
-      `;
-      btn.onclick = () => app.switchSubject(sIdx);
-      container.appendChild(btn);
-    });
-  }
-
-  static renderActiveSubjectWeeks(activeSubject, lessonProgress, lessonNotes) {
-    const container = document.getElementById('curriculumWeekStage');
+  static render(subjectsProgress = {}) {
+    const container = document.getElementById('subjectsCardsContainer');
     if (!container) return;
 
-                const subjectMeta = [
-      { name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue", desc: "مدخل الأعمال، أنواع المنظمات، القيادة، التسويق، العمليات، والموارد البشرية" },
-      { name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald", desc: "المعادلة المحاسبية، القيد المزدوج، اليومية المساعدة، القوائم المالية، والشركات" },
-      { name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber", desc: "العرض والطلب، المرونة، سلوك المستهلك، والتحليل الاقتصادي" },
-      { name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple", desc: "القواعد القانونية، مصادر القانون، الحقوق والالتزامات" },
-      { name: "علم النفس", icon: "fa-brain", color: "rose", desc: "السلوك الإنساني، الدوافع، الإدراك، والعمليات المعرفية" },
-      { name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan", desc: "المصطلحات التجارية، القواعد اللغوية، والقراءة المتخصصة" }
-    ];
+    const subjects = APP_CONFIG.SUBJECTS || [];
+    let html = '';
 
-    const currentMeta = subjectMeta[activeSubject] || subjectMeta[0];
-    const style = colorStyles[currentMeta.color] || colorStyles.blue;
-    const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, activeSubject);
+    subjects.forEach((subj) => {
+      const isDone = Boolean(subjectsProgress[subj.id]);
 
-    // Subject Hero Header
-    const headerHtml = `
-      <div class="bg-white p-5 sm:p-6 rounded-3xl border ${style.border} ${style.cardBg} shadow-xs mb-6 space-y-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5 text-center sm:text-right">
-            <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shadow-md shrink-0">
-              <i class="fa-solid ${currentMeta.icon}"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 justify-center sm:justify-start flex-wrap">
-                <h3 class="text-xl sm:text-2xl font-black font-display text-slate-900">${currentMeta.name}</h3>
-                <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg ${style.badge}">10 أسابيع</span>
-              </div>
-              <p class="text-xs text-slate-600 font-medium">${currentMeta.desc}</p>
-            </div>
-          </div>
-
-          <div class="shrink-0 text-center sm:text-left bg-white/95 px-5 py-3 rounded-2xl border border-slate-200 shadow-2xs space-y-1">
-            <span class="text-xs font-bold text-slate-500 block">نسبة الإنجاز الكلية للمادة</span>
-            <div class="flex items-center gap-2 justify-center sm:justify-start">
-              <span class="text-lg sm:text-xl font-black font-display text-slate-900">${stats.completed} من ${stats.total} درس</span>
-              <span class="text-xs font-mono font-black px-2.5 py-1 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200">${stats.percentage}%</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="w-full h-2.5 rounded-full bg-white/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full ${style.badge} transition-all duration-500" style="width: ${stats.percentage}%"></div>
-        </div>
-      </div>
-    `;
-
-    // 10 Weeks Cards for this subject
-    let weeksCardsHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">';
-
-    weeksData.forEach(w => {
-      const wSubj = w.subjects[activeSubject];
-      if (!wSubj) return;
-
-      const lessons = wSubj.lessons || [];
-      const totalLessons = lessons.length;
-      let completedInWeek = 0;
-
-      lessons.forEach((_, lIdx) => {
-        const lessonKey = `w${w.week}_s${activeSubject}_l${lIdx}`;
-        if (lessonProgress[lessonKey]) completedInWeek++;
-      });
-
-      const isWeekFull = (totalLessons > 0 && completedInWeek === totalLessons);
-      const weekPercentage = totalLessons > 0 ? Math.round((completedInWeek / totalLessons) * 100) : 0;
-
-      weeksCardsHtml += `
-        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in stagger-card ${
-          isWeekFull 
-            ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/10 via-emerald-500/5 to-transparent shadow-xs' 
+      html += `
+        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
+          isDone
+            ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-indigo-500/5 to-transparent shadow-xs'
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
-        } p-4 sm:p-5 space-y-4 flex flex-col justify-between">
-          <div>
-            <!-- Week Header inside Subject -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div class="flex items-center gap-2.5">
-                <span class="w-8 h-8 rounded-xl ${isWeekFull ? 'shimmer-gold text-slate-950 font-black shadow-md shadow-amber-500/30' : 'bg-slate-900 text-white'} font-display font-black text-xs flex items-center justify-center shadow-xs shrink-0">
-                  ${w.week}
-                </span>
-                <div>
-                  <h4 class="font-display font-black text-base text-slate-900">${w.title}</h4>
-                  <span class="text-[11px] text-slate-500 font-medium">${wSubj.badge || `${totalLessons} دروس`}</span>
-                </div>
+        } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          
+          <!-- Subject Header -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div class="w-11 h-11 rounded-2xl ${
+                isDone 
+                  ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
+                  : 'bg-indigo-50 text-indigo-600 border border-indigo-100'
+              } flex items-center justify-center text-xl shrink-0 transition">
+                <i class="fa-solid ${subj.icon}"></i>
               </div>
 
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-mono font-black ${isWeekFull ? 'text-amber-950 px-2 py-0.5 rounded-lg shimmer-gold shadow-2xs' : 'text-slate-600'}">
-                  ${completedInWeek} / ${totalLessons} (${weekPercentage}%)
-                </span>
-                ${isWeekFull ? '<span class="text-xs">👑</span>' : ''}
+              <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
+                isDone 
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                  : 'bg-slate-100 text-slate-600 border border-slate-200'
+              } whitespace-nowrap shrink-0">
+                ${isDone ? 'مكتمل 100% 🎓' : 'قيد الدراسة 📖'}
+              </span>
+            </div>
+
+            <!-- Full Subject Name (No Truncation) -->
+            <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug">
+              ${subj.name}
+            </h3>
+          </div>
+
+          <!-- Interactive Completion Toggle Button -->
+          <div class="pt-2 border-t border-slate-100">
+            <button 
+              type="button"
+              onclick="toggleSubjectCompletion(${subj.id})" 
+              class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
+                isDone 
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
+                  : 'bg-slate-50 hover:bg-indigo-50/70 border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-950 shadow-2xs'
+              }"
+            >
+              <div class="w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 transition ${
+                isDone ? 'bg-white text-emerald-700 font-black' : 'border border-slate-300 bg-white text-transparent'
+              }">
+                <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>
               </div>
-            </div>
-
-            <!-- Mini Week Progress Bar -->
-            <div class="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden mt-2">
-              <div class="h-full rounded-full ${isWeekFull ? 'shimmer-gold' : 'bg-indigo-600'} transition-all duration-500" style="width: ${weekPercentage}%"></div>
-            </div>
-
-            <!-- Week Lessons Checklist for this Subject -->
-            <div class="space-y-2.5 pt-4">
-              ${lessons.map((lesson, lIdx) => {
-                const lessonKey = `w${w.week}_s${activeSubject}_l${lIdx}`;
-                const isCompleted = Boolean(lessonProgress[lessonKey]);
-                const hasNote = Boolean(lessonNotes[lessonKey]);
-                const lessonNumber = lIdx + 1 < 10 ? `0${lIdx + 1}` : `${lIdx + 1}`;
-
-                return `
-                  <div class="p-3 rounded-2xl border transition flex items-start justify-between gap-2.5 ${
-                    isCompleted 
-                      ? 'bg-emerald-50/90 border-emerald-300 shadow-2xs' 
-                      : 'bg-white border-slate-200 shadow-2xs hover:bg-slate-50/70'
-                  }">
-                    <div class="flex items-start gap-2.5 flex-1 min-w-0">
-                      <input 
-                        type="checkbox" 
-                        id="chk_${lessonKey}" 
-                        ${isCompleted ? 'checked' : ''} 
-                        onchange="app.toggleLesson('${lessonKey}')" 
-                        class="checkbox-custom mt-0.5"
-                      />
-                      <label 
-                        for="chk_${lessonKey}" 
-                        class="text-[13px] sm:text-[14px] font-bold leading-relaxed cursor-pointer select-none ${
-                          isCompleted ? 'text-emerald-950 line-through opacity-85' : 'text-slate-900'
-                        }"
-                      >
-                        <span class="font-display text-[10px] font-black px-1.5 py-0.5 rounded-md border shrink-0 ${style.bulletBg} ml-1 inline-block no-underline">${lessonNumber}</span>
-                        ${lesson}
-                      </label>
-                    </div>
-                    
-                    <button 
-                      onclick="app.openNoteModal('${lessonKey}')" 
-                      class="p-1.5 rounded-lg text-xs shrink-0 ${hasNote ? 'bg-purple-100 text-purple-700' : 'bg-slate-100 hover:bg-slate-200 text-slate-400'} transition"
-                      title="${hasNote ? 'عرض الملاحظة' : 'إضافة ملاحظة'}"
-                    >
-                      <i class="fa-solid fa-note-sticky"></i>
-                    </button>
-                  </div>
-                `;
-              }).join('')}
-            </div>
+              <span class="font-bold">
+                ${isDone ? 'أتممت المقرر بنجاح (100%)' : 'تعليم المقرر كمكتمل'}
+              </span>
+            </button>
           </div>
         </div>
       `;
     });
 
-    weeksCardsHtml += '</div>';
-    container.innerHTML = headerHtml + weeksCardsHtml;
+    container.innerHTML = html;
   }
 }
+
 
 // =========================================================================
 // =========================================================================
