@@ -54,7 +54,7 @@ class RoutineView {
     const msgEl = document.getElementById('prayersStatusMsg');
 
     if (completedCount === 5) {
-      if (badge) {
+      if (badge && badge.innerText !== undefined) {
         badge.className = 'px-2.5 py-1 rounded-lg shimmer-gold text-slate-950 text-xs font-black whitespace-nowrap shrink-0 shadow-md shadow-amber-500/20';
         badge.innerText = 'أُقيمت بالكامل 🕌👑';
       }
