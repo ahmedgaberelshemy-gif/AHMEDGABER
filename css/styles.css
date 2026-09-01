@@ -15,6 +15,20 @@ body {
   color: #0f172a;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================================
+   UNIVERSAL SILKY SMOOTHNESS & FLUID MOTION (BUTTERY FEEL)
+   ========================================================================= */
+*, *::before, *::after {
+  transition: background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 h1, h2, h3, h4, .font-display {

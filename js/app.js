@@ -596,10 +596,16 @@ function toggleIncompleteDetailsSection() {
   const isHidden = wrapper.classList.toggle('hidden');
   SoundService.playCheck();
   if (icon) {
+    icon.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
     icon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
   }
   if (text) {
     text.innerText = isHidden ? 'عرض التفاصيل 🔍' : 'طي التفاصيل 🔼';
+  }
+  if (!isHidden) {
+    wrapper.classList.remove('animate-fade-in');
+    void wrapper.offsetWidth;
+    wrapper.classList.add('animate-fade-in');
   }
 }
 function toggleSoundMute() {
