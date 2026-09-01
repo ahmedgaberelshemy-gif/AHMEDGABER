@@ -5,6 +5,13 @@
  */
 
 class AppController {
+
+  openAiMentorModal() { openAiMentorModal(); }
+  closeAiMentorModal() { closeAiMentorModal(); }
+  sendAiQuickPrompt(t) { sendAiQuickPrompt(t); }
+  sendAiMessage() { sendAiMessage(); }
+
+
   constructor() {
     this.storageService = new StorageService(APP_CONFIG.STORAGE_KEY);
     this.cloudSyncService = new CloudSyncService(this.storageService);
@@ -787,5 +794,123 @@ if (typeof window !== 'undefined') {
   window.toggleSoundMute = toggleSoundMute;
   window.exportBackupData = exportBackupData;
   window.importBackupData = importBackupData;
+  window.openAiMentorModal = openAiMentorModal;
+  window.closeAiMentorModal = closeAiMentorModal;
+  window.sendAiQuickPrompt = sendAiQuickPrompt;
+  window.sendAiMessage = sendAiMessage;
 }
 
+
+
+// ==========================================
+// AI Academic Mentor Global Controller Methods
+// ==========================================
+function openAiMentorModal() {
+  const modal = document.getElementById('aiMentorModal');
+  const card = document.getElementById('aiMentorModalCard');
+  if (!modal || !card) return;
+  modal.classList.remove('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-95');
+  card.classList.add('scale-100');
+  setTimeout(() => {
+    const inp = document.getElementById('aiChatInput');
+    if (inp) inp.focus();
+  }, 150);
+}
+
+function closeAiMentorModal() {
+  const modal = document.getElementById('aiMentorModal');
+  const card = document.getElementById('aiMentorModalCard');
+  if (!modal || !card) return;
+  modal.classList.add('opacity-0', 'pointer-events-none');
+  card.classList.remove('scale-100');
+  card.classList.add('scale-95');
+}
+
+function sendAiQuickPrompt(type) {
+  const container = document.getElementById('aiChatContainer');
+  if (!container) return;
+
+  let userText = '🎯 اختبرني بأسئلة امتحانات';
+  if (type === 'explain') userText = '💡 اشرح ولخص لي مفهوماً دراسياً مهماً';
+  if (type === 'coding') userText = '💻 أعطني نصيحة في مسار البرمجة';
+  if (type === 'progress') userText = '📈 حلل مستوى أدائي وإنجازي الدراسي';
+
+  appendAiMessage('user', userText);
+  showAiTypingAndRespond(type);
+}
+
+function sendAiMessage() {
+  const inp = document.getElementById('aiChatInput');
+  if (!inp || !inp.value.trim()) return;
+  const text = inp.value.trim();
+  inp.value = '';
+
+  appendAiMessage('user', text);
+  showAiTypingAndRespond(text);
+}
+
+function appendAiMessage(sender, text) {
+  const container = document.getElementById('aiChatContainer');
+  if (!container) return;
+
+  const div = document.createElement('div');
+  div.className = `flex items-start gap-2.5 ai-bubble-in ${sender === 'user' ? 'justify-end' : ''}`;
+
+  if (sender === 'user') {
+    div.innerHTML = `
+      <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3.5 rounded-2xl rounded-tl-xs shadow-xs text-xs sm:text-sm max-w-[85%] leading-relaxed font-medium">
+        ${text}
+      </div>
+      <div class="w-7 h-7 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center text-xs shrink-0 font-bold">
+        <i class="fa-solid fa-user"></i>
+      </div>
+    `;
+  } else {
+    div.innerHTML = `
+      <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs shrink-0 shadow-xs">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div class="bg-white p-3.5 rounded-2xl rounded-tr-xs border border-slate-200 shadow-2xs text-slate-800 space-y-1.5 max-w-[85%] leading-relaxed text-xs sm:text-sm">
+        ${text.replace(/\n/g, '<br>')}
+      </div>
+    `;
+  }
+
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function showAiTypingAndRespond(query) {
+  const container = document.getElementById('aiChatContainer');
+  if (!container) return;
+
+  const typingDiv = document.createElement('div');
+  typingDiv.id = 'aiTypingIndicator';
+  typingDiv.className = 'flex items-center gap-2 ai-bubble-in';
+  typingDiv.innerHTML = `
+    <div class="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs shrink-0">
+      <i class="fa-solid fa-robot animate-spin"></i>
+    </div>
+    <div class="bg-white px-3.5 py-2.5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-1.5 text-xs text-slate-500 font-bold">
+      <span>المرشد يحلل ويصيغ الإجابة</span>
+      <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 typing-dot"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-purple-600 typing-dot"></span>
+      <span class="w-1.5 h-1.5 rounded-full bg-pink-600 typing-dot"></span>
+    </div>
+  `;
+  container.appendChild(typingDiv);
+  container.scrollTop = container.scrollHeight;
+
+  setTimeout(() => {
+    const indicator = document.getElementById('aiTypingIndicator');
+    if (indicator) indicator.remove();
+
+    const currentState = (typeof app !== 'undefined' && app.state) ? app.state : {};
+    const response = AIAcademicEngine.getResponse(query, currentState);
+    appendAiMessage('ai', response);
+    if (typeof confetti === 'function' && (query === 'quiz' || query.includes('اختبرني'))) {
+      if (typeof triggerGoldConfetti === 'function') triggerGoldConfetti();
+    }
+  }, 600);
+}
