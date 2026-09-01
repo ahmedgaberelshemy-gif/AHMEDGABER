@@ -668,3 +668,24 @@ class SoundService {
     }
   }
 }
+
+
+// 6. Smooth Rolling Number Counter Animation
+function animateRollingCounter(elementId, targetValue, duration = 800, suffix = '') {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  const startValue = parseInt(el.innerText) || 0;
+  const startTime = performance.now();
+  
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+    const currentValue = Math.round(startValue + (targetValue - startValue) * easeOutQuad);
+    el.innerText = currentValue + suffix;
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+  requestAnimationFrame(update);
+}

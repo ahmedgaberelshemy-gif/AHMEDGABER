@@ -395,7 +395,7 @@ class AchievementsView {
           </span>
         </div>
         <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 via-emerald-500 to-teal-500 transition-all duration-500" style="width: ${loggedPercentage}%"></div>
+          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-indigo-500 via-emerald-500 to-teal-500 transition-all duration-500" style="width: ${loggedPercentage}%"></div>
         </div>
       </div>
 
@@ -561,7 +561,7 @@ class AchievementsView {
         </div>
 
         <div class="w-full h-3 rounded-full bg-slate-200/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 transition-all duration-500 shadow-sm" style="width: ${overallPercentage}%"></div>
+          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 transition-all duration-500 shadow-sm" style="width: ${overallPercentage}%"></div>
         </div>
       </div>
 
@@ -753,7 +753,7 @@ class AchievementsView {
         </div>
 
         <div class="w-full h-3 rounded-full bg-slate-200/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 transition-all duration-500 shadow-sm" style="width: ${percentage}%"></div>
+          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 transition-all duration-500 shadow-sm" style="width: ${percentage}%"></div>
         </div>
       </div>
 
