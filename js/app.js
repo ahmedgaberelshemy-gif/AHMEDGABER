@@ -58,44 +58,36 @@ class AppController {
   // ==========================================
   // Navigation: 4 Master Tabs
   // ==========================================
-  switchTab(tabId) {
+    switchTab(tabId) {
     if (!['routine', 'achievements', 'programming'].includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
 
+    // 1. Reset all tabs to standard inactive look
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.remove('tab-btn-active', 'bg-white');
-      btn.classList.add('bg-slate-50', 'text-slate-700');
+      btn.classList.remove('tab-btn-active');
+      btn.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
     });
 
+    // 2. Highlight strictly the active tab
     const activeBtn = document.getElementById(`tabBtn-${tabId}`);
     if (activeBtn) {
       activeBtn.classList.add('tab-btn-active');
-      activeBtn.classList.remove('bg-slate-50', 'text-slate-700');
+      activeBtn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
     }
 
     const routineSec = document.getElementById('section-routine');
-    const curricSec = document.getElementById('section-curriculum');
     const achieveSec = document.getElementById('section-achievements');
     const progSec = document.getElementById('section-programming');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
-    if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
     if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
 
     if (tabId === 'routine') this.renderRoutine();
-    if (tabId === 'curriculum') // No curriculum
     if (tabId === 'achievements') this.renderAchievements();
     if (tabId === 'programming') this.renderProgramming();
-
-    const activeSec = tabId === 'routine' ? routineSec : (tabId === 'curriculum' ? curricSec : (tabId === 'achievements' ? achieveSec : progSec));
-    if (activeSec) {
-      activeSec.classList.remove('animate-fade-in');
-      void activeSec.offsetWidth;
-      activeSec.classList.add('animate-fade-in');
-    }
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);

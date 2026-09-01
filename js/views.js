@@ -634,7 +634,7 @@ class AchievementsView {
 
 
 
-// 4. PROGRAMMING VIEW (Clean Course Title Cards)
+// 4. PROGRAMMING VIEW (Clean Course Title Cards - No Truncation)
 class ProgrammingView {
   static render(programmingCourses = {}) {
     const container = document.getElementById('programmingCoursesContainer');
@@ -657,33 +657,37 @@ class ProgrammingView {
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
         } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
           
-          <!-- Course Header -->
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-12 h-12 rounded-2xl ${
+          <!-- Course Header & Badge -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div class="w-10 h-10 rounded-2xl ${
                 isDone 
                   ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
                   : 'bg-slate-100 text-slate-700'
-              } flex items-center justify-center text-xl shrink-0 transition">
+              } flex items-center justify-center text-lg shrink-0 transition">
                 <i class="fa-solid ${course.icon}"></i>
               </div>
-              <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug truncate">${course.title}</h3>
+
+              <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
+                isDone 
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                  : 'bg-slate-100 text-slate-600 border border-slate-200'
+              } whitespace-nowrap shrink-0">
+                ${isDone ? 'مكتمل 100% 🎓' : 'قيد المتابعة ⏳'}
+              </span>
             </div>
 
-            <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
-              isDone 
-                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-                : 'bg-slate-100 text-slate-600 border border-slate-200'
-            } whitespace-nowrap shrink-0">
-              ${isDone ? 'مكتمل 100% 🎓' : 'قيد المتابعة ⏳'}
-            </span>
+            <!-- Full Course Title (No Truncation) -->
+            <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug">
+              ${course.title}
+            </h3>
           </div>
 
-          <!-- Interactive Completion Toggle -->
-          <div>
+          <!-- Interactive Completion Toggle Button -->
+          <div class="pt-2 border-t border-slate-100">
             <button 
               type="button"
-              onclick="app.toggleProgrammingCourse('${course.id}')" 
+              onclick="toggleProgrammingCourse('${course.id}')" 
               class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
                 isDone 
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
@@ -695,7 +699,7 @@ class ProgrammingView {
               }">
                 <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>
               </div>
-              <span class="truncate font-bold">
+              <span class="font-bold">
                 ${isDone ? 'أتممت الكورس بنجاح (100%)' : 'تعليم الكورس كمكتمل'}
               </span>
             </button>
@@ -707,6 +711,7 @@ class ProgrammingView {
     container.innerHTML = html;
   }
 }
+
 
 
 
