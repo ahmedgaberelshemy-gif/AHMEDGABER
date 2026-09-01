@@ -269,7 +269,7 @@ class AppController {
     this.saveAndRefreshViews();
   }
 
-      // ==========================================
+        // ==========================================
   // Programming Track Handlers
   // ==========================================
   renderProgramming() {
@@ -288,20 +288,6 @@ class AppController {
         SoundService.playSuccess();
         CelebrationService.smallPop();
       } else {
-        SoundService.playCheck();
-      }
-
-      this.storageService.save(this.state);
-      this.cloudSyncService.push(this.state);
-      HeaderView.render(this.state);
-      this.renderProgramming();
-      this.renderAchievements();
-    } catch (err) {
-      console.error('Error toggling course:', err);
-    }
-  }
-
- else {
         SoundService.playCheck();
       }
 
@@ -614,6 +600,7 @@ class AppController {
 
 // Global App Instance
 const app = new AppController();
+if (typeof window !== "undefined") { window.app = app; }
 
 // Global event delegates for HTML inline events
 function switchTab(tabId) { app.switchTab(tabId); }
@@ -684,3 +671,30 @@ window.addEventListener('DOMContentLoaded', () => {
     icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-400';
   }
 });
+
+
+if (typeof window !== 'undefined') {
+  window.app = app;
+  window.switchTab = switchTab;
+  window.togglePrayer = togglePrayer;
+  window.toggleGymStatus = toggleGymStatus;
+  window.toggleSleepStatus = toggleSleepStatus;
+  window.toggleQuran = toggleQuran;
+  window.saveQuranPages = saveQuranPages;
+  window.toggleProgrammingCourse = toggleProgrammingCourse;
+  window.finalizeTodayLog = finalizeTodayLog;
+  window.closeDailyResultModal = closeDailyResultModal;
+  window.resetRoutineHistory = resetRoutineHistory;
+  window.openCloudSyncModal = openCloudSyncModal;
+  window.closeCloudSyncModal = closeCloudSyncModal;
+  window.generateRandomSyncKey = generateRandomSyncKey;
+  window.copyCloudShareableUrl = copyCloudShareableUrl;
+  window.connectAndSyncCloud = connectAndSyncCloud;
+  window.disconnectCloudSync = disconnectCloudSync;
+  window.resetEntireSystem = resetEntireSystem;
+  window.toggleIncompleteDetailsSection = toggleIncompleteDetailsSection;
+  window.toggleSoundMute = toggleSoundMute;
+  window.exportBackupData = exportBackupData;
+  window.importBackupData = importBackupData;
+}
+
