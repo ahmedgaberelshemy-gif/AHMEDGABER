@@ -1,5 +1,5 @@
 /* =========================================================================
-   JANAKLIS ACADEMIC OS - LUXURY ULTRA-MODERN STYLESHEET (V50.0)
+   JANAKLIS ACADEMIC OS - MOTION GRAPHICS & ROYAL GOLD LUXURY (V55.0)
    ========================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;500;600;700;800;900&display=swap');
@@ -8,9 +8,9 @@ body {
   font-family: 'Cairo', sans-serif;
   background-color: #f8fafc;
   background-image: 
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.07) 0px, transparent 50%),
-    radial-gradient(at 50% 100%, rgba(245, 158, 11, 0.06) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.09) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(245, 158, 11, 0.07) 0px, transparent 50%);
   background-attachment: fixed;
   color: #0f172a;
   scroll-behavior: smooth;
@@ -34,52 +34,110 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   1. ROYAL GOLD 100% COMPLETED SHIMMER & GLOW CARDS
+   1. LIVING MOTION GRAPHICS & DYNAMIC MOVING AURORA BACKGROUND
    ========================================================================= */
+
+@keyframes auroraMorph1 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(40px, -30px) scale(1.15) rotate(45deg); }
+  66% { transform: translate(-30px, 35px) scale(0.92) rotate(-30deg); }
+}
+
+@keyframes auroraMorph2 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  33% { transform: translate(-45px, 35px) scale(1.18) rotate(-40deg); }
+  66% { transform: translate(35px, -25px) scale(0.9) rotate(35deg); }
+}
+
+@keyframes auroraMorph3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -35px) scale(1.22); }
+}
+
+.ambient-aurora-blob1 {
+  animation: auroraMorph1 15s infinite ease-in-out;
+}
+.ambient-aurora-blob2 {
+  animation: auroraMorph2 18s infinite ease-in-out;
+}
+.ambient-aurora-blob3 {
+  animation: auroraMorph3 16s infinite ease-in-out;
+}
+
+/* Dynamic Moving Gradient Text */
+.gradient-text-flow {
+  background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 35%, #059669 70%, #d97706 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientFlowText 8s infinite ease-in-out;
+}
+
+@keyframes gradientFlowText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* =========================================================================
+   2. ROYAL GOLD 100% - ULTRA VIBRANT, CRISP & HIGH-CONTRAST
+   ========================================================================= */
+
 .gold-card-100 {
-  background: linear-gradient(135deg, #fffdf2 0%, #fef3c7 40%, #fde68a 80%, #fffbeb 100%) !important;
-  border: 1.5px solid #f59e0b !important;
-  box-shadow: 0 14px 35px -5px rgba(245, 158, 11, 0.35), 0 0 15px rgba(245, 158, 11, 0.2) !important;
+  background: linear-gradient(135deg, #fffdf0 0%, #fef3c7 35%, #fde047 70%, #fef08a 100%) !important;
+  border: 2px solid #f59e0b !important;
+  box-shadow: 0 16px 36px -6px rgba(245, 158, 11, 0.4), 0 0 20px rgba(245, 158, 11, 0.25) !important;
   position: relative !important;
   overflow: hidden !important;
-  animation: goldPulseAura 3s infinite ease-in-out !important;
+  animation: royalGoldPulse 3.5s infinite ease-in-out !important;
 }
 
 .gold-card-100::after {
-  content: '';
-  position: absolute;
-  top: -70%;
-  left: -70%;
-  width: 240%;
-  height: 240%;
+  content: '' !important;
+  position: absolute !important;
+  top: -100% !important;
+  left: -100% !important;
+  width: 300% !important;
+  height: 300% !important;
   background: linear-gradient(
     65deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.65) 50%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  transform: rotate(35deg);
-  animation: sweepGoldShimmer 4s infinite linear;
-  pointer-events: none;
+    rgba(255, 255, 255, 0) 35%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 65%
+  ) !important;
+  transform: rotate(35deg) !important;
+  animation: sweepGoldBeam 3.5s infinite linear !important;
+  pointer-events: none !important;
 }
 
-@keyframes sweepGoldShimmer {
+@keyframes sweepGoldBeam {
   0% { transform: translateX(-120%) rotate(35deg); }
   100% { transform: translateX(120%) rotate(35deg); }
 }
 
-@keyframes goldPulseAura {
+@keyframes royalGoldPulse {
   0%, 100% {
-    box-shadow: 0 12px 28px -5px rgba(245, 158, 11, 0.3), 0 0 12px rgba(245, 158, 11, 0.2);
+    box-shadow: 0 14px 30px -5px rgba(245, 158, 11, 0.35), 0 0 14px rgba(245, 158, 11, 0.2);
   }
   50% {
-    box-shadow: 0 16px 40px -3px rgba(245, 158, 11, 0.45), 0 0 24px rgba(245, 158, 11, 0.35);
+    box-shadow: 0 18px 45px -3px rgba(245, 158, 11, 0.55), 0 0 28px rgba(245, 158, 11, 0.4);
   }
 }
 
+.shimmer-gold {
+  background: linear-gradient(90deg, #d97706 0%, #fde68a 25%, #f59e0b 50%, #fef08a 75%, #d97706 100%);
+  background-size: 200% 100%;
+  animation: goldBarMove 3s infinite linear;
+}
+
+@keyframes goldBarMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* =========================================================================
-   2. SHIMMER LIGHT WAVE IN PROGRESS BARS
+   3. PROGRESS BAR LIGHT WAVES & MOTION
    ========================================================================= */
+
 .shimmer-progress-bar {
   position: relative;
   overflow: hidden;
@@ -92,10 +150,10 @@ h1, h2, h3, h4, h5, .font-display {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0.6) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  animation: progressLightWave 2.2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  animation: progressLightWave 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 
@@ -105,47 +163,49 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   3. ADAPTIVE SUBJECT HOVER GLOWS
+   4. ADAPTIVE SUBJECT HOVER GLOWS
    ========================================================================= */
+
 .hover-glow-blue:hover {
   border-color: #3b82f6 !important;
-  box-shadow: 0 14px 32px -6px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(59, 130, 246, 0.35), 0 0 15px rgba(59, 130, 246, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 .hover-glow-emerald:hover {
   border-color: #10b981 !important;
-  box-shadow: 0 14px 32px -6px rgba(16, 185, 129, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(16, 185, 129, 0.35), 0 0 15px rgba(16, 185, 129, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 .hover-glow-amber:hover {
   border-color: #f59e0b !important;
-  box-shadow: 0 14px 32px -6px rgba(245, 158, 11, 0.3), 0 0 0 1px rgba(245, 158, 11, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(245, 158, 11, 0.35), 0 0 15px rgba(245, 158, 11, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 .hover-glow-purple:hover {
   border-color: #a855f7 !important;
-  box-shadow: 0 14px 32px -6px rgba(168, 85, 247, 0.3), 0 0 0 1px rgba(168, 85, 247, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(168, 85, 247, 0.35), 0 0 15px rgba(168, 85, 247, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 .hover-glow-rose:hover {
   border-color: #f43f5e !important;
-  box-shadow: 0 14px 32px -6px rgba(244, 63, 94, 0.3), 0 0 0 1px rgba(244, 63, 94, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(244, 63, 94, 0.35), 0 0 15px rgba(244, 63, 94, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 .hover-glow-cyan:hover {
   border-color: #06b6d4 !important;
-  box-shadow: 0 14px 32px -6px rgba(6, 182, 212, 0.3), 0 0 0 1px rgba(6, 182, 212, 0.4) !important;
-  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 16px 36px -6px rgba(6, 182, 212, 0.35), 0 0 15px rgba(6, 182, 212, 0.25) !important;
+  transform: translateY(-4px) scale(1.012);
 }
 
 /* =========================================================================
-   4. MICRO-POP & RIPPLE CHECKBOX ANIMATION
+   5. CHECKBOX POP & RIPPLE
    ========================================================================= */
+
 .checkbox-custom {
   appearance: none;
   width: 24px;
@@ -164,8 +224,8 @@ h1, h2, h3, h4, h5, .font-display {
 
 .checkbox-custom:hover {
   border-color: #10b981;
-  transform: scale(1.12);
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+  transform: scale(1.14);
+  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.2);
 }
 
 .checkbox-custom:active {
@@ -175,14 +235,14 @@ h1, h2, h3, h4, h5, .font-display {
 .checkbox-custom:checked {
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
   border-color: #059669;
-  transform: scale(1.05);
+  transform: scale(1.06);
   animation: checkboxPopRipple 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 @keyframes checkboxPopRipple {
   0% { transform: scale(0.85); }
-  50% { transform: scale(1.22); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.28); }
-  100% { transform: scale(1.05); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
+  50% { transform: scale(1.24); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0.3); }
+  100% { transform: scale(1.06); box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
 }
 
 .checkbox-custom:checked::before {
@@ -196,11 +256,11 @@ h1, h2, h3, h4, h5, .font-display {
 
 @keyframes checkPop {
   0% { transform: scale(0); opacity: 0; }
-  70% { transform: scale(1.3); }
+  70% { transform: scale(1.35); }
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Luxury Card Lift */
+/* Card Lift */
 .card-lift {
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
@@ -209,22 +269,22 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 .card-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 22px 42px -10px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(99, 102, 241, 0.2);
 }
 
-/* Premium Active Tabs */
+/* Active Navigation Tab */
 .tab-btn-active {
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 10px 25px -5px rgba(49, 46, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 12px 28px -5px rgba(49, 46, 129, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
   border-color: #4338ca !important;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .tab-btn-active i {
   color: #fbbf24 !important;
-  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.7));
 }
 
 @keyframes smoothFadeInUp {
@@ -258,103 +318,4 @@ h1, h2, h3, h4, h5, .font-display {
   body { font-size: 14px; padding-bottom: env(safe-area-inset-bottom, 20px); }
   .checkbox-custom { width: 26px; height: 26px; }
   .tab-btn { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 0.75rem !important; }
-}
-
-
-/* Universal Gold Shimmer Effect for all 100% items */
-.gold-card-100 {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 35%, #fde68a 70%, #fffdf5 100%) !important;
-  border: 1.5px solid #f59e0b !important;
-  box-shadow: 0 12px 30px -5px rgba(245, 158, 11, 0.35), 0 0 18px rgba(245, 158, 11, 0.25) !important;
-  position: relative !important;
-  overflow: hidden !important;
-  animation: goldPulseAura 3.5s infinite ease-in-out !important;
-}
-
-.gold-card-100::after {
-  content: '' !important;
-  position: absolute !important;
-  top: -80% !important;
-  left: -80% !important;
-  width: 260% !important;
-  height: 260% !important;
-  background: linear-gradient(
-    65deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.7) 50%,
-    rgba(255, 255, 255, 0) 70%
-  ) !important;
-  transform: rotate(35deg) !important;
-  animation: sweepGoldShimmer 3.8s infinite linear !important;
-  pointer-events: none !important;
-}
-
-.gold-btn-100 {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%) !important;
-  border-color: #f59e0b !important;
-  color: #ffffff !important;
-  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.45), 0 0 0 1px rgba(245, 158, 11, 0.3) !important;
-}
-
-
-/* =========================================================================
-   AI MENTOR & ULTRA-FLUID SYSTEM ANIMATIONS
-   ========================================================================= */
-
-/* Floating AI Orb Pulse */
-.ai-orb-pulse {
-  box-shadow: 0 0 25px rgba(129, 140, 248, 0.45), 0 0 50px rgba(192, 132, 252, 0.25);
-  animation: aiOrbGlow 3s infinite ease-in-out;
-}
-
-@keyframes aiOrbGlow {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 25px rgba(129, 140, 248, 0.45), 0 0 45px rgba(192, 132, 252, 0.25);
-  }
-  50% {
-    transform: scale(1.04) translateY(-2px);
-    box-shadow: 0 0 35px rgba(129, 140, 248, 0.65), 0 0 65px rgba(236, 72, 153, 0.35);
-  }
-}
-
-/* AI Chat Message Bubble Animations */
-@keyframes aiMessageSlide {
-  0% { opacity: 0; transform: translateY(12px) scale(0.96); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.ai-bubble-in {
-  animation: aiMessageSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Typing Dots Animation */
-.typing-dot {
-  animation: typingBounce 1.4s infinite ease-in-out both;
-}
-.typing-dot:nth-child(1) { animation-delay: -0.32s; }
-.typing-dot:nth-child(2) { animation-delay: -0.16s; }
-@keyframes typingBounce {
-  0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
-  40% { transform: scale(1); opacity: 1; }
-}
-
-/* Floating Aurora Ambient Drift */
-@keyframes auroraDrift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(25px, -20px) scale(1.08); }
-}
-
-.ambient-aurora-1 { animation: auroraDrift 14s infinite ease-in-out; }
-.ambient-aurora-2 { animation: auroraDrift 18s infinite ease-in-out reverse; }
-.ambient-aurora-3 { animation: auroraDrift 16s infinite ease-in-out; }
-
-/* Enhanced Card Tilt & Lift */
-.card-lift-3d {
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease;
-}
-
-.card-lift-3d:hover {
-  transform: translateY(-5px) scale(1.008);
-  box-shadow: 0 22px 40px -10px rgba(15, 23, 42, 0.1), 0 0 0 1px rgba(99, 102, 241, 0.2);
 }
