@@ -424,13 +424,13 @@ class AcademicCalculator {
     let total = 0;
     let completed = 0;
 
-    weeks.forEach(weekObj => {
-      const subject = weekObj.subjects[subjectIndex];
+    (weeks || []).forEach(weekObj => {
+      const subject = weekObj.subjects ? weekObj.subjects[subjectIndex] : null;
       if (subject && Array.isArray(subject.lessons)) {
         subject.lessons.forEach((_, lessonIndex) => {
           total++;
           const key = `w${weekObj.week}_s${subjectIndex}_l${lessonIndex}`;
-          if (lessonProgress[key] === true) {
+          if (lessonProgress && lessonProgress[key] === true) {
             completed++;
           }
         });
@@ -438,7 +438,7 @@ class AcademicCalculator {
     });
 
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, percentage };
+    return { total, completed, totalCount: total, completedCount: completed, percentage };
   }
 
   static getWeekStats(weekObj, lessonProgress) {
@@ -450,7 +450,7 @@ class AcademicCalculator {
           subject.lessons.forEach((_, lessonIndex) => {
             total++;
             const key = `w${weekObj.week}_s${subjectIndex}_l${lessonIndex}`;
-            if (lessonProgress[key] === true) {
+            if (lessonProgress && lessonProgress[key] === true) {
               completed++;
             }
           });
@@ -458,20 +458,20 @@ class AcademicCalculator {
       });
     }
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, percentage };
+    return { total, completed, totalCount: total, completedCount: completed, percentage };
   }
 
   static getSemesterStats(weeks, lessonProgress) {
     let total = 0;
     let completed = 0;
 
-    weeks.forEach(weekObj => {
-      weekObj.subjects.forEach((subject, subjectIndex) => {
+    (weeks || []).forEach(weekObj => {
+      (weekObj.subjects || []).forEach((subject, subjectIndex) => {
         if (subject && Array.isArray(subject.lessons)) {
           subject.lessons.forEach((_, lessonIndex) => {
             total++;
             const key = `w${weekObj.week}_s${subjectIndex}_l${lessonIndex}`;
-            if (lessonProgress[key] === true) {
+            if (lessonProgress && lessonProgress[key] === true) {
               completed++;
             }
           });
@@ -480,7 +480,7 @@ class AcademicCalculator {
     });
 
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, percentage };
+    return { total, completed, totalCount: total, completedCount: completed, percentage };
   }
 }
 

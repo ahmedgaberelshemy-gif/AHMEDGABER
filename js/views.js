@@ -229,7 +229,7 @@ class CurriculumView {
     });
   }
 
-  static renderActiveSubjectWeeks(activeSubject, lessonProgress, lessonNotes) {
+    static renderActiveSubjectWeeks(activeSubject, lessonProgress, lessonNotes) {
     const container = document.getElementById('curriculumWeekStage');
     if (!container) return;
 
@@ -244,42 +244,22 @@ class CurriculumView {
 
     const currentMeta = subjectMeta[activeSubject] || subjectMeta[0];
     const style = colorStyles[currentMeta.color] || colorStyles.blue;
-    const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, activeSubject);
 
-    // Subject Hero Header
+    // Subject Hero Header (Clean without "نسبة إتمام المقرر" widget)
     const headerHtml = `
-      <div class="bg-white p-5 sm:p-6 rounded-3xl border ${style.border} ${style.cardBg} shadow-xs mb-6 space-y-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3.5 text-center sm:text-right">
-            <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shrink-0 shadow-sm">
-              <i class="fa-solid ${currentMeta.icon}"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 justify-center sm:justify-start">
-                <h3 class="text-lg sm:text-xl font-black font-display text-slate-900">${currentMeta.name}</h3>
-                <span class="text-xs font-black font-display px-2.5 py-0.5 rounded-lg ${style.badge}">
-                  ${stats.percentage}% إنجاز
-                </span>
-              </div>
-              <p class="text-xs text-slate-600 font-medium mt-1 leading-relaxed">${currentMeta.desc}</p>
-            </div>
-          </div>
-
-          <div class="w-full sm:w-48 text-center sm:text-left shrink-0">
-            <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-1.5">
-              <span>نسبة إتمام المقرر</span>
-              <span class="font-mono font-black text-slate-900">${stats.completedCount || 0} / ${stats.totalCount || 0}</span>
-            </div>
-            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
-              <div class="h-full rounded-full ${style.progressBar} transition-all duration-500" style="width: ${stats.percentage}%"></div>
-            </div>
-          </div>
+      <div class="bg-white p-4 sm:p-5 rounded-3xl border ${style.border} ${style.cardBg} shadow-xs mb-5 flex items-center gap-3.5 text-right">
+        <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shrink-0 shadow-sm">
+          <i class="fa-solid ${currentMeta.icon}"></i>
+        </div>
+        <div>
+          <h3 class="text-base sm:text-lg font-black font-display text-slate-900 leading-snug">${currentMeta.name}</h3>
+          <p class="text-xs text-slate-600 font-medium mt-0.5 leading-relaxed">${currentMeta.desc}</p>
         </div>
       </div>
     `;
 
     // 10 Weeks Breakdown Grid
-    let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">';
+    let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">';
 
     weeksData.forEach((w) => {
       const subjectData = w.subjects ? w.subjects[activeSubject] : null;
@@ -289,14 +269,14 @@ class CurriculumView {
       weeksHtml += `
         <div class="bg-white rounded-3xl border transition card-lift ${
           isWeekDone 
-            ? 'border-emerald-300 emerald-glow-border bg-emerald-500/5 shadow-xs' 
+            ? 'border-emerald-300 emerald-glow-border bg-emerald-50/5 shadow-xs' 
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
-        } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+        } p-4 sm:p-5 space-y-3.5 flex flex-col justify-between">
           
           <div>
             <!-- Week Header -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-              <div class="flex items-center gap-2.5">
+            <div class="flex items-center justify-between pb-2.5 border-b border-slate-100 gap-2">
+              <div class="flex items-center gap-2">
                 <span class="w-7 h-7 rounded-xl ${isWeekDone ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700'} flex items-center justify-center text-xs font-black font-mono shadow-2xs">
                   ${w.week}
                 </span>
@@ -306,14 +286,14 @@ class CurriculumView {
               <span class="text-xs font-black font-display px-2.5 py-1 rounded-xl ${
                 isWeekDone 
                   ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-600 border border-slate-200' : 'bg-slate-100 text-slate-600')
+                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-500 border border-slate-200' : 'bg-slate-100 text-slate-600')
               } whitespace-nowrap shrink-0">
                 ${isWeekDone ? 'مكتمل 100% 👑' : (lessons.length === 0 ? 'قيد الإعداد ⏳' : `${lessons.length} دروس`)}
               </span>
             </div>
 
             <!-- Lessons Checklist or Empty State Placeholder -->
-            <div class="space-y-2.5 pt-3">
+            <div class="space-y-2.5 pt-2.5">
               ${lessons.length > 0 ? lessons.map((lesson, lIdx) => {
                 const lessonKey = `w${w.week}_s${activeSubject}_l${lIdx}`;
                 const isChecked = Boolean(lessonProgress[lessonKey]);
@@ -533,6 +513,7 @@ class AchievementsView {
   }
 
   // 2. Academic & Weekly Progress (10 Weeks & 6 Subjects)
+    // 2. Academic & 10 Weeks Progress (الـ 10 أسابيع والمقررات)
   static renderAcademicAchievements(weeks = [], lessonProgress = {}) {
     const container = document.getElementById('academicAchievementsContainer');
     const badge = document.getElementById('academicAchievementsBadge');
@@ -540,22 +521,23 @@ class AchievementsView {
 
     let totalLessons = 0;
     let completedLessons = 0;
+    let completedWeeksCount = 0;
 
-    (weeks || []).forEach(w => {
-      (w.subjects || []).forEach((s, sIdx) => {
-        (s.lessons || []).forEach((_, lIdx) => {
-          totalLessons++;
-          if (lessonProgress[`w${w.week}_s${sIdx}_l${lIdx}`]) {
-            completedLessons++;
-          }
-        });
-      });
+    const weeksList = (weeks && weeks.length > 0) ? weeks : (weeksData || []);
+
+    weeksList.forEach(w => {
+      const wStats = AcademicCalculator.getWeekStats(w, lessonProgress);
+      totalLessons += wStats.totalCount;
+      completedLessons += wStats.completedCount;
+      if (wStats.totalCount > 0 && wStats.completedCount === wStats.totalCount) {
+        completedWeeksCount++;
+      }
     });
 
     const overallPercentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
     if (badge) {
-      badge.innerText = `${completedLessons} من ${totalLessons} درس منجز (${overallPercentage}%)`;
+      badge.innerText = `${completedWeeksCount} من ${weeksList.length} أسابيع مكتملة (${overallPercentage}%)`;
     }
 
     let html = `
@@ -564,10 +546,10 @@ class AchievementsView {
         <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-800">
           <span class="flex items-center gap-2">
             <i class="fa-solid fa-graduation-cap text-indigo-600"></i>
-            <span>التحصيل الأكاديمي الإجمالي لكافة المقررات والأسابيع</span>
+            <span>التحصيل الأكاديمي الإجمالي لأسابيع الترم الـ 10</span>
           </span>
           <span class="font-mono font-black text-indigo-900 bg-white px-2.5 py-1 rounded-lg border border-indigo-200">
-            ${completedLessons} / ${totalLessons} (${overallPercentage}%)
+            ${completedLessons} / ${totalLessons} درس (${overallPercentage}%)
           </span>
         </div>
         <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden shadow-inner">
@@ -575,36 +557,42 @@ class AchievementsView {
         </div>
       </div>
 
-      <!-- 6 Subjects Progress Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pt-2">
+      <!-- 10 Weeks Achievement Cards Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-1">
     `;
 
-    (APP_CONFIG.SUBJECTS || []).forEach((subj, sIdx) => {
-      const stats = AcademicCalculator.getSubjectStats(weeks, lessonProgress, sIdx);
-      const style = colorStyles[subj.color] || colorStyles.blue;
-      const isSubject100 = (stats.totalCount > 0 && stats.completedCount === stats.totalCount);
+    weeksList.forEach((w) => {
+      const wStats = AcademicCalculator.getWeekStats(w, lessonProgress);
+      const isWeek100 = (wStats.totalCount > 0 && wStats.completedCount === wStats.totalCount);
+      const isWeekEmpty = (wStats.totalCount === 0);
 
       html += `
-        <div class="p-3.5 sm:p-4 rounded-2xl border ${isSubject100 ? 'bg-emerald-50/80 border-emerald-300' : 'bg-white border-slate-200'} shadow-2xs space-y-2.5">
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-8 h-8 rounded-xl ${isSubject100 ? 'bg-emerald-500 text-white' : style.iconBg + ' ' + style.iconColor} flex items-center justify-center text-xs shrink-0 shadow-2xs">
-                <i class="fa-solid ${subj.icon}"></i>
-              </div>
-              <span class="text-xs sm:text-sm font-black font-display text-slate-900 truncate">${subj.name}</span>
-            </div>
-            <span class="text-xs font-mono font-black px-2 py-0.5 rounded-lg ${isSubject100 ? 'bg-emerald-100 text-emerald-800' : style.badge} shrink-0">
-              ${stats.percentage}%
+        <div class="p-3.5 rounded-2xl border transition ${
+          isWeek100 
+            ? 'bg-emerald-50 border-emerald-300 shadow-2xs' 
+            : 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs'
+        } space-y-2.5 text-right flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="w-6 h-6 rounded-lg ${isWeek100 ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700'} flex items-center justify-center text-[11px] font-black font-mono">
+              ${w.week}
+            </span>
+            <span class="text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${
+              isWeek100 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
+            }">
+              ${wStats.percentage}%
             </span>
           </div>
 
-          <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
-            <div class="h-full rounded-full ${isSubject100 ? 'bg-emerald-500' : style.progressBar} transition-all duration-500" style="width: ${stats.percentage}%"></div>
+          <div>
+            <h5 class="text-xs font-black font-display text-slate-900 truncate">${w.title}</h5>
+            <div class="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden mt-2">
+              <div class="h-full rounded-full ${isWeek100 ? 'bg-emerald-500' : 'bg-indigo-500'} transition-all duration-500" style="width: ${wStats.percentage}%"></div>
+            </div>
           </div>
 
-          <div class="flex items-center justify-between text-[11px] text-slate-500 font-bold">
-            <span>الدروس المنجزة</span>
-            <span class="font-mono text-slate-700">${stats.completedCount} / ${stats.totalCount}</span>
+          <div class="flex items-center justify-between text-[10px] text-slate-500 font-bold pt-1 border-t border-slate-100">
+            <span>${isWeekEmpty ? 'قيد الإعداد ⏳' : `${wStats.completedCount} / ${wStats.totalCount} درس`}</span>
+            ${isWeek100 ? '<span>👑</span>' : ''}
           </div>
         </div>
       `;
