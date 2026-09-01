@@ -379,6 +379,8 @@ class CurriculumView {
     weeksCardsHtml += '</div>';
     container.innerHTML = headerHtml + weeksCardsHtml;
   }
+}
+
 // 3. ACHIEVEMENTS VIEW (6 Subjects Progress, Full Weeks Milestones, Routine Days, and Programming Track)
 class AchievementsView {
   static render(state, storageService) {
