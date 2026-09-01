@@ -882,14 +882,14 @@ class ProgrammingView {
           <div class="pt-3 border-t border-slate-100">
             <button 
               type="button"
-              onclick="app.toggleProgrammingCourse('${course.id}')" 
-              class="w-full py-3.5 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer ${
+              onclick="toggleProgrammingCourse('${course.id}')" 
+              class="w-full py-3.5 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 cursor-pointer select-none ${
                 isDone 
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
-                  : 'bg-slate-50 hover:bg-emerald-50/60 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25 ring-2 ring-emerald-300/40' 
+                  : 'bg-slate-50 hover:bg-emerald-50/70 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
               }"
             >
-              <div class="w-5 h-5 rounded-lg flex items-center justify-center text-xs shrink-0 transition ${
+              <div class="w-6 h-6 rounded-lg flex items-center justify-center text-sm shrink-0 transition ${
                 isDone ? 'bg-white text-emerald-700 shadow-2xs font-black' : 'border-2 border-slate-300 bg-white text-transparent'
               }">
                 <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>

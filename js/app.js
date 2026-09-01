@@ -626,6 +626,9 @@ function connectAndSyncCloud() { app.connectAndSyncCloud(); }
 function disconnectCloudSync() { app.disconnectCloudSync(); }
 function resetEntireSystem() { app.resetEntireSystem(); }
 function toggleProgrammingCourse(id) { app.toggleProgrammingCourse(id); }
+if (typeof window !== 'undefined') {
+  window.toggleProgrammingCourse = toggleProgrammingCourse;
+}
 function toggleIncompleteDetailsSection() {
   const wrapper = document.getElementById('incompleteDetailsWrapper');
   const icon = document.getElementById('toggleIncompleteIcon');
