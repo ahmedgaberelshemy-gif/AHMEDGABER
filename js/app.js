@@ -81,16 +81,16 @@ class AppController {
     if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
 
+    if (tabId === 'routine') this.renderRoutine();
+    if (tabId === 'curriculum') this.renderCurriculum();
+    if (tabId === 'achievements') this.renderAchievements();
+
     const activeSec = tabId === 'routine' ? routineSec : (tabId === 'curriculum' ? curricSec : achieveSec);
     if (activeSec) {
       activeSec.classList.remove('animate-fade-in');
       void activeSec.offsetWidth;
       activeSec.classList.add('animate-fade-in');
     }
-
-    if (tabId === 'routine') this.renderRoutine();
-    if (tabId === 'curriculum') this.renderCurriculum();
-    if (tabId === 'achievements') this.renderAchievements();
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);

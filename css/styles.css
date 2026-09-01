@@ -243,13 +243,17 @@ h1, h2, h3, h4, .font-display {
   will-change: opacity, transform;
 }
 
-/* Interactive button micro-haptics & smooth feedback */
-button, .tab-btn, a {
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+/* Interactive button micro-haptics & smooth feedback on Desktop & Mobile */
+button, .tab-btn, a, .card-lift {
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+button:hover, .tab-btn:hover {
+  transform: translateY(-1.5px);
 }
 
 button:active, .tab-btn:active {
-  transform: scale(0.95) !important;
+  transform: scale(0.96) translateY(0) !important;
 }
 
 /* Stagger animation delays for cards */
