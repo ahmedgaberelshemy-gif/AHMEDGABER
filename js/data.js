@@ -1,6 +1,6 @@
 /**
  * =========================================================================
- * JANAKLIS ACADEMIC OS - SYLLABUS DATA
+ * JANAKLIS ACADEMIC OS - SYLLABUS DATA (4 ACTIVE SUBJECTS)
  * =========================================================================
  */
 
@@ -9,20 +9,6 @@ const weeksData = [
     "week": 1,
     "title": "الأسبوع الأول",
     "subjects": [
-      {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
       {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
@@ -79,20 +65,6 @@ const weeksData = [
     "title": "الأسبوع الثاني",
     "subjects": [
       {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
-      {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
         "badge": "8 مواضيع",
@@ -146,20 +118,6 @@ const weeksData = [
     "week": 3,
     "title": "الأسبوع الثالث",
     "subjects": [
-      {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
       {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
@@ -216,20 +174,6 @@ const weeksData = [
     "title": "الأسبوع الرابع",
     "subjects": [
       {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
-      {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
         "badge": "8 مواضيع",
@@ -283,20 +227,6 @@ const weeksData = [
     "week": 5,
     "title": "الأسبوع الخامس",
     "subjects": [
-      {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
       {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
@@ -353,20 +283,6 @@ const weeksData = [
     "title": "الأسبوع السادس",
     "subjects": [
       {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
-      {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
         "badge": "9 مواضيع",
@@ -421,20 +337,6 @@ const weeksData = [
     "week": 7,
     "title": "الأسبوع السابع",
     "subjects": [
-      {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
       {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
@@ -491,20 +393,6 @@ const weeksData = [
     "title": "الأسبوع الثامن",
     "subjects": [
       {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "badge": "0 مواضيع",
-        "color": "blue",
-        "lessons": []
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "badge": "0 مواضيع",
-        "color": "emerald",
-        "lessons": []
-      },
-      {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
         "countLabel": "8 مواضيع",
@@ -560,22 +448,6 @@ const weeksData = [
     "title": "الأسبوع التاسع",
     "subjects": [
       {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "countLabel": "0 مواضيع",
-        "color": "blue",
-        "lessons": [],
-        "badge": "0 مواضيع"
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "countLabel": "0 مواضيع",
-        "color": "emerald",
-        "lessons": [],
-        "badge": "0 مواضيع"
-      },
-      {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",
         "countLabel": "8 مواضيع",
@@ -630,22 +502,6 @@ const weeksData = [
     "week": 10,
     "title": "الأسبوع العاشر",
     "subjects": [
-      {
-        "name": "مبادئ إدارة الأعمال",
-        "icon": "fa-briefcase",
-        "countLabel": "0 مواضيع",
-        "color": "blue",
-        "lessons": [],
-        "badge": "0 مواضيع"
-      },
-      {
-        "name": "المحاسبة المالية",
-        "icon": "fa-calculator",
-        "countLabel": "0 مواضيع",
-        "color": "emerald",
-        "lessons": [],
-        "badge": "0 مواضيع"
-      },
       {
         "name": "مبادئ الإقتصاد",
         "icon": "fa-chart-line",

@@ -231,9 +231,7 @@ class CurriculumView {
     const container = document.getElementById('curriculumWeekStage');
     if (!container) return;
 
-    const subjectMeta = [
-      { name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue", desc: "أساسيات الإدارة، وظائف المديرين، والتخطيط والتنظيم المؤسسي" },
-      { name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald", desc: "المعادلة المحاسبية، قيود اليومية، القوائم المالية، والتسويات" },
+        const subjectMeta = [
       { name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber", desc: "العرض والطلب، المرونة، سلوك المستهلك، والتحليل الاقتصادي" },
       { name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple", desc: "القواعد القانونية، مصادر القانون، الحقوق والالتزامات" },
       { name: "علم النفس", icon: "fa-brain", color: "rose", desc: "السلوك الإنساني، الدوافع، الإدراك، والعمليات المعرفية" },
