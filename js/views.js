@@ -745,28 +745,18 @@ class AchievementsView {
           ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent' 
           : 'border-cyan-200 bg-cyan-50/40'
       } space-y-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl ${
-              isAllDone 
-                ? 'shimmer-gold text-slate-950 shadow-md shadow-amber-500/25' 
-                : 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25'
-            } flex items-center justify-center text-lg font-black shrink-0">
-              <i class="fa-solid fa-laptop-code"></i>
-            </div>
-            <div>
-              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">مسار علوم الحاسب وتطوير الويب (5 كورسات)</h4>
-              <p class="text-xs text-slate-600 font-medium">${isAllDone ? '🎉 أتممت المسار البرمجي بالكامل بنجاح!' : 'خطتك التأسيسية لاحتراف البرمجة وبناء المشاريع الحية'}</p>
-            </div>
+        <div class="flex items-center gap-3 text-right">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl ${
+            isAllDone 
+              ? 'shimmer-gold text-slate-950 shadow-md shadow-amber-500/25' 
+              : 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25'
+          } flex items-center justify-center text-lg font-black shrink-0">
+            <i class="fa-solid fa-laptop-code"></i>
           </div>
-
-          <button 
-            onclick="app.switchTab('programming')" 
-            class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-display font-black text-xs shadow-sm flex items-center gap-1.5 transition active:scale-95 shrink-0 cursor-pointer"
-          >
-            <span>فتح مسار البرمجة</span>
-            <i class="fa-solid fa-arrow-left"></i>
-          </button>
+          <div>
+            <h4 class="font-display font-black text-sm sm:text-base text-slate-900">مسار علوم الحاسب وتطوير الويب (5 كورسات)</h4>
+            <p class="text-xs text-slate-600 font-medium">${isAllDone ? '🎉 أتممت المسار البرمجي بالكامل بنجاح!' : 'خطتك التأسيسية لاحتراف البرمجة وبناء المشاريع الحية'}</p>
+          </div>
         </div>
 
         <!-- Progress Bar -->
