@@ -806,48 +806,53 @@
     const programmingCoursesData = [
       {
         id: "cs50",
-        title: "كورس CS50 (علوم الحاسب من هارفارد)",
-        subtitle: "أساس علوم الحاسب، الخوارزميات، وهياكل البيانات والتفكير المنطقي",
+        title: "كورس CS50",
+        trackName: "علوم الحاسب (جامعة هارفارد)",
+        subtitle: "الأساس الأكاديمي الشامل: علوم الحاسب، الخوارزميات، وهياكل البيانات والتفكير المنطقي",
         icon: "fa-laptop-code",
         color: "indigo",
         tag: "الأساس الأكاديمي 🏛️",
-        topics: "C, Algorithms, Memory, Data Structures, Python, SQL, Web Concepts"
+        skills: ["C Language", "Algorithms", "Memory & Pointers", "Data Structures", "Python", "SQL", "Logic"]
       },
       {
         id: "html",
-        title: "كورس HTML5 (بناء وهيكل الويب)",
-        subtitle: "بناء وهيكل صفحات الويب، العناصر الأساسية والنماذج والمعايير الحديثة",
+        title: "كورس HTML5",
+        trackName: "بناء وهيكل صفحات الويب",
+        subtitle: "تأسيس وبناء هيكل صفحات وتطبيقات الويب، العناصر الأساسية والنماذج والمعايير الحديثة",
         icon: "fa-code",
         color: "orange",
         tag: "الهيكل والبناء 🧱",
-        topics: "Tags, Semantic HTML, Forms, Media, Tables, Modern HTML5 APIs"
+        skills: ["Semantic HTML", "Forms & Inputs", "Media & Audio", "HTML5 APIs", "SEO Basics"]
       },
       {
         id: "css",
-        title: "كورس CSS3 (التصميم والتنسيق والتجاوب)",
-        subtitle: "تنسيق الواجهات، الألوان، الخطوط، التجاوب، Flexbox, Grid والأنيميشن",
+        title: "كورس CSS3",
+        trackName: "التصميم والتنسيق والتجاوب",
+        subtitle: "تنسيق الواجهات، الألوان، الخطوط، التجاوب مع جميع الشاشات، Flexbox و CSS Grid",
         icon: "fa-palette",
         color: "blue",
         tag: "التصميم والأناقة 🎨",
-        topics: "Selectors, Box Model, Flexbox, CSS Grid, Responsive Design, Animations"
+        skills: ["Box Model", "Flexbox", "CSS Grid", "Responsive Design", "Animations & FX"]
       },
       {
         id: "js",
-        title: "كورس JavaScript (لغة وبرمجة الويب التفاعلية)",
-        subtitle: "منطق البرمجة، التعامل مع الـ DOM، الأحداث، الدوال، والـ Async & APIs",
+        title: "كورس JavaScript",
+        trackName: "لغة وبرمجة الويب التفاعلية",
+        subtitle: "منطق البرمجة، التعامل مع الـ DOM، الأحداث، الدوال، البرمجة غير المتزامنة والـ APIs",
         icon: "fa-bolt",
         color: "amber",
         tag: "المنطق والتفاعل ⚡",
-        topics: "Variables, Functions, ES6+, DOM Manipulation, Events, Fetch API, OOP"
+        skills: ["ES6+ Syntax", "DOM & Events", "Async / Await", "Fetch & APIs", "OOP & Functions"]
       },
       {
         id: "bootstrap",
-        title: "كورس Bootstrap (إطار عمل الواجهات السريع)",
-        subtitle: "إطار عمل خفيف وسريع لبناء مواقع متجاوبة ومكونات جاهزة بأقل كود",
+        title: "كورس Bootstrap",
+        trackName: "إطار عمل الواجهات السريع",
+        subtitle: "إطار عمل خفيف وسريع لبناء مواقع متجاوبة ومكونات جاهزة بأعلى سرعة وأقل كود",
         icon: "fa-cubes",
         color: "purple",
         tag: "إطار العمل السريع 🧰",
-        topics: "Grid System, Utilities, Navbar, Cards, Modals, Responsive Components"
+        skills: ["12-Col Grid", "Navbar & Modals", "Cards & Badges", "Utility Classes", "Fast UI"]
       }
     ];
 

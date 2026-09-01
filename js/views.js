@@ -820,73 +820,89 @@ class ProgrammingView {
     let completedCount = 0;
 
     let html = '';
-    coursesList.forEach((course, idx) => {
+    coursesList.forEach((course) => {
       const isDone = Boolean(programmingCourses[course.id]);
       if (isDone) completedCount++;
 
       html += `
-        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in stagger-card ${
+        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
           isDone
             ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent shadow-xs'
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
         } p-5 space-y-4 flex flex-col justify-between">
-          <div>
+          <div class="space-y-3.5">
             <!-- Course Header -->
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <div class="w-10 h-10 rounded-2xl ${
+            <div class="flex items-start justify-between pb-3.5 border-b border-slate-100 gap-3">
+              <div class="flex items-start gap-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl ${
                   isDone 
                     ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
                     : 'bg-slate-100 text-slate-700'
-                } flex items-center justify-center text-base shrink-0">
+                } flex items-center justify-center text-lg shrink-0 mt-0.5">
                   <i class="fa-solid ${course.icon}"></i>
                 </div>
-                <div class="min-w-0">
-                  <h3 class="font-display font-black text-sm sm:text-base text-slate-900 leading-snug truncate">${course.title}</h3>
-                  <span class="text-[11px] text-slate-500 font-medium block">${course.tag}</span>
+                <div class="space-y-1">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <h3 class="font-display font-black text-base text-slate-900 leading-snug">${course.title}</h3>
+                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                      isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
+                    }">${course.trackName || ''}</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-semibold block">${course.tag}</span>
                 </div>
               </div>
-              <span class="text-[11px] sm:text-xs font-black font-display px-2.5 py-1 rounded-lg ${
+
+              <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
                 isDone 
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs' 
-                  : 'bg-slate-100 text-slate-600'
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs' 
+                  : 'bg-slate-100 text-slate-600 border border-slate-200'
               } whitespace-nowrap shrink-0">
                 ${isDone ? 'مكتمل 100% 🎓' : 'قيد التعلم ⏳'}
               </span>
             </div>
 
-            <!-- Subtitle & Topics -->
-            <div class="py-3 space-y-2">
-              <p class="text-xs text-slate-600 font-medium leading-relaxed">${course.subtitle}</p>
-              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-500 font-mono leading-relaxed">
-                <span class="font-bold text-slate-700 font-display">أبرز المحاور:</span> ${course.topics}
+            <!-- Subtitle & Skills Pills -->
+            <div class="space-y-3">
+              <p class="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">${course.subtitle}</p>
+              
+              <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+                <span class="text-xs font-bold text-slate-700 block font-display">أبرز المحاور والمفاهيم:</span>
+                <div class="flex flex-wrap gap-1.5" dir="ltr">
+                  ${(course.skills || []).map(skill => `
+                    <span class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-bold shadow-2xs font-mono">
+                      ${skill}
+                    </span>
+                  `).join('')}
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Big Toggle Checkbox -->
+          <!-- Clean Single Interactive Button -->
           <div class="pt-3 border-t border-slate-100">
-            <div 
+            <button 
+              type="button"
               onclick="app.toggleProgrammingCourse('${course.id}')" 
-              class="p-3 sm:p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 cursor-pointer ${
+              class="w-full p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 cursor-pointer ${
                 isDone 
-                  ? 'bg-gradient-to-r from-emerald-500/15 to-cyan-500/10 border-emerald-400' 
-                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200'
+                  ? 'bg-gradient-to-r from-emerald-500/15 via-emerald-500/10 to-transparent border-emerald-400 hover:bg-emerald-500/20' 
+                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200 active:scale-[0.99]'
               }"
             >
-              <div class="flex items-center gap-3 pointer-events-none">
-                <input 
-                  type="checkbox" 
-                  id="progCheck_${course.id}" 
-                  ${isDone ? 'checked' : ''} 
-                  class="checkbox-custom w-6 h-6" 
-                />
-                <label class="text-xs sm:text-sm font-black text-slate-900 select-none">
-                  ${isDone ? 'أتممت دراسة الكورس بالكامل 🌟' : 'اضغط لتعليم الكورس عند إنهائه 🎯'}
-                </label>
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs shrink-0 ${
+                  isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'border-2 border-slate-300 bg-white'
+                }">
+                  ${isDone ? '<i class="fa-solid fa-check"></i>' : ''}
+                </div>
+                <span class="text-xs sm:text-sm font-black text-slate-900 text-right">
+                  ${isDone ? 'أتممت دراسة الكورس بالكامل (100%) 🌟' : 'اضغط هنا لتعليم الكورس عند إنهائه 🎯'}
+                </span>
               </div>
-              <i class="fa-solid ${isDone ? 'fa-circle-check text-emerald-600 text-base' : 'fa-circle text-slate-300 text-base'} shrink-0"></i>
-            </div>
+              <span class="text-xs font-bold font-display ${isDone ? 'text-emerald-700' : 'text-slate-400'} shrink-0">
+                ${isDone ? 'تم الإنجاز ✅' : 'لم يكتمل ⚪'}
+              </span>
+            </button>
           </div>
         </div>
       `;
@@ -895,7 +911,7 @@ class ProgrammingView {
     container.innerHTML = html;
 
     const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
-    if (badge) badge.innerText = `${completedCount} / ${totalCourses} (${percentage}%)`;
+    if (badge) badge.innerText = `${completedCount} من ${totalCourses} مكتملة (${percentage}%)`;
     if (bar) bar.style.width = `${percentage}%`;
   }
 }
