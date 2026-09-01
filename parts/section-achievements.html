@@ -1,69 +1,36 @@
 <!-- ========================================================================= -->
-<!-- SECTION 3: ACHIEVEMENTS & ANALYTICS (مركز الإنجازات والتحصيل) -->
+<!-- SECTION 3: ACHIEVEMENTS & ANALYTICS (مركز الإنجازات والتحصيل الشامل) -->
 <!-- ========================================================================= -->
 <section id="section-achievements" class="space-y-6 pt-6 border-t border-slate-200">
   
-  <!-- Hero Achievements Banner -->
-  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-lg border border-indigo-900/60">
-    <div class="space-y-2 text-center md:text-right">
-      <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-display inline-flex items-center gap-1.5">
-        <i class="fa-solid fa-crown text-amber-400"></i> لوحة الشرف والامتياز الأكاديمي
-      </span>
-      <h2 class="text-2xl sm:text-3xl font-black font-display tracking-tight text-white">
-        سجل التحصيل والإنجاز الفصلي الشامل
-      </h2>
-      <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
-        رصد حي ودقيق لمعدلات إنجاز المواد الستة، الأسابيع الدراسية المكتملة، ومؤشر الالتزام اليومي التراكمي.
-      </p>
-    </div>
-  </div>
-
-  <!-- ===================================================================== -->
-  <!-- 1. 6 SUBJECTS MASTERY SECTION (نسب إنجاز المواد الستة حتى 100%) -->
-  <!-- ===================================================================== -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
-    <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
-      <div class="flex items-center gap-2.5">
-        <i class="fa-solid fa-chart-pie text-indigo-600 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">1. نسب إنجاز المواد الستة (الترم الأول)</h3>
+  <!-- Hero Achievements & Gamification Banner -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900/60 relative overflow-hidden">
+    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-2 text-center md:text-right">
+        <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-display inline-flex items-center gap-1.5">
+          <i class="fa-solid fa-crown text-amber-400"></i> لوحة الشرف والامتياز الشخصي
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-black font-display tracking-tight text-white">
+          سجل التحصيل والإنجاز الشامل
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-xl leading-relaxed">
+          رصد حي وتفاعلي لمستوى التزامك اليومي، مسارات البرمجة، وسلسلة العادات والأوسمة المكتسبة.
+        </p>
       </div>
-      <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-lg" id="totalMasteryBadge">
-        إجمالي المنهج: 0% (0 من 256 درس)
-      </span>
-    </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5" id="subjectProgressCardsContainer">
-      <!-- 6 Subject Progress Cards dynamically rendered -->
-    </div>
-  </div>
-
-  <!-- ===================================================================== -->
-  <!-- 2. FULL WEEKS PROGRESS (خانة واحدة فقط للأسابيع الكاملة المنجزة في كل المواد) -->
-  <!-- ===================================================================== -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
-    <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
-      <div class="flex items-center gap-2.5">
-        <i class="fa-solid fa-calendar-check text-amber-500 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">2. مؤشر إنجاز الأسابيع الكاملة (الـ 10 أسابيع)</h3>
+      <!-- Gamified Level & XP Card -->
+      <div id="userLevelSummaryCard" class="shrink-0 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 text-center min-w-[220px] space-y-2">
+        <!-- Dynamically rendered level, XP & Streak -->
       </div>
-      <span class="text-xs font-bold text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg" id="weeksOverallBadge">
-        0 من 10 أسابيع مكتملة بالكامل
-      </span>
-    </div>
-
-    <div id="fullWeeksProgressBox" class="space-y-4">
-      <!-- Dynamic Full Weeks Milestone Box rendered here -->
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 3. ROUTINE & DAYS HISTORY (سجل الالتزام بالأيام والنسب العادلة) -->
-  <!-- ===================================================================== -->
+  <!-- 1. ROUTINE & DAYS HISTORY SECTION -->
   <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
       <div class="flex items-center gap-2.5">
         <i class="fa-solid fa-award text-emerald-600 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">3. سجل وإحصائيات الالتزام التراكمي بالأيام</h3>
+        <h3 class="font-display font-black text-lg text-slate-900">1. سجل ومؤشر الالتزام اليومي التراكمي</h3>
       </div>
       <button 
         onclick="resetRoutineHistory()" 
@@ -79,14 +46,12 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 4. PROGRAMMING TRACK PROGRESS (مسار البرمجة والمهارات التقنية 5 كورسات) -->
-  <!-- ===================================================================== -->
+  <!-- 2. PROGRAMMING TRACK PROGRESS -->
   <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
       <div class="flex items-center gap-2.5">
         <i class="fa-solid fa-laptop-code text-cyan-600 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">4. مسار البرمجة والتطوير المهني (الـ 5 كورسات)</h3>
+        <h3 class="font-display font-black text-lg text-slate-900">2. إنجاز مسار البرمجة والتطوير التقني</h3>
       </div>
       <span class="text-xs font-bold text-cyan-800 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg" id="programmingAchievementsBadge">
         0 من 5 كورسات مكتملة (0%)
@@ -98,15 +63,32 @@
     </div>
   </div>
 
+  <!-- 3. UNLOCKED BADGES & HONORS -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
+      <div class="flex items-center gap-2.5">
+        <i class="fa-solid fa-medal text-amber-500 text-lg"></i>
+        <h3 class="font-display font-black text-lg text-slate-900">3. جدار أوسمة ونياشين التميز</h3>
+      </div>
+      <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg" id="badgesCountBadge">
+        0 من 6 أوسمة مفتوحة
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="badgesWallContainer">
+      <!-- Dynamic Badges rendered here -->
+    </div>
+  </div>
+
   <!-- Data Backup / Export / Import -->
   <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
     <div>
       <h4 class="font-display font-bold text-sm text-slate-900">حفظ واسترجاع البيانات (Backup & Restore)</h4>
-      <p class="text-xs text-slate-500 font-medium">بياناتك محفوظة تلقائياً ومزامنة سحابياً مع Firebase. يمكنك حفظ نسخة لجهازك أو استرجاعها في أي وقت.</p>
+      <p class="text-xs text-slate-500 font-medium">بياناتك محفوظة تلقائياً في المتصفح ومزامنة سحابياً. يمكنك حفظ نسخة لجهازك أو استرجاعها في أي وقت.</p>
     </div>
 
     <div class="flex items-center gap-2.5 shrink-0 flex-wrap">
-      <button onclick="exportBackupData()" class="px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 flex items-center gap-1.5 transition">
+      <button onclick="exportBackupData()" class="px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 flex items-center gap-1.5 transition cursor-pointer">
         <i class="fa-solid fa-download"></i> تصدير نسخة
       </button>
       <label class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 flex items-center gap-1.5 cursor-pointer transition">

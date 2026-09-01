@@ -381,144 +381,85 @@ class CurriculumView {
   }
 }
 
-// 3. ACHIEVEMENTS VIEW (6 Subjects Progress, Full Weeks Milestones, Routine Days, and Programming Track)
+// =========================================================================
+// 3. ACHIEVEMENTS VIEW (Mastery, Habit Analytics, Programming & Badges)
+// =========================================================================
 class AchievementsView {
-  static render(state, storageService) {
-    // Part 1: 6 Subjects Mastery Cards (0% to 100% per subject)
-    this.renderSubjectProgress(state);
+  static render(state) {
+    // 1. Render Level & XP Summary
+    this.renderLevelSummary(state);
 
-    // Part 2: Full Weeks Progress Box (Only count fully finished weeks across all subjects)
-    this.renderFullWeeksAchievements(state);
+    // 2. Routine Days History (Fair ratio & counts of perfect vs incomplete days)
+    this.renderRoutineAchievements(state.dailyLogs || {});
 
-    // Part 3: Routine Days History (Fair ratio & counts of perfect vs incomplete days)
-    this.renderRoutineAchievements(state.dailyLogs);
-
-    // Part 4: Programming Track Achievements (5 Courses)
+    // 3. Programming Track Achievements (5 Courses)
     this.renderProgrammingAchievements(state.programmingCourses || {});
+
+    // 4. Badges & Unlocks Wall
+    this.renderBadgesWall(state);
   }
 
-  // 1. Render Subject Progress Bars (6 Subjects)
-  static renderSubjectProgress(state) {
-    const container = document.getElementById('subjectProgressCardsContainer');
-    if (!container) return;
-    container.innerHTML = '';
+  // 1. Render Level Summary & Gamified Points
+  static renderLevelSummary(state) {
+    const card = document.getElementById('userLevelSummaryCard');
+    if (!card) return;
 
-    APP_CONFIG.SUBJECTS.forEach((subj, sIdx) => {
-      const stats = AcademicCalculator.getSubjectStats(weeksData, state.lessonProgress, sIdx);
-      const style = colorStyles[subj.color] || colorStyles.blue;
-      const isSubjFull = stats.total > 0 && stats.completed === stats.total;
+    const dailyLogs = state.dailyLogs || {};
+    let totalHabitsCompleted = 0;
+    let perfectDaysCount = 0;
 
-      const card = document.createElement('div');
-      card.className = `p-4 sm:p-5 rounded-3xl border ${isSubjFull ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent' : `${style.border} ${style.cardBg}`} space-y-3 shadow-2xs hover:shadow-xs transition cursor-pointer card-lift`;
-      card.title = `اضغط للانتقال لمقررات وأسابيع ${subj.name}`;
-      card.onclick = () => {
-        app.switchTab('curriculum');
-        app.switchSubject(sIdx);
-      };
-      card.innerHTML = `
-        <div class="flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-8 h-8 rounded-xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xs shadow-2xs shrink-0">
-              <i class="fa-solid ${subj.icon}"></i>
-            </div>
-            <span class="text-sm font-black text-slate-900 font-display truncate">${subj.name}</span>
-          </div>
-          <span class="text-xs font-mono font-black px-2.5 py-0.5 rounded-lg ${isSubjFull ? 'shimmer-gold text-slate-950 shadow-2xs' : style.badge} shrink-0">
-            ${stats.percentage}%
-          </span>
-        </div>
-
-        <div class="w-full h-2 rounded-full bg-white/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full ${isSubjFull ? 'shimmer-gold' : style.badge} transition-all duration-500" style="width: ${stats.percentage}%"></div>
-        </div>
-
-        <div class="flex items-center justify-between text-[11px] font-bold text-slate-600">
-          <span>المنجز: ${stats.completed} من ${stats.total} درس</span>
-          <span class="font-mono ${isSubjFull ? 'text-amber-950 font-black' : 'text-slate-500'}">
-            ${isSubjFull ? '👑 مكتملة 100%' : `${stats.total - stats.completed} متبقي`}
-          </span>
-        </div>
-      `;
-      container.appendChild(card);
+    Object.values(dailyLogs).forEach(log => {
+      if (log.score === 100) perfectDaysCount++;
+      if (log.prayers) Object.values(log.prayers).forEach(p => { if (p) totalHabitsCompleted++; });
+      if (log.quran) totalHabitsCompleted++;
+      if (log.adhkar) totalHabitsCompleted++;
+      if (log.learning) totalHabitsCompleted++;
+      if (log.workout) totalHabitsCompleted++;
     });
 
-    const semesterStats = AcademicCalculator.getSemesterStats(weeksData, state.lessonProgress);
-    const totalBadge = document.getElementById('totalMasteryBadge');
-    if (totalBadge) {
-      totalBadge.innerText = `إجمالي المنهج: ${semesterStats.percentage}% (${semesterStats.completed} من ${semesterStats.total} درس)`;
-    }
-  }
-
-  // 2. Render Full Weeks Progress Box (Only 1 Box for complete full weeks)
-  static renderFullWeeksAchievements(state) {
-    const box = document.getElementById('fullWeeksProgressBox');
-    if (!box) return;
-
-    let completedFullWeeks = 0;
-    const weekMilestones = weeksData.map(w => {
-      const wStats = AcademicCalculator.getWeekStats(w, state.lessonProgress);
-      const isFull = (wStats.total > 0 && wStats.completed === wStats.total);
-      if (isFull) completedFullWeeks++;
-      return {
-        week: w.week,
-        title: w.title,
-        completed: wStats.completed,
-        total: wStats.total,
-        percentage: wStats.percentage,
-        isFull: isFull
-      };
+    // Programming lessons completed
+    let progLessonsCount = 0;
+    const progData = state.programmingCourses || {};
+    Object.values(progData).forEach(course => {
+      if (course && course.completedLessons) {
+        progLessonsCount += Object.keys(course.completedLessons).length;
+      }
     });
 
-    const weeksPercent = Math.round((completedFullWeeks / 10) * 100);
+    const totalXP = (totalHabitsCompleted * 10) + (perfectDaysCount * 50) + (progLessonsCount * 25);
+    const level = Math.floor(totalXP / 200) + 1;
+    const currentLevelXP = totalXP % 200;
+    const levelPercent = Math.round((currentLevelXP / 200) * 100);
 
-    const badge = document.getElementById('weeksOverallBadge');
-    if (badge) {
-      badge.innerText = `${completedFullWeeks} من 10 أسابيع مكتملة بالكامل (${weeksPercent}%)`;
-    }
+    let rankTitle = "مبتدئ واعد 🥉";
+    if (level >= 10) rankTitle = "أسطورة الامتياز 👑";
+    else if (level >= 7) rankTitle = "رائد التفوق 💎";
+    else if (level >= 5) rankTitle = "بطل ملتزم 🥇";
+    else if (level >= 3) rankTitle = "مكافح مجتهد 🥈";
 
-    box.innerHTML = `
-      <div class="bg-gradient-to-r from-amber-500/10 via-indigo-500/10 to-emerald-500/10 p-5 sm:p-6 rounded-3xl border border-amber-200/80 space-y-4">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-right">
-          <div>
-            <span class="text-xs font-bold text-slate-700 block">إنجاز الأسابيع الدراسية (المكتملة 100% في كافة المواد الستة)</span>
-            <span class="text-2xl sm:text-3xl font-black font-display text-slate-900">
-              ${completedFullWeeks} <span class="text-slate-400 text-sm font-normal">من أصل 10 أسابيع دراسية مكتملة بالكامل</span>
-            </span>
-          </div>
-          <div class="shrink-0 bg-white/90 px-4 py-2 rounded-2xl border border-amber-200 shadow-2xs">
-            <span class="text-xs font-mono font-black text-amber-950">${weeksPercent}% إنجاز الأسابيع</span>
-          </div>
+    card.innerHTML = `
+      <div class="flex items-center justify-center gap-2">
+        <span class="w-8 h-8 rounded-xl bg-amber-400 text-slate-950 font-display font-black text-sm flex items-center justify-center shadow-md">
+          ${level}
+        </span>
+        <div class="text-right">
+          <span class="text-[10px] text-amber-300 font-bold block">المستوى الحالي</span>
+          <span class="text-xs font-black text-white font-display">${rankTitle}</span>
         </div>
+      </div>
 
-        <!-- Big Progress Bar -->
-        <div class="w-full h-3 rounded-full bg-white overflow-hidden shadow-inner">
-          <div class="h-full rounded-full bg-gradient-to-r from-amber-500 via-indigo-600 to-emerald-500 transition-all duration-500" style="width: ${weeksPercent}%"></div>
-        </div>
+      <div class="w-full bg-white/10 rounded-full h-2 overflow-hidden mt-1 shadow-inner">
+        <div class="bg-gradient-to-r from-amber-400 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${levelPercent}%"></div>
+      </div>
 
-        <!-- 10 Weeks Milestone Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2">
-          ${weekMilestones.map(m => `
-            <div class="p-2.5 rounded-2xl border text-center transition ${
-              m.isFull 
-                ? 'shimmer-gold text-slate-950 border-amber-400 shadow-md shadow-amber-500/25 gold-glow-border font-black' 
-                : 'bg-white/80 text-slate-700 border-slate-200 shadow-2xs'
-            }">
-              <span class="text-xs font-black font-display block">الأسبوع ${m.week}</span>
-              <span class="text-[10px] font-black font-mono ${m.isFull ? 'text-slate-950' : 'text-slate-500'}">
-                ${m.isFull ? '👑 مكتمل 100%' : `${m.completed} / ${m.total} درس`}
-              </span>
-            </div>
-          `).join('')}
-        </div>
-
-        <p class="text-[11px] font-semibold text-slate-500 text-center leading-relaxed">
-          💡 يتم احتساب الأسبوع مكتملاً فقط عند إنهاء جميع دروس المواد الستة المقررة في هذا الأسبوع بنسبة 100%.
-        </p>
+      <div class="flex items-center justify-between text-[10px] font-bold text-slate-300 pt-0.5">
+        <span>${totalXP} نقطة XP</span>
+        <span>${currentLevelXP}/200 للمستوى ${level + 1}</span>
       </div>
     `;
   }
 
-  // 3. Render Routine & Days History (Unified & Streamlined against 112 Days Target)
+  // 2. Render Routine & Days History (Unified & Streamlined against 112 Days Target)
   static renderRoutineAchievements(dailyLogs) {
     const container = document.getElementById('routineAchievementsContainer');
     if (!container) return;
@@ -559,34 +500,52 @@ class AchievementsView {
                 </div>
                 <span class="text-xs font-black text-slate-900 font-display">أيام الالتزام التام 100% 👑</span>
               </div>
-              <span class="text-xs font-mono font-black px-2.5 py-0.5 rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs">${perfectRate}%</span>
+              <span class="text-xs font-mono font-black text-emerald-950 px-2.5 py-0.5 rounded-lg shimmer-gold shadow-2xs">
+                ${perfectRate}% من المسجل
+              </span>
             </div>
+
             <div class="flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-black font-display text-emerald-950">${perfect}</span>
-              <span class="text-xs font-bold text-emerald-800">يوم (${perfectOfSemester}% من مدة الترم)</span>
+              <span class="text-3xl font-black font-display text-emerald-950">${perfect}</span>
+              <span class="text-xs font-bold text-slate-600">يوم ناصع البياض بدون أي تقصير</span>
             </div>
-            <p class="text-[11px] font-semibold text-emerald-800 leading-relaxed">
-              صلواتك الخمس كاملة + ورد القرآن + الجيم + النوم 7-9س بدون تهاون 🌟
+
+            <!-- Mini Progress -->
+            <div class="w-full h-1.5 rounded-full bg-emerald-100 overflow-hidden">
+              <div class="h-full rounded-full shimmer-gold transition-all duration-500" style="width: ${perfectRate}%"></div>
+            </div>
+
+            <p class="text-[11px] font-semibold text-emerald-900 leading-relaxed">
+              ${perfectOfSemester}% من إجمالي أيام الترم المستهدفة (112 يوماً).
             </p>
           </div>
 
           <!-- Incomplete Days Card -->
-          <div class="p-5 rounded-2xl border ${incomplete > 0 ? 'bg-rose-50/80 border-rose-300' : 'bg-slate-50 border-slate-200'} space-y-3 shadow-2xs">
+          <div class="p-5 rounded-2xl border ${incomplete > 0 ? 'bg-rose-50/80 border-rose-300' : 'bg-slate-50 border-slate-200'} space-y-3 shadow-2xs card-lift">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl ${incomplete > 0 ? 'bg-rose-600' : 'bg-slate-400'} text-white flex items-center justify-center text-xs shadow-xs">
+                <div class="w-8 h-8 rounded-xl ${incomplete > 0 ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-400'} flex items-center justify-center text-xs shadow-2xs">
                   <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
-                <span class="text-xs font-black text-slate-900 font-display">أيام بها نقص في الروتين</span>
+                <span class="text-xs font-black text-slate-900 font-display">أيام بها تقصير أو نقص</span>
               </div>
-              <span class="text-xs font-mono font-black px-2.5 py-0.5 rounded-lg ${incomplete > 0 ? 'bg-rose-600 text-white' : 'bg-slate-200 text-slate-700'}">${incompleteRate}%</span>
+              <span class="text-xs font-mono font-black ${incomplete > 0 ? 'text-rose-700 bg-rose-100' : 'text-slate-500 bg-slate-200'} px-2.5 py-0.5 rounded-lg">
+                ${incompleteRate}% من المسجل
+              </span>
             </div>
+
             <div class="flex items-baseline gap-2">
-              <span class="text-2xl sm:text-3xl font-black font-display ${incomplete > 0 ? 'text-rose-950' : 'text-slate-700'}">${incomplete}</span>
-              <span class="text-xs font-bold text-slate-500">يوم مسجل به تقصير</span>
+              <span class="text-3xl font-black font-display ${incomplete > 0 ? 'text-rose-950' : 'text-slate-400'}">${incomplete}</span>
+              <span class="text-xs font-bold text-slate-600">يوم لم تكتمل فيه جميع العادات والصلوات</span>
             </div>
-            <p class="text-[11px] font-semibold ${incomplete > 0 ? 'text-rose-800' : 'text-slate-500'} leading-relaxed">
-              أيام فاتك فيها صلاة أو ورد القرآن أو تمرين الجيم أو ساعات النوم ⚠️
+
+            <!-- Mini Progress -->
+            <div class="w-full h-1.5 rounded-full bg-rose-100 overflow-hidden">
+              <div class="h-full rounded-full bg-rose-500 transition-all duration-500" style="width: ${incompleteRate}%"></div>
+            </div>
+
+            <p class="text-[11px] font-semibold text-slate-500 leading-relaxed">
+              يتم رصد أسباب النقص بدقة لتصحيحها وعدم تكرارها.
             </p>
           </div>
         </div>
@@ -613,7 +572,7 @@ class AchievementsView {
           </div>
         </div>
 
-        <!-- Detailed Breakdown of Incomplete Days (What was missed in each day) -->
+        <!-- Detailed Breakdown of Incomplete Days -->
         ${(() => {
           const incompleteDetails = DisciplineCalculator.getIncompleteDaysDetails(dailyLogs);
           if (incompleteDetails.length === 0) {
@@ -640,60 +599,27 @@ class AchievementsView {
                     <span class="text-[11px] text-slate-500">رصد دقيق لكل صلاة أو ورد أو تمرين أو نوم لم يكتمل</span>
                   </div>
                 </div>
-
-                <div class="flex items-center gap-2">
-                  <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-xl bg-rose-100 text-rose-800 border border-rose-200">
-                    ${incompleteDetails.length} يوم مسجل به نقص
-                  </span>
-                  <button 
-                    onclick="toggleIncompleteDetailsSection()" 
-                    id="toggleIncompleteBtn" 
-                    class="px-3.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 border border-rose-200 text-rose-900 text-xs font-bold transition flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
-                  >
-                    <i class="fa-solid fa-chevron-down transition-transform duration-200" id="toggleIncompleteIcon"></i>
-                    <span id="toggleIncompleteText">عرض التفاصيل 🔍</span>
-                  </button>
-                </div>
+                <span class="text-xs font-mono font-black text-rose-700 bg-rose-100 px-3 py-1 rounded-xl">
+                  ${incompleteDetails.length} أيام مسجلة
+                </span>
               </div>
 
-              <!-- Collapsible Content Wrapper (hidden by default) -->
-              <div id="incompleteDetailsWrapper" class="space-y-3 hidden pt-3 border-t border-rose-100">
-                ${incompleteDetails.map((day, idx) => `
-                  <div class="p-4 bg-white rounded-2xl border border-rose-200 shadow-xs hover:border-rose-300 transition space-y-3">
-                    <div class="flex items-center justify-between flex-wrap gap-2">
-                      <div class="flex items-center gap-2">
-                        <span class="w-6 h-6 rounded-lg bg-slate-100 text-slate-700 text-xs font-black flex items-center justify-center font-mono">
-                          #${idx + 1}
-                        </span>
-                        <span class="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                          <i class="fa-regular fa-clock text-slate-400"></i>
-                          ${day.date}
-                        </span>
-                      </div>
-                      <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200">
-                        مستوى الالتزام: ${day.score}%
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                ${incompleteDetails.map(item => `
+                  <div class="p-3.5 rounded-2xl bg-white border border-rose-200/80 shadow-2xs space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-black font-display text-slate-900">${item.date}</span>
+                      <span class="text-xs font-mono font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-lg border border-rose-200">
+                        ${item.score}% التزام
                       </span>
                     </div>
 
-                    <!-- Missed Items (Red) -->
-                    <div class="space-y-1.5">
-                      <span class="text-[11px] font-bold text-rose-800 block">❌ ما فاتك في هذا اليوم (${day.missedCount} أركان):</span>
-                      <div class="flex items-center gap-1.5 flex-wrap">
-                        ${day.missed.map(m => `
-                          <span class="px-2.5 py-1 rounded-xl bg-rose-50 text-rose-900 border border-rose-200 text-xs font-bold flex items-center gap-1">
-                            <i class="fa-solid fa-xmark text-rose-600 text-[10px]"></i> ${m}
-                          </span>
-                        `).join('')}
-                      </div>
-                    </div>
-
-                    <!-- Achieved Items (Green) -->
-                    <div class="space-y-1.5 pt-1 border-t border-slate-100">
-                      <span class="text-[11px] font-bold text-emerald-800 block">✅ ما أنجزته بنجاح (${day.achievedCount} أركان):</span>
-                      <div class="flex items-center gap-1.5 flex-wrap">
-                        ${day.achieved.map(a => `
-                          <span class="px-2.5 py-1 rounded-xl bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-semibold flex items-center gap-1">
-                            <i class="fa-solid fa-check text-emerald-600 text-[10px]"></i> ${a}
+                    <div class="space-y-1">
+                      <span class="text-[11px] font-bold text-slate-600 block">ما لم يكتمل في هذا اليوم:</span>
+                      <div class="flex flex-wrap gap-1.5">
+                        ${item.missed.map(m => `
+                          <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-1">
+                            <i class="fa-solid fa-xmark text-rose-500 text-[9px]"></i> ${m}
                           </span>
                         `).join('')}
                       </div>
@@ -708,88 +634,182 @@ class AchievementsView {
     `;
   }
 
-  // 4. Render Programming Track Achievements Progress Card
-  static renderProgrammingAchievements(programmingCourses = {}) {
+  // 3. Render Programming Track Achievements
+  static renderProgrammingAchievements(programmingCourses) {
     const container = document.getElementById('programmingAchievementsContainer');
     const badge = document.getElementById('programmingAchievementsBadge');
     if (!container) return;
+    container.innerHTML = '';
 
-    const coursesList = (typeof programmingCoursesData !== 'undefined' && Array.isArray(programmingCoursesData))
-      ? programmingCoursesData
-      : (APP_CONFIG.PROGRAMMING_COURSES || []);
+    const courses = (typeof programmingCoursesData !== 'undefined') ? programmingCoursesData : (APP_CONFIG.PROGRAMMING_COURSES || []);
+    let totalCompletedCourses = 0;
+    let totalLessonsCount = 0;
+    let completedLessonsCount = 0;
 
-    if (!coursesList.length) return;
+    const courseCards = courses.map(course => {
+      const courseState = programmingCourses[course.id] || { completedLessons: {} };
+      const completedInCourse = Object.keys(courseState.completedLessons || {}).length;
+      const totalInCourse = (course.lessons && course.lessons.length) || (course.weeks ? course.weeks.reduce((acc, w) => acc + (w.lessons ? w.lessons.length : 0), 0) : 10);
 
-    const totalCourses = coursesList.length;
-    let completedCount = 0;
+      totalLessonsCount += totalInCourse;
+      completedLessonsCount += completedInCourse;
 
-    coursesList.forEach(c => {
-      if (programmingCourses[c.id]) completedCount++;
+      const isCourseDone = totalInCourse > 0 && completedInCourse === totalInCourse;
+      if (isCourseDone) totalCompletedCourses++;
+
+      const percent = totalInCourse > 0 ? Math.round((completedInCourse / totalInCourse) * 100) : 0;
+
+      return `
+        <div class="p-4 rounded-2xl border ${isCourseDone ? 'bg-gradient-to-br from-cyan-500/15 via-emerald-500/10 to-transparent border-cyan-400 gold-glow-border' : 'bg-slate-50/70 border-slate-200'} space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid ${course.icon || 'fa-code'} text-cyan-600 text-sm"></i>
+              <span class="text-xs font-black text-slate-900 font-display">${course.title || course.name}</span>
+            </div>
+            <span class="text-xs font-mono font-black ${isCourseDone ? 'text-emerald-700 bg-emerald-100' : 'text-cyan-700 bg-cyan-100'} px-2 py-0.5 rounded-md">
+              ${percent}%
+            </span>
+          </div>
+
+          <div class="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
+            <div class="h-full rounded-full ${isCourseDone ? 'bg-emerald-500' : 'bg-cyan-600'} transition-all duration-500" style="width: ${percent}%"></div>
+          </div>
+
+          <div class="flex items-center justify-between text-[10px] font-bold text-slate-500">
+            <span>${completedInCourse} من ${totalInCourse} درس منجز</span>
+            <span>${isCourseDone ? '👑 مكتمل 100%' : 'قيد التقدم'}</span>
+          </div>
+        </div>
+      `;
     });
 
-    const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
-    const isAllDone = totalCourses > 0 && completedCount === totalCourses;
+    const overallProgPercent = totalLessonsCount > 0 ? Math.round((completedLessonsCount / totalLessonsCount) * 100) : 0;
 
     if (badge) {
-      badge.className = `text-xs font-black font-display px-3 py-1 rounded-lg ${
-        isAllDone 
-          ? 'shimmer-gold text-slate-950 shadow-2xs' 
-          : 'text-cyan-800 bg-cyan-50 border border-cyan-200'
-      }`;
-      badge.innerText = `${completedCount} من ${totalCourses} كورسات (${percentage}%)`;
+      badge.innerText = `${totalCompletedCourses} من ${courses.length} كورسات مكتملة (${overallProgPercent}%)`;
     }
 
     container.innerHTML = `
-      <div class="p-4 sm:p-5 rounded-3xl border ${
-        isAllDone 
-          ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent' 
-          : 'border-cyan-200 bg-cyan-50/40'
-      } space-y-4">
-        <div class="flex items-center gap-3 text-right">
-          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl ${
-            isAllDone 
-              ? 'shimmer-gold text-slate-950 shadow-md shadow-amber-500/25' 
-              : 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25'
-          } flex items-center justify-center text-lg font-black shrink-0">
-            <i class="fa-solid fa-laptop-code"></i>
-          </div>
-          <div>
-            <h4 class="font-display font-black text-sm sm:text-base text-slate-900">مسار علوم الحاسب وتطوير الويب (5 كورسات)</h4>
-            <p class="text-xs text-slate-600 font-medium">${isAllDone ? '🎉 أتممت المسار البرمجي بالكامل بنجاح!' : 'خطتك التأسيسية لاحتراف البرمجة وبناء المشاريع الحية'}</p>
-          </div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="space-y-1.5">
-          <div class="flex items-center justify-between text-xs font-bold text-slate-700">
-            <span>نسبة إنجاز الكورسات</span>
-            <span class="font-mono font-black ${isAllDone ? 'text-amber-900' : 'text-cyan-800'}">${percentage}%</span>
-          </div>
-          <div class="w-full bg-slate-200/80 rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
-            <div class="${isAllDone ? 'shimmer-gold' : 'bg-gradient-to-r from-cyan-500 to-indigo-600'} h-full rounded-full transition-all duration-700 ease-out" style="width: ${percentage}%"></div>
-          </div>
-        </div>
-
-        <!-- Course Quick Status Pills -->
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2 border-t border-slate-200/60">
-          ${programmingCoursesData.map(c => {
-            const isDone = Boolean(programmingCourses[c.id]);
-            return `
-              <div class="p-2 sm:p-2.5 rounded-xl border text-center space-y-0.5 transition ${
-                isDone 
-                  ? 'bg-emerald-100/90 border-emerald-300 text-emerald-950 shadow-2xs font-bold' 
-                  : 'bg-white/80 border-slate-200 text-slate-500 font-medium'
-              }">
-                <div class="text-[11px] sm:text-xs truncate font-display font-black">${c.title.split('(')[0].trim()}</div>
-                <div class="text-[10px]">${isDone ? '✅ مكتمل' : '⏳ قيد التعلم'}</div>
-              </div>
-            `;
-          }).join('')}
-        </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+        ${courseCards.join('')}
       </div>
     `;
   }
+
+  // 4. Render Gamified Badges Wall
+  static renderBadgesWall(state) {
+    const container = document.getElementById('badgesWallContainer');
+    const badgeCount = document.getElementById('badgesCountBadge');
+    if (!container) return;
+
+    const dailyLogs = state.dailyLogs || {};
+    let perfectDays = 0;
+    let prayersDone = 0;
+    let quranDays = 0;
+    let totalHabits = 0;
+
+    Object.values(dailyLogs).forEach(log => {
+      if (log.score === 100) perfectDays++;
+      if (log.prayers) Object.values(log.prayers).forEach(p => { if (p) { prayersDone++; totalHabits++; } });
+      if (log.quran) { quranDays++; totalHabits++; }
+      if (log.adhkar) totalHabits++;
+      if (log.learning) totalHabits++;
+      if (log.workout) totalHabits++;
+    });
+
+    let progLessonsCount = 0;
+    const progData = state.programmingCourses || {};
+    Object.values(progData).forEach(course => {
+      if (course && course.completedLessons) {
+        progLessonsCount += Object.keys(course.completedLessons).length;
+      }
+    });
+
+    const badges = [
+      {
+        id: 'streak_7',
+        name: 'تاج الالتزام الذهبي',
+        desc: 'تحقيق 7 أيام التزام تام 100%',
+        icon: 'fa-crown',
+        color: 'amber',
+        unlocked: perfectDays >= 7,
+        progress: `${perfectDays}/7 أيام`
+      },
+      {
+        id: 'prayers_50',
+        name: 'المحافظ على الصلوات',
+        desc: 'أداء 50 صلاة في وقتها المحدد',
+        icon: 'fa-mosque',
+        color: 'emerald',
+        unlocked: prayersDone >= 50,
+        progress: `${prayersDone}/50 صلاة`
+      },
+      {
+        id: 'quran_30',
+        name: 'نور القرآن والورد',
+        desc: 'قراءة الورد القرآني لـ 30 يوماً',
+        icon: 'fa-book-quran',
+        color: 'purple',
+        unlocked: quranDays >= 30,
+        progress: `${quranDays}/30 يوماً`
+      },
+      {
+        id: 'coder_20',
+        name: 'مهندس المستقبل',
+        desc: 'إنجاز 20 درساً في مسار البرمجة',
+        icon: 'fa-code',
+        color: 'cyan',
+        unlocked: progLessonsCount >= 20,
+        progress: `${progLessonsCount}/20 درس`
+      },
+      {
+        id: 'habits_100',
+        name: 'قاهر العادات',
+        desc: 'إتمام 100 عادة يومية بنجاح',
+        icon: 'fa-fire',
+        color: 'rose',
+        unlocked: totalHabits >= 100,
+        progress: `${totalHabits}/100 عادة`
+      },
+      {
+        id: 'mastery_30',
+        name: 'أسطورة الشهر',
+        desc: 'تسجيل 30 يوماً متواصلاً في السيستم',
+        icon: 'fa-shield-halved',
+        color: 'indigo',
+        unlocked: Object.keys(dailyLogs).length >= 30,
+        progress: `${Object.keys(dailyLogs).length}/30 يوماً`
+      }
+    ];
+
+    const unlockedCount = badges.filter(b => b.unlocked).length;
+    if (badgeCount) {
+      badgeCount.innerText = `${unlockedCount} من ${badges.length} أوسمة مفتوحة`;
+    }
+
+    container.innerHTML = badges.map(b => `
+      <div class="p-4 rounded-2xl border transition ${
+        b.unlocked 
+          ? 'bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent border-amber-400 shadow-md gold-glow-border card-lift' 
+          : 'bg-slate-50/60 border-slate-200 opacity-60'
+      } flex items-start gap-3">
+        <div class="w-10 h-10 rounded-2xl ${b.unlocked ? 'shimmer-gold text-slate-950 shadow-md' : 'bg-slate-200 text-slate-400'} flex items-center justify-center text-base shrink-0">
+          <i class="fa-solid ${b.icon}"></i>
+        </div>
+        <div class="space-y-1 flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-1">
+            <h4 class="font-display font-black text-xs text-slate-900 truncate">${b.name}</h4>
+            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${b.unlocked ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-600'} shrink-0">
+              ${b.unlocked ? 'مفتوح 👑' : b.progress}
+            </span>
+          </div>
+          <p class="text-[10px] text-slate-500 leading-tight">${b.desc}</p>
+        </div>
+      </div>
+    `).join('');
+  }
 }
+
 
 // 4. PROGRAMMING VIEW (5 Clean Course Cards)
 class ProgrammingView {
