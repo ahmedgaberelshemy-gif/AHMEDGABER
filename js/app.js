@@ -38,7 +38,7 @@ class AppController {
         this.state = cloudState;
         this.storageService.save(this.state);
         this.renderRoutine();
-        this.renderCurriculum();
+        // No curriculum
         this.renderAchievements();
         this.renderProgramming();
         this.cloudSyncService.updateStatusBadge();
@@ -51,8 +51,7 @@ class AppController {
     this.cloudSyncService.push(this.state);
     HeaderView.render(this.state);
     if (this.state.activeTab === 'routine') this.renderRoutine();
-    if (this.state.activeTab === 'curriculum') this.renderCurriculum();
-    if (this.state.activeTab === 'achievements') this.renderAchievements();
+    
     if (this.state.activeTab === 'programming') this.renderProgramming();
   }
 
@@ -87,7 +86,7 @@ class AppController {
     if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
 
     if (tabId === 'routine') this.renderRoutine();
-    if (tabId === 'curriculum') this.renderCurriculum();
+    if (tabId === 'curriculum') // No curriculum
     if (tabId === 'achievements') this.renderAchievements();
     if (tabId === 'programming') this.renderProgramming();
 
@@ -239,7 +238,7 @@ class AppController {
 
   switchSubject(subjectIdx) {
     this.state.currentSubject = subjectIdx;
-    this.renderCurriculum();
+    // No curriculum
     const stage = document.getElementById('curriculumWeekStage');
     if (stage) {
       stage.classList.remove('animate-fade-in');
@@ -251,7 +250,7 @@ class AppController {
 
   switchWeek(weekNum) {
     this.state.currentWeek = weekNum;
-    this.renderCurriculum();
+    // No curriculum
     this.saveAndRefreshViews();
   }
 
@@ -266,7 +265,7 @@ class AppController {
       SoundService.playCheck();
     }
 
-    this.renderCurriculum();
+    // No curriculum
     this.saveAndRefreshViews();
   }
 
@@ -379,7 +378,7 @@ class AppController {
 
     this.saveAndRefreshViews();
     this.closeNoteModal();
-    this.renderCurriculum();
+    // No curriculum
   }
 
   // ==========================================
@@ -466,7 +465,7 @@ class AppController {
           SoundService.playSuccess();
           this.saveAndRefreshViews();
           this.renderRoutine();
-          this.renderCurriculum();
+          // No curriculum
           this.renderAchievements();
           HeaderView.render(this.state);
           alert('✅ تم استرجاع نسختك الاحتياطية بنجاح 100%! عادت كل بياناتك وأيامك كما كانت تماماً 🛡️');
@@ -550,7 +549,7 @@ class AppController {
       this.state = cloudState;
       this.storageService.save(this.state);
       this.renderRoutine();
-      this.renderCurriculum();
+      // No curriculum
       this.renderAchievements();
       SoundService.playSuccess();
       CelebrationService.smallPop();
@@ -605,7 +604,7 @@ class AppController {
       // 4. Save and re-render everything immediately
       this.saveAndRefreshViews();
       this.renderRoutine();
-      this.renderCurriculum();
+      // No curriculum
       this.renderAchievements();
       SoundService.playSuccess();
       alert('✅ تم تصفير المنظومة وقاعدة بيانات Firebase بنجاح تام (0%)! أنت الآن جاهز لبدء الترم الجديد 🚀👑');
