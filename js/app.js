@@ -291,9 +291,11 @@ class AppController {
       SoundService.playCheck();
     }
 
+    this.storageService.save(this.state);
+    this.cloudSyncService.push(this.state);
+    HeaderView.render(this.state);
     this.renderProgramming();
     this.renderAchievements();
-    this.saveAndRefreshViews();
   }
 
   // ==========================================

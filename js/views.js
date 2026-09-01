@@ -883,24 +883,19 @@ class ProgrammingView {
             <button 
               type="button"
               onclick="app.toggleProgrammingCourse('${course.id}')" 
-              class="w-full p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 cursor-pointer ${
+              class="w-full py-3.5 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer ${
                 isDone 
-                  ? 'bg-gradient-to-r from-emerald-500/15 via-emerald-500/10 to-transparent border-emerald-400 hover:bg-emerald-500/20' 
-                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200 active:scale-[0.99]'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
+                  : 'bg-slate-50 hover:bg-emerald-50/60 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
               }"
             >
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="w-6 h-6 rounded-lg flex items-center justify-center text-xs shrink-0 ${
-                  isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'border-2 border-slate-300 bg-white'
-                }">
-                  ${isDone ? '<i class="fa-solid fa-check"></i>' : ''}
-                </div>
-                <span class="text-xs sm:text-sm font-black text-slate-900 text-right">
-                  ${isDone ? 'أتممت دراسة الكورس بالكامل (100%) 🌟' : 'اضغط هنا لتعليم الكورس عند إنهائه 🎯'}
-                </span>
+              <div class="w-5 h-5 rounded-lg flex items-center justify-center text-xs shrink-0 transition ${
+                isDone ? 'bg-white text-emerald-700 shadow-2xs font-black' : 'border-2 border-slate-300 bg-white text-transparent'
+              }">
+                <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>
               </div>
-              <span class="text-xs font-bold font-display ${isDone ? 'text-emerald-700' : 'text-slate-400'} shrink-0">
-                ${isDone ? 'تم الإنجاز ✅' : 'لم يكتمل ⚪'}
+              <span class="truncate font-bold">
+                ${isDone ? 'أتممت الكورس بنجاح (100%) 🌟' : 'اضغط هنا لتعليم الكورس كمكتمل 🎓'}
               </span>
             </button>
           </div>
