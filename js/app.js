@@ -249,6 +249,20 @@ class AppController {
     this.saveAndRefreshViews();
   }
 
+  triggerGoldConfetti() {
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 100,
+        spread: 85,
+        origin: { y: 0.6 },
+        colors: ['#f59e0b', '#fbbf24', '#fde68a', '#10b981', '#6366f1', '#ffffff'],
+        ticks: 200,
+        gravity: 1.1,
+        scalar: 1.2
+      });
+    }
+  }
+
   toggleLesson(lessonKey) {
     const isNowCompleted = !Boolean(this.state.lessonProgress[lessonKey]);
     this.state.lessonProgress[lessonKey] = isNowCompleted;

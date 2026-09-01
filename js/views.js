@@ -268,24 +268,21 @@ class CurriculumView {
 
       weeksHtml += `
         <div class="bg-white rounded-3xl border transition card-lift ${
-          isWeekDone 
-            ? 'border-emerald-300 emerald-glow-border bg-emerald-50/5 shadow-xs' 
-            : 'border-slate-200 hover:border-slate-300 shadow-xs'
+          isWeekDone ? 'gold-card-100 shadow-md' : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
         } p-4 sm:p-5 space-y-3.5 flex flex-col justify-between">
           
           <div>
             <!-- Week Header -->
             <div class="flex items-center justify-between pb-2.5 border-b border-slate-100 gap-2">
               <div class="flex items-center gap-2">
-                <span class="w-7 h-7 rounded-xl ${isWeekDone ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700'} flex items-center justify-center text-xs font-black font-mono shadow-2xs">
+                <span class="w-7 h-7 rounded-xl ${isWeekDone ? 'bg-amber-500 text-white shadow-xs' : 'bg-slate-100 text-slate-700'} flex items-center justify-center text-xs font-black font-mono shadow-2xs">
                   ${w.week}
                 </span>
                 <h4 class="font-display font-black text-sm sm:text-base text-slate-900">${w.title}</h4>
               </div>
 
               <span class="text-xs font-black font-display px-2.5 py-1 rounded-xl ${
-                isWeekDone 
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                isWeekDone ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-xs' 
                   : (lessons.length === 0 ? 'bg-slate-100 text-slate-500 border border-slate-200' : 'bg-slate-100 text-slate-600')
               } whitespace-nowrap shrink-0">
                 ${isWeekDone ? 'مكتمل 100% 👑' : (lessons.length === 0 ? 'قيد الإعداد ⏳' : `${lessons.length} دروس`)}
