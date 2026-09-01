@@ -633,7 +633,7 @@ class AchievementsView {
                     <i class="fa-solid fa-clipboard-list"></i>
                   </div>
                   <div>
-                    <h4 class="font-display font-black text-sm text-slate-900">سجل تفاصيل أيام التقصير (أين كان النقص؟)</h4>
+                    <h4 class="font-display font-black text-sm text-slate-900">سجل تفاصيل أيام التقصير</h4>
                     <span class="text-[11px] text-slate-500">رصد دقيق لكل صلاة أو ورد أو تمرين أو نوم لم يكتمل</span>
                   </div>
                 </div>
