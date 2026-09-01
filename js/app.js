@@ -270,7 +270,7 @@ class AppController {
     this.saveAndRefreshViews();
   }
 
-  // ==========================================
+    // ==========================================
   // Programming Track Handlers
   // ==========================================
   renderProgramming() {
@@ -278,17 +278,43 @@ class AppController {
     ProgrammingView.render(this.state.programmingCourses);
   }
 
-  toggleProgrammingCourse(courseId) {
-    if (!courseId) return;
+  toggleProgrammingLesson(courseId, lessonIndex) {
+    if (!courseId || lessonIndex === undefined) return;
     try {
       this.state.programmingCourses = this.state.programmingCourses || {};
-      const isNowDone = !Boolean(this.state.programmingCourses[courseId]);
-      this.state.programmingCourses[courseId] = isNowDone;
+      if (!this.state.programmingCourses[courseId] || typeof this.state.programmingCourses[courseId] !== 'object') {
+        this.state.programmingCourses[courseId] = { completedLessons: {} };
+      }
+      if (!this.state.programmingCourses[courseId].completedLessons) {
+        this.state.programmingCourses[courseId].completedLessons = {};
+      }
+
+      const current = Boolean(this.state.programmingCourses[courseId].completedLessons[lessonIndex]);
+      const isNowDone = !current;
 
       if (isNowDone) {
-        SoundService.playSuccess();
-        CelebrationService.fire('prayers');
+        this.state.programmingCourses[courseId].completedLessons[lessonIndex] = true;
+        SoundService.playCheck();
+        CelebrationService.smallPop();
       } else {
+        delete this.state.programmingCourses[courseId].completedLessons[lessonIndex];
+        SoundService.playCheck();
+      }
+
+      this.storageService.save(this.state);
+      this.cloudSyncService.push(this.state);
+      HeaderView.render(this.state);
+      this.renderProgramming();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling programming lesson:', err);
+    }
+  }
+
+  toggleProgrammingCourse(courseId) {
+    this.toggleProgrammingLesson(courseId, 0);
+  }
+ else {
         SoundService.playCheck();
       }
 

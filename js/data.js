@@ -698,33 +698,101 @@ const weeksData = [
 const programmingCoursesData = [
   {
     "id": "cs50",
-    "title": "كورس CS50",
+    "title": "كورس CS50 (علوم الحاسب)",
     "icon": "fa-laptop-code",
-    "color": "indigo"
+    "color": "indigo",
+    "badge": "10 محاور",
+    "description": "أساسيات التفكير الحاسوبي والخوارزميات والذاكرة ولغة C وبايثون وقواعد البيانات",
+    "lessons": [
+      "المحور 0: التفكير الحسابي ولغة سكراتش (Computational Thinking & Scratch)",
+      "المحور 1: لغة السي وأنواع البيانات والمتغيرات وجمل التحكم (C Basics & Loops)",
+      "المحور 2: المصفوفات وسلاسل النصوص وتصحيح الأخطاء (Arrays & Debugging)",
+      "المحور 3: خوارزميات البحث والترتيب والتعقيد الحسابي (Algorithms & Big O)",
+      "المحور 4: إدارة الذاكرة والمؤشرات (Memory Allocation & Pointers)",
+      "المحور 5: هياكل البيانات المتقدمة والقوائم المترابطة (Data Structures & Trees)",
+      "المحور 6: لغة بايثون للبرمجة السريعة والتحليل (Python for CS50)",
+      "المحور 7: قواعد البيانات ولغة الاستعلامات (Databases & SQL)",
+      "المحور 8: مدخل تطوير الويب والـ APIs (HTML, CSS & JavaScript Integration)",
+      "المحور 9: إطار العمل Flask وبناء المشروع النهائي (Flask & Final Web Project)"
+    ]
   },
   {
     "id": "html",
-    "title": "كورس HTML",
+    "title": "كورس HTML5 (هيكلة الويب)",
     "icon": "fa-code",
-    "color": "orange"
+    "color": "orange",
+    "badge": "8 دروس",
+    "description": "البنية الهيكلية لصفحات الويب الحديثة، النماذج، والوسوم الدلالية المتقدمة",
+    "lessons": [
+      "الدرس 1: البنية الأساسية لصفحة الويب والوسوم الهيكلية (Document Structure)",
+      "الدرس 2: النصوص والروابط التشعبية والصور (Typography, Links & Images)",
+      "الدرس 3: القوائم المنسدلة والجداول المتقدمة (Lists & HTML Tables)",
+      "الدرس 4: النماذج وحقول الإدخال والتحقق (Forms, Input Types & Validation)",
+      "الدرس 5: الوسوم الدلالية الحديثة (Semantic HTML5: header, nav, article, section)",
+      "الدرس 6: وسائط الملتيميديا المتقدمة (Audio, Video & iFrames)",
+      "الدرس 7: تحسين محركات البحث وإمكانية الوصول (SEO Meta Tags & Accessibility)",
+      "الدرس 8: مشروع تطبيقي: بناء هيكل موقع متكامل بـ HTML5 دلالي"
+    ]
   },
   {
     "id": "css",
-    "title": "كورس CSS",
+    "title": "كورس CSS3 (تنسيق وتصميم الواجهات)",
     "icon": "fa-palette",
-    "color": "blue"
+    "color": "blue",
+    "badge": "10 دروس",
+    "description": "تنسيق الصفحات، نموذج الصندوق، فليكس بوكس، غريد، والتصميم المتجاوب",
+    "lessons": [
+      "الدرس 1: المحددات والألوان وقواعد الخطوط والطباعة (Selectors & Typography)",
+      "الدرس 2: نموذج الصندوق والهوامش والحدود (The Box Model: Margin, Padding, Border)",
+      "الدرس 3: تحديد المواقع والطبقات (Positioning: Relative, Absolute, Fixed, Sticky)",
+      "الدرس 4: تخطيط الفليكس بوكس ومحاذاة العناصر (Flexbox Architecture & Alignment)",
+      "الدرس 5: شبكة الويب المتقدمة وتقسيم الصفحات (CSS Grid Layout System)",
+      "الدرس 6: التصميم المتجاوب ونقاط التوقف للشاشات (Responsive & Media Queries)",
+      "الدرس 7: التحولات والحركات والتأثيرات التفاعلية (Transitions & Animations)",
+      "الدرس 8: المتغيرات المخصصة وتنسيق الوضع المظلم (CSS Variables & Dark Mode)",
+      "الدرس 9: معمارية الكود النظيف ومنهجية التسمية (BEM Methodology & Best Practices)",
+      "الدرس 10: مشروع تطبيقي: تصميم واجهة متجر إلكتروني متجاوبة بالكامل"
+    ]
   },
   {
     "id": "js",
-    "title": "كورس JavaScript",
+    "title": "كورس JavaScript (لغة البرمجة والتفاعل)",
     "icon": "fa-bolt",
-    "color": "amber"
+    "color": "amber",
+    "badge": "12 درساً",
+    "description": "الأساسيات، المصفوفات، الكائنات، معالجة الـ DOM، التخزين، والبرمجة غير المتزامنة",
+    "lessons": [
+      "الدرس 1: المتغيرات وأنواع البيانات والمعاملات الحسابية (Variables & Data Types)",
+      "الدرس 2: الشروط وجمل التحكم وحلقات التكرار (Conditionals & Loops)",
+      "الدرس 3: الدوال ونطاق المتغيرات والدوال السهمية (Functions & Arrow Functions)",
+      "الدرس 4: المصفوفات والدوال المتقدمة (Arrays, map, filter, reduce)",
+      "الدرس 5: الكائنات وهيكلة البيانات والـ JSON (Objects & Destructuring)",
+      "الدرس 6: التحكم في شجرة عناصر الصفحة (DOM Selection & Manipulation)",
+      "الدرس 7: معالجة الأحداث والتفاعل مع المستخدم (Event Listeners & Handling)",
+      "الدرس 8: التخزين المحلي وإدارة الحالة (LocalStorage & SessionStorage)",
+      "الدرس 9: البرمجة غير المتزامنة واستدعاء الـ APIs (Async/Await & Fetch API)",
+      "الدرس 10: البرمجة الكائنية والكلاسات في جافاسكريبت (OOP & ES6 Classes)",
+      "الدرس 11: التعامل مع الأخطاء وتصحيح الكود (Error Handling & Debugging)",
+      "الدرس 12: مشروع تطبيقي: بناء تطبيق ويب تفاعلي متكامل (Interactive Web App)"
+    ]
   },
   {
     "id": "bootstrap",
-    "title": "كورس بوت ستراب (Bootstrap)",
+    "title": "كورس بوت ستراب (Bootstrap 5)",
     "icon": "fa-cubes",
-    "color": "purple"
+    "color": "purple",
+    "badge": "8 دروس",
+    "description": "بناء وتصميم الواجهات المتجاوبة السريعة وشبكة الأعمدة والمكونات التفاعلية",
+    "lessons": [
+      "الدرس 1: إعداد بوت ستراب وشبكة الأعمدة المتجاوبة (Grid System & Breakpoints)",
+      "الدرس 2: فئات النصوص والألوان والخلفيات والمحاذاة (Typography & Utilities)",
+      "الدرس 3: تصميم الأزرار والبطاقات والشارات (Buttons, Cards & Badges)",
+      "الدرس 4: شريط التنقل المتجاوب والقوائم المنسدلة (Navbar & Responsive Navigation)",
+      "الدرس 5: تصميم النماذج المتقدمة وجداول البيانات (Forms & Tables)",
+      "الدرس 6: المكونات التفاعلية المتقدمة (Modals, Offcanvas, Accordions)",
+      "الدرس 7: التخصيص وإعادة تعريف المتغيرات ودمج الأيقونات (Custom Styles & Icons)",
+      "الدرس 8: مشروع تطبيقي: تصميم لوحة تحكم Dashboard متجاوبة بالكامل"
+    ]
   }
 ];
 
