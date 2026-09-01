@@ -14,7 +14,7 @@ const FIREBASE_CONFIG = Object.freeze({
 });
 
 const APP_CONFIG = Object.freeze({
-  STORAGE_KEY: 'janaklis_life_academic_os_v53',
+  STORAGE_KEY: 'janaklis_life_academic_os_v54',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
   TOTAL_SEMESTER_DAYS: 112,
   TOTAL_WEEKS: 19,
