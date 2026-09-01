@@ -904,7 +904,10 @@ function showAiTypingAndRespond(query) {
 
   setTimeout(() => {
     const indicator = document.getElementById('aiTypingIndicator');
-    if (indicator) indicator.remove();
+    if (indicator) {
+      if (typeof indicator.remove === 'function') indicator.remove();
+      else if (indicator.parentNode) indicator.parentNode.removeChild(indicator);
+    }
 
     const currentState = (typeof app !== 'undefined' && app.state) ? app.state : {};
     const response = AIAcademicEngine.getResponse(query, currentState);
