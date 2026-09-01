@@ -513,7 +513,7 @@ class AchievementsView {
   }
 
   // 2. Academic & Weekly Progress (10 Weeks & 6 Subjects)
-    // 2. Academic & 10 Weeks Progress (الـ 10 أسابيع والمقررات)
+    // 2. Academic & 10 Weeks Progress (الـ 19 أسبوعاً والمقررات)
     // 2. Academic Progress: Both 6 Subjects & 10 Weeks
   static renderAcademicAchievements(weeks = [], lessonProgress = {}) {
     const container = document.getElementById('academicAchievementsContainer');
