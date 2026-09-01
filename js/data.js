@@ -807,52 +807,32 @@
       {
         id: "cs50",
         title: "كورس CS50",
-        trackName: "علوم الحاسب (جامعة هارفارد)",
-        subtitle: "الأساس الأكاديمي الشامل: علوم الحاسب، الخوارزميات، وهياكل البيانات والتفكير المنطقي",
         icon: "fa-laptop-code",
-        color: "indigo",
-        tag: "الأساس الأكاديمي 🏛️",
-        skills: ["C Language", "Algorithms", "Memory & Pointers", "Data Structures", "Python", "SQL", "Logic"]
+        color: "indigo"
       },
       {
         id: "html",
-        title: "كورس HTML5",
-        trackName: "بناء وهيكل صفحات الويب",
-        subtitle: "تأسيس وبناء هيكل صفحات وتطبيقات الويب، العناصر الأساسية والنماذج والمعايير الحديثة",
+        title: "كورس HTML",
         icon: "fa-code",
-        color: "orange",
-        tag: "الهيكل والبناء 🧱",
-        skills: ["Semantic HTML", "Forms & Inputs", "Media & Audio", "HTML5 APIs", "SEO Basics"]
+        color: "orange"
       },
       {
         id: "css",
-        title: "كورس CSS3",
-        trackName: "التصميم والتنسيق والتجاوب",
-        subtitle: "تنسيق الواجهات، الألوان، الخطوط، التجاوب مع جميع الشاشات، Flexbox و CSS Grid",
+        title: "كورس CSS",
         icon: "fa-palette",
-        color: "blue",
-        tag: "التصميم والأناقة 🎨",
-        skills: ["Box Model", "Flexbox", "CSS Grid", "Responsive Design", "Animations & FX"]
+        color: "blue"
       },
       {
         id: "js",
         title: "كورس JavaScript",
-        trackName: "لغة وبرمجة الويب التفاعلية",
-        subtitle: "منطق البرمجة، التعامل مع الـ DOM، الأحداث، الدوال، البرمجة غير المتزامنة والـ APIs",
         icon: "fa-bolt",
-        color: "amber",
-        tag: "المنطق والتفاعل ⚡",
-        skills: ["ES6+ Syntax", "DOM & Events", "Async / Await", "Fetch & APIs", "OOP & Functions"]
+        color: "amber"
       },
       {
         id: "bootstrap",
-        title: "كورس Bootstrap",
-        trackName: "إطار عمل الواجهات السريع",
-        subtitle: "إطار عمل خفيف وسريع لبناء مواقع متجاوبة ومكونات جاهزة بأعلى سرعة وأقل كود",
+        title: "كورس بوت ستراب (Bootstrap)",
         icon: "fa-cubes",
-        color: "purple",
-        tag: "إطار العمل السريع 🧰",
-        skills: ["12-Col Grid", "Navbar & Modals", "Cards & Badges", "Utility Classes", "Fast UI"]
+        color: "purple"
       }
     ];
 

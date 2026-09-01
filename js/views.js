@@ -791,13 +791,10 @@ class AchievementsView {
   }
 }
 
-// 4. PROGRAMMING VIEW (5 Courses Track Cards)
+// 4. PROGRAMMING VIEW (5 Clean Course Cards)
 class ProgrammingView {
   static render(programmingCourses = {}) {
     const container = document.getElementById('programmingCoursesContainer');
-    const badge = document.getElementById('programmingOverallBadge');
-    const bar = document.getElementById('programmingProgressBar');
-
     if (!container) return;
 
     const coursesList = (typeof programmingCoursesData !== 'undefined' && Array.isArray(programmingCoursesData))
@@ -806,74 +803,45 @@ class ProgrammingView {
 
     if (!coursesList.length) return;
 
-    const totalCourses = coursesList.length;
-    let completedCount = 0;
-
     let html = '';
     coursesList.forEach((course) => {
       const isDone = Boolean(programmingCourses[course.id]);
-      if (isDone) completedCount++;
 
       html += `
         <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
           isDone
             ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent shadow-xs'
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
-        } p-5 space-y-4 flex flex-col justify-between">
-          <div class="space-y-3.5">
-            <!-- Course Header -->
-            <div class="flex items-start justify-between pb-3.5 border-b border-slate-100 gap-3">
-              <div class="flex items-start gap-3 min-w-0">
-                <div class="w-11 h-11 rounded-2xl ${
-                  isDone 
-                    ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
-                    : 'bg-slate-100 text-slate-700'
-                } flex items-center justify-center text-lg shrink-0 mt-0.5">
-                  <i class="fa-solid ${course.icon}"></i>
-                </div>
-                <div class="space-y-1">
-                  <div class="flex items-center gap-1.5 flex-wrap">
-                    <h3 class="font-display font-black text-base text-slate-900 leading-snug">${course.title}</h3>
-                    <span class="text-[11px] font-bold px-2 py-0.5 rounded-md ${
-                      isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
-                    }">${course.trackName || ''}</span>
-                  </div>
-                  <span class="text-xs text-slate-500 font-semibold block">${course.tag}</span>
-                </div>
-              </div>
-
-              <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
+        } p-5 sm:p-6 space-y-5 flex flex-col justify-between">
+          
+          <!-- Course Header -->
+          <div class="flex items-center justify-between pb-3.5 border-b border-slate-100 gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-12 h-12 rounded-2xl ${
                 isDone 
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs' 
-                  : 'bg-slate-100 text-slate-600 border border-slate-200'
-              } whitespace-nowrap shrink-0">
-                ${isDone ? 'مكتمل 100% 🎓' : 'قيد التعلم ⏳'}
-              </span>
+                  ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25 ring-2 ring-emerald-300/40' 
+                  : 'bg-slate-100 text-slate-700'
+              } flex items-center justify-center text-xl shrink-0 transition">
+                <i class="fa-solid ${course.icon}"></i>
+              </div>
+              <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug">${course.title}</h3>
             </div>
 
-            <!-- Subtitle & Skills Pills -->
-            <div class="space-y-3">
-              <p class="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">${course.subtitle}</p>
-              
-              <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-                <span class="text-xs font-bold text-slate-700 block font-display">أبرز المحاور والمفاهيم:</span>
-                <div class="flex flex-wrap gap-1.5" dir="ltr">
-                  ${(course.skills || []).map(skill => `
-                    <span class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-bold shadow-2xs font-mono">
-                      ${skill}
-                    </span>
-                  `).join('')}
-                </div>
-              </div>
-            </div>
+            <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
+              isDone 
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs' 
+                : 'bg-slate-100 text-slate-600 border border-slate-200'
+            } whitespace-nowrap shrink-0">
+              ${isDone ? 'مكتمل 100% 🎓' : 'قيد التعلم ⏳'}
+            </span>
           </div>
 
           <!-- Clean Single Interactive Button -->
-          <div class="pt-3 border-t border-slate-100">
+          <div>
             <button 
               type="button"
               onclick="toggleProgrammingCourse('${course.id}')" 
-              class="w-full py-3.5 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-3 active:scale-95 cursor-pointer select-none ${
+              class="w-full py-3.5 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-3 active:scale-95 cursor-pointer select-none ${
                 isDone 
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25 ring-2 ring-emerald-300/40' 
                   : 'bg-slate-50 hover:bg-emerald-50/70 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
@@ -894,10 +862,6 @@ class ProgrammingView {
     });
 
     container.innerHTML = html;
-
-    const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
-    if (badge) badge.innerText = `${completedCount} من ${totalCourses} مكتملة (${percentage}%)`;
-    if (bar) bar.style.width = `${percentage}%`;
   }
 }
 
