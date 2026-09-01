@@ -829,29 +829,31 @@ class ProgrammingView {
       const isDone = Boolean(programmingCourses[course.id]);
 
       html += `
-        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
-          isDone ? 'gold-card-100 shadow-md' : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
-        } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+        <div class="rounded-3xl border transition card-lift animate-fade-in ${
+          isDone ? 'gold-card-100 shadow-sm' : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
+        } p-5 sm:p-6 space-y-4 flex flex-col justify-between text-right">
           
           <!-- Course Header & Badge -->
           <div class="space-y-3">
             <div class="flex items-center justify-between gap-2">
               <div class="w-10 h-10 rounded-2xl ${
                 isDone 
-                  ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
+                  ? 'bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/20' 
                   : 'bg-slate-100 text-slate-700'
               } flex items-center justify-center text-lg shrink-0 transition">
                 <i class="fa-solid ${course.icon}"></i>
               </div>
 
               <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
-                isDone ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-xs' : 'bg-slate-100 text-slate-600 border border-slate-200'
+                isDone 
+                  ? 'bg-amber-100 text-amber-900 border border-amber-300 shadow-2xs' 
+                  : 'bg-slate-100 text-slate-600 border border-slate-200'
               } whitespace-nowrap shrink-0">
                 ${isDone ? 'مكتمل 100% 🎓' : 'قيد المتابعة ⏳'}
               </span>
             </div>
 
-            <!-- Full Course Title (No Truncation) -->
+            <!-- Full Course Title -->
             <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug">
               ${course.title}
             </h3>
@@ -863,7 +865,9 @@ class ProgrammingView {
               type="button"
               onclick="toggleProgrammingCourse('${course.id}')" 
               class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
-                isDone ? 'gold-btn-100 text-white shadow-md' : 'bg-slate-50 hover:bg-amber-50/70 border-slate-200 hover:border-amber-400 text-slate-700 hover:text-amber-950 shadow-2xs'
+                isDone 
+                  ? 'bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 border-emerald-500 text-white shadow-md shadow-emerald-600/20' 
+                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200 hover:border-slate-300 text-slate-700 shadow-2xs'
               }"
             >
               <div class="w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 transition ${

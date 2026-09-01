@@ -256,16 +256,16 @@ class AppController {
     this.saveAndRefreshViews();
   }
 
-  triggerGoldConfetti() {
+    triggerGoldConfetti() {
     if (typeof confetti === 'function') {
       confetti({
-        particleCount: 100,
-        spread: 85,
-        origin: { y: 0.6 },
-        colors: ['#f59e0b', '#fbbf24', '#fde68a', '#10b981', '#6366f1', '#ffffff'],
-        ticks: 200,
-        gravity: 1.1,
-        scalar: 1.2
+        particleCount: 45,
+        spread: 70,
+        origin: { y: 0.65 },
+        colors: ['#f59e0b', '#10b981', '#6366f1', '#fbbf24'],
+        ticks: 90,
+        gravity: 1.2,
+        scalar: 0.95
       });
     }
   }
