@@ -805,6 +805,7 @@ class AchievementsView {
 
     container.innerHTML = html;
   }
+}
 
 
 // 4. PROGRAMMING VIEW (Clean Course Title Cards - No Truncation)
