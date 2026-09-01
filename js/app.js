@@ -24,7 +24,7 @@ class AppController {
         this.storageService.save(this.state);
         HeaderView.render(this.state);
         if (this.state.activeTab === 'routine') this.renderRoutine();
-        if (this.state.activeTab === 'curriculum') this.renderCurriculum();
+        // Curriculum tab disabled
         if (this.state.activeTab === 'achievements') this.renderAchievements();
         if (this.state.activeTab === 'programming') this.renderProgramming();
         this.cloudSyncService.updateStatusBadge();
@@ -60,7 +60,7 @@ class AppController {
   // Navigation: 4 Master Tabs
   // ==========================================
   switchTab(tabId) {
-    if (!['routine', 'curriculum', 'achievements', 'programming'].includes(tabId)) {
+    if (!['routine', 'achievements', 'programming'].includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
