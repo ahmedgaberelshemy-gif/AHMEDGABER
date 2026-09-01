@@ -14,7 +14,7 @@ const FIREBASE_CONFIG = Object.freeze({
 });
 
 const APP_CONFIG = Object.freeze({
-  STORAGE_KEY: 'janaklis_life_academic_os_v6',
+  STORAGE_KEY: 'janaklis_life_academic_os_v7',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
   TOTAL_SEMESTER_DAYS: 112,
   TOTAL_WEEKS: 10,
@@ -33,7 +33,7 @@ const APP_CONFIG = Object.freeze({
     { id: 'maghrib', name: 'صلاة المغرب', icon: 'fa-mountain-sun', time: '06:15 م' },
     { id: 'isha', name: 'صلاة العشاء', icon: 'fa-moon', time: '07:45 م' }
   ],
-      SUBJECTS: [
+        SUBJECTS: [
     { id: 0, name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue" },
     { id: 1, name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald" },
     { id: 2, name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber" },
