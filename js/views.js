@@ -710,13 +710,13 @@ class AchievementsView {
     container.innerHTML = html;
   }
 
-  // 3. Programming Tracks Progress
+    // 3. Programming Tracks Progress
   static renderProgrammingAchievements(programmingCourses = {}) {
-    const container = document.getElementById('programmingAchievementsContainer');
-    const badge = document.getElementById('programmingAchievementsBadge');
+    const container = document.getElementById("programmingAchievementsContainer");
+    const badge = document.getElementById("programmingAchievementsBadge");
     if (!container) return;
 
-    const courses = (typeof programmingCoursesData !== 'undefined') ? programmingCoursesData : (APP_CONFIG.PROGRAMMING_COURSES || []);
+    const courses = (typeof programmingCoursesData !== "undefined") ? programmingCoursesData : (APP_CONFIG.PROGRAMMING_COURSES || []);
     let completedCount = 0;
 
     courses.forEach(c => {
@@ -733,46 +733,70 @@ class AchievementsView {
     }
 
     let html = `
-      <!-- Overall Programming Progress Bar -->
-      <div class="bg-cyan-50/70 border border-cyan-100 rounded-2xl p-4 sm:p-5 space-y-3">
-        <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-800">
-          <span class="flex items-center gap-2">
-            <i class="fa-solid fa-laptop-code text-cyan-600"></i>
-            <span>إجمالي إنجاز مسارات البرمجة والكورسات</span>
-          </span>
-          <span class="font-mono font-black text-cyan-900 bg-white px-2.5 py-1 rounded-lg border border-cyan-200">
-            ${completedCount} / ${totalCourses} (${percentage}%)
-          </span>
+      <!-- Master Programming Progress Headline -->
+      <div class="bg-gradient-to-r from-cyan-50 via-slate-50 to-indigo-50 border border-cyan-100 rounded-3xl p-4 sm:p-5 shadow-2xs space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-xl bg-cyan-600 text-white flex items-center justify-center text-sm shadow-sm">
+              <i class="fa-solid fa-laptop-code"></i>
+            </span>
+            <div>
+              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">إجمالي إنجاز مسارات البرمجة والكورسات</h4>
+              <p class="text-xs text-slate-500 font-medium">متابعة الكورسات التقنية الـ 11 وإتمام مسارات التطوير</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="font-mono font-black text-xs sm:text-sm text-cyan-950 bg-white px-3 py-1.5 rounded-xl border border-cyan-200 shadow-2xs">
+              ${completedCount} / ${totalCourses} كورس (${percentage}%)
+            </span>
+          </div>
         </div>
-        <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 transition-all duration-500" style="width: ${percentage}%"></div>
+
+        <div class="w-full h-3 rounded-full bg-slate-200/80 overflow-hidden shadow-inner">
+          <div class="h-full rounded-full bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 transition-all duration-500 shadow-sm" style="width: ${percentage}%"></div>
         </div>
       </div>
 
-      <!-- Mini Grid of All Courses -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+      <!-- Clean Grid of All 11 Programming Courses (No Truncation) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-2">
     `;
 
     courses.forEach(c => {
       const isDone = Boolean(programmingCourses[c.id]);
 
       html += `
-        <div class="p-3 sm:p-3.5 rounded-2xl border ${
-          isDone ? 'bg-emerald-50/80 border-emerald-300' : 'bg-white border-slate-200'
-        } flex items-center justify-between gap-2 shadow-2xs">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-7 h-7 rounded-xl ${
-              isDone ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-600'
+        <div class="p-3.5 sm:p-4 rounded-2xl border transition-all duration-200 hover:-translate-y-0.5 ${
+          isDone 
+            ? "bg-gradient-to-br from-emerald-50/90 to-teal-50/50 border-emerald-300 shadow-2xs" 
+            : "bg-white border-slate-200/90 hover:border-slate-300 shadow-2xs"
+        } space-y-3 flex flex-col justify-between text-right">
+          
+          <div class="flex items-center justify-between gap-2">
+            <div class="w-8 h-8 rounded-xl ${
+              isDone ? "bg-emerald-500 text-white shadow-2xs" : "bg-slate-100 text-slate-700"
             } flex items-center justify-center text-xs shrink-0">
               <i class="fa-solid ${c.icon}"></i>
             </div>
-            <span class="text-xs font-black font-display text-slate-900 truncate">${c.title}</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-lg shrink-0 ${
+              isDone ? "bg-emerald-100 text-emerald-800 border border-emerald-300" : "bg-slate-100 text-slate-600 border border-slate-200"
+            }">
+              ${isDone ? "مكتمل 🎓" : "قيد التعلم ⏳"}
+            </span>
           </div>
-          <span class="text-[10px] font-bold font-display px-2 py-0.5 rounded-md shrink-0 ${
-            isDone ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
-          }">
-            ${isDone ? 'مكتمل 🎓' : 'قيد التعلم ⏳'}
-          </span>
+
+          <div>
+            <h5 class="text-xs sm:text-sm font-black font-display text-slate-900 leading-snug">
+              ${c.title}
+            </h5>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-400">
+            <span>مسار تقني</span>
+            <span class="${isDone ? "text-emerald-700 font-black" : "text-slate-500"}">
+              ${isDone ? "تم الإنجاز ✅" : "مستمر 🚀"}
+            </span>
+          </div>
+
         </div>
       `;
     });
@@ -781,10 +805,6 @@ class AchievementsView {
 
     container.innerHTML = html;
   }
-}
-
-
-
 
 
 // 4. PROGRAMMING VIEW (Clean Course Title Cards - No Truncation)
