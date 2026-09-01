@@ -280,22 +280,26 @@ class AppController {
 
   toggleProgrammingCourse(courseId) {
     if (!courseId) return;
-    this.state.programmingCourses = this.state.programmingCourses || {};
-    const isNowDone = !Boolean(this.state.programmingCourses[courseId]);
-    this.state.programmingCourses[courseId] = isNowDone;
+    try {
+      this.state.programmingCourses = this.state.programmingCourses || {};
+      const isNowDone = !Boolean(this.state.programmingCourses[courseId]);
+      this.state.programmingCourses[courseId] = isNowDone;
 
-    if (isNowDone) {
-      SoundService.playSuccess();
-      CelebrationService.fireConfetti();
-    } else {
-      SoundService.playCheck();
+      if (isNowDone) {
+        SoundService.playSuccess();
+        CelebrationService.fire('prayers');
+      } else {
+        SoundService.playCheck();
+      }
+
+      this.storageService.save(this.state);
+      this.cloudSyncService.push(this.state);
+      HeaderView.render(this.state);
+      this.renderProgramming();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling course:', err);
     }
-
-    this.storageService.save(this.state);
-    this.cloudSyncService.push(this.state);
-    HeaderView.render(this.state);
-    this.renderProgramming();
-    this.renderAchievements();
   }
 
   // ==========================================

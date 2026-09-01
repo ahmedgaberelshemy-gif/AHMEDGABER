@@ -545,6 +545,10 @@ class CelebrationService {
       confetti({ particleCount: 30, spread: 40, origin: { y: 0.75 }, colors: ['#10b981', '#6366f1', '#fbbf24'] });
     }
   }
+
+  static fireConfetti(type = 'default') {
+    CelebrationService.fire(type);
+  }
 }
 
 // 5. SOUND SERVICE (Pure Web Audio API Synthesizer - Luxury Harmonic Chimes)
