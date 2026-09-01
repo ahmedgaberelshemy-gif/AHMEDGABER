@@ -382,84 +382,19 @@ class CurriculumView {
 }
 
 // =========================================================================
-// 3. ACHIEVEMENTS VIEW (Mastery, Habit Analytics, Programming & Badges)
+// =========================================================================
+// 3. ACHIEVEMENTS VIEW (Routine Discipline & Programming Mastery)
 // =========================================================================
 class AchievementsView {
   static render(state) {
-    // 1. Render Level & XP Summary
-    this.renderLevelSummary(state);
-
-    // 2. Routine Days History (Fair ratio & counts of perfect vs incomplete days)
+    // 1. Routine Days History (Fair ratio & counts of perfect vs incomplete days)
     this.renderRoutineAchievements(state.dailyLogs || {});
 
-    // 3. Programming Track Achievements (5 Courses)
+    // 2. Programming Track Achievements (5 Courses)
     this.renderProgrammingAchievements(state.programmingCourses || {});
-
-    // 4. Badges & Unlocks Wall
-    this.renderBadgesWall(state);
   }
 
-  // 1. Render Level Summary & Gamified Points
-  static renderLevelSummary(state) {
-    const card = document.getElementById('userLevelSummaryCard');
-    if (!card) return;
-
-    const dailyLogs = state.dailyLogs || {};
-    let totalHabitsCompleted = 0;
-    let perfectDaysCount = 0;
-
-    Object.values(dailyLogs).forEach(log => {
-      if (log.score === 100) perfectDaysCount++;
-      if (log.prayers) Object.values(log.prayers).forEach(p => { if (p) totalHabitsCompleted++; });
-      if (log.quran) totalHabitsCompleted++;
-      if (log.adhkar) totalHabitsCompleted++;
-      if (log.learning) totalHabitsCompleted++;
-      if (log.workout) totalHabitsCompleted++;
-    });
-
-    // Programming lessons completed
-    let progLessonsCount = 0;
-    const progData = state.programmingCourses || {};
-    Object.values(progData).forEach(course => {
-      if (course && course.completedLessons) {
-        progLessonsCount += Object.keys(course.completedLessons).length;
-      }
-    });
-
-    const totalXP = (totalHabitsCompleted * 10) + (perfectDaysCount * 50) + (progLessonsCount * 25);
-    const level = Math.floor(totalXP / 200) + 1;
-    const currentLevelXP = totalXP % 200;
-    const levelPercent = Math.round((currentLevelXP / 200) * 100);
-
-    let rankTitle = "مبتدئ واعد 🥉";
-    if (level >= 10) rankTitle = "أسطورة الامتياز 👑";
-    else if (level >= 7) rankTitle = "رائد التفوق 💎";
-    else if (level >= 5) rankTitle = "بطل ملتزم 🥇";
-    else if (level >= 3) rankTitle = "مكافح مجتهد 🥈";
-
-    card.innerHTML = `
-      <div class="flex items-center justify-center gap-2">
-        <span class="w-8 h-8 rounded-xl bg-amber-400 text-slate-950 font-display font-black text-sm flex items-center justify-center shadow-md">
-          ${level}
-        </span>
-        <div class="text-right">
-          <span class="text-[10px] text-amber-300 font-bold block">المستوى الحالي</span>
-          <span class="text-xs font-black text-white font-display">${rankTitle}</span>
-        </div>
-      </div>
-
-      <div class="w-full bg-white/10 rounded-full h-2 overflow-hidden mt-1 shadow-inner">
-        <div class="bg-gradient-to-r from-amber-400 to-emerald-400 h-full rounded-full transition-all duration-500" style="width: ${levelPercent}%"></div>
-      </div>
-
-      <div class="flex items-center justify-between text-[10px] font-bold text-slate-300 pt-0.5">
-        <span>${totalXP} نقطة XP</span>
-        <span>${currentLevelXP}/200 للمستوى ${level + 1}</span>
-      </div>
-    `;
-  }
-
-  // 2. Render Routine & Days History (Unified & Streamlined against 112 Days Target)
+  // 1. Render Routine & Days History (Unified & Streamlined against 112 Days Target)
   static renderRoutineAchievements(dailyLogs) {
     const container = document.getElementById('routineAchievementsContainer');
     if (!container) return;
@@ -634,7 +569,7 @@ class AchievementsView {
     `;
   }
 
-  // 3. Render Programming Track Achievements
+  // 2. Render Programming Track Achievements
   static renderProgrammingAchievements(programmingCourses) {
     const container = document.getElementById('programmingAchievementsContainer');
     const badge = document.getElementById('programmingAchievementsBadge');
@@ -695,120 +630,8 @@ class AchievementsView {
       </div>
     `;
   }
-
-  // 4. Render Gamified Badges Wall
-  static renderBadgesWall(state) {
-    const container = document.getElementById('badgesWallContainer');
-    const badgeCount = document.getElementById('badgesCountBadge');
-    if (!container) return;
-
-    const dailyLogs = state.dailyLogs || {};
-    let perfectDays = 0;
-    let prayersDone = 0;
-    let quranDays = 0;
-    let totalHabits = 0;
-
-    Object.values(dailyLogs).forEach(log => {
-      if (log.score === 100) perfectDays++;
-      if (log.prayers) Object.values(log.prayers).forEach(p => { if (p) { prayersDone++; totalHabits++; } });
-      if (log.quran) { quranDays++; totalHabits++; }
-      if (log.adhkar) totalHabits++;
-      if (log.learning) totalHabits++;
-      if (log.workout) totalHabits++;
-    });
-
-    let progLessonsCount = 0;
-    const progData = state.programmingCourses || {};
-    Object.values(progData).forEach(course => {
-      if (course && course.completedLessons) {
-        progLessonsCount += Object.keys(course.completedLessons).length;
-      }
-    });
-
-    const badges = [
-      {
-        id: 'streak_7',
-        name: 'تاج الالتزام الذهبي',
-        desc: 'تحقيق 7 أيام التزام تام 100%',
-        icon: 'fa-crown',
-        color: 'amber',
-        unlocked: perfectDays >= 7,
-        progress: `${perfectDays}/7 أيام`
-      },
-      {
-        id: 'prayers_50',
-        name: 'المحافظ على الصلوات',
-        desc: 'أداء 50 صلاة في وقتها المحدد',
-        icon: 'fa-mosque',
-        color: 'emerald',
-        unlocked: prayersDone >= 50,
-        progress: `${prayersDone}/50 صلاة`
-      },
-      {
-        id: 'quran_30',
-        name: 'نور القرآن والورد',
-        desc: 'قراءة الورد القرآني لـ 30 يوماً',
-        icon: 'fa-book-quran',
-        color: 'purple',
-        unlocked: quranDays >= 30,
-        progress: `${quranDays}/30 يوماً`
-      },
-      {
-        id: 'coder_20',
-        name: 'مهندس المستقبل',
-        desc: 'إنجاز 20 درساً في مسار البرمجة',
-        icon: 'fa-code',
-        color: 'cyan',
-        unlocked: progLessonsCount >= 20,
-        progress: `${progLessonsCount}/20 درس`
-      },
-      {
-        id: 'habits_100',
-        name: 'قاهر العادات',
-        desc: 'إتمام 100 عادة يومية بنجاح',
-        icon: 'fa-fire',
-        color: 'rose',
-        unlocked: totalHabits >= 100,
-        progress: `${totalHabits}/100 عادة`
-      },
-      {
-        id: 'mastery_30',
-        name: 'أسطورة الشهر',
-        desc: 'تسجيل 30 يوماً متواصلاً في السيستم',
-        icon: 'fa-shield-halved',
-        color: 'indigo',
-        unlocked: Object.keys(dailyLogs).length >= 30,
-        progress: `${Object.keys(dailyLogs).length}/30 يوماً`
-      }
-    ];
-
-    const unlockedCount = badges.filter(b => b.unlocked).length;
-    if (badgeCount) {
-      badgeCount.innerText = `${unlockedCount} من ${badges.length} أوسمة مفتوحة`;
-    }
-
-    container.innerHTML = badges.map(b => `
-      <div class="p-4 rounded-2xl border transition ${
-        b.unlocked 
-          ? 'bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent border-amber-400 shadow-md gold-glow-border card-lift' 
-          : 'bg-slate-50/60 border-slate-200 opacity-60'
-      } flex items-start gap-3">
-        <div class="w-10 h-10 rounded-2xl ${b.unlocked ? 'shimmer-gold text-slate-950 shadow-md' : 'bg-slate-200 text-slate-400'} flex items-center justify-center text-base shrink-0">
-          <i class="fa-solid ${b.icon}"></i>
-        </div>
-        <div class="space-y-1 flex-1 min-w-0">
-          <div class="flex items-center justify-between gap-1">
-            <h4 class="font-display font-black text-xs text-slate-900 truncate">${b.name}</h4>
-            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${b.unlocked ? 'bg-amber-100 text-amber-800' : 'bg-slate-200 text-slate-600'} shrink-0">
-              ${b.unlocked ? 'مفتوح 👑' : b.progress}
-            </span>
-          </div>
-          <p class="text-[10px] text-slate-500 leading-tight">${b.desc}</p>
-        </div>
-      </div>
-    `).join('');
-  }
 }
+
 
 
 // 4. PROGRAMMING VIEW (5 Clean Course Cards)

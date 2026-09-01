@@ -3,25 +3,18 @@
 <!-- ========================================================================= -->
 <section id="section-achievements" class="space-y-6 pt-6 border-t border-slate-200">
   
-  <!-- Hero Achievements & Gamification Banner -->
-  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900/60 relative overflow-hidden">
-    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="space-y-2 text-center md:text-right">
-        <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-display inline-flex items-center gap-1.5">
-          <i class="fa-solid fa-crown text-amber-400"></i> لوحة الشرف والامتياز الشخصي
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-black font-display tracking-tight text-white">
-          سجل التحصيل والإنجاز الشامل
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-xl leading-relaxed">
-          رصد حي وتفاعلي لمستوى التزامك اليومي، مسارات البرمجة، وسلسلة العادات والأوسمة المكتسبة.
-        </p>
-      </div>
-
-      <!-- Gamified Level & XP Card -->
-      <div id="userLevelSummaryCard" class="shrink-0 bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 text-center min-w-[220px] space-y-2">
-        <!-- Dynamically rendered level, XP & Streak -->
-      </div>
+  <!-- Hero Achievements Banner -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-indigo-900/60">
+    <div class="space-y-2 text-center sm:text-right">
+      <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-display inline-flex items-center gap-1.5">
+        <i class="fa-solid fa-chart-line text-emerald-400"></i> تقرير التحصيل ومؤشرات الأداء
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-black font-display tracking-tight text-white">
+        سجل ومؤشرات الإنجاز الشامل
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-xl leading-relaxed">
+        رصد حي ودقيق لمعدلات الالتزام اليومي التراكمي، الصلوات، العادات، ومسارات البرمجة المكتملة.
+      </p>
     </div>
   </div>
 
@@ -29,7 +22,7 @@
   <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
       <div class="flex items-center gap-2.5">
-        <i class="fa-solid fa-award text-emerald-600 text-lg"></i>
+        <i class="fa-solid fa-calendar-check text-emerald-600 text-lg"></i>
         <h3 class="font-display font-black text-lg text-slate-900">1. سجل ومؤشر الالتزام اليومي التراكمي</h3>
       </div>
       <button 
@@ -63,24 +56,7 @@
     </div>
   </div>
 
-  <!-- 3. UNLOCKED BADGES & HONORS -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
-    <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
-      <div class="flex items-center gap-2.5">
-        <i class="fa-solid fa-medal text-amber-500 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">3. جدار أوسمة ونياشين التميز</h3>
-      </div>
-      <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-lg" id="badgesCountBadge">
-        0 من 6 أوسمة مفتوحة
-      </span>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="badgesWallContainer">
-      <!-- Dynamic Badges rendered here -->
-    </div>
-  </div>
-
-  <!-- Data Backup / Export / Import -->
+  <!-- 3. DATA BACKUP / EXPORT / IMPORT -->
   <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
     <div>
       <h4 class="font-display font-bold text-sm text-slate-900">حفظ واسترجاع البيانات (Backup & Restore)</h4>
