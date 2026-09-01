@@ -1,16 +1,14 @@
 <!-- ========================================================================= -->
-<!-- SECTION 3: ACHIEVEMENTS & ANALYTICS (مركز الإنجازات والتحصيل الشامل) -->
+<!-- SECTION 3: ACHIEVEMENTS & ANALYTICS (لوحة الإنجازات الشاملة) -->
 <!-- ========================================================================= -->
-<section id="section-achievements" class="space-y-6 pt-6 border-t border-slate-200">
+<section id="section-achievements" class="space-y-6 hidden animate-slide-up">
   
-  
-
   <!-- 1. ROUTINE & DAYS HISTORY SECTION -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
+  <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
       <div class="flex items-center gap-2.5">
         <i class="fa-solid fa-calendar-check text-emerald-600 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">1. سجل ومؤشر الالتزام اليومي التراكمي</h3>
+        <h3 class="font-display font-black text-base sm:text-lg text-slate-900">1. سجل ومؤشر الالتزام اليومي التراكمي</h3>
       </div>
       <button 
         onclick="resetRoutineHistory()" 
@@ -26,15 +24,32 @@
     </div>
   </div>
 
-  <!-- 2. PROGRAMMING TRACK PROGRESS -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-5">
+  <!-- 2. ACADEMIC & WEEKLY PROGRESS SECTION -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
+      <div class="flex items-center gap-2.5">
+        <i class="fa-solid fa-graduation-cap text-indigo-600 text-lg"></i>
+        <h3 class="font-display font-black text-base sm:text-lg text-slate-900">2. إنجاز المقررات والأسابيع الدراسية</h3>
+      </div>
+      <span class="text-xs font-bold text-indigo-800 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-lg" id="academicAchievementsBadge">
+        0 من 0 درس منجز (0%)
+      </span>
+    </div>
+
+    <div id="academicAchievementsContainer" class="space-y-4">
+      <!-- Dynamic Academic Achievements rendered here -->
+    </div>
+  </div>
+
+  <!-- 3. PROGRAMMING TRACK PROGRESS -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
     <div class="flex items-center justify-between pb-3 border-b border-slate-100 flex-wrap gap-2">
       <div class="flex items-center gap-2.5">
         <i class="fa-solid fa-laptop-code text-cyan-600 text-lg"></i>
-        <h3 class="font-display font-black text-lg text-slate-900">2. إنجاز مسار البرمجة والتطوير التقني</h3>
+        <h3 class="font-display font-black text-base sm:text-lg text-slate-900">3. إنجاز مسار البرمجة والتطوير التقني</h3>
       </div>
       <span class="text-xs font-bold text-cyan-800 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-lg" id="programmingAchievementsBadge">
-        0 من 5 كورسات مكتملة (0%)
+        0 من 11 كورس مكتمل (0%)
       </span>
     </div>
 
@@ -43,8 +58,8 @@
     </div>
   </div>
 
-  <!-- 3. DATA BACKUP / EXPORT / IMPORT -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+  <!-- Data Backup / Export / Import -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
     <div>
       <h4 class="font-display font-bold text-sm text-slate-900">حفظ واسترجاع البيانات (Backup & Restore)</h4>
       <p class="text-xs text-slate-500 font-medium">بياناتك محفوظة تلقائياً في المتصفح ومزامنة سحابياً. يمكنك حفظ نسخة لجهازك أو استرجاعها في أي وقت.</p>

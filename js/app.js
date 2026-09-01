@@ -439,8 +439,11 @@ class AppController {
   // ==========================================
   // Achievements Handlers
   // ==========================================
-  renderAchievements() {
-    AchievementsView.render(this.state, this.storageService);
+    renderAchievements() {
+    this.state.dailyLogs = this.state.dailyLogs || {};
+    this.state.lessonProgress = this.state.lessonProgress || {};
+    this.state.programmingCourses = this.state.programmingCourses || {};
+    AchievementsView.render(this.state.dailyLogs, weeksData, this.state.lessonProgress, this.state.programmingCourses);
   }
 
   async resetRoutineHistory() {
