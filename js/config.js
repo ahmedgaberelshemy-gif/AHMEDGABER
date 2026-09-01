@@ -45,7 +45,54 @@ const APP_CONFIG = Object.freeze({
     "مبادئ إدارة الأعمال", "المحاسبة المالية", "مبادئ الإقتصاد",
     "مبادئ القانون", "علم النفس", "اللغة الإنجليزية"
   ],
-  SUBJECT_COLOR_KEYS: ['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan']
+  SUBJECT_COLOR_KEYS: ['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan'],
+  PROGRAMMING_COURSES: [
+    {
+      id: "cs50",
+      title: "كورس CS50 (علوم الحاسب من هارفارد)",
+      subtitle: "أساس علوم الحاسب، الخوارزميات، وهياكل البيانات والتفكير المنطقي",
+      icon: "fa-laptop-code",
+      color: "indigo",
+      tag: "الأساس الأكاديمي 🏛️",
+      topics: "C, Algorithms, Memory, Data Structures, Python, SQL, Web Concepts"
+    },
+    {
+      id: "html",
+      title: "كورس HTML5 (بناء وهيكل الويب)",
+      subtitle: "بناء وهيكل صفحات الويب، العناصر الأساسية والنماذج والمعايير الحديثة",
+      icon: "fa-code",
+      color: "orange",
+      tag: "الهيكل والبناء 🧱",
+      topics: "Tags, Semantic HTML, Forms, Media, Tables, Modern HTML5 APIs"
+    },
+    {
+      id: "css",
+      title: "كورس CSS3 (التصميم والتنسيق والتجاوب)",
+      subtitle: "تنسيق الواجهات، الألوان، الخطوط، التجاوب، Flexbox, Grid والأنيميشن",
+      icon: "fa-palette",
+      color: "blue",
+      tag: "التصميم والأناقة 🎨",
+      topics: "Selectors, Box Model, Flexbox, CSS Grid, Responsive Design, Animations"
+    },
+    {
+      id: "js",
+      title: "كورس JavaScript (لغة وبرمجة الويب التفاعلية)",
+      subtitle: "منطق البرمجة، التعامل مع الـ DOM، الأحداث، الدوال، والـ Async & APIs",
+      icon: "fa-bolt",
+      color: "amber",
+      tag: "المنطق والتفاعل ⚡",
+      topics: "Variables, Functions, ES6+, DOM Manipulation, Events, Fetch API, OOP"
+    },
+    {
+      id: "bootstrap",
+      title: "كورس Bootstrap (إطار عمل الواجهات السريع)",
+      subtitle: "إطار عمل خفيف وسريع لبناء مواقع متجاوبة ومكونات جاهزة بأقل كود",
+      icon: "fa-cubes",
+      color: "purple",
+      tag: "إطار العمل السريع 🧰",
+      topics: "Grid System, Utilities, Navbar, Cards, Modals, Responsive Components"
+    }
+  ]
 });
 
 const colorStyles = Object.freeze({

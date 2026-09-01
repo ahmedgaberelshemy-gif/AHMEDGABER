@@ -710,12 +710,18 @@ class AchievementsView {
   static renderProgrammingAchievements(programmingCourses = {}) {
     const container = document.getElementById('programmingAchievementsContainer');
     const badge = document.getElementById('programmingAchievementsBadge');
-    if (!container || typeof programmingCoursesData === 'undefined') return;
+    if (!container) return;
 
-    const totalCourses = programmingCoursesData.length;
+    const coursesList = (typeof programmingCoursesData !== 'undefined' && Array.isArray(programmingCoursesData))
+      ? programmingCoursesData
+      : (APP_CONFIG.PROGRAMMING_COURSES || []);
+
+    if (!coursesList.length) return;
+
+    const totalCourses = coursesList.length;
     let completedCount = 0;
 
-    programmingCoursesData.forEach(c => {
+    coursesList.forEach(c => {
       if (programmingCourses[c.id]) completedCount++;
     });
 
@@ -800,13 +806,19 @@ class ProgrammingView {
     const badge = document.getElementById('programmingOverallBadge');
     const bar = document.getElementById('programmingProgressBar');
 
-    if (!container || typeof programmingCoursesData === 'undefined') return;
+    if (!container) return;
 
-    const totalCourses = programmingCoursesData.length;
+    const coursesList = (typeof programmingCoursesData !== 'undefined' && Array.isArray(programmingCoursesData))
+      ? programmingCoursesData
+      : (APP_CONFIG.PROGRAMMING_COURSES || []);
+
+    if (!coursesList.length) return;
+
+    const totalCourses = coursesList.length;
     let completedCount = 0;
 
     let html = '';
-    programmingCoursesData.forEach((course, idx) => {
+    coursesList.forEach((course, idx) => {
       const isDone = Boolean(programmingCourses[course.id]);
       if (isDone) completedCount++;
 

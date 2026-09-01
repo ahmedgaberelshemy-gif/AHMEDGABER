@@ -851,3 +851,9 @@
       }
     ];
 
+    if (typeof window !== 'undefined') {
+      window.weeksData = weeksData;
+      window.programmingCoursesData = programmingCoursesData;
+    }
+
+

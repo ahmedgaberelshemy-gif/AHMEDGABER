@@ -26,6 +26,7 @@ class AppController {
         if (this.state.activeTab === 'routine') this.renderRoutine();
         if (this.state.activeTab === 'curriculum') this.renderCurriculum();
         if (this.state.activeTab === 'achievements') this.renderAchievements();
+        if (this.state.activeTab === 'programming') this.renderProgramming();
         this.cloudSyncService.updateStatusBadge();
       }
     });
@@ -39,6 +40,7 @@ class AppController {
         this.renderRoutine();
         this.renderCurriculum();
         this.renderAchievements();
+        this.renderProgramming();
         this.cloudSyncService.updateStatusBadge();
       }
     } catch (e) {}
