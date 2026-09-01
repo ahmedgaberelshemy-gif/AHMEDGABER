@@ -3,26 +3,26 @@
       <!-- Metallic Gold Shimmer Light Ribbon -->
       <div class="h-1 w-full shimmer-gold"></div>
 
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-right">
+      <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3.5 sm:py-5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-right">
         
         <!-- Right: System Title -->
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-lg text-amber-400 shadow-inner shrink-0">
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-base sm:text-lg text-amber-400 shadow-inner shrink-0">
             <i class="fa-solid fa-crown text-amber-400"></i>
           </div>
-          <h1 class="text-lg sm:text-xl lg:text-2xl font-black font-display text-white tracking-tight">
+          <h1 class="text-base sm:text-xl lg:text-2xl font-black font-display text-white tracking-tight">
             منظومة الامتياز والتفوق الأكاديمي
           </h1>
         </div>
 
         <!-- Left: Cloud Sync, Sound Toggle & Semester Info Badge -->
-        <div class="flex items-center gap-2.5 flex-wrap justify-center sm:justify-end">
+        <div class="flex items-center gap-2 sm:gap-2.5 flex-wrap justify-center sm:justify-end">
           <!-- Cloud Sync Badge Button -->
           <div 
             id="cloudSyncHeaderBadge" 
             onclick="app.openCloudSyncModal()" 
             title="المزامنة السحابية الفورية بين الأجهزة"
-            class="px-3.5 py-1.5 rounded-full bg-slate-500/20 text-slate-300 border border-slate-500/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-indigo-500/30 transition"
+            class="px-3 sm:px-3.5 py-1.5 rounded-full bg-slate-500/20 text-slate-300 border border-slate-500/30 text-[11px] sm:text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-indigo-500/30 transition active:scale-95"
           >
             <i class="fa-solid fa-cloud-arrow-up text-slate-400"></i>
             <span>تخزين محلي ⚪</span>
@@ -33,13 +33,13 @@
             onclick="toggleSoundMute()" 
             id="soundToggleBtn" 
             title="تبديل المؤثرات الصوتية الفاخرة"
-            class="w-9 h-9 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 flex items-center justify-center text-xs transition active:scale-95 shadow-2xs"
+            class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 flex items-center justify-center text-xs transition active:scale-95 shadow-2xs"
           >
             <i class="fa-solid fa-volume-high text-amber-400" id="soundToggleIcon"></i>
           </button>
 
           <!-- Semester Info Badge -->
-          <span class="px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs">
+          <span class="px-3 sm:px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 text-[11px] sm:text-xs font-bold font-display shadow-2xs backdrop-blur-xs">
             خطة الترم الأول 📅
           </span>
         </div>

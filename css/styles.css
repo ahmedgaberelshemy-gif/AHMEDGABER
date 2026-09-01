@@ -202,3 +202,46 @@ h1, h2, h3, h4, .font-display {
     display: none !important;
   }
 }
+
+/* =========================================================================
+   MOBILE RESPONSIVENESS & TOUCH OPTIMIZATIONS (iPhone & Android)
+   ========================================================================= */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, input, select, textarea, label {
+  touch-action: manipulation;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+
+  /* Make checkboxes slightly larger and easier to tap on mobile */
+  .checkbox-custom {
+    width: 26px;
+    height: 26px;
+  }
+
+  /* Ensure card headings don't wrap awkwardly */
+  h1 { font-size: 1.15rem !important; }
+  h2 { font-size: 1.25rem !important; }
+  h3 { font-size: 1.1rem !important; }
+
+  /* Compact button styling on phones */
+  .tab-btn {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Prevent any horizontal page shaking/overflow */
+  .max-w-7xl {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+}
+
