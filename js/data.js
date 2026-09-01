@@ -1,7 +1,6 @@
 /**
  * =========================================================================
- * JANAKLIS ACADEMIC OS - OFFICIAL UNIVERSITY SYLLABUS (19 FULL WEEKS)
- * Exactly 50 lessons per subject (300 total lessons)
+ * JANAKLIS ACADEMIC OS - OFFICIAL UNIVERSITY SYLLABUS & 12 PROGRAMMING TRACKS
  * =========================================================================
  */
 
@@ -1400,6 +1399,12 @@ const programmingCoursesData = [
     "title": "كورس ذكاء اصطناعي",
     "icon": "fa-brain",
     "color": "rose"
+  },
+  {
+    "id": "projects_lab",
+    "title": "كورس بناء المشاريع والتجريب العملي",
+    "icon": "fa-rocket",
+    "color": "emerald"
   }
 ];
 
