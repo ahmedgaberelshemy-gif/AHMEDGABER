@@ -259,3 +259,39 @@ h1, h2, h3, h4, h5, .font-display {
   .checkbox-custom { width: 26px; height: 26px; }
   .tab-btn { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 0.75rem !important; }
 }
+
+
+/* Universal Gold Shimmer Effect for all 100% items */
+.gold-card-100 {
+  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 35%, #fde68a 70%, #fffdf5 100%) !important;
+  border: 1.5px solid #f59e0b !important;
+  box-shadow: 0 12px 30px -5px rgba(245, 158, 11, 0.35), 0 0 18px rgba(245, 158, 11, 0.25) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  animation: goldPulseAura 3.5s infinite ease-in-out !important;
+}
+
+.gold-card-100::after {
+  content: '' !important;
+  position: absolute !important;
+  top: -80% !important;
+  left: -80% !important;
+  width: 260% !important;
+  height: 260% !important;
+  background: linear-gradient(
+    65deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 70%
+  ) !important;
+  transform: rotate(35deg) !important;
+  animation: sweepGoldShimmer 3.8s infinite linear !important;
+  pointer-events: none !important;
+}
+
+.gold-btn-100 {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%) !important;
+  border-color: #f59e0b !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.45), 0 0 0 1px rgba(245, 158, 11, 0.3) !important;
+}

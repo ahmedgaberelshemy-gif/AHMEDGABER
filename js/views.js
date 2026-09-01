@@ -823,9 +823,7 @@ class ProgrammingView {
 
       html += `
         <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
-          isDone
-            ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent shadow-xs'
-            : 'border-slate-200 hover:border-slate-300 shadow-xs'
+          isDone ? 'gold-card-100 shadow-md' : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
         } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
           
           <!-- Course Header & Badge -->
@@ -840,9 +838,7 @@ class ProgrammingView {
               </div>
 
               <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
-                isDone 
-                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-                  : 'bg-slate-100 text-slate-600 border border-slate-200'
+                isDone ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white shadow-xs' : 'bg-slate-100 text-slate-600 border border-slate-200'
               } whitespace-nowrap shrink-0">
                 ${isDone ? 'مكتمل 100% 🎓' : 'قيد المتابعة ⏳'}
               </span>
@@ -860,9 +856,7 @@ class ProgrammingView {
               type="button"
               onclick="toggleProgrammingCourse('${course.id}')" 
               class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
-                isDone 
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
-                  : 'bg-slate-50 hover:bg-emerald-50/70 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
+                isDone ? 'gold-btn-100 text-white shadow-md' : 'bg-slate-50 hover:bg-amber-50/70 border-slate-200 hover:border-amber-400 text-slate-700 hover:text-amber-950 shadow-2xs'
               }"
             >
               <div class="w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 transition ${

@@ -361,6 +361,7 @@ class AppController {
   }
 
   toggleProgrammingCourse(courseId) {
+    this.triggerGoldConfetti();
     if (!courseId) return;
     try {
       this.state.programmingCourses = this.state.programmingCourses || {};
