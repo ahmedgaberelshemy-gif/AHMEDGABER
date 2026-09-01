@@ -207,22 +207,22 @@ class CurriculumView {
 
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = `p-2.5 sm:p-3 rounded-2xl border transition flex items-center justify-between gap-2 text-right cursor-pointer select-none active:scale-95 ${
+      btn.className = `p-2.5 sm:p-3 rounded-2xl border transition flex flex-col justify-between gap-2 text-right cursor-pointer select-none active:scale-95 ${
         isActive 
-          ? `${style.cardBg} ${style.border} ring-2 ring-indigo-400 shadow-md text-slate-950 font-black` 
-          : 'bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 border-slate-700/60 shadow-2xs'
+          ? `${style.cardBg} ${style.border} ring-2 ring-indigo-500 shadow-md` 
+          : 'bg-slate-50 hover:bg-slate-100/90 text-slate-700 border-slate-200 hover:border-slate-300 shadow-2xs'
       }`;
 
       btn.innerHTML = `
-        <div class="flex items-center gap-2 min-w-0">
-          <div class="w-7 h-7 rounded-xl ${isActive ? style.iconBg : 'bg-slate-800'} ${isActive ? style.iconColor : 'text-slate-400'} flex items-center justify-center text-xs shrink-0">
+        <div class="flex items-center justify-between w-full gap-2">
+          <div class="w-8 h-8 rounded-xl ${isActive ? style.iconBg : 'bg-white border border-slate-200'} ${isActive ? style.iconColor : 'text-slate-700'} flex items-center justify-center text-xs shrink-0 shadow-2xs">
             <i class="fa-solid ${subj.icon}"></i>
           </div>
-          <span class="text-[11px] sm:text-xs font-black font-display truncate ${isActive ? 'text-slate-900' : 'text-white'}">${subj.name}</span>
+          <span class="text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${isActive ? style.badge : 'bg-white text-slate-600 border border-slate-200'} shrink-0">
+            ${stats.percentage}%
+          </span>
         </div>
-        <span class="text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${isActive ? style.badge : 'bg-slate-800 text-slate-400'} shrink-0">
-          ${stats.percentage}%
-        </span>
+        <span class="text-xs sm:text-[13px] font-black font-display leading-tight text-slate-900">${subj.name}</span>
       `;
       btn.onclick = () => app.switchSubject(sIdx);
       container.appendChild(btn);
@@ -261,14 +261,14 @@ class CurriculumView {
                   ${stats.percentage}% إنجاز
                 </span>
               </div>
-              <p class="text-xs text-slate-500 font-medium mt-1 leading-relaxed">${currentMeta.desc}</p>
+              <p class="text-xs text-slate-600 font-medium mt-1 leading-relaxed">${currentMeta.desc}</p>
             </div>
           </div>
 
           <div class="w-full sm:w-48 text-center sm:text-left shrink-0">
             <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-1.5">
               <span>نسبة إتمام المقرر</span>
-              <span class="font-mono font-black text-slate-900">${stats.completedCount} / ${stats.totalCount}</span>
+              <span class="font-mono font-black text-slate-900">${stats.completedCount || 0} / ${stats.totalCount || 0}</span>
             </div>
             <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
               <div class="h-full rounded-full ${style.progressBar} transition-all duration-500" style="width: ${stats.percentage}%"></div>
@@ -306,7 +306,7 @@ class CurriculumView {
               <span class="text-xs font-black font-display px-2.5 py-1 rounded-xl ${
                 isWeekDone 
                   ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-500 border border-slate-200' : 'bg-slate-100 text-slate-600')
+                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-600 border border-slate-200' : 'bg-slate-100 text-slate-600')
               } whitespace-nowrap shrink-0">
                 ${isWeekDone ? 'مكتمل 100% 👑' : (lessons.length === 0 ? 'قيد الإعداد ⏳' : `${lessons.length} دروس`)}
               </span>
@@ -360,8 +360,8 @@ class CurriculumView {
                   </div>
                 `;
               }).join('') : `
-                <div class="text-center py-6 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold bg-slate-50/50 flex flex-col items-center justify-center gap-1.5">
-                  <i class="fa-solid fa-hourglass-start text-slate-300 text-base"></i>
+                <div class="text-center py-6 border border-dashed border-slate-200 rounded-2xl text-slate-500 text-xs font-bold bg-slate-50/60 flex flex-col items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-hourglass-start text-slate-400 text-base"></i>
                   <span>قيد الإعداد والتجهيز.. سيتم إدراج دروس المقرر قريباً ⏳</span>
                 </div>
               `}
@@ -377,6 +377,7 @@ class CurriculumView {
     container.innerHTML = headerHtml + weeksHtml;
   }
 }
+
 
 
 

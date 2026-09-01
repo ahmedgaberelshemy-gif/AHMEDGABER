@@ -1,14 +1,14 @@
 <!-- ========================================================================= -->
-<!-- SECTION 2: CURRICULUM (المقررات والمناهج الدراسية - النظام الأولي) -->
+<!-- SECTION 2: CURRICULUM (المقررات والمناهج الدراسية) -->
 <!-- ========================================================================= -->
 <section id="section-curriculum" class="space-y-6 hidden animate-slide-up">
 
-  <!-- Header Banner: System Info & Subject Selector -->
-  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden text-center sm:text-right space-y-4">
+  <!-- Header Banner -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden text-center sm:text-right">
     <!-- Top Accent Glow Ribbon -->
     <div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400"></div>
 
-    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 relative z-10">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-lg text-indigo-400 shrink-0">
           <i class="fa-solid fa-graduation-cap"></i>
@@ -18,14 +18,20 @@
             المقررات الدراسية 📚
           </h2>
           <p class="text-xs text-slate-300 font-medium mt-0.5">
-            اختر المقرر الدراسي لمتابعة وتصفح الأسابيع والدروس
+            اختر المادة الدراسية لتصفح ومتابعة الأسابيع والدروس
           </p>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- 6 Subjects Selector Bar (Pills) -->
-    <div id="weekPillsBar" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-3 border-t border-slate-800">
+  <!-- 6 Subjects Clean Selector Bar -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-3 sm:p-4 shadow-xs">
+    <div class="text-xs font-bold text-slate-500 mb-2.5 px-1 flex items-center gap-2">
+      <i class="fa-solid fa-layer-group text-indigo-600"></i>
+      <span>المواد الدراسية (اضغط لاختيار المادة):</span>
+    </div>
+    <div id="weekPillsBar" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5">
       <!-- Rendered dynamically by CurriculumView.renderSubjectPills -->
     </div>
   </div>
