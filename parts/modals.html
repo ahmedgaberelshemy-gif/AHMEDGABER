@@ -130,3 +130,104 @@
       </div>
     </div>
   </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- FLOATING AI ACADEMIC MENTOR TRIGGER & DIALOG MODAL -->
+  <!-- ========================================================================= -->
+  
+  <!-- 1. Floating AI Mentor Button -->
+  <div class="fixed bottom-6 left-6 z-40 no-print">
+    <button 
+      type="button"
+      onclick="app.openAiMentorModal()" 
+      class="ai-orb-pulse px-4 sm:px-5 py-3 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white shadow-xl flex items-center gap-2.5 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/25 cursor-pointer select-none"
+      title="فتح المرشد الأكاديمي الذكي (AI Mentor)"
+    >
+      <span class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+      </span>
+      <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-sm animate-pulse"></i>
+      <span class="font-display font-black text-xs sm:text-sm">المرشد الأكاديمي AI</span>
+    </button>
+  </div>
+
+  <!-- 2. AI Mentor Interactive Modal -->
+  <div id="aiMentorModal" class="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 opacity-0 pointer-events-none transition-opacity duration-300 no-print">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden transform scale-95 transition-transform duration-300" id="aiMentorModalCard">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 p-4 sm:p-5 text-white flex items-center justify-between gap-3 shrink-0 border-b border-white/10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-pink-500 flex items-center justify-center text-lg shadow-md shadow-indigo-500/40 text-white shrink-0">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-display font-black text-sm sm:text-base">المرشد الأكاديمي الذكي (AI Mentor)</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> متصل وذكي
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-300 font-medium">مساعدك الشخصي لشرح المقررات، حل الأسئلة، وتوجيه مسار البرمجة 🚀</p>
+          </div>
+        </div>
+
+        <button onclick="app.closeAiMentorModal()" class="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white flex items-center justify-center text-sm transition cursor-pointer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="p-3 bg-slate-50 border-b border-slate-200/80 flex items-center gap-2 overflow-x-auto text-xs font-bold scrollbar-none shrink-0">
+        <button onclick="app.sendAiQuickPrompt('quiz')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-700 border border-slate-200 hover:border-indigo-300 flex items-center gap-1.5 whitespace-nowrap shadow-2xs transition active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-circle-question text-indigo-500"></i> اختبرني بأسئلة MCQs 🎯
+        </button>
+        <button onclick="app.sendAiQuickPrompt('explain')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-purple-50 text-purple-700 border border-slate-200 hover:border-purple-300 flex items-center gap-1.5 whitespace-nowrap shadow-2xs transition active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-lightbulb text-purple-500"></i> اشرح ولخّص درساً 💡
+        </button>
+        <button onclick="app.sendAiQuickPrompt('coding')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-cyan-50 text-cyan-700 border border-slate-200 hover:border-cyan-300 flex items-center gap-1.5 whitespace-nowrap shadow-2xs transition active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-laptop-code text-cyan-500"></i> توجيه مسار البرمجة 💻
+        </button>
+        <button onclick="app.sendAiQuickPrompt('progress')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 border border-slate-200 hover:border-emerald-300 flex items-center gap-1.5 whitespace-nowrap shadow-2xs transition active:scale-95 cursor-pointer">
+          <i class="fa-solid fa-chart-line text-emerald-500"></i> تحليل أدائي الدراسي 📈
+        </button>
+      </div>
+
+      <!-- Chat Messages Container -->
+      <div id="aiChatContainer" class="flex-1 p-4 sm:p-5 overflow-y-auto space-y-3.5 bg-slate-50/50 text-xs sm:text-sm">
+        <!-- Default Welcome Message -->
+        <div class="flex items-start gap-2.5 ai-bubble-in">
+          <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs shrink-0 shadow-xs">
+            <i class="fa-solid fa-robot"></i>
+          </div>
+          <div class="bg-white p-3.5 rounded-2xl rounded-tr-xs border border-slate-200 shadow-2xs text-slate-800 space-y-1.5 max-w-[85%] leading-relaxed">
+            <p class="font-bold font-display text-indigo-950">أهلاً بك يا بطل الامتياز! 👑✨</p>
+            <p>أنا **مرشدك الأكاديمي الذكي (AI Mentor)**. جاهز لشرح أي مفهوم في المواد الـ 6 (الإدارة، المحاسبة، الاقتصاد، القانون، علم النفس، الإنجليزي)، أو مساعدتك في مسار البرمجة والكورسات الـ 12، أو اختبارك بأسئلة امتحانات سريعة!</p>
+            <p class="text-[11px] text-slate-500 font-medium">اختر من الأزرار السريعة بالأعلى أو اكتب سؤالك بالأسفل مباشرة 👇</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Box -->
+      <div class="p-3 sm:p-4 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0">
+        <input 
+          type="text" 
+          id="aiChatInput" 
+          placeholder="اسألني في أي درس أو مقرر أو فكرة برمجية..." 
+          class="flex-1 p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition"
+          onkeydown="if(event.key === 'Enter') app.sendAiMessage()"
+        />
+        <button 
+          type="button"
+          onclick="app.sendAiMessage()" 
+          class="px-4 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-bold text-xs sm:text-sm shadow-md flex items-center gap-2 transition active:scale-95 cursor-pointer shrink-0"
+        >
+          <span>إرسال</span>
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
