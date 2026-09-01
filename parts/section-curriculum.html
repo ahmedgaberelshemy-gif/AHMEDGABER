@@ -1,24 +1,38 @@
 <!-- ========================================================================= -->
-<!-- SECTION 2: CURRICULUM (المقررات الدراسية - أسماء المواد فقط) -->
+<!-- SECTION 2: CURRICULUM (المقررات والمناهج الدراسية - النظام الأولي) -->
 <!-- ========================================================================= -->
 <section id="section-curriculum" class="space-y-6 hidden animate-slide-up">
 
-  <!-- Header Banner -->
-  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden text-center sm:text-right">
+  <!-- Header Banner: System Info & Subject Selector -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden text-center sm:text-right space-y-4">
+    <!-- Top Accent Glow Ribbon -->
     <div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400"></div>
-    <div class="flex items-center justify-center sm:justify-start gap-3 relative z-10">
-      <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-lg text-indigo-400 shrink-0">
-        <i class="fa-solid fa-graduation-cap"></i>
+
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-lg text-indigo-400 shrink-0">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="text-right">
+          <h2 class="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
+            المقررات الدراسية 📚
+          </h2>
+          <p class="text-xs text-slate-300 font-medium mt-0.5">
+            اختر المقرر الدراسي لمتابعة وتصفح الأسابيع والدروس
+          </p>
+        </div>
       </div>
-      <h2 class="text-xl sm:text-2xl font-black font-display text-white tracking-tight">
-        المقررات الدراسية 📚
-      </h2>
+    </div>
+
+    <!-- 6 Subjects Selector Bar (Pills) -->
+    <div id="weekPillsBar" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 pt-3 border-t border-slate-800">
+      <!-- Rendered dynamically by CurriculumView.renderSubjectPills -->
     </div>
   </div>
 
-  <!-- Subjects Cards Dynamic Grid -->
-  <div id="subjectsCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-    <!-- Rendered dynamically by CurriculumView in views.js -->
+  <!-- Active Subject Stage Container (Hero + 10 Weeks Breakdown) -->
+  <div id="curriculumWeekStage" class="space-y-6">
+    <!-- Rendered dynamically by CurriculumView.renderActiveSubjectWeeks -->
   </div>
 
 </section>

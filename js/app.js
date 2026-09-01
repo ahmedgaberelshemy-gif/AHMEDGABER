@@ -297,6 +297,48 @@ class AppController {
     }
   }
 
+    // ==========================================
+  // Curriculum Handlers (10 Weeks & 6 Subjects)
+  // ==========================================
+  renderCurriculum() {
+    this.state.activeSubject = (typeof this.state.activeSubject === 'number') ? this.state.activeSubject : 0;
+    this.state.lessonProgress = this.state.lessonProgress || {};
+    this.state.lessonNotes = this.state.lessonNotes || {};
+    CurriculumView.render(this.state.activeSubject, this.state.lessonProgress, this.state.lessonNotes);
+  }
+
+  switchSubject(subjectIdx) {
+    this.state.activeSubject = subjectIdx;
+    this.renderCurriculum();
+    this.storageService.save(this.state);
+  }
+
+  toggleLesson(lessonKey) {
+    if (!lessonKey) return;
+    try {
+      this.state.lessonProgress = this.state.lessonProgress || {};
+      const current = Boolean(this.state.lessonProgress[lessonKey]);
+      const isNowDone = !current;
+
+      if (isNowDone) {
+        this.state.lessonProgress[lessonKey] = true;
+        SoundService.playCheck();
+        CelebrationService.smallPop();
+      } else {
+        delete this.state.lessonProgress[lessonKey];
+        SoundService.playCheck();
+      }
+
+      this.storageService.save(this.state);
+      this.cloudSyncService.push(this.state);
+      HeaderView.render(this.state);
+      this.renderCurriculum();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling lesson:', err);
+    }
+  }
+
   // Programming Track Handlers
   // ==========================================
   renderProgramming() {
@@ -630,6 +672,7 @@ const app = new AppController();
 if (typeof window !== "undefined") { window.app = app; }
 
 // Global event delegates for HTML inline events
+function switchSubject(idx) { app.switchSubject(idx); }
 function switchTab(tabId) { app.switchTab(tabId); }
 function togglePrayer(prayerId) { app.togglePrayer(prayerId); }
 function toggleGymStatus() { app.toggleGym(); }
@@ -704,6 +747,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 if (typeof window !== 'undefined') {
   window.app = app;
+  window.switchSubject = switchSubject;
   window.switchTab = switchTab;
   window.togglePrayer = togglePrayer;
   window.toggleGymStatus = toggleGymStatus;

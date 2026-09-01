@@ -184,79 +184,200 @@ class RoutineView {
   }
 }
 
-// 2. CURRICULUM VIEW (Subjects Only - Clean Cards)
+// 2. CURRICULUM VIEW (6 Subjects Navigation & 10 Weeks Breakdown)
 class CurriculumView {
-  static render(subjectsProgress = {}) {
-    const container = document.getElementById('subjectsCardsContainer');
+  static render(activeSubject, lessonProgress = {}, lessonNotes = {}) {
+    const subjIdx = (typeof activeSubject === 'number' && activeSubject >= 0 && activeSubject < (APP_CONFIG.SUBJECTS || []).length) 
+      ? activeSubject 
+      : 0;
+    this.renderSubjectPills(subjIdx, lessonProgress);
+    this.renderActiveSubjectWeeks(subjIdx, lessonProgress, lessonNotes);
+  }
+
+  static renderSubjectPills(activeSubject, lessonProgress) {
+    const container = document.getElementById('weekPillsBar');
     if (!container) return;
+    container.innerHTML = '';
 
     const subjects = APP_CONFIG.SUBJECTS || [];
-    let html = '';
+    subjects.forEach((subj, sIdx) => {
+      const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, sIdx);
+      const isActive = sIdx === activeSubject;
+      const style = colorStyles[subj.color] || colorStyles.blue;
 
-    subjects.forEach((subj) => {
-      const isDone = Boolean(subjectsProgress[subj.id]);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `p-2.5 sm:p-3 rounded-2xl border transition flex items-center justify-between gap-2 text-right cursor-pointer select-none active:scale-95 ${
+        isActive 
+          ? `${style.cardBg} ${style.border} ring-2 ring-indigo-400 shadow-md text-slate-950 font-black` 
+          : 'bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 border-slate-700/60 shadow-2xs'
+      }`;
 
-      html += `
-        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
-          isDone
-            ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-indigo-500/5 to-transparent shadow-xs'
+      btn.innerHTML = `
+        <div class="flex items-center gap-2 min-w-0">
+          <div class="w-7 h-7 rounded-xl ${isActive ? style.iconBg : 'bg-slate-800'} ${isActive ? style.iconColor : 'text-slate-400'} flex items-center justify-center text-xs shrink-0">
+            <i class="fa-solid ${subj.icon}"></i>
+          </div>
+          <span class="text-[11px] sm:text-xs font-black font-display truncate ${isActive ? 'text-slate-900' : 'text-white'}">${subj.name}</span>
+        </div>
+        <span class="text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${isActive ? style.badge : 'bg-slate-800 text-slate-400'} shrink-0">
+          ${stats.percentage}%
+        </span>
+      `;
+      btn.onclick = () => app.switchSubject(sIdx);
+      container.appendChild(btn);
+    });
+  }
+
+  static renderActiveSubjectWeeks(activeSubject, lessonProgress, lessonNotes) {
+    const container = document.getElementById('curriculumWeekStage');
+    if (!container) return;
+
+    const subjectMeta = [
+      { name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue", desc: "مدخل الأعمال، أنواع المنظمات، القيادة، التسويق، العمليات، والموارد البشرية" },
+      { name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald", desc: "المعادلة المحاسبية، القيد المزدوج، اليومية المساعدة، القوائم المالية، والشركات" },
+      { name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber", desc: "العرض والطلب، المرونة، سلوك المستهلك، والتحليل الاقتصادي" },
+      { name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple", desc: "القواعد القانونية، مصادر القانون، الحقوق والالتزامات" },
+      { name: "علم النفس", icon: "fa-brain", color: "rose", desc: "السلوك الإنساني، الدوافع، الإدراك، والعمليات المعرفية" },
+      { name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan", desc: "المصطلحات التجارية، القواعد اللغوية، والقراءة المتخصصة" }
+    ];
+
+    const currentMeta = subjectMeta[activeSubject] || subjectMeta[0];
+    const style = colorStyles[currentMeta.color] || colorStyles.blue;
+    const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, activeSubject);
+
+    // Subject Hero Header
+    const headerHtml = `
+      <div class="bg-white p-5 sm:p-6 rounded-3xl border ${style.border} ${style.cardBg} shadow-xs mb-6 space-y-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5 text-center sm:text-right">
+            <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shrink-0 shadow-sm">
+              <i class="fa-solid ${currentMeta.icon}"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 justify-center sm:justify-start">
+                <h3 class="text-lg sm:text-xl font-black font-display text-slate-900">${currentMeta.name}</h3>
+                <span class="text-xs font-black font-display px-2.5 py-0.5 rounded-lg ${style.badge}">
+                  ${stats.percentage}% إنجاز
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 font-medium mt-1 leading-relaxed">${currentMeta.desc}</p>
+            </div>
+          </div>
+
+          <div class="w-full sm:w-48 text-center sm:text-left shrink-0">
+            <div class="flex items-center justify-between text-xs font-bold text-slate-600 mb-1.5">
+              <span>نسبة إتمام المقرر</span>
+              <span class="font-mono font-black text-slate-900">${stats.completedCount} / ${stats.totalCount}</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden shadow-inner">
+              <div class="h-full rounded-full ${style.progressBar} transition-all duration-500" style="width: ${stats.percentage}%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // 10 Weeks Breakdown Grid
+    let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">';
+
+    weeksData.forEach((w) => {
+      const subjectData = w.subjects ? w.subjects[activeSubject] : null;
+      const lessons = subjectData ? (subjectData.lessons || []) : [];
+      const isWeekDone = lessons.length > 0 && lessons.every((_, lIdx) => Boolean(lessonProgress[`w${w.week}_s${activeSubject}_l${lIdx}`]));
+
+      weeksHtml += `
+        <div class="bg-white rounded-3xl border transition card-lift ${
+          isWeekDone 
+            ? 'border-emerald-300 emerald-glow-border bg-emerald-500/5 shadow-xs' 
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
         } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
           
-          <!-- Subject Header -->
-          <div class="space-y-3">
-            <div class="flex items-center justify-between gap-2">
-              <div class="w-11 h-11 rounded-2xl ${
-                isDone 
-                  ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
-                  : 'bg-indigo-50 text-indigo-600 border border-indigo-100'
-              } flex items-center justify-center text-xl shrink-0 transition">
-                <i class="fa-solid ${subj.icon}"></i>
+          <div>
+            <!-- Week Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
+              <div class="flex items-center gap-2.5">
+                <span class="w-7 h-7 rounded-xl ${isWeekDone ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-700'} flex items-center justify-center text-xs font-black font-mono shadow-2xs">
+                  ${w.week}
+                </span>
+                <h4 class="font-display font-black text-sm sm:text-base text-slate-900">${w.title}</h4>
               </div>
 
-              <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
-                isDone 
+              <span class="text-xs font-black font-display px-2.5 py-1 rounded-xl ${
+                isWeekDone 
                   ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
-                  : 'bg-slate-100 text-slate-600 border border-slate-200'
+                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-500 border border-slate-200' : 'bg-slate-100 text-slate-600')
               } whitespace-nowrap shrink-0">
-                ${isDone ? 'مكتمل 100% 🎓' : 'قيد الدراسة 📖'}
+                ${isWeekDone ? 'مكتمل 100% 👑' : (lessons.length === 0 ? 'قيد الإعداد ⏳' : `${lessons.length} دروس`)}
               </span>
             </div>
 
-            <!-- Full Subject Name (No Truncation) -->
-            <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug">
-              ${subj.name}
-            </h3>
+            <!-- Lessons Checklist or Empty State Placeholder -->
+            <div class="space-y-2.5 pt-3">
+              ${lessons.length > 0 ? lessons.map((lesson, lIdx) => {
+                const lessonKey = `w${w.week}_s${activeSubject}_l${lIdx}`;
+                const isChecked = Boolean(lessonProgress[lessonKey]);
+                const hasNote = Boolean(lessonNotes && lessonNotes[lessonKey] && lessonNotes[lessonKey].trim());
+                const numStr = (lIdx + 1) < 10 ? `0${lIdx + 1}` : `${lIdx + 1}`;
+
+                return `
+                  <div class="p-2.5 sm:p-3 rounded-2xl border transition flex items-start justify-between gap-2.5 ${
+                    isChecked 
+                      ? 'bg-emerald-50/90 border-emerald-300 shadow-2xs' 
+                      : 'bg-white border-slate-200 hover:bg-slate-50/70 shadow-2xs'
+                  }">
+                    <div class="flex items-start gap-2.5 flex-1 min-w-0">
+                      <input 
+                        type="checkbox" 
+                        id="chk_${lessonKey}" 
+                        ${isChecked ? 'checked' : ''} 
+                        onchange="app.toggleLesson('${lessonKey}')" 
+                        class="checkbox-custom mt-0.5"
+                      />
+                      <label 
+                        for="chk_${lessonKey}" 
+                        class="text-[12px] sm:text-[13px] font-bold leading-relaxed cursor-pointer select-none ${
+                          isChecked ? 'text-emerald-950 line-through opacity-85' : 'text-slate-900'
+                        }"
+                      >
+                        <span class="font-display text-[9px] font-black px-1.5 py-0.5 rounded-md border shrink-0 bg-slate-100 text-slate-700 ml-1 inline-block no-underline">${numStr}</span>
+                        ${lesson}
+                      </label>
+                    </div>
+
+                    <button 
+                      type="button"
+                      onclick="app.openNoteModal('${lessonKey}')" 
+                      title="ملاحظات وتلخيص الدرس"
+                      class="p-1.5 rounded-xl border text-xs shrink-0 transition active:scale-90 cursor-pointer ${
+                        hasNote 
+                          ? 'bg-amber-100 text-amber-800 border-amber-300 shadow-xs' 
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-500 border-slate-200'
+                      }"
+                    >
+                      <i class="fa-solid fa-note-sticky"></i>
+                    </button>
+                  </div>
+                `;
+              }).join('') : `
+                <div class="text-center py-6 border border-dashed border-slate-200 rounded-2xl text-slate-400 text-xs font-bold bg-slate-50/50 flex flex-col items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-hourglass-start text-slate-300 text-base"></i>
+                  <span>قيد الإعداد والتجهيز.. سيتم إدراج دروس المقرر قريباً ⏳</span>
+                </div>
+              `}
+            </div>
           </div>
 
-          <!-- Interactive Completion Toggle Button -->
-          <div class="pt-2 border-t border-slate-100">
-            <button 
-              type="button"
-              onclick="toggleSubjectCompletion(${subj.id})" 
-              class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
-                isDone 
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
-                  : 'bg-slate-50 hover:bg-indigo-50/70 border-slate-200 hover:border-indigo-400 text-slate-700 hover:text-indigo-950 shadow-2xs'
-              }"
-            >
-              <div class="w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 transition ${
-                isDone ? 'bg-white text-emerald-700 font-black' : 'border border-slate-300 bg-white text-transparent'
-              }">
-                <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>
-              </div>
-              <span class="font-bold">
-                ${isDone ? 'أتممت المقرر بنجاح (100%)' : 'تعليم المقرر كمكتمل'}
-              </span>
-            </button>
-          </div>
         </div>
       `;
     });
 
-    container.innerHTML = html;
+    weeksHtml += '</div>';
+
+    container.innerHTML = headerHtml + weeksHtml;
   }
 }
+
 
 
 // =========================================================================
