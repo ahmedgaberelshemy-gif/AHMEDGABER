@@ -81,6 +81,13 @@ class AppController {
     if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
 
+    const activeSec = tabId === 'routine' ? routineSec : (tabId === 'curriculum' ? curricSec : achieveSec);
+    if (activeSec) {
+      activeSec.classList.remove('animate-fade-in');
+      void activeSec.offsetWidth;
+      activeSec.classList.add('animate-fade-in');
+    }
+
     if (tabId === 'routine') this.renderRoutine();
     if (tabId === 'curriculum') this.renderCurriculum();
     if (tabId === 'achievements') this.renderAchievements();
@@ -227,6 +234,12 @@ class AppController {
   switchSubject(subjectIdx) {
     this.state.currentSubject = subjectIdx;
     this.renderCurriculum();
+    const stage = document.getElementById('curriculumWeekStage');
+    if (stage) {
+      stage.classList.remove('animate-fade-in');
+      void stage.offsetWidth;
+      stage.classList.add('animate-fade-in');
+    }
     this.saveAndRefreshViews();
   }
 

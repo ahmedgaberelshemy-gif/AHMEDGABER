@@ -296,11 +296,11 @@ class CurriculumView {
       const weekPercentage = totalLessons > 0 ? Math.round((completedInWeek / totalLessons) * 100) : 0;
 
       weeksCardsHtml += `
-        <div class="bg-white rounded-3xl border transition ${
+        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in stagger-card ${
           isWeekFull 
             ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/10 via-emerald-500/5 to-transparent shadow-xs' 
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
-        } p-5 space-y-4 flex flex-col justify-between">
+        } p-4 sm:p-5 space-y-4 flex flex-col justify-between">
           <div>
             <!-- Week Header inside Subject -->
             <div class="flex items-center justify-between pb-3 border-b border-slate-100">
