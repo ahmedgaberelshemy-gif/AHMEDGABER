@@ -14,10 +14,10 @@ const FIREBASE_CONFIG = Object.freeze({
 });
 
 const APP_CONFIG = Object.freeze({
-  STORAGE_KEY: 'janaklis_life_academic_os_v41',
+  STORAGE_KEY: 'janaklis_life_academic_os_v42',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
   TOTAL_SEMESTER_DAYS: 112,
-  TOTAL_WEEKS: 10,
+  TOTAL_WEEKS: 19,
   TOTAL_SUBJECTS: 6,
   WEIGHTS: {
     PRAYER_TOTAL: 30,

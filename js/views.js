@@ -605,7 +605,7 @@ class AchievementsView {
       <div class="space-y-2.5 pt-3 border-t border-slate-100">
         <div class="text-xs font-bold text-slate-600 flex items-center gap-2 px-1">
           <i class="fa-solid fa-calendar-days text-indigo-600"></i>
-          <span>إنجاز أسابيع الترم الـ 10:</span>
+          <span>إنجاز أسابيع الترم الـ 19 (حتى 17 يناير):</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
     `;
