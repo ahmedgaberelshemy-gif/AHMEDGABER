@@ -51,13 +51,14 @@ class AppController {
     if (this.state.activeTab === 'routine') this.renderRoutine();
     if (this.state.activeTab === 'curriculum') this.renderCurriculum();
     if (this.state.activeTab === 'achievements') this.renderAchievements();
+    if (this.state.activeTab === 'programming') this.renderProgramming();
   }
 
   // ==========================================
-  // Navigation: 3 Master Tabs
+  // Navigation: 4 Master Tabs
   // ==========================================
   switchTab(tabId) {
-    if (!['routine', 'curriculum', 'achievements'].includes(tabId)) {
+    if (!['routine', 'curriculum', 'achievements', 'programming'].includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
@@ -76,16 +77,19 @@ class AppController {
     const routineSec = document.getElementById('section-routine');
     const curricSec = document.getElementById('section-curriculum');
     const achieveSec = document.getElementById('section-achievements');
+    const progSec = document.getElementById('section-programming');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
     if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
+    if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
 
     if (tabId === 'routine') this.renderRoutine();
     if (tabId === 'curriculum') this.renderCurriculum();
     if (tabId === 'achievements') this.renderAchievements();
+    if (tabId === 'programming') this.renderProgramming();
 
-    const activeSec = tabId === 'routine' ? routineSec : (tabId === 'curriculum' ? curricSec : achieveSec);
+    const activeSec = tabId === 'routine' ? routineSec : (tabId === 'curriculum' ? curricSec : (tabId === 'achievements' ? achieveSec : progSec));
     if (activeSec) {
       activeSec.classList.remove('animate-fade-in');
       void activeSec.offsetWidth;
@@ -261,6 +265,32 @@ class AppController {
     }
 
     this.renderCurriculum();
+    this.saveAndRefreshViews();
+  }
+
+  // ==========================================
+  // Programming Track Handlers
+  // ==========================================
+  renderProgramming() {
+    this.state.programmingCourses = this.state.programmingCourses || {};
+    ProgrammingView.render(this.state.programmingCourses);
+  }
+
+  toggleProgrammingCourse(courseId) {
+    if (!courseId) return;
+    this.state.programmingCourses = this.state.programmingCourses || {};
+    const isNowDone = !Boolean(this.state.programmingCourses[courseId]);
+    this.state.programmingCourses[courseId] = isNowDone;
+
+    if (isNowDone) {
+      SoundService.playSuccess();
+      CelebrationService.fireConfetti();
+    } else {
+      SoundService.playCheck();
+    }
+
+    this.renderProgramming();
+    this.renderAchievements();
     this.saveAndRefreshViews();
   }
 
@@ -587,6 +617,7 @@ function copyCloudShareableUrl() { app.copyCloudShareableUrl(); }
 function connectAndSyncCloud() { app.connectAndSyncCloud(); }
 function disconnectCloudSync() { app.disconnectCloudSync(); }
 function resetEntireSystem() { app.resetEntireSystem(); }
+function toggleProgrammingCourse(id) { app.toggleProgrammingCourse(id); }
 function toggleIncompleteDetailsSection() {
   const wrapper = document.getElementById('incompleteDetailsWrapper');
   const icon = document.getElementById('toggleIncompleteIcon');

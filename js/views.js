@@ -379,9 +379,7 @@ class CurriculumView {
     weeksCardsHtml += '</div>';
     container.innerHTML = headerHtml + weeksCardsHtml;
   }
-}
-
-// 3. ACHIEVEMENTS VIEW (The Exact 3 Parts: 6 Subjects Progress, Full Weeks Milestones, and Routine Days History)
+// 3. ACHIEVEMENTS VIEW (6 Subjects Progress, Full Weeks Milestones, Routine Days, and Programming Track)
 class AchievementsView {
   static render(state, storageService) {
     // Part 1: 6 Subjects Mastery Cards (0% to 100% per subject)
@@ -392,6 +390,9 @@ class AchievementsView {
 
     // Part 3: Routine Days History (Fair ratio & counts of perfect vs incomplete days)
     this.renderRoutineAchievements(state.dailyLogs);
+
+    // Part 4: Programming Track Achievements (5 Courses)
+    this.renderProgrammingAchievements(state.programmingCourses || {});
   }
 
   // 1. Render Subject Progress Bars (6 Subjects)
@@ -704,9 +705,188 @@ class AchievementsView {
       </div>
     `;
   }
+
+  // 4. Render Programming Track Achievements Progress Card
+  static renderProgrammingAchievements(programmingCourses = {}) {
+    const container = document.getElementById('programmingAchievementsContainer');
+    const badge = document.getElementById('programmingAchievementsBadge');
+    if (!container || typeof programmingCoursesData === 'undefined') return;
+
+    const totalCourses = programmingCoursesData.length;
+    let completedCount = 0;
+
+    programmingCoursesData.forEach(c => {
+      if (programmingCourses[c.id]) completedCount++;
+    });
+
+    const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
+    const isAllDone = totalCourses > 0 && completedCount === totalCourses;
+
+    if (badge) {
+      badge.className = `text-xs font-black font-display px-3 py-1 rounded-lg ${
+        isAllDone 
+          ? 'shimmer-gold text-slate-950 shadow-2xs' 
+          : 'text-cyan-800 bg-cyan-50 border border-cyan-200'
+      }`;
+      badge.innerText = `${completedCount} من ${totalCourses} كورسات (${percentage}%)`;
+    }
+
+    container.innerHTML = `
+      <div class="p-4 sm:p-5 rounded-3xl border ${
+        isAllDone 
+          ? 'border-amber-400 gold-glow-border bg-gradient-to-br from-amber-500/15 via-emerald-500/10 to-transparent' 
+          : 'border-cyan-200 bg-cyan-50/40'
+      } space-y-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl ${
+              isAllDone 
+                ? 'shimmer-gold text-slate-950 shadow-md shadow-amber-500/25' 
+                : 'bg-cyan-500 text-white shadow-md shadow-cyan-500/25'
+            } flex items-center justify-center text-lg font-black shrink-0">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <div>
+              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">مسار علوم الحاسب وتطوير الويب (5 كورسات)</h4>
+              <p class="text-xs text-slate-600 font-medium">${isAllDone ? '🎉 أتممت المسار البرمجي بالكامل بنجاح!' : 'خطتك التأسيسية لاحتراف البرمجة وبناء المشاريع الحية'}</p>
+            </div>
+          </div>
+
+          <button 
+            onclick="app.switchTab('programming')" 
+            class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-display font-black text-xs shadow-sm flex items-center gap-1.5 transition active:scale-95 shrink-0 cursor-pointer"
+          >
+            <span>فتح مسار البرمجة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+            <span>نسبة إنجاز الكورسات</span>
+            <span class="font-mono font-black ${isAllDone ? 'text-amber-900' : 'text-cyan-800'}">${percentage}%</span>
+          </div>
+          <div class="w-full bg-slate-200/80 rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
+            <div class="${isAllDone ? 'shimmer-gold' : 'bg-gradient-to-r from-cyan-500 to-indigo-600'} h-full rounded-full transition-all duration-700 ease-out" style="width: ${percentage}%"></div>
+          </div>
+        </div>
+
+        <!-- Course Quick Status Pills -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2 border-t border-slate-200/60">
+          ${programmingCoursesData.map(c => {
+            const isDone = Boolean(programmingCourses[c.id]);
+            return `
+              <div class="p-2 sm:p-2.5 rounded-xl border text-center space-y-0.5 transition ${
+                isDone 
+                  ? 'bg-emerald-100/90 border-emerald-300 text-emerald-950 shadow-2xs font-bold' 
+                  : 'bg-white/80 border-slate-200 text-slate-500 font-medium'
+              }">
+                <div class="text-[11px] sm:text-xs truncate font-display font-black">${c.title.split('(')[0].trim()}</div>
+                <div class="text-[10px]">${isDone ? '✅ مكتمل' : '⏳ قيد التعلم'}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  }
 }
 
-// 4. HEADER VIEW (Live Header Metadata)
+// 4. PROGRAMMING VIEW (5 Courses Track Cards)
+class ProgrammingView {
+  static render(programmingCourses = {}) {
+    const container = document.getElementById('programmingCoursesContainer');
+    const badge = document.getElementById('programmingOverallBadge');
+    const bar = document.getElementById('programmingProgressBar');
+
+    if (!container || typeof programmingCoursesData === 'undefined') return;
+
+    const totalCourses = programmingCoursesData.length;
+    let completedCount = 0;
+
+    let html = '';
+    programmingCoursesData.forEach((course, idx) => {
+      const isDone = Boolean(programmingCourses[course.id]);
+      if (isDone) completedCount++;
+
+      html += `
+        <div class="bg-white rounded-3xl border transition card-lift animate-fade-in stagger-card ${
+          isDone
+            ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent shadow-xs'
+            : 'border-slate-200 hover:border-slate-300 shadow-xs'
+        } p-5 space-y-4 flex flex-col justify-between">
+          <div>
+            <!-- Course Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-10 h-10 rounded-2xl ${
+                  isDone 
+                    ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
+                    : 'bg-slate-100 text-slate-700'
+                } flex items-center justify-center text-base shrink-0">
+                  <i class="fa-solid ${course.icon}"></i>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-display font-black text-sm sm:text-base text-slate-900 leading-snug truncate">${course.title}</h3>
+                  <span class="text-[11px] text-slate-500 font-medium block">${course.tag}</span>
+                </div>
+              </div>
+              <span class="text-[11px] sm:text-xs font-black font-display px-2.5 py-1 rounded-lg ${
+                isDone 
+                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-2xs' 
+                  : 'bg-slate-100 text-slate-600'
+              } whitespace-nowrap shrink-0">
+                ${isDone ? 'مكتمل 100% 🎓' : 'قيد التعلم ⏳'}
+              </span>
+            </div>
+
+            <!-- Subtitle & Topics -->
+            <div class="py-3 space-y-2">
+              <p class="text-xs text-slate-600 font-medium leading-relaxed">${course.subtitle}</p>
+              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-500 font-mono leading-relaxed">
+                <span class="font-bold text-slate-700 font-display">أبرز المحاور:</span> ${course.topics}
+              </div>
+            </div>
+          </div>
+
+          <!-- Big Toggle Checkbox -->
+          <div class="pt-3 border-t border-slate-100">
+            <div 
+              onclick="app.toggleProgrammingCourse('${course.id}')" 
+              class="p-3 sm:p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 cursor-pointer ${
+                isDone 
+                  ? 'bg-gradient-to-r from-emerald-500/15 to-cyan-500/10 border-emerald-400' 
+                  : 'bg-slate-50 hover:bg-slate-100 border-slate-200'
+              }"
+            >
+              <div class="flex items-center gap-3 pointer-events-none">
+                <input 
+                  type="checkbox" 
+                  id="progCheck_${course.id}" 
+                  ${isDone ? 'checked' : ''} 
+                  class="checkbox-custom w-6 h-6" 
+                />
+                <label class="text-xs sm:text-sm font-black text-slate-900 select-none">
+                  ${isDone ? 'أتممت دراسة الكورس بالكامل 🌟' : 'اضغط لتعليم الكورس عند إنهائه 🎯'}
+                </label>
+              </div>
+              <i class="fa-solid ${isDone ? 'fa-circle-check text-emerald-600 text-base' : 'fa-circle text-slate-300 text-base'} shrink-0"></i>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+    const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
+    if (badge) badge.innerText = `${completedCount} / ${totalCourses} (${percentage}%)`;
+    if (bar) bar.style.width = `${percentage}%`;
+  }
+}
+
+// 5. HEADER VIEW (Live Header Metadata)
 class HeaderView {
   static render(state) {
     // Header rendered cleanly

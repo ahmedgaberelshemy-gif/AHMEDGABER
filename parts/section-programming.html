@@ -1,0 +1,44 @@
+<!-- ========================================================================= -->
+<!-- SECTION 4: PROGRAMMING TRACK (مسار تعلم واحتراف البرمجة) -->
+<!-- ========================================================================= -->
+<section id="section-programming" class="space-y-6 hidden animate-slide-up">
+
+  <!-- Header Banner: Track Overview & Total Progress -->
+  <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-cyan-500/30 relative overflow-hidden">
+    <!-- Top Accent Glow Ribbon -->
+    <div class="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-cyan-400 via-indigo-400 to-amber-400"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-5 relative z-10">
+      <div class="space-y-2 text-center md:text-right">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-bold font-display">
+          <i class="fa-solid fa-laptop-code text-cyan-400"></i> مسار التطوير البرمجي الحر (5 كورسات)
+        </div>
+        <h2 class="text-xl sm:text-2xl font-black font-display text-white">
+          مسار علوم الحاسب وتطوير الويب 🚀
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
+          خطتك البرمجية التأسيسية المتكاملة.. علم على أي كورس تخلصه لتحديث نسبة إنجازك وسجل الشرف التراكمي!
+        </p>
+      </div>
+
+      <!-- Live Overall Track Progress Box -->
+      <div class="w-full md:w-80 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 space-y-3 shrink-0">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-300">إنجاز المسار البرمجي</span>
+          <span id="programmingOverallBadge" class="text-xs font-black font-mono px-2.5 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+            0 / 5 (0%)
+          </span>
+        </div>
+        <div class="w-full bg-slate-800/80 rounded-full h-3 overflow-hidden p-0.5 border border-white/10">
+          <div id="programmingProgressBar" class="bg-gradient-to-r from-cyan-400 to-indigo-400 h-full rounded-full transition-all duration-700 ease-out" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 Programming Courses Dynamic Container -->
+  <div id="programmingCoursesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+    <!-- Rendered dynamically by ProgrammingView in views.js -->
+  </div>
+
+</section>

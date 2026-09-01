@@ -14,6 +14,7 @@ function syncParts() {
   const sectionRoutine = fs.readFileSync(path.join(partsDir, 'section-routine.html'), 'utf8').trim();
   const sectionCurriculum = fs.readFileSync(path.join(partsDir, 'section-curriculum.html'), 'utf8').trim();
   const sectionAchievements = fs.readFileSync(path.join(partsDir, 'section-achievements.html'), 'utf8').trim();
+  const sectionProgramming = fs.readFileSync(path.join(partsDir, 'section-programming.html'), 'utf8').trim();
   const modals = fs.readFileSync(path.join(partsDir, 'modals.html'), 'utf8').trim();
   const footer = fs.readFileSync(path.join(partsDir, 'footer.html'), 'utf8').trim();
 
@@ -30,6 +31,7 @@ const PARTS_DATA = Object.freeze({
   sectionRoutine: ${JSON.stringify(sectionRoutine)},
   sectionCurriculum: ${JSON.stringify(sectionCurriculum)},
   sectionAchievements: ${JSON.stringify(sectionAchievements)},
+  sectionProgramming: ${JSON.stringify(sectionProgramming)},
   modals: ${JSON.stringify(modals)},
   footer: ${JSON.stringify(footer)}
 });
@@ -43,7 +45,7 @@ class PartsLoader {
 
     setHtml('part-header', PARTS_DATA.header);
     setHtml('part-navigation', PARTS_DATA.navigation);
-    setHtml('part-main-workspace', PARTS_DATA.sectionRoutine + '\\n' + PARTS_DATA.sectionCurriculum + '\\n' + PARTS_DATA.sectionAchievements);
+    setHtml('part-main-workspace', PARTS_DATA.sectionRoutine + '\\n' + PARTS_DATA.sectionCurriculum + '\\n' + PARTS_DATA.sectionAchievements + '\\n' + PARTS_DATA.sectionProgramming);
     setHtml('part-modals', PARTS_DATA.modals);
     setHtml('part-footer', PARTS_DATA.footer);
   }

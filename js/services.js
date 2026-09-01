@@ -37,7 +37,8 @@ class StorageService {
         [today]: this.createDefaultDayLog()
       },
       lessonProgress: {},
-      lessonNotes: {}
+      lessonNotes: {},
+      programmingCourses: {}
     };
   }
 
