@@ -634,7 +634,7 @@ class AchievementsView {
 
 
 
-// 4. PROGRAMMING VIEW (Systematic Courses & Interactive Lesson Checklists)
+// 4. PROGRAMMING VIEW (Clean Course Title Cards)
 class ProgrammingView {
   static render(programmingCourses = {}) {
     const container = document.getElementById('programmingCoursesContainer');
@@ -648,92 +648,58 @@ class ProgrammingView {
 
     let html = '';
     coursesList.forEach((course) => {
-      const courseState = programmingCourses[course.id] || {};
-      const completedLessons = courseState.completedLessons || (courseState === true ? course.lessons.reduce((acc, _, i) => { acc[i] = true; return acc; }, {}) : {});
-      const completedCount = Object.values(completedLessons).filter(Boolean).length;
-      const totalLessons = course.lessons ? course.lessons.length : 10;
-      const percentage = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
-      const isCourseDone = (totalLessons > 0 && completedCount === totalLessons);
+      const isDone = Boolean(programmingCourses[course.id]);
 
       html += `
         <div class="bg-white rounded-3xl border transition card-lift animate-fade-in ${
-          isCourseDone
+          isDone
             ? 'border-emerald-400 emerald-glow-border bg-gradient-to-br from-emerald-500/10 via-cyan-500/5 to-transparent shadow-xs'
             : 'border-slate-200 hover:border-slate-300 shadow-xs'
         } p-5 sm:p-6 space-y-4 flex flex-col justify-between">
           
           <!-- Course Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-12 h-12 rounded-2xl ${
+                isDone 
+                  ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
+                  : 'bg-slate-100 text-slate-700'
+              } flex items-center justify-center text-xl shrink-0 transition">
+                <i class="fa-solid ${course.icon}"></i>
+              </div>
+              <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-snug truncate">${course.title}</h3>
+            </div>
+
+            <span class="text-xs font-black font-display px-3 py-1 rounded-xl ${
+              isDone 
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                : 'bg-slate-100 text-slate-600 border border-slate-200'
+            } whitespace-nowrap shrink-0">
+              ${isDone ? 'مكتمل 100% 🎓' : 'قيد المتابعة ⏳'}
+            </span>
+          </div>
+
+          <!-- Interactive Completion Toggle -->
           <div>
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-3">
-              <div class="flex items-center gap-3 min-w-0">
-                <div class="w-11 h-11 rounded-2xl ${
-                  isCourseDone 
-                    ? 'bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-md shadow-emerald-500/25' 
-                    : 'bg-slate-900 text-cyan-400'
-                } flex items-center justify-center text-lg shrink-0 transition">
-                  <i class="fa-solid ${course.icon}"></i>
-                </div>
-                <div class="min-w-0">
-                  <h3 class="font-display font-black text-base text-slate-900 leading-snug truncate">${course.title}</h3>
-                  <span class="text-[11px] text-slate-500 font-medium">${course.badge || `${totalLessons} دروس`}</span>
-                </div>
+            <button 
+              type="button"
+              onclick="app.toggleProgrammingCourse('${course.id}')" 
+              class="w-full py-3 px-4 rounded-2xl border font-display font-black text-xs sm:text-sm transition-all duration-200 flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer select-none ${
+                isDone 
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-400 text-white shadow-md shadow-emerald-500/25' 
+                  : 'bg-slate-50 hover:bg-emerald-50/70 border-slate-200 hover:border-emerald-400 text-slate-700 hover:text-emerald-950 shadow-2xs'
+              }"
+            >
+              <div class="w-5 h-5 rounded-md flex items-center justify-center text-xs shrink-0 transition ${
+                isDone ? 'bg-white text-emerald-700 font-black' : 'border border-slate-300 bg-white text-transparent'
+              }">
+                <i class="fa-solid fa-check ${isDone ? 'opacity-100' : 'opacity-0'}"></i>
               </div>
-
-              <div class="flex items-center gap-2 shrink-0">
-                <span class="text-xs font-mono font-black ${
-                  isCourseDone ? 'text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-lg border border-emerald-300' : 'text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md'
-                }">
-                  ${completedCount} / ${totalLessons} (${percentage}%)
-                </span>
-                ${isCourseDone ? '<span class="text-xs">👑</span>' : ''}
-              </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden mt-3 shadow-inner">
-              <div class="h-full rounded-full ${isCourseDone ? 'bg-gradient-to-r from-emerald-400 to-teal-500' : 'bg-cyan-600'} transition-all duration-500" style="width: ${percentage}%"></div>
-            </div>
-
-            <p class="text-[11px] text-slate-500 font-medium pt-2 leading-relaxed">
-              ${course.description || ''}
-            </p>
+              <span class="truncate font-bold">
+                ${isDone ? 'أتممت الكورس بنجاح (100%)' : 'تعليم الكورس كمكتمل'}
+              </span>
+            </button>
           </div>
-
-          <!-- Systematic Interactive Lesson Checklist -->
-          <div class="space-y-2 pt-2 border-t border-slate-100">
-            ${(course.lessons || []).map((lesson, lIdx) => {
-              const isChecked = Boolean(completedLessons[lIdx]);
-              const numStr = (lIdx + 1) < 10 ? `0${lIdx + 1}` : `${lIdx + 1}`;
-
-              return `
-                <div class="p-2.5 sm:p-3 rounded-2xl border transition flex items-start justify-between gap-2.5 ${
-                  isChecked 
-                    ? 'bg-emerald-50/90 border-emerald-300 shadow-2xs' 
-                    : 'bg-white border-slate-200 hover:bg-slate-50/70 shadow-2xs'
-                }">
-                  <div class="flex items-start gap-2.5 flex-1 min-w-0">
-                    <input 
-                      type="checkbox" 
-                      id="chk_prog_${course.id}_${lIdx}" 
-                      ${isChecked ? 'checked' : ''} 
-                      onchange="app.toggleProgrammingLesson('${course.id}', ${lIdx})" 
-                      class="checkbox-custom mt-0.5"
-                    />
-                    <label 
-                      for="chk_prog_${course.id}_${lIdx}" 
-                      class="text-[12px] sm:text-[13px] font-bold leading-relaxed cursor-pointer select-none ${
-                        isChecked ? 'text-emerald-950 line-through opacity-85' : 'text-slate-900'
-                      }"
-                    >
-                      <span class="font-display text-[9px] font-black px-1.5 py-0.5 rounded-md border shrink-0 bg-slate-100 text-slate-700 ml-1 inline-block no-underline">${numStr}</span>
-                      ${lesson}
-                    </label>
-                  </div>
-                </div>
-              `;
-            }).join('')}
-          </div>
-
         </div>
       `;
     });
@@ -741,6 +707,7 @@ class ProgrammingView {
     container.innerHTML = html;
   }
 }
+
 
 
 // 5. HEADER VIEW (Live Header Metadata)
