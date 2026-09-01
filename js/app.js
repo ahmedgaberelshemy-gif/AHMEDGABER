@@ -379,13 +379,32 @@ class AppController {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       try {
         const imported = JSON.parse(e.target.result);
         if (imported && typeof imported === 'object') {
           this.state = imported;
           this.storageService.save(this.state);
-          location.reload();
+
+          // Force push restored backup to Firebase Firestore (direct overwrite)
+          if (this.cloudSyncService && this.cloudSyncService.firestoreDb) {
+            try {
+              const docRef = this.cloudSyncService.firestoreDb.collection('academic_os').doc(this.cloudSyncService.syncKey || 'main_user');
+              await docRef.set({
+                state: this.state,
+                updatedAt: new Date().toISOString(),
+                lastDevice: navigator.userAgent
+              });
+            } catch (err) {}
+          }
+
+          SoundService.playSuccess();
+          this.saveAndRefreshViews();
+          this.renderRoutine();
+          this.renderCurriculum();
+          this.renderAchievements();
+          HeaderView.render(this.state);
+          alert('✅ تم استرجاع نسختك الاحتياطية بنجاح 100%! عادت كل بياناتك وأيامك كما كانت تماماً 🛡️');
         }
       } catch (err) {
         alert('ملف غير صالح! يرجى اختيار ملف نسخة احتياطية صحيح.');
