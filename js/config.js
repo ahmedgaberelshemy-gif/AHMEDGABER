@@ -14,11 +14,11 @@ const FIREBASE_CONFIG = Object.freeze({
 });
 
 const APP_CONFIG = Object.freeze({
-  STORAGE_KEY: 'janaklis_life_academic_os_v4',
+  STORAGE_KEY: 'janaklis_life_academic_os_v6',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
   TOTAL_SEMESTER_DAYS: 112,
   TOTAL_WEEKS: 10,
-  TOTAL_SUBJECTS: 4,
+  TOTAL_SUBJECTS: 6,
   WEIGHTS: {
     PRAYER_TOTAL: 30,
     PRAYER_SINGLE: 6,
@@ -33,16 +33,19 @@ const APP_CONFIG = Object.freeze({
     { id: 'maghrib', name: 'صلاة المغرب', icon: 'fa-mountain-sun', time: '06:15 م' },
     { id: 'isha', name: 'صلاة العشاء', icon: 'fa-moon', time: '07:45 م' }
   ],
-    SUBJECTS: [
-    { id: 0, name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber" },
-    { id: 1, name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple" },
-    { id: 2, name: "علم النفس", icon: "fa-brain", color: "rose" },
-    { id: 3, name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan" }
+      SUBJECTS: [
+    { id: 0, name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue" },
+    { id: 1, name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald" },
+    { id: 2, name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber" },
+    { id: 3, name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple" },
+    { id: 4, name: "علم النفس", icon: "fa-brain", color: "rose" },
+    { id: 5, name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan" }
   ],
   SUBJECT_NAMES: [
-    "مبادئ الإقتصاد", "مبادئ القانون", "علم النفس", "اللغة الإنجليزية"
+    "مبادئ إدارة الأعمال", "المحاسبة المالية", "مبادئ الإقتصاد",
+    "مبادئ القانون", "علم النفس", "اللغة الإنجليزية"
   ],
-  SUBJECT_COLOR_KEYS: ['amber', 'purple', 'rose', 'cyan'],
+  SUBJECT_COLOR_KEYS: ['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan'],
   PROGRAMMING_COURSES: [
     {
       id: "cs50",
