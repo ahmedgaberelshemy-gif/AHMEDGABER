@@ -1,7 +1,7 @@
-<!-- MAIN 4-SECTION MASTER NAV TABS (Sticky Navigation) -->
+<!-- MAIN 3-SECTION MASTER NAV TABS (Sticky Navigation) -->
     <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 mt-3 sm:mt-4 sticky top-2 sm:top-3 relative z-30 no-print">
       <div class="bg-white/95 backdrop-blur-md rounded-2xl p-1.5 sm:p-2.5 shadow-lg sm:shadow-xl border border-slate-200">
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
+        <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
           
           <!-- Tab 1: Routine -->
           <button 
@@ -13,11 +13,12 @@
             <span class="whitespace-nowrap font-bold">الروتين اليومي</span>
           </button>
 
-          <!-- Tab 2: Curriculum -->
+          <!-- Tab 2: Curriculum (مخفي ومحفوظ بالكامل دون مسح لإعادة تفعيله مستقبلاً) -->
           <button 
             onclick="switchTab('curriculum')" 
             id="tabBtn-curriculum"
-            class="tab-btn py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
+            class="tab-btn hidden py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
+            style="display: none !important;"
           >
             <i class="fa-solid fa-graduation-cap text-indigo-500 text-sm sm:text-base shrink-0"></i>
             <span class="whitespace-nowrap font-bold">المقررات</span>
