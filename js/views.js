@@ -252,7 +252,7 @@ class CurriculumView {
     const currentMeta = subjectMeta[activeSubject] || subjectMeta[0];
     const style = colorStyles[currentMeta.color] || colorStyles.blue;
 
-    // Subject Hero Header (Clean without "نسبة إتمام المقرر" widget)
+    // Subject Hero Header
     const headerHtml = `
       <div class="bg-white p-4 sm:p-5 rounded-3xl border ${style.border} ${style.cardBg} shadow-xs mb-5 flex items-center gap-3.5 text-right">
         <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shrink-0 shadow-sm">
@@ -264,6 +264,22 @@ class CurriculumView {
         </div>
       </div>
     `;
+
+    if (!weeksData || weeksData.length === 0) {
+      container.innerHTML = `
+        ${headerHtml}
+        <div class="bg-white rounded-3xl border border-dashed border-slate-200 p-8 sm:p-14 text-center text-slate-500 space-y-3 shadow-xs">
+          <div class="w-16 h-16 rounded-3xl bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mx-auto shadow-2xs">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h4 class="font-display font-black text-slate-800 text-base sm:text-lg">المقرر فارغ وجاهز للتسجيل 🎓</h4>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+            سيتم إضافة المحاضرات والملخصات الفعلية أسبوعاً بأسبوع فور انطلاق الدراسة بالمعهد بإذن الله.
+          </p>
+        </div>
+      `;
+      return;
+    }
 
     // 10 Weeks Breakdown Grid
     let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">';
