@@ -833,7 +833,7 @@ function sendAiQuickPrompt(type) {
 
   let userText = '🎯 اختبرني بأسئلة امتحانات';
   if (type === 'explain') userText = '💡 اشرح ولخص لي مفهوماً دراسياً مهماً';
-  if (type === 'coding') userText = '🛡️ أعطني نصيحة في مسار Cybersecurity & Networks';
+  if (type === 'coding') userText = '📊 أعطني نصيحة في مسار AI & Data Analysis';
   if (type === 'progress') userText = '📈 حلل مستوى أدائي وإنجازي الدراسي';
 
   appendAiMessage('user', userText);
