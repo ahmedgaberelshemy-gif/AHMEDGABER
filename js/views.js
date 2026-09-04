@@ -714,7 +714,7 @@ class AchievementsView {
     container.innerHTML = html;
   }
 
-    // 3. AI & Data Analysis Track Progress
+    // 3. Cybersecurity & Networks Track Progress
   static renderProgrammingAchievements(programmingCourses = {}) {
     const container = document.getElementById("programmingAchievementsContainer");
     const badge = document.getElementById("programmingAchievementsBadge");
@@ -734,7 +734,7 @@ class AchievementsView {
 
     if (badge) {
       if (totalCourses === 0) {
-        badge.innerText = `مسار AI & Data Analysis (0 كورس)`;
+        badge.innerText = `مسار Cybersecurity & Networks (0 كورس)`;
       } else {
         badge.innerText = `${completedCount} من ${totalCourses} كورس مكتمل (${percentage}%)`;
       }
@@ -742,13 +742,13 @@ class AchievementsView {
 
     if (totalCourses === 0) {
       container.innerHTML = `
-        <div class="bg-gradient-to-r from-indigo-50/80 via-slate-50 to-blue-50/80 border border-indigo-100 rounded-3xl p-6 text-center space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-500/20">
-            <i class="fa-solid fa-brain"></i>
+        <div class="bg-gradient-to-r from-cyan-50/80 via-slate-50 to-blue-50/80 border border-cyan-100 rounded-3xl p-6 text-center space-y-3">
+          <div class="w-12 h-12 mx-auto rounded-2xl bg-cyan-600 text-white flex items-center justify-center text-xl shadow-md shadow-cyan-500/20">
+            <i class="fa-solid fa-shield-halved"></i>
           </div>
-          <h4 class="font-display font-black text-base text-slate-900">مسار AI & Data Analysis</h4>
+          <h4 class="font-display font-black text-base text-slate-900">مسار Cybersecurity & Networks</h4>
           <p class="text-xs sm:text-sm text-slate-600 font-medium max-w-md mx-auto">
-            تم تفريغ وتصفير بيانات البرمجة السابقة بنجاح. المسار جاهز الآن لإضافة ومتابعة مسارات الذكاء الاصطناعي وتحليل البيانات الجديدة 🎯
+            تم تفريغ وتصفير بيانات المسار بنجاح. المسار جاهز ومخصص الآن لإضافة ومتابعة مسارات الأمن السيبراني والشبكات 🛡️
           </p>
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold">
             <i class="fa-solid fa-check"></i> تم التصفير (0%)
@@ -759,27 +759,27 @@ class AchievementsView {
     }
 
     let html = `
-      <!-- Master AI & Data Analysis Progress Headline -->
-      <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-cyan-50 border border-indigo-100 rounded-3xl p-4 sm:p-5 shadow-2xs space-y-3">
+      <!-- Master Cybersecurity & Networks Progress Headline -->
+      <div class="bg-gradient-to-r from-cyan-50 via-slate-50 to-indigo-50 border border-cyan-100 rounded-3xl p-4 sm:p-5 shadow-2xs space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm shadow-sm">
-              <i class="fa-solid fa-brain"></i>
+            <span class="w-9 h-9 rounded-xl bg-cyan-600 text-white flex items-center justify-center text-sm shadow-sm">
+              <i class="fa-solid fa-shield-halved"></i>
             </span>
             <div>
-              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">إجمالي إنجاز مسار AI & Data Analysis</h4>
-              <p class="text-xs text-slate-500 font-medium">متابعة مسارات الذكاء الاصطناعي وتحليل البيانات</p>
+              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">إجمالي إنجاز مسار Cybersecurity & Networks</h4>
+              <p class="text-xs text-slate-500 font-medium">متابعة مسارات الأمن السيبراني واحتراف الشبكات</p>
             </div>
           </div>
           <div class="flex items-center gap-2 self-start sm:self-auto">
-            <span class="font-mono font-black text-xs sm:text-sm text-indigo-950 bg-white px-3 py-1.5 rounded-xl border border-indigo-200 shadow-2xs">
+            <span class="font-mono font-black text-xs sm:text-sm text-cyan-950 bg-white px-3 py-1.5 rounded-xl border border-cyan-200 shadow-2xs">
               ${completedCount} / ${totalCourses} كورس (${percentage}%)
             </span>
           </div>
         </div>
 
         <div class="w-full h-3 rounded-full bg-slate-200/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-600 transition-all duration-500 shadow-sm" style="width: ${percentage}%"></div>
+          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-cyan-500 via-teal-500 to-indigo-600 transition-all duration-500 shadow-sm" style="width: ${percentage}%"></div>
         </div>
       </div>
 
@@ -817,7 +817,7 @@ class AchievementsView {
           </div>
 
           <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-400">
-            <span>مسار AI & Data Analysis</span>
+            <span>مسار Cybersecurity & Networks</span>
             <span class="${isDone ? "text-emerald-700 font-black" : "text-slate-500"}">
               ${isDone ? "تم الإنجاز ✅" : "مستمر 🚀"}
             </span>
@@ -834,7 +834,7 @@ class AchievementsView {
 }
 
 
-// 4. PROGRAMMING VIEW (AI & Data Analysis - Clean Empty State or Cards)
+// 4. PROGRAMMING VIEW (Cybersecurity & Networks - Clean Empty State or Cards)
 class ProgrammingView {
   static render(programmingCourses = {}) {
     const container = document.getElementById('programmingCoursesContainer');
@@ -847,17 +847,17 @@ class ProgrammingView {
     if (!coursesList.length) {
       container.innerHTML = `
         <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300 shadow-xs space-y-4">
-          <div class="w-20 h-20 mx-auto rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl shadow-sm border border-indigo-100">
-            <i class="fa-solid fa-brain"></i>
+          <div class="w-20 h-20 mx-auto rounded-3xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-3xl shadow-sm border border-cyan-100">
+            <i class="fa-solid fa-shield-halved"></i>
           </div>
           <div class="space-y-1.5">
-            <h3 class="font-display font-black text-xl sm:text-2xl text-slate-900">مسار AI & Data Analysis</h3>
+            <h3 class="font-display font-black text-xl sm:text-2xl text-slate-900">مسار Cybersecurity & Networks</h3>
             <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto font-medium">
-              تم تفريغ وتصفير المسار بالكامل وهو فاضي حالياً. المسار جاهز لإضافة وتثبيت كورسات ومسارات الذكاء الاصطناعي وتحليل البيانات قريباً 🚀
+              تم تفريغ وتصفير المسار بالكامل وهو فاضي حالياً. المسار جاهز لإضافة وتثبيت كورسات ومسارات الأمن السيبراني واحتراف الشبكات قريباً 🛡️
             </p>
           </div>
           <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200">
-            <i class="fa-solid fa-circle-check text-emerald-500"></i>
+            <i class="fa-solid fa-shield-halved text-cyan-600"></i>
             <span>تم التصفير بنجاح (فارغ وجاهز)</span>
           </div>
         </div>
