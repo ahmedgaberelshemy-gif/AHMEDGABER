@@ -52,6 +52,7 @@ class StorageService {
 
       const raw = localStorage.getItem(this.storageKey);
       const state = raw ? JSON.parse(raw) : this.createInitialState();
+      state.programmingCourses = {};
       this.ensureTodayLog(state);
       return state;
     } catch (error) {

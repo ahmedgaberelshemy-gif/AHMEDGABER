@@ -46,38 +46,7 @@ const APP_CONFIG = Object.freeze({
     "مبادئ القانون", "علم النفس", "اللغة الإنجليزية"
   ],
   SUBJECT_COLOR_KEYS: ['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan'],
-  PROGRAMMING_COURSES: [
-    {
-      id: "cs50",
-      title: "كورس CS50",
-      icon: "fa-laptop-code",
-      color: "indigo"
-    },
-    {
-      id: "html",
-      title: "كورس HTML",
-      icon: "fa-code",
-      color: "orange"
-    },
-    {
-      id: "css",
-      title: "كورس CSS",
-      icon: "fa-palette",
-      color: "blue"
-    },
-    {
-      id: "js",
-      title: "كورس JavaScript",
-      icon: "fa-bolt",
-      color: "amber"
-    },
-    {
-      id: "bootstrap",
-      title: "كورس بوت ستراب (Bootstrap)",
-      icon: "fa-cubes",
-      color: "purple"
-    }
-  ]
+  PROGRAMMING_COURSES: []
 });
 
 const colorStyles = Object.freeze({
