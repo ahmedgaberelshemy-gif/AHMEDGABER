@@ -63,17 +63,12 @@ class AppController {
   }
 
   // ==========================================
-  // Navigation: 4 Master Tabs
+  // Navigation: Active Tabs (Routine & Achievements)
   // ==========================================
   switchTab(tabId) {
-    if (!['routine', 'curriculum', 'achievements', 'programming'].includes(tabId)) {
+    // Safety Fallback: Only 'routine' and 'achievements' exist now
+    if (tabId !== 'achievements') {
       tabId = 'routine';
-    }
-    if (tabId === 'curriculum') {
-      const curricBtn = document.getElementById('tabBtn-curriculum');
-      if (curricBtn && (curricBtn.classList.contains('hidden') || curricBtn.style.display === 'none')) {
-        tabId = 'routine';
-      }
     }
     this.state.activeTab = tabId;
 
@@ -842,16 +837,30 @@ class System3DEngine {
   }
 }
 
-// Bootstrap Application on DOM Ready
-window.addEventListener('DOMContentLoaded', () => {
-  app.init();
-  System3DEngine.init();
-  const isMuted = SoundService.isMuted();
-  const icon = document.getElementById('soundToggleIcon');
-  if (icon) {
-    icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-400';
+// Bootstrap Application on DOM Ready (Guaranteed execution)
+function bootstrapSystem() {
+  if (typeof app !== 'undefined' && app.init) {
+    app.init();
   }
-});
+  if (typeof System3DEngine !== 'undefined' && System3DEngine.init) {
+    System3DEngine.init();
+  }
+  if (typeof SoundService !== 'undefined') {
+    const isMuted = SoundService.isMuted();
+    const icon = document.getElementById('soundToggleIcon');
+    if (icon) {
+      icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-400';
+    }
+  }
+}
+
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', bootstrapSystem);
+  } else {
+    bootstrapSystem();
+  }
+}
 
 
 if (typeof window !== 'undefined') {
