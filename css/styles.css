@@ -205,31 +205,156 @@ h1, h2, h3, h4, h5, .font-display {
   100% { transform: scale(1); opacity: 1; }
 }
 
-/* Card Lift */
-.card-lift {
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.28s ease,
-              background-color 0.28s ease;
+/* =========================================================================
+   5. LUXURY 3D HARDWARE-ACCELERATED ENGINE & TACTILE CONTROLS
+   ========================================================================= */
+
+/* Absolute Safety Guarantee: Clicks, inputs and buttons are NEVER obstructed */
+button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto !important;
 }
 
-.card-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 32px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.15);
+/* Modals top priority stacking */
+#cloudSyncModal, #dailyResultModal, #noteModal {
+  z-index: 100 !important;
+  pointer-events: auto !important;
 }
 
-/* Active Navigation Tab */
+/* 3D Dynamic Card Foundation */
+.card-lift, .card-3d {
+  position: relative;
+  transform: perspective(1200px);
+  transform-style: preserve-3d;
+  transition: transform 0.08s ease-out, box-shadow 0.28s ease, border-color 0.28s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-lift.card-resetting, .card-3d.card-resetting {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease !important;
+}
+
+.card-lift:hover, .card-3d:hover {
+  box-shadow: 
+    0 22px 45px -12px rgba(15, 23, 42, 0.12),
+    0 8px 18px -4px rgba(99, 102, 241, 0.08),
+    0 0 0 1px rgba(99, 102, 241, 0.18) !important;
+}
+
+/* 3D Glossy Light Sheen (Crucial: pointer-events: none ensures zero click interference) */
+.card-lift::after, .card-3d::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 420px at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%), rgba(255, 255, 255, 0.45), transparent 70%);
+  pointer-events: none !important;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 5;
+}
+
+.card-lift:hover::after, .card-3d:hover::after {
+  opacity: 1;
+}
+
+/* Inner elements 3D Pop */
+.card-lift:hover .shrink-0.w-10.h-10,
+.card-lift:hover .shrink-0.w-9.h-9 {
+  transform: translateZ(24px) scale(1.08) rotate(-4deg);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Routine checklist item hover elevation */
+#quranCardBox, #gymCardBox, #sleepCardBox, #prayersListContainer > div {
+  position: relative;
+  z-index: 10;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+#quranCardBox:hover, #gymCardBox:hover, #sleepCardBox:hover, #prayersListContainer > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.08);
+}
+
+/* Checkbox 3D Bevel & Tactile Bounce */
+.checkbox-custom {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.checkbox-custom:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25), 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+.checkbox-custom:active {
+  transform: scale(0.9) !important;
+}
+
+.checkbox-custom:checked {
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Crown Finalize Button: 3D Mechanical Tactile Press */
+#finalizeDayBtn {
+  position: relative;
+  z-index: 15;
+  box-shadow: 0 6px 0 #b45309, 0 14px 24px rgba(245, 158, 11, 0.35) !important;
+  transform: translateY(-2px);
+  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.14s ease !important;
+}
+
+#finalizeDayBtn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 0 #b45309, 0 18px 30px rgba(245, 158, 11, 0.45) !important;
+}
+
+#finalizeDayBtn:active {
+  transform: translateY(3px) scale(0.98) !important;
+  box-shadow: 0 2px 0 #b45309, 0 4px 10px rgba(245, 158, 11, 0.25) !important;
+}
+
+/* Navigation Tabs 3D Depth & Emboss */
+.tab-btn {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tab-btn:hover:not(.tab-btn-active) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.1);
+  background-color: #ffffff !important;
+}
+
+.tab-btn:active {
+  transform: translateY(1px) scale(0.97) !important;
+}
+
 .tab-btn-active {
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 10px 25px -5px rgba(49, 46, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 8px 22px -4px rgba(49, 46, 129, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
   border-color: #4338ca !important;
-  transform: translateY(-1.5px);
+  transform: translateY(-2px) translateZ(10px);
 }
 
 .tab-btn-active i {
   color: #fbbf24 !important;
   filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+}
+
+/* Header Quick Buttons 3D Pop */
+#cloudSyncHeaderBadge, #soundToggleBtn {
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#cloudSyncHeaderBadge:hover, #soundToggleBtn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+#cloudSyncHeaderBadge:active, #soundToggleBtn:active {
+  transform: translateY(1px) scale(0.95);
 }
 
 @keyframes smoothFadeInUp {

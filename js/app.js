@@ -765,9 +765,87 @@ function toggleSoundMute() {
   }
 }
 
+/**
+ * =========================================================================
+ * JANAKLIS ACADEMIC OS - 3D HARDWARE-ACCELERATED INTERACTIVE ENGINE
+ * Highly optimized, zero memory-leak, 100% click & touch safe
+ * =========================================================================
+ */
+class System3DEngine {
+  static lastTiltedCard = null;
+  static isTicking = false;
+  static currentEvent = null;
+
+  static init() {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const hasHover = window.matchMedia('(hover: hover)').matches;
+    if (!hasHover) return;
+
+    document.addEventListener('mousemove', (e) => {
+      System3DEngine.currentEvent = e;
+      if (!System3DEngine.isTicking) {
+        window.requestAnimationFrame(() => {
+          System3DEngine.handleMouseMove(System3DEngine.currentEvent);
+          System3DEngine.isTicking = false;
+        });
+        System3DEngine.isTicking = true;
+      }
+    }, { passive: true });
+
+    document.addEventListener('mouseleave', () => {
+      if (System3DEngine.lastTiltedCard) {
+        System3DEngine.resetCard(System3DEngine.lastTiltedCard);
+        System3DEngine.lastTiltedCard = null;
+      }
+    }, { passive: true });
+  }
+
+  static handleMouseMove(e) {
+    if (!e) return;
+    const card = e.target.closest('.card-lift, .card-3d, #finalizeBar');
+    if (!card) {
+      if (System3DEngine.lastTiltedCard) {
+        System3DEngine.resetCard(System3DEngine.lastTiltedCard);
+        System3DEngine.lastTiltedCard = null;
+      }
+      return;
+    }
+
+    if (System3DEngine.lastTiltedCard && System3DEngine.lastTiltedCard !== card) {
+      System3DEngine.resetCard(System3DEngine.lastTiltedCard);
+    }
+    System3DEngine.lastTiltedCard = card;
+
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    card.style.setProperty('--card-mouse-x', `${x}px`);
+    card.style.setProperty('--card-mouse-y', `${y}px`);
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const maxTilt = card.id === 'finalizeBar' ? 2.5 : 3.5;
+    const translateY = card.id === 'finalizeBar' ? -3 : -5;
+    const rotateX = ((y - centerY) / centerY) * -maxTilt;
+    const rotateY = ((x - centerX) / centerX) * maxTilt;
+
+    card.classList.remove('card-resetting');
+    card.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(${translateY}px)`;
+  }
+
+  static resetCard(card) {
+    if (!card) return;
+    card.classList.add('card-resetting');
+    card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+  }
+}
+
 // Bootstrap Application on DOM Ready
 window.addEventListener('DOMContentLoaded', () => {
   app.init();
+  System3DEngine.init();
   const isMuted = SoundService.isMuted();
   const icon = document.getElementById('soundToggleIcon');
   if (icon) {
