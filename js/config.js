@@ -13,40 +13,60 @@ const FIREBASE_CONFIG = Object.freeze({
   appId: "1:366648641503:web:7e31c6d9bd0ea0ff23666a"
 });
 
+/**
+ * Valid Active Navigation Tabs
+ */
+const TABS_CONFIG = Object.freeze({
+  ROUTINE: 'routine',
+  ACHIEVEMENTS: 'achievements',
+  ALLOWED_TABS: Object.freeze(['routine', 'achievements'])
+});
+
+/**
+ * Routine Habits Configuration & Weights
+ */
+const HABITS_CONFIG = Object.freeze({
+  PRAYERS: Object.freeze([
+    { id: 'fajr', name: 'صلاة الفجر', icon: 'fa-sun', time: '04:30 ص' },
+    { id: 'dhuhr', name: 'صلاة الظهر', icon: 'fa-sun', time: '12:00 م' },
+    { id: 'asr', name: 'صلاة العصر', icon: 'fa-cloud-sun', time: '03:30 م' },
+    { id: 'maghrib', name: 'صلاة المغرب', icon: 'fa-mountain-sun', time: '06:15 م' },
+    { id: 'isha', name: 'صلاة العشاء', icon: 'fa-moon', time: '07:45 م' }
+  ]),
+  WEIGHTS: Object.freeze({
+    PRAYER_TOTAL: 30,
+    PRAYER_SINGLE: 6,
+    QURAN: 20,
+    GYM: 25,
+    SLEEP: 25
+  })
+});
+
+/**
+ * Master Application Configuration
+ */
 const APP_CONFIG = Object.freeze({
   STORAGE_KEY: 'janaklis_life_academic_os_v56',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
   TOTAL_SEMESTER_DAYS: 112,
   TOTAL_WEEKS: 19,
   TOTAL_SUBJECTS: 6,
-  WEIGHTS: {
-    PRAYER_TOTAL: 30,
-    PRAYER_SINGLE: 6,
-    QURAN: 20,
-    GYM: 25,
-    SLEEP: 25
-  },
-  PRAYERS: [
-    { id: 'fajr', name: 'صلاة الفجر', icon: 'fa-sun', time: '04:30 ص' },
-    { id: 'dhuhr', name: 'صلاة الظهر', icon: 'fa-sun', time: '12:00 م' },
-    { id: 'asr', name: 'صلاة العصر', icon: 'fa-cloud-sun', time: '03:30 م' },
-    { id: 'maghrib', name: 'صلاة المغرب', icon: 'fa-mountain-sun', time: '06:15 م' },
-    { id: 'isha', name: 'صلاة العشاء', icon: 'fa-moon', time: '07:45 م' }
-  ],
-        SUBJECTS: [
+  WEIGHTS: HABITS_CONFIG.WEIGHTS,
+  PRAYERS: HABITS_CONFIG.PRAYERS,
+  SUBJECTS: Object.freeze([
     { id: 0, name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue" },
     { id: 1, name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald" },
     { id: 2, name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber" },
     { id: 3, name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple" },
     { id: 4, name: "علم النفس", icon: "fa-brain", color: "rose" },
     { id: 5, name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan" }
-  ],
-  SUBJECT_NAMES: [
+  ]),
+  SUBJECT_NAMES: Object.freeze([
     "مبادئ إدارة الأعمال", "المحاسبة المالية", "مبادئ الإقتصاد",
     "مبادئ القانون", "علم النفس", "اللغة الإنجليزية"
-  ],
-  SUBJECT_COLOR_KEYS: ['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan'],
-  PROGRAMMING_COURSES: []
+  ]),
+  SUBJECT_COLOR_KEYS: Object.freeze(['blue', 'emerald', 'amber', 'purple', 'rose', 'cyan']),
+  PROGRAMMING_COURSES: Object.freeze([])
 });
 
 const colorStyles = Object.freeze({
