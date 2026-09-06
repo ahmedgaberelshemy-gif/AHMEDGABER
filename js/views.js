@@ -948,12 +948,37 @@ class ProgrammingView {
 
 
 
-// 5. HEADER VIEW (Live Header Metadata)
+// 5. HEADER VIEW (Live Header Metadata & Controls - SRP / ISP)
 class HeaderView {
-  static render(state) {
-    // Header rendered cleanly
+  static render(state = {}) {
+    this.updateSoundIcon();
+  }
+
+  static updateSoundIcon() {
+    const icon = document.getElementById('soundToggleIcon');
+    const btn = document.getElementById('soundToggleBtn');
+    if (!icon) return;
+    const isMuted = typeof SoundService !== 'undefined' ? SoundService.isMuted() : false;
+    icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-400';
+    if (btn) {
+      btn.title = isMuted ? 'تشغيل المؤثرات الصوتية الفاخرة' : 'كتم المؤثرات الصوتية';
+    }
+  }
+
+  static updateSyncStatus(status) {
+    const badge = document.getElementById('cloudSyncHeaderBadge');
+    if (!badge) return;
+
+    if (status === 'syncing') {
+      badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-amber-500/30 transition';
+      badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-400 animate-spin"></i> <span>جاري الحفظ في Firebase...</span>';
+    } else {
+      badge.className = 'px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-emerald-500/30 transition';
+      badge.innerHTML = `<i class="fa-solid fa-fire text-amber-400"></i> <span>فايربيز متصل 🟢</span>`;
+    }
   }
 }
+
 
 // 5. RESULT MODAL VIEW (Motivational Feedback on Day Registration)
 class ResultModalView {

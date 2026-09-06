@@ -12,16 +12,20 @@ class AppController {
   sendAiMessage() { sendAiMessage(); }
 
 
-  constructor() {
-    this.storageService = new StorageService(APP_CONFIG.STORAGE_KEY);
-    this.cloudSyncService = new CloudSyncService(this.storageService);
+  constructor(dependencies = {}) {
+    this.storageService = dependencies.storageService || new StorageService();
+    this.cloudSyncService = dependencies.cloudSyncService || new CloudSyncService(this.storageService, {
+      onStatusChange: (status) => HeaderView.updateSyncStatus(status)
+    });
+    this.soundService = dependencies.soundService || SoundService;
+    this.celebrationService = dependencies.celebrationService || CelebrationService;
     this.state = this.storageService.load();
     this.currentEditingLessonKey = null;
   }
 
   async init() {
     HeaderView.render(this.state);
-    this.cloudSyncService.updateStatusBadge();
+    HeaderView.updateSyncStatus(this.cloudSyncService.status);
     this.switchTab(this.state.activeTab || 'routine');
 
     // 1. Real-time live listener from Firebase Firestore
@@ -31,10 +35,8 @@ class AppController {
         this.storageService.save(this.state);
         HeaderView.render(this.state);
         if (this.state.activeTab === 'routine') this.renderRoutine();
-        // Curriculum tab disabled
         if (this.state.activeTab === 'achievements') this.renderAchievements();
-        if (this.state.activeTab === 'programming') this.renderProgramming();
-        this.cloudSyncService.updateStatusBadge();
+        HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     });
 
@@ -45,10 +47,8 @@ class AppController {
         this.state = cloudState;
         this.storageService.save(this.state);
         this.renderRoutine();
-        // No curriculum
         this.renderAchievements();
-        this.renderProgramming();
-        this.cloudSyncService.updateStatusBadge();
+        HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     } catch (e) {}
   }
@@ -58,15 +58,14 @@ class AppController {
     this.cloudSyncService.push(this.state);
     HeaderView.render(this.state);
     if (this.state.activeTab === 'routine') this.renderRoutine();
-    
-    if (this.state.activeTab === 'programming') this.renderProgramming();
+    if (this.state.activeTab === 'achievements') this.renderAchievements();
   }
 
   // ==========================================
   // Navigation: Active Tabs (Routine & Achievements)
   // ==========================================
   switchTab(tabId) {
-    // Safety Fallback: Only 'routine' and 'achievements' exist now
+    // Safety Fallback (OCP / LSP): Only 'routine' and 'achievements' allowed
     if (tabId !== 'achievements') {
       tabId = 'routine';
     }
@@ -91,14 +90,12 @@ class AppController {
     const progSec = document.getElementById('section-programming');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
-    if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
+    if (curricSec) curricSec.classList.toggle('hidden', true);
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
-    if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
+    if (progSec) progSec.classList.toggle('hidden', true);
 
     if (tabId === 'routine') this.renderRoutine();
-    if (tabId === 'curriculum') this.renderCurriculum();
     if (tabId === 'achievements') this.renderAchievements();
-    if (tabId === 'programming') this.renderProgramming();
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);
@@ -124,13 +121,13 @@ class AppController {
 
     const allDone = Object.values(log.prayers).filter(Boolean).length === 5;
     if (nextState && allDone) {
-      SoundService.playSuccess();
-      CelebrationService.fire('prayers');
+      this.soundService.playSuccess();
+      this.celebrationService.fire('prayers');
     } else if (nextState) {
-      SoundService.playCheck();
-      CelebrationService.smallPop();
+      this.soundService.playCheck();
+      this.celebrationService.smallPop();
     } else {
-      SoundService.playCheck();
+      this.soundService.playCheck();
     }
 
     this.renderRoutine();
@@ -144,10 +141,10 @@ class AppController {
     log.gym.done = isChecked;
 
     if (isChecked) {
-      SoundService.playSuccess();
-      CelebrationService.smallPop();
+      this.soundService.playSuccess();
+      this.celebrationService.smallPop();
     } else {
-      SoundService.playCheck();
+      this.soundService.playCheck();
     }
 
     this.renderRoutine();
@@ -161,10 +158,10 @@ class AppController {
     log.sleep.done = isChecked;
 
     if (isChecked) {
-      SoundService.playSuccess();
-      CelebrationService.smallPop();
+      this.soundService.playSuccess();
+      this.celebrationService.smallPop();
     } else {
-      SoundService.playCheck();
+      this.soundService.playCheck();
     }
 
     this.renderRoutine();
@@ -178,10 +175,10 @@ class AppController {
     log.quran.done = isChecked;
 
     if (isChecked) {
-      SoundService.playSuccess();
-      CelebrationService.smallPop();
+      this.soundService.playSuccess();
+      this.celebrationService.smallPop();
     } else {
-      SoundService.playCheck();
+      this.soundService.playCheck();
     }
 
     this.saveAndRefreshViews();
@@ -212,52 +209,46 @@ class AppController {
     // 2. Reset active routine inputs to 0/empty so user can log their new day
     this.state.dailyLogs[today] = this.storageService.createDefaultDayLog();
 
-    // 3. Save & Refresh views immediately (resets the screen checkboxes for the new day)
+    // 3. Save & Refresh views immediately
     this.saveAndRefreshViews();
     this.renderRoutine();
 
     // 4. Celebrations, Royal Fanfare & Motivational Modal Feedback
     if (is100) {
-      SoundService.playFanfare();
-      CelebrationService.fire('perfectDay');
+      this.soundService.playFanfare();
+      this.celebrationService.fire('perfectDay');
     } else {
-      SoundService.playSuccess();
-      CelebrationService.smallPop();
+      this.soundService.playSuccess();
+      this.celebrationService.smallPop();
     }
 
     ResultModalView.show(is100);
   }
 
   // ==========================================
-  // Curriculum Handlers (By Subject)
+  // Curriculum Handlers (Clean, Unified)
   // ==========================================
   renderCurriculum() {
-    CurriculumView.render(
-      this.state.currentSubject || 0, 
-      this.state.lessonProgress, 
-      this.state.lessonNotes
-    );
+    this.state.activeSubject = (typeof this.state.activeSubject === 'number') ? this.state.activeSubject : 0;
+    this.state.lessonProgress = this.state.lessonProgress || {};
+    this.state.lessonNotes = this.state.lessonNotes || {};
+    if (typeof CurriculumView !== 'undefined' && CurriculumView.render) {
+      CurriculumView.render(this.state.activeSubject, this.state.lessonProgress, this.state.lessonNotes);
+    }
   }
 
   switchSubject(subjectIdx) {
-    this.state.currentSubject = subjectIdx;
-    // No curriculum
-    const stage = document.getElementById('curriculumWeekStage');
-    if (stage) {
-      stage.classList.remove('animate-fade-in');
-      void stage.offsetWidth;
-      stage.classList.add('animate-fade-in');
-    }
-    this.saveAndRefreshViews();
+    this.state.activeSubject = subjectIdx;
+    this.renderCurriculum();
+    this.storageService.save(this.state);
   }
 
   switchWeek(weekNum) {
     this.state.currentWeek = weekNum;
-    // No curriculum
-    this.saveAndRefreshViews();
+    this.storageService.save(this.state);
   }
 
-    triggerGoldConfetti() {
+  triggerGoldConfetti() {
     if (typeof confetti === 'function') {
       confetti({
         particleCount: 45,
@@ -272,27 +263,26 @@ class AppController {
   }
 
   toggleLesson(lessonKey) {
-    const isNowCompleted = !Boolean(this.state.lessonProgress[lessonKey]);
-    this.state.lessonProgress[lessonKey] = isNowCompleted;
+    if (!lessonKey) return;
+    try {
+      this.state.lessonProgress = this.state.lessonProgress || {};
+      const isNowDone = !Boolean(this.state.lessonProgress[lessonKey]);
 
-    if (isNowCompleted) {
-      SoundService.playCheck();
-      CelebrationService.smallPop();
-    } else {
-      SoundService.playCheck();
+      if (isNowDone) {
+        this.state.lessonProgress[lessonKey] = true;
+        this.soundService.playCheck();
+        this.celebrationService.smallPop();
+      } else {
+        delete this.state.lessonProgress[lessonKey];
+        this.soundService.playCheck();
+      }
+
+      this.saveAndRefreshViews();
+      this.renderCurriculum();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling lesson:', err);
     }
-
-    // No curriculum
-    this.saveAndRefreshViews();
-  }
-
-        // ==========================================
-    // ==========================================
-  // Curriculum Handlers (Subjects Only)
-  // ==========================================
-  renderCurriculum() {
-    this.state.subjectsProgress = this.state.subjectsProgress || {};
-    CurriculumView.render(this.state.subjectsProgress);
   }
 
   toggleSubjectCompletion(subjectId) {
@@ -303,61 +293,17 @@ class AppController {
       this.state.subjectsProgress[subjectId] = isNowDone;
 
       if (isNowDone) {
-        SoundService.playSuccess();
-        CelebrationService.smallPop();
+        this.soundService.playSuccess();
+        this.celebrationService.smallPop();
       } else {
-        SoundService.playCheck();
+        this.soundService.playCheck();
       }
 
-      this.storageService.save(this.state);
-      this.cloudSyncService.push(this.state);
-      HeaderView.render(this.state);
+      this.saveAndRefreshViews();
       this.renderCurriculum();
       this.renderAchievements();
     } catch (err) {
       console.error('Error toggling subject:', err);
-    }
-  }
-
-    // ==========================================
-  // Curriculum Handlers (10 Weeks & 6 Subjects)
-  // ==========================================
-  renderCurriculum() {
-    this.state.activeSubject = (typeof this.state.activeSubject === 'number') ? this.state.activeSubject : 0;
-    this.state.lessonProgress = this.state.lessonProgress || {};
-    this.state.lessonNotes = this.state.lessonNotes || {};
-    CurriculumView.render(this.state.activeSubject, this.state.lessonProgress, this.state.lessonNotes);
-  }
-
-  switchSubject(subjectIdx) {
-    this.state.activeSubject = subjectIdx;
-    this.renderCurriculum();
-    this.storageService.save(this.state);
-  }
-
-  toggleLesson(lessonKey) {
-    if (!lessonKey) return;
-    try {
-      this.state.lessonProgress = this.state.lessonProgress || {};
-      const current = Boolean(this.state.lessonProgress[lessonKey]);
-      const isNowDone = !current;
-
-      if (isNowDone) {
-        this.state.lessonProgress[lessonKey] = true;
-        SoundService.playCheck();
-        CelebrationService.smallPop();
-      } else {
-        delete this.state.lessonProgress[lessonKey];
-        SoundService.playCheck();
-      }
-
-      this.storageService.save(this.state);
-      this.cloudSyncService.push(this.state);
-      HeaderView.render(this.state);
-      this.renderCurriculum();
-      this.renderAchievements();
-    } catch (err) {
-      console.error('Error toggling lesson:', err);
     }
   }
 
