@@ -223,7 +223,7 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
 #noteModal.opacity-0,
 .opacity-0.pointer-events-none {
   pointer-events: none !important;
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
 /* Modals top priority stacking ONLY when open and active */
@@ -232,7 +232,7 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
 #noteModal:not(.opacity-0) {
   z-index: 100 !important;
   pointer-events: auto !important;
-  visibility: visible;
+  visibility: visible !important;
 }
 
 
