@@ -214,13 +214,27 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   position: relative;
   z-index: 10;
   pointer-events: auto !important;
+  cursor: pointer;
 }
 
-/* Modals top priority stacking */
-#cloudSyncModal, #dailyResultModal, #noteModal {
+/* Modals: NEVER intercept pointer events when hidden (opacity-0 or pointer-events-none) */
+#cloudSyncModal.opacity-0,
+#dailyResultModal.opacity-0,
+#noteModal.opacity-0,
+.opacity-0.pointer-events-none {
+  pointer-events: none !important;
+  visibility: hidden;
+}
+
+/* Modals top priority stacking ONLY when open and active */
+#cloudSyncModal:not(.opacity-0), 
+#dailyResultModal:not(.opacity-0), 
+#noteModal:not(.opacity-0) {
   z-index: 100 !important;
   pointer-events: auto !important;
+  visibility: visible;
 }
+
 
 /* 3D Dynamic Card Foundation */
 .card-lift, .card-3d {
