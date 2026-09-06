@@ -265,6 +265,22 @@ class CurriculumView {
       </div>
     `;
 
+    if (!weeksData || weeksData.length === 0) {
+      container.innerHTML = `
+        ${headerHtml}
+        <div class="bg-white rounded-3xl border border-dashed border-slate-200 p-8 sm:p-14 text-center text-slate-500 space-y-3 shadow-xs">
+          <div class="w-16 h-16 rounded-3xl bg-slate-100 text-slate-400 flex items-center justify-center text-2xl mx-auto shadow-2xs">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <h4 class="font-display font-black text-slate-800 text-base sm:text-lg">المقرر فارغ وجاهز للتسجيل 🎓</h4>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
+            سيتم إضافة المحاضرات والملخصات الفعلية أسبوعاً بأسبوع فور انطلاق الدراسة بالمعهد بإذن الله.
+          </p>
+        </div>
+      `;
+      return;
+    }
+
     // 10 Weeks Breakdown Grid
     let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">';
 

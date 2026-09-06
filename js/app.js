@@ -65,9 +65,15 @@ class AppController {
   // ==========================================
   // Navigation: 4 Master Tabs
   // ==========================================
-      switchTab(tabId) {
+  switchTab(tabId) {
     if (!['routine', 'curriculum', 'achievements', 'programming'].includes(tabId)) {
       tabId = 'routine';
+    }
+    if (tabId === 'curriculum') {
+      const curricBtn = document.getElementById('tabBtn-curriculum');
+      if (curricBtn && (curricBtn.classList.contains('hidden') || curricBtn.style.display === 'none')) {
+        tabId = 'routine';
+      }
     }
     this.state.activeTab = tabId;
 
