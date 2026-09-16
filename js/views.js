@@ -26,6 +26,9 @@ class RoutineView {
     const totalCount = 8; // 5 prayers + 1 quran + 1 gym + 1 sleep
     const percent = Math.round((doneCount / totalCount) * 100);
 
+    const todayDoneStat = document.getElementById('routineTodayDoneStat');
+    if (todayDoneStat) todayDoneStat.innerText = `${doneCount} / 8`;
+
     const overallBadge = document.getElementById('routineOverallBadge');
     if (overallBadge) {
       if (percent === 100) {
@@ -435,8 +438,9 @@ class AchievementsView {
 
   // 1. Routine Discipline & Days History
   static renderRoutineAchievements(dailyLogs = {}) {
-    const container = document.getElementById('routineAchievementsContainer');
-    if (!container) return;
+    const heroContainer = document.getElementById('routineHeroContainer');
+    const detailsContainer = document.getElementById('routineDetailsContainer');
+    const legacyContainer = document.getElementById('routineAchievementsContainer');
 
     const stats = DisciplineCalculator.calculateHistoryStats(dailyLogs);
     const incompleteHistory = DisciplineCalculator.getIncompleteDaysDetails(dailyLogs);
@@ -446,8 +450,8 @@ class AchievementsView {
     const remainingDays = Math.max(0, totalSemesterDays - stats.totalLoggedDays);
     const incompletePercentage = stats.totalLoggedDays > 0 ? Math.round((stats.incompleteDays / stats.totalLoggedDays) * 100) : 0;
 
-    container.innerHTML = `
-      <!-- Hero Banner: Cumulative Discipline Dashboard (Styled like English & Roadmap Hero) -->
+    const heroHtml = `
+      <!-- Hero Banner: Unified Master Cumulative & Today Dashboard -->
       <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-indigo-500/30 relative overflow-hidden card-lift">
         <div class="absolute -right-16 -top-16 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -458,34 +462,57 @@ class AchievementsView {
               <span class="px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-xs font-black font-display inline-flex items-center gap-1.5">
                 <i class="fa-solid fa-calendar-check text-indigo-400"></i> الالتزام التراكمي المستمر 🏆
               </span>
-              <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display" id="routineDisciplineBadge">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-black font-display" id="routineDisciplineBadge">
                 ${stats.perfectRate}% التزام تام 👑
+              </span>
+              <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display" id="routineOverallBadge">
+                0% مكتمل اليوم ⚡
               </span>
             </div>
             <h2 class="font-display font-black text-xl sm:text-2xl text-white">
               سجل ومؤشر الالتزام اليومي التراكمي (${totalSemesterDays} يوماً نحو الامتياز والمركز الأول)
             </h2>
             <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl leading-relaxed">
-              متابعة حية وشاملة لكل يوم دراسي؛ رصد الأيام المثالية ناصعة البياض ومعالجة أي تقصير فورياً لضمان صدارة الدفعة والتعيين معيداً بقسم المحاسبة والمراجعة.
+              متابعة حية وشاملة لكل يوم دراسي؛ رصد الأيام المثالية ناصعة البياض وأركان اليوم الأربعة (الصلوات الخمس، الورد القرآني، تمرين الجيم، والنوم الصحي) لضمان المركز الأول.
             </p>
           </div>
 
-          <!-- Live Progress Capsule in Hero -->
-          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center shrink-0 w-full lg:w-64">
-            <span class="text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة بالترم:</span>
-            <div class="text-2xl font-black font-display text-amber-300" id="routineLoggedDaysCount" dir="ltr">${stats.totalLoggedDays} / ${totalSemesterDays}</div>
-            <span class="text-2xs text-amber-200/80 font-medium block mt-1">يوم معتمد في الكنترول الذاتي</span>
+          <!-- Live Progress Dual Capsules in Hero -->
+          <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap w-full lg:w-auto shrink-0">
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/15 text-center min-w-[130px] flex-1 sm:flex-initial">
+              <span class="text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة:</span>
+              <div class="text-2xl font-black font-display text-amber-300 font-mono" id="routineLoggedDaysCount" dir="ltr">${stats.totalLoggedDays} / ${totalSemesterDays}</div>
+              <span class="text-2xs text-amber-200/80 font-medium block mt-1">يوم معتمد بالترم الأول</span>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 border border-white/15 text-center min-w-[130px] flex-1 sm:flex-initial">
+              <span class="text-xs text-slate-300 font-bold block mb-1">أركان اليوم الحاضر:</span>
+              <div class="text-2xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 8</div>
+              <span class="text-2xs text-emerald-200/80 font-medium block mt-1">أركان اليوم الأربعة</span>
+            </div>
           </div>
         </div>
 
-        <!-- Semester Coverage Progress Bar -->
-        <div class="mt-5 pt-4 border-t border-white/10">
-          <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5">
-            <span>مؤشر تغطية أيام الترم الدراسي:</span>
-            <span class="text-amber-300 font-black font-mono" dir="ltr">${loggedPercentage}% (${stats.totalLoggedDays} من أصل ${totalSemesterDays} يوماً)</span>
+        <!-- Semester Coverage & Today Progress Bars in Hero -->
+        <div class="mt-5 pt-4 border-t border-white/10 space-y-3">
+          <div>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+              <span>مؤشر تغطية أيام الترم الدراسي (${totalSemesterDays} يوماً):</span>
+              <span class="text-amber-300 font-black font-mono" dir="ltr">${loggedPercentage}% (${stats.totalLoggedDays} من أصل ${totalSemesterDays} يوماً)</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
+              <div class="h-full bg-gradient-to-r from-indigo-500 via-emerald-400 to-amber-300 rounded-full transition-all duration-500" style="width: ${loggedPercentage}%;"></div>
+            </div>
           </div>
-          <div class="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
-            <div class="h-full bg-gradient-to-r from-indigo-500 via-emerald-400 to-amber-300 rounded-full transition-all duration-500" style="width: ${loggedPercentage}%;"></div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1">
+              <span>مؤشر إنجاز أركان اليوم الحالي:</span>
+              <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono" dir="ltr">0%</span>
+            </div>
+            <div class="w-full h-2.5 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
+              <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-amber-400 via-emerald-400 to-teal-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -593,7 +620,9 @@ class AchievementsView {
         </div>
 
       </div>
+    `;
 
+    const detailsHtml = `
       <!-- Cumulative Days Dual-Timeline Meter Card -->
       <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-xs space-y-3 card-lift">
         <div class="flex items-center justify-between text-xs font-bold flex-wrap gap-2">
@@ -675,6 +704,13 @@ class AchievementsView {
         </button>
       </div>
     `;
+
+    if (heroContainer && detailsContainer) {
+      heroContainer.innerHTML = heroHtml;
+      detailsContainer.innerHTML = detailsHtml;
+    } else if (legacyContainer) {
+      legacyContainer.innerHTML = heroHtml + detailsHtml;
+    }
   }
 
   static renderAcademicAchievements(weeks = [], lessonProgress = {}) {

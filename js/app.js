@@ -129,10 +129,10 @@ class AppController {
   }
 
   renderRoutine() {
-    RoutineView.render(this.getTodayLog());
     if (typeof AchievementsView !== "undefined" && AchievementsView.renderRoutineAchievements) {
       AchievementsView.renderRoutineAchievements(this.state.dailyLogs);
     }
+    RoutineView.render(this.getTodayLog());
   }
 
   togglePrayer(prayerId) {
