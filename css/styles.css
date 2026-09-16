@@ -26,7 +26,8 @@ body {
 
 h1, h2, h3, h4, h5, .font-display {
   font-family: 'Alexandria', sans-serif;
-  letter-spacing: -0.02em;
+  letter-spacing: normal;
+  line-height: 1.45;
 }
 
 /* =========================================================================
