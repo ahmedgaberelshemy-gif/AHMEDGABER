@@ -97,14 +97,14 @@ class RoutineView {
     if (completedCount === 5) {
       if (badge && badge.innerText !== undefined) {
         badge.className = 'px-2.5 py-1 rounded-lg shimmer-gold text-slate-950 text-xs font-black whitespace-nowrap shrink-0 shadow-md shadow-amber-500/20';
-        badge.innerText = 'أُقيمت بالكامل 🕌👑';
+        badge.innerText = '5 / 5 كاملة 👑'; badge.className = 'px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold whitespace-nowrap shrink-0 shadow-sm font-mono';
       }
       if (boxEl) boxEl.className = 'p-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/15 via-emerald-500/10 to-amber-500/15 border-amber-300 gold-glow-border text-center mt-3';
       if (msgEl) msgEl.innerText = 'هنيئاً لك يا بطل! أتممت صلواتك الخمس كاملة في وقتها.. نور وتوفيق ورضا من الله 🌟🕌';
     } else if (completedCount > 0) {
       if (badge) {
         badge.className = 'px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold whitespace-nowrap shrink-0';
-        badge.innerText = 'إقامة الصلاة 🕌';
+        badge.innerText = completedCount > 0 ? `${completedCount} / 5 صلوات` : '0 / 5 صلوات'; badge.className = 'px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-bold whitespace-nowrap shrink-0 font-mono';
       }
       if (boxEl) boxEl.className = 'p-3.5 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-center mt-3';
       if (msgEl) msgEl.innerText = `أحسنت! أنجزت (${completedCount} من 5 صلوات).. كمّل باقي الفروض لتنال التوفيق التام 🕌✨`;
