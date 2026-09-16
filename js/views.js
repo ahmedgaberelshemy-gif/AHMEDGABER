@@ -1207,7 +1207,7 @@ class RoadmapView {
             <span class="text-xs font-black px-2.5 py-1 rounded-full ${year.pillColor} flex items-center gap-1.5 border">
               <i class="fa-solid ${year.icon}"></i> ${year.stagePill}
             </span>
-            <span class="text-xs font-black font-display ${isYearComplete ? 'text-emerald-600' : 'text-blue-600'}">
+            <span dir="ltr" class="text-xs font-black font-display font-mono ${isYearComplete ? 'text-emerald-600' : 'text-blue-600'}">
               ${yearStats.percent}% (${yearStats.doneItems}/${yearStats.totalItems})
             </span>
           </div>
@@ -1220,7 +1220,7 @@ class RoadmapView {
           <!-- Part 1: Academic Courses -->
           <div class="space-y-2 mb-3">
             <span class="text-xs font-black text-slate-800 flex items-center gap-1.5">
-              <i class="fa-solid fa-graduation-cap text-blue-600"></i> مواد ${year.stagePill}:
+              <i class="fa-solid fa-graduation-cap text-blue-600"></i> المقررات الدراسية المعتمدة:
             </span>
             <ul class="space-y-2">
               ${coursesHtml}
@@ -1351,7 +1351,7 @@ class LanguageTrackView {
             <span class="text-xs font-black px-2.5 py-1 rounded-full ${level.pillColor} flex items-center gap-1.5 border">
               <i class="fa-solid ${level.icon}"></i> ${level.title}
             </span>
-            <span class="text-xs font-black font-display ${isLevelComplete ? 'text-emerald-600' : 'text-emerald-700'}">
+            <span dir="ltr" class="text-xs font-black font-display font-mono ${isLevelComplete ? 'text-emerald-600' : 'text-emerald-700'}">
               ${levelStats.percent}% (${levelStats.done}/${levelStats.total})
             </span>
           </div>

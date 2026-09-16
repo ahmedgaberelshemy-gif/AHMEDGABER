@@ -17,7 +17,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
   {
     id: 'year-1',
     yearNum: 1,
-    title: 'السنة الأولى بالمعهد (مادتان)',
+    title: 'السنة الأولى بالمعهد',
     stagePill: 'السنة الأولى بالمعهد',
     pillColor: 'bg-blue-100 text-blue-800 border-blue-200',
     borderColor: 'border-blue-500',
@@ -41,7 +41,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
   {
     id: 'year-2',
     yearNum: 2,
-    title: 'السنة الثانية بالمعهد (4 مواد)',
+    title: 'السنة الثانية بالمعهد',
     stagePill: 'السنة الثانية بالمعهد',
     pillColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
     borderColor: 'border-indigo-500',
@@ -67,7 +67,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
   {
     id: 'year-3',
     yearNum: 3,
-    title: 'السنة الثالثة بالمعهد (4 مواد)',
+    title: 'السنة الثالثة بالمعهد',
     stagePill: 'السنة الثالثة بالمعهد',
     pillColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
     borderColor: 'border-emerald-500',
@@ -91,7 +91,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
   {
     id: 'year-4',
     yearNum: 4,
-    title: 'السنة الرابعة بالمعهد (5 مواد تخرج)',
+    title: 'السنة الرابعة بالمعهد (سنة التخرج)',
     stagePill: 'السنة الرابعة بالمعهد',
     pillColor: 'bg-amber-100 text-amber-800 border-amber-200',
     borderColor: 'border-amber-500',
