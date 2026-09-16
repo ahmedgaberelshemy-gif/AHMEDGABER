@@ -233,4 +233,33 @@
     </button>
   </div>
 
+  <!-- ========================================================================= -->
+  <!-- CUMULATIVE DISCIPLINE & DAYS DASHBOARD (سجل ومؤشر الالتزام التراكمي للأيام) -->
+  <!-- ========================================================================= -->
+  <div id="routineAchievementsContainer" class="space-y-6">
+    <!-- Rendered dynamically by AchievementsView.renderRoutineAchievements -->
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- BACKUP & RESTORE STRIP (حفظ واسترجاع البيانات) -->
+  <!-- ========================================================================= -->
+  <div class="bg-white rounded-3xl border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 card-lift">
+    <div>
+      <h4 class="font-display font-bold text-sm text-slate-900 flex items-center gap-2">
+        <i class="fa-solid fa-shield-halved text-indigo-600"></i> حفظ واسترجاع البيانات (Backup & Restore)
+      </h4>
+      <p class="text-xs text-slate-500 font-medium mt-0.5">بياناتك محفوظة تلقائياً في المتصفح ومزامنة سحابياً. يمكنك تنزيل نسخة احتياطية لجهازك واسترجاعها في أي وقت.</p>
+    </div>
+
+    <div class="flex items-center gap-2.5 shrink-0 flex-wrap">
+      <button onclick="exportBackupData()" class="px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 flex items-center gap-1.5 transition cursor-pointer">
+        <i class="fa-solid fa-download"></i> تصدير نسخة احتياطية 📥
+      </button>
+      <label class="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 flex items-center gap-1.5 cursor-pointer transition">
+        <i class="fa-solid fa-upload"></i> استرجاع نسخة 📤
+        <input type="file" id="importFileInput" accept=".json" onchange="importBackupData(event)" class="hidden" />
+      </label>
+    </div>
+  </div>
+
 </section>

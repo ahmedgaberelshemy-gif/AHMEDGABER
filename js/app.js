@@ -31,7 +31,7 @@ class AppController {
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+        const validTabs = ['routine', 'roadmap', 'languages'];
         if (!validTabs.includes(cloudState.activeTab)) {
           cloudState.activeTab = 'routine';
         }
@@ -74,8 +74,8 @@ class AppController {
   // Navigation: Active Tabs (Routine, Roadmap, Languages & Achievements)
   // ==========================================
   switchTab(tabId) {
-    const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
-    if (!validTabs.includes(tabId)) {
+    const validTabs = ['routine', 'roadmap', 'languages'];
+    if (!validTabs.includes(tabId) || tabId === 'achievements') {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
@@ -130,6 +130,9 @@ class AppController {
 
   renderRoutine() {
     RoutineView.render(this.getTodayLog());
+    if (typeof AchievementsView !== "undefined" && AchievementsView.renderRoutineAchievements) {
+      AchievementsView.renderRoutineAchievements(this.state.dailyLogs);
+    }
   }
 
   togglePrayer(prayerId) {
