@@ -8,11 +8,52 @@
 class RoutineView {
   static render(dayLog) {
     if (!dayLog) return;
+    this.renderHeaderStats(dayLog);
     this.renderPrayers(dayLog.prayers || {});
     this.renderGym(dayLog.gym || {});
     this.renderSleep(dayLog.sleep || {});
     this.renderQuran(dayLog.quran || {});
     this.renderFinalizeStatus(dayLog);
+  }
+
+  static renderHeaderStats(dayLog) {
+    const prayersDone = Object.values(dayLog.prayers || {}).filter(Boolean).length;
+    const quranDone = Boolean(dayLog.quran?.done);
+    const gymDone = Boolean(dayLog.gym?.done);
+    const sleepDone = Boolean(dayLog.sleep?.done);
+
+    const doneCount = prayersDone + (quranDone ? 1 : 0) + (gymDone ? 1 : 0) + (sleepDone ? 1 : 0);
+    const totalCount = 8; // 5 prayers + 1 quran + 1 gym + 1 sleep
+    const percent = Math.round((doneCount / totalCount) * 100);
+
+    const overallBadge = document.getElementById('routineOverallBadge');
+    if (overallBadge) {
+      if (percent === 100) {
+        overallBadge.innerText = '100% يوم مثالي معتمد 👑';
+        overallBadge.className = 'px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 text-xs font-black font-display shadow-sm';
+      } else {
+        overallBadge.innerText = `${percent}% مكتمل اليوم ⚡`;
+        overallBadge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display';
+      }
+    }
+
+    const prayersStat = document.getElementById('routinePrayersStat');
+    if (prayersStat) prayersStat.innerText = `${prayersDone} / 5`;
+
+    const quranStat = document.getElementById('routineQuranStat');
+    if (quranStat) quranStat.innerText = `${quranDone ? 1 : 0} / 1`;
+
+    const gymStat = document.getElementById('routineGymStat');
+    if (gymStat) gymStat.innerText = `${gymDone ? 1 : 0} / 1`;
+
+    const sleepStat = document.getElementById('routineSleepStat');
+    if (sleepStat) sleepStat.innerText = `${sleepDone ? 1 : 0} / 1`;
+
+    const percentText = document.getElementById('routineOverallPercentText');
+    if (percentText) percentText.innerText = `${percent}%`;
+
+    const progressBar = document.getElementById('routineOverallProgressBar');
+    if (progressBar) progressBar.style.width = `${percent}%`;
   }
 
   static renderPrayers(prayers) {
