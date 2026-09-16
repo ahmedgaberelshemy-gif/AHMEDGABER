@@ -836,7 +836,7 @@ class System3DEngine {
 
   static handleMouseMove(e) {
     if (!e) return;
-    const card = e.target.closest('.card-lift, .card-3d, #finalizeBar');
+    const card = e.target.closest('.card-lift, .card-3d');
     if (!card) {
       if (System3DEngine.lastTiltedCard) {
         System3DEngine.resetCard(System3DEngine.lastTiltedCard);
@@ -860,8 +860,8 @@ class System3DEngine {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
 
-    const maxTilt = card.id === 'finalizeBar' ? 2.5 : 3.5;
-    const translateY = card.id === 'finalizeBar' ? -3 : -5;
+    const maxTilt = 3.0;
+    const translateY = -4;
     const rotateX = ((y - centerY) / centerY) * -maxTilt;
     const rotateY = ((x - centerX) / centerX) * maxTilt;
 

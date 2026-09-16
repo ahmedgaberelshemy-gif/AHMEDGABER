@@ -253,20 +253,9 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
 }
 
 /* 3D Glossy Light Sheen (Crucial: pointer-events: none ensures zero click interference) */
+/* Gloss sheen disabled for calm, glare-free readability */
 .card-lift::after, .card-3d::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle 420px at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%), rgba(255, 255, 255, 0.45), transparent 70%);
-  pointer-events: none !important;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 5;
-}
-
-.card-lift:hover::after, .card-3d:hover::after {
-  opacity: 1;
+  display: none !important;
 }
 
 /* Inner elements 3D Pop */
@@ -306,23 +295,20 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
 }
 
-/* Crown Finalize Button: 3D Mechanical Tactile Press */
+/* Crown Finalize Button: Calm, eye-friendly matte finish */
 #finalizeDayBtn {
   position: relative;
-  z-index: 15;
-  box-shadow: 0 6px 0 #b45309, 0 14px 24px rgba(245, 158, 11, 0.35) !important;
-  transform: translateY(-2px);
-  transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.14s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  transition: all 0.15s ease !important;
 }
 
 #finalizeDayBtn:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 8px 0 #b45309, 0 18px 30px rgba(245, 158, 11, 0.45) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18) !important;
 }
 
 #finalizeDayBtn:active {
-  transform: translateY(3px) scale(0.98) !important;
-  box-shadow: 0 2px 0 #b45309, 0 4px 10px rgba(245, 158, 11, 0.25) !important;
+  transform: translateY(1px) scale(0.97) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Navigation Tabs 3D Depth & Emboss */

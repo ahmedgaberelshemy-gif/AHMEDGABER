@@ -184,31 +184,29 @@ class RoutineView {
 
     if (!pill || !btnText) return;
 
+    const calmBtnClass = 'px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-display font-black text-xs sm:text-sm border border-amber-400 flex items-center justify-center gap-1.5 transition cursor-pointer select-none shadow-xs';
+
     if (dayLog && dayLog.submitted) {
       const prayersDone = Object.values(dayLog.prayers || {}).filter(Boolean).length;
       const is100 = (prayersDone === 5 && Boolean(dayLog.quran?.done) && Boolean(dayLog.gym?.done) && Boolean(dayLog.sleep?.done));
 
       if (is100) {
-        pill.innerHTML = '<i class="fa-solid fa-crown text-amber-300"></i> تم الاعتماد: التزام تام 100% 👑';
-        pill.className = 'px-3.5 py-1 rounded-full bg-emerald-500/30 text-emerald-200 border border-emerald-400/50 text-xs font-black font-display shadow-2xs inline-flex items-center gap-1.5';
+        pill.innerHTML = '<i class="fa-solid fa-crown text-emerald-300"></i> تم الاعتماد: التزام تام 100% 👑';
+        pill.className = 'px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-2xs sm:text-xs font-black font-display shadow-2xs inline-flex items-center gap-1.5';
       } else {
         pill.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-300"></i> تم الاعتماد: يوم به نقص ⚠️';
-        pill.className = 'px-3.5 py-1 rounded-full bg-rose-500/30 text-rose-200 border border-rose-400/50 text-xs font-black font-display shadow-2xs inline-flex items-center gap-1.5';
+        pill.className = 'px-3 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-400/40 text-2xs sm:text-xs font-black font-display shadow-2xs inline-flex items-center gap-1.5';
       }
 
       btnText.innerText = 'تحديث اعتماد اليوم 🔄';
-      if (btnIcon) btnIcon.className = 'fa-solid fa-check-double text-slate-950 text-lg';
-      if (btn) {
-        btn.className = 'w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-display font-black text-sm sm:text-base shadow-xl shadow-amber-500/35 border-2 border-amber-200 flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-105 active:scale-95 shrink-0 cursor-pointer select-none relative z-10';
-      }
+      if (btnIcon) btnIcon.className = 'fa-solid fa-check-double text-slate-950 text-xs';
+      if (btn) btn.className = calmBtnClass;
     } else {
       pill.innerHTML = '<i class="fa-solid fa-bolt text-amber-400"></i> جاهز للتسجيل ⚡';
-      pill.className = 'px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-2xs inline-flex items-center gap-1.5';
+      pill.className = 'px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-2xs sm:text-xs font-black inline-flex items-center gap-1';
       btnText.innerText = 'تسجيل واعتماد اليوم ✅';
-      if (btnIcon) btnIcon.className = 'fa-solid fa-crown text-slate-950 text-lg';
-      if (btn) {
-        btn.className = 'w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-display font-black text-sm sm:text-base shadow-xl shadow-amber-500/35 border-2 border-amber-200 flex items-center justify-center gap-2.5 transition-all duration-300 hover:scale-105 active:scale-95 shrink-0 cursor-pointer select-none relative z-10';
-      }
+      if (btnIcon) btnIcon.className = 'fa-solid fa-crown text-slate-950 text-xs';
+      if (btn) btn.className = calmBtnClass;
     }
   }
 }
