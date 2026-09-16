@@ -1509,7 +1509,7 @@ class LanguageTrackView {
               />
               <div class="min-w-0 flex-1">
                 <label for="lang-${c.id}" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none leading-snug block ${isDone ? 'line-through text-slate-400' : ''}">
-                  ${c.title}
+                  ${c.name || c.title || ''}
                 </label>
               </div>
             </div>
