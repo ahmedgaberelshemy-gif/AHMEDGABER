@@ -421,12 +421,11 @@ class AchievementsView {
     const stats = DisciplineCalculator.calculateHistoryStats(dailyLogs);
     const incompleteHistory = DisciplineCalculator.getIncompleteDaysDetails(dailyLogs);
     const totalSemesterDays = APP_CONFIG.TOTAL_SEMESTER_DAYS || 112;
-    const loggedPercentage = totalSemesterDays > 0 ? Math.round((stats.totalLoggedDays / totalSemesterDays) * 100) : 0;
     const perfectSemesterPercentage = totalSemesterDays > 0 ? Math.round((stats.perfectDays / totalSemesterDays) * 100) : 0;
     const remainingDays = Math.max(0, totalSemesterDays - stats.totalLoggedDays);
     const incompletePercentage = stats.totalLoggedDays > 0 ? Math.round((stats.incompleteDays / stats.totalLoggedDays) * 100) : 0;
 
-    // Update cumulative stats in top hero banner
+    // 1. Update unique cumulative metrics in the TOP HERO BANNER (No duplicate at bottom)
     const loggedCountEl = document.getElementById('routineLoggedDaysCount');
     if (loggedCountEl) loggedCountEl.innerText = `${stats.totalLoggedDays} / ${totalSemesterDays}`;
 
@@ -441,102 +440,82 @@ class AchievementsView {
 
     if (!detailsContainer) return;
 
+    // 2. Render BOTTOM DIAGNOSTIC CARD (Only unique diagnostics, zero repetition from top banner)
     detailsContainer.innerHTML = `
-      <!-- Full-Width Cumulative Performance & History Master Card -->
+      <!-- Performance Diagnostics & Missed Days Log Card -->
       <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-sm space-y-6 card-lift">
         
-        <!-- Card Header -->
+        <!-- Header: Diagnostic Purpose (Distinct from Top Banner Title) -->
         <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2 flex-wrap">
           <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-500/20 shrink-0">
-              <i class="fa-solid fa-chart-line"></i>
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center text-lg shadow-md shadow-indigo-500/20 shrink-0">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
             <div>
               <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
-                سجل ومؤشر الـ ${totalSemesterDays} يوماً التراكمي 🏆
+                سجل تشريح الأداء وتدارك التقصير 🔍
               </h3>
               <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
-                تحليل الأداء اليومي ورصد الأيام التامة وأيام التقصير طوال الفصل الدراسي
+                تتبع الأيام غير المكتملة وتشريح أسباب التقصير لتداركها فورياً، وأدوات إدارة البيانات
               </span>
             </div>
           </div>
-          <span class="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-xl shadow-2xs font-mono" dir="ltr">
-            ${stats.totalLoggedDays} من ${totalSemesterDays} يوماً مسجلة (${loggedPercentage}%)
+          <span class="text-xs sm:text-sm font-black text-indigo-700 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
+            الرتبة: ${stats.rank} 🎖️
           </span>
         </div>
 
-        <!-- 3 KPIs Row (Full Width 3 Symmetrical Columns) -->
+        <!-- 3 Unique Diagnostic Metric Cards (No repetition of Perfect Days / Total Days which are in top banner) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           
-          <!-- Card 1: Perfect Days -->
-          <div class="p-5 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col justify-between space-y-3">
-            <div class="flex items-center justify-between gap-1 text-emerald-800 text-xs sm:text-sm font-black">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-crown text-emerald-600 text-base"></i> التزام تام</span>
-              <span class="font-mono text-sm font-black">${stats.perfectRate}%</span>
-            </div>
-            <p class="text-xs text-slate-500 font-medium">أيام ناصعة بدون أي تقصير في الصلوات أو العادات</p>
-            <div class="text-3xl sm:text-4xl font-black font-mono text-emerald-700 my-1" dir="ltr">
-              ${stats.perfectDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
-            </div>
-            <div class="w-full h-2.5 bg-emerald-200/60 rounded-full overflow-hidden">
-              <div class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: ${stats.perfectRate}%;"></div>
-            </div>
-            <span class="text-xs font-bold text-emerald-800 block">${perfectSemesterPercentage}% من إجمالي أيام الترم</span>
-          </div>
-
-          <!-- Card 2: Incomplete Days -->
+          <!-- Card 1: Incomplete Days (أيام التقصير لتداركها) -->
           <div class="p-5 rounded-2xl bg-rose-50/80 border border-rose-200 flex flex-col justify-between space-y-3">
             <div class="flex items-center justify-between gap-1 text-rose-800 text-xs sm:text-sm font-black">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i> به تقصير</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i> أيام بها تقصير</span>
               <span class="font-mono text-sm font-black">${incompletePercentage}%</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium">أيام لم تكتمل فيها الفروض أو العادات اليومية</p>
+            <p class="text-xs text-slate-500 font-medium">أيام حدث بها نقص في الصلاة أو العادات</p>
             <div class="text-3xl sm:text-4xl font-black font-mono text-rose-700 my-1" dir="ltr">
               ${stats.incompleteDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
             </div>
             <div class="w-full h-2.5 bg-rose-200/60 rounded-full overflow-hidden">
               <div class="h-full bg-rose-600 rounded-full transition-all duration-300" style="width: ${incompletePercentage}%;"></div>
             </div>
-            <span class="text-xs font-bold text-rose-800 block">رصد النواقص لتداركها وتصحيح المسار</span>
+            <span class="text-xs font-bold text-rose-800 block">رصد النواقص لتداركها ومنع تكرارها</span>
           </div>
 
-          <!-- Card 3: Remaining Days -->
+          <!-- Card 2: Remaining Days (الأيام المتبقية بالترم) -->
           <div class="p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 flex flex-col justify-between space-y-3">
             <div class="flex items-center justify-between gap-1 text-indigo-800 text-xs sm:text-sm font-black">
               <span class="flex items-center gap-2"><i class="fa-solid fa-calendar-days text-indigo-600 text-base"></i> متبقي بالترم</span>
-              <span class="font-mono text-sm font-black">${Math.max(0, 100 - loggedPercentage)}%</span>
+              <span class="font-mono text-sm font-black">${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium">فرص ذهبية قادمة لتعزيز الانضباط والتفوق</p>
+            <p class="text-xs text-slate-500 font-medium">فرص قادمة كل يوم لتعزيز الامتياز</p>
             <div class="text-3xl sm:text-4xl font-black font-mono text-indigo-700 my-1" dir="ltr">
               ${remainingDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
             </div>
             <div class="w-full h-2.5 bg-indigo-200/60 rounded-full overflow-hidden">
-              <div class="h-full bg-indigo-600 rounded-full transition-all duration-300" style="width: ${Math.max(0, 100 - loggedPercentage)}%;"></div>
+              <div class="h-full bg-indigo-600 rounded-full transition-all duration-300" style="width: ${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%;"></div>
             </div>
             <span class="text-xs font-bold text-indigo-800 block">متبقي حتى نهاية الفصل الدراسي 🏆</span>
           </div>
 
-        </div>
+          <!-- Card 3: Current Streak (سلسلة الالتزام المتواصلة) -->
+          <div class="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between space-y-3">
+            <div class="flex items-center justify-between gap-1 text-amber-900 text-xs sm:text-sm font-black">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-fire text-amber-500 text-base"></i> سلسلة الالتزام</span>
+              <span class="text-xs font-bold text-amber-700 font-mono">متواصل 🔥</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium">عدد الأيام المتتالية دون أي انقطاع</p>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-amber-700 my-1" dir="ltr">
+              ${stats.streak} <span class="text-xs font-bold text-slate-500 font-cairo">أيام متتالية</span>
+            </div>
+            <div class="w-full h-2.5 bg-amber-200/60 rounded-full overflow-hidden">
+              <div class="h-full bg-amber-500 rounded-full transition-all duration-300" style="width: ${Math.min(100, (stats.streak / 14) * 100)}%;"></div>
+            </div>
+            <span class="text-xs font-bold text-amber-900 block">استمر في حماية شعلة الالتزام 🔥</span>
+          </div>
 
-        <!-- Cumulative Timeline Meter -->
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
-          <div class="flex items-center justify-between text-xs sm:text-sm font-bold flex-wrap gap-2">
-            <span class="text-emerald-700 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow-2xs"></span>
-              التزام تام: ${stats.perfectDays} يوم (${stats.perfectRate}%)
-            </span>
-            <span class="text-rose-700 flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-rose-500 inline-block shadow-2xs"></span>
-              أيام تقصير: ${stats.incompleteDays} يوم (${incompletePercentage}%)
-            </span>
-            <span class="text-slate-500 font-mono" dir="ltr">
-              متبقي: ${remainingDays} يوم من ${totalSemesterDays} يوماً
-            </span>
-          </div>
-          <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden flex shadow-inner">
-            <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500" style="width: ${stats.perfectRate}%"></div>
-            <div class="h-full bg-gradient-to-r from-rose-500 to-amber-400 transition-all duration-500" style="width: ${incompletePercentage}%"></div>
-          </div>
         </div>
 
         <!-- Incomplete Days Breakdown Log or Spotless Streak Banner -->
