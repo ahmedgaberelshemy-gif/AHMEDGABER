@@ -18,45 +18,32 @@ class RoutineView {
 
   static renderHeaderStats(dayLog) {
     const prayersDone = Object.values(dayLog.prayers || {}).filter(Boolean).length;
+    const isPrayersComplete = prayersDone === 5;
     const quranDone = Boolean(dayLog.quran?.done);
     const gymDone = Boolean(dayLog.gym?.done);
     const sleepDone = Boolean(dayLog.sleep?.done);
 
-    const doneCount = prayersDone + (quranDone ? 1 : 0) + (gymDone ? 1 : 0) + (sleepDone ? 1 : 0);
-    const totalCount = 8; // 5 prayers + 1 quran + 1 gym + 1 sleep
-    const percent = Math.round((doneCount / totalCount) * 100);
+    // Count the 4 core pillars: Prayers, Quran, Gym, Sleep
+    const donePillars = (isPrayersComplete ? 1 : 0) + (quranDone ? 1 : 0) + (gymDone ? 1 : 0) + (sleepDone ? 1 : 0);
+    const totalPillars = 4;
+    const percent = Math.round(((prayersDone * 6) + (quranDone ? 20 : 0) + (gymDone ? 25 : 0) + (sleepDone ? 25 : 0)));
 
     const todayDoneStat = document.getElementById('routineTodayDoneStat');
-    if (todayDoneStat) todayDoneStat.innerText = `${doneCount} / 8`;
+    if (todayDoneStat) todayDoneStat.innerText = `${donePillars} / ${totalPillars}`;
 
     const overallBadge = document.getElementById('routineOverallBadge');
     if (overallBadge) {
       if (percent === 100) {
         overallBadge.innerText = '100% يوم مثالي معتمد 👑';
-        overallBadge.className = 'px-3 py-1 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 text-xs font-black font-display shadow-sm';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/30 text-emerald-300 border border-emerald-400/50 text-xs sm:text-sm font-black font-display shadow-sm';
       } else {
         overallBadge.innerText = `${percent}% مكتمل اليوم ⚡`;
-        overallBadge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs sm:text-sm font-black font-display';
       }
     }
 
-    const prayersStat = document.getElementById('routinePrayersStat');
-    if (prayersStat) prayersStat.innerText = `${prayersDone} / 5`;
-
-    const quranStat = document.getElementById('routineQuranStat');
-    if (quranStat) quranStat.innerText = `${quranDone ? 1 : 0} / 1`;
-
-    const gymStat = document.getElementById('routineGymStat');
-    if (gymStat) gymStat.innerText = `${gymDone ? 1 : 0} / 1`;
-
-    const sleepStat = document.getElementById('routineSleepStat');
-    if (sleepStat) sleepStat.innerText = `${sleepDone ? 1 : 0} / 1`;
-
-    const percentText = document.getElementById('routineOverallPercentText');
-    if (percentText) percentText.innerText = `${percent}%`;
-
-    const progressBar = document.getElementById('routineOverallProgressBar');
-    if (progressBar) progressBar.style.width = `${percent}%`;
+    const cardBadge = document.getElementById('routineTodayCardBadge');
+    if (cardBadge) cardBadge.innerText = `${donePillars} من ${totalPillars} أركان منجزة`;
   }
 
   static renderPrayers(prayers) {
@@ -430,7 +417,6 @@ class AchievementsView {
   // 1. Routine Discipline & Days History
   static renderRoutineAchievements(dailyLogs = {}) {
     const detailsContainer = document.getElementById('routineDetailsContainer');
-    const legacyHero = document.getElementById('routineHeroContainer');
 
     const stats = DisciplineCalculator.calculateHistoryStats(dailyLogs);
     const incompleteHistory = DisciplineCalculator.getIncompleteDaysDetails(dailyLogs);
@@ -440,219 +426,183 @@ class AchievementsView {
     const remainingDays = Math.max(0, totalSemesterDays - stats.totalLoggedDays);
     const incompletePercentage = stats.totalLoggedDays > 0 ? Math.round((stats.incompleteDays / stats.totalLoggedDays) * 100) : 0;
 
-    // Update cumulative stats in top hero banner if present
+    // Update cumulative stats in top hero banner
     const loggedCountEl = document.getElementById('routineLoggedDaysCount');
     if (loggedCountEl) loggedCountEl.innerText = `${stats.totalLoggedDays} / ${totalSemesterDays}`;
 
-    const disciplineBadgeEl = document.getElementById('routineDisciplineBadge');
-    if (disciplineBadgeEl) disciplineBadgeEl.innerText = `${stats.perfectRate}% التزام تام 👑`;
+    const perfectDaysStatEl = document.getElementById('routinePerfectDaysStat');
+    if (perfectDaysStatEl) perfectDaysStatEl.innerText = `${stats.perfectDays}`;
+
+    const overallPercentText = document.getElementById('routineOverallPercentText');
+    if (overallPercentText) overallPercentText.innerText = `${perfectSemesterPercentage}%`;
+
+    const overallProgressBar = document.getElementById('routineOverallProgressBar');
+    if (overallProgressBar) overallProgressBar.style.width = `${perfectSemesterPercentage}%`;
 
     if (!detailsContainer) return;
 
     detailsContainer.innerHTML = `
-      <!-- Header of Cumulative Performance -->
-      <div class="flex items-center justify-between pb-1 flex-wrap gap-2">
-        <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-base shadow-md shadow-blue-500/20 shrink-0">
-            <i class="fa-solid fa-chart-line"></i>
-          </div>
-          <div>
-            <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
-              لوحة الأداء التراكمي ومؤشر الـ ${totalSemesterDays} يوماً 🏆
-            </h3>
-            <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
-              رصد حي لتراكم الأيام المثالية ونسب الالتزام طوال الفصل الدراسي
-            </span>
-          </div>
-        </div>
-        <span class="text-xs sm:text-sm font-bold text-slate-600 bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 shadow-2xs font-mono" dir="ltr">
-          ${stats.totalLoggedDays} من ${totalSemesterDays} يوماً مسجلة (${loggedPercentage}%)
-        </span>
-      </div>
-
-      <!-- 3 Luxury Metric Cards Grid (Symmetrical, Large, High Contrast) -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+      <!-- Master Left Card: Cumulative Performance & Analytics (Matching Right Card Height & Style) -->
+      <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-sm space-y-6 card-lift">
         
-        <!-- Card 1: Perfect 100% Days (Emerald Luxury) -->
-        <div class="bg-white rounded-3xl border border-slate-200 hover:border-emerald-400 p-6 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-          <div>
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
-              <span class="text-xs sm:text-sm font-black px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-2 shadow-2xs">
-                <i class="fa-solid fa-crown text-emerald-600"></i> أيام الالتزام التام 100%
-              </span>
-              <span dir="ltr" class="text-xs sm:text-sm font-black font-display font-mono text-emerald-700">
-                ${stats.perfectRate}%
-              </span>
+        <!-- Card Header -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-md shadow-blue-500/20 shrink-0">
+              <i class="fa-solid fa-chart-line"></i>
             </div>
-
-            <p class="text-xs sm:text-sm text-slate-500 font-medium my-3">
-              أيام ناصعة البياض بدون أي تقصير في الصلوات الخمس أو العادات
-            </p>
-
-            <div class="text-4xl sm:text-5xl font-black font-mono text-emerald-700 my-3" dir="ltr">
-              ${stats.perfectDays} <span class="text-sm font-bold text-slate-500 font-cairo">يوم</span>
-            </div>
-
-            <!-- Mini Progress Bar -->
-            <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-3 shadow-inner">
-              <div class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-300" style="width: ${stats.perfectRate}%;"></div>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-slate-100 text-center">
-            <span class="text-xs sm:text-sm font-bold text-emerald-800">
-              ${perfectSemesterPercentage}% من إجمالي أيام الترم المستهدفة (${totalSemesterDays} يوماً)
-            </span>
-          </div>
-        </div>
-
-        <!-- Card 2: Incomplete Days (Rose Luxury) -->
-        <div class="bg-white rounded-3xl border border-slate-200 hover:border-rose-400 p-6 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-          <div>
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
-              <span class="text-xs sm:text-sm font-black px-3.5 py-1.5 rounded-full bg-rose-50 text-rose-800 border border-rose-200 flex items-center gap-2 shadow-2xs">
-                <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> أيام بها تقصير أو نقص
-              </span>
-              <span dir="ltr" class="text-xs sm:text-sm font-black font-display font-mono text-rose-700">
-                ${incompletePercentage}%
+            <div>
+              <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
+                سجل ومؤشر الـ ${totalSemesterDays} يوماً التراكمي 🏆
+              </h3>
+              <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
+                تحليل الأداء اليومي ورصد الأيام التامة وأيام التقصير
               </span>
             </div>
-
-            <p class="text-xs sm:text-sm text-slate-500 font-medium my-3">
-              أيام لم تكتمل فيها الصلوات أو القرآن أو الجيم أو النوم
-            </p>
-
-            <div class="text-4xl sm:text-5xl font-black font-mono text-rose-700 my-3" dir="ltr">
-              ${stats.incompleteDays} <span class="text-sm font-bold text-slate-500 font-cairo">يوم</span>
-            </div>
-
-            <!-- Mini Progress Bar -->
-            <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-3 shadow-inner">
-              <div class="h-full bg-gradient-to-r from-rose-400 to-amber-500 rounded-full transition-all duration-300" style="width: ${incompletePercentage}%;"></div>
-            </div>
           </div>
-
-          <div class="pt-4 border-t border-slate-100 text-center">
-            <span class="text-xs sm:text-sm font-bold text-rose-800">
-              رصد النواقص لتداركها فورياً وتفادي تكرار الأخطاء
-            </span>
-          </div>
-        </div>
-
-        <!-- Card 3: Remaining Days (Indigo Luxury) -->
-        <div class="bg-white rounded-3xl border border-slate-200 hover:border-indigo-400 p-6 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-          <div>
-            <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
-              <span class="text-xs sm:text-sm font-black px-3.5 py-1.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200 flex items-center gap-2 shadow-2xs">
-                <i class="fa-solid fa-calendar-days text-indigo-600"></i> الأيام المتبقية بالترم
-              </span>
-              <span dir="ltr" class="text-xs sm:text-sm font-black font-display font-mono text-indigo-700">
-                ${100 - loggedPercentage}%
-              </span>
-            </div>
-
-            <p class="text-xs sm:text-sm text-slate-500 font-medium my-3">
-              فرص قادمة كل يوم لتعزيز الالتزام والمركز الأول 🏆
-            </p>
-
-            <div class="text-4xl sm:text-5xl font-black font-mono text-indigo-700 my-3" dir="ltr">
-              ${remainingDays} <span class="text-sm font-bold text-slate-500 font-cairo">يوم</span>
-            </div>
-
-            <!-- Mini Progress Bar -->
-            <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-3 shadow-inner">
-              <div class="h-full bg-gradient-to-r from-indigo-400 to-sky-500 rounded-full transition-all duration-300" style="width: ${Math.max(0, 100 - loggedPercentage)}%;"></div>
-            </div>
-          </div>
-
-          <div class="pt-4 border-t border-slate-100 text-center">
-            <span class="text-xs sm:text-sm font-bold text-indigo-800">
-              متبقي حتى نهاية الترم من أصل ${totalSemesterDays} يوماً
-            </span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Cumulative Days Dual-Timeline Meter Card -->
-      <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-xs space-y-4 card-lift">
-        <div class="flex items-center justify-between text-xs sm:text-sm font-bold flex-wrap gap-2">
-          <div class="flex items-center gap-5 flex-wrap">
-            <span class="text-emerald-700 flex items-center gap-2 font-bold">
-              <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block shadow-xs"></span>
-              التزام تام: ${stats.perfectDays} يوم (${stats.perfectRate}%)
-            </span>
-            <span class="text-rose-700 flex items-center gap-2 font-bold">
-              <span class="w-3 h-3 rounded-full bg-rose-500 inline-block shadow-xs"></span>
-              أيام تقصير: ${stats.incompleteDays} يوم (${incompletePercentage}%)
-            </span>
-          </div>
-          <span class="text-slate-500 font-mono text-xs sm:text-sm font-bold" dir="ltr">
-            متبقي: ${remainingDays} يوم من ${totalSemesterDays} يوم
+          <span class="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 border border-blue-200 px-3.5 py-1.5 rounded-xl shadow-2xs font-mono" dir="ltr">
+            ${stats.totalLoggedDays} من ${totalSemesterDays} يوماً (${loggedPercentage}%)
           </span>
         </div>
-        <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden flex shadow-inner border border-slate-200">
-          <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500" style="width: ${stats.perfectRate}%" title="التزام تام"></div>
-          <div class="h-full bg-gradient-to-r from-rose-500 to-amber-400 transition-all duration-500" style="width: ${incompletePercentage}%" title="أيام تقصير"></div>
+
+        <!-- 3 KPIs Row (Symmetrical & High Contrast) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+          
+          <!-- Card 1: Perfect Days -->
+          <div class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1 text-emerald-800 text-xs font-black">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-crown text-emerald-600"></i> التزام تام</span>
+              <span class="font-mono">${stats.perfectRate}%</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-emerald-700 my-2" dir="ltr">
+              ${stats.perfectDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
+            </div>
+            <div class="w-full h-2 bg-emerald-200/60 rounded-full overflow-hidden">
+              <div class="h-full bg-emerald-600 rounded-full" style="width: ${stats.perfectRate}%;"></div>
+            </div>
+            <span class="text-[11px] font-bold text-emerald-800 mt-2 block">${perfectSemesterPercentage}% من أيام الترم</span>
+          </div>
+
+          <!-- Card 2: Incomplete Days -->
+          <div class="p-4 rounded-2xl bg-rose-50/80 border border-rose-200 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1 text-rose-800 text-xs font-black">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-triangle-exclamation text-rose-600"></i> به تقصير</span>
+              <span class="font-mono">${incompletePercentage}%</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-rose-700 my-2" dir="ltr">
+              ${stats.incompleteDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
+            </div>
+            <div class="w-full h-2 bg-rose-200/60 rounded-full overflow-hidden">
+              <div class="h-full bg-rose-600 rounded-full" style="width: ${incompletePercentage}%;"></div>
+            </div>
+            <span class="text-[11px] font-bold text-rose-800 mt-2 block">رصد النواقص لتداركها</span>
+          </div>
+
+          <!-- Card 3: Remaining Days -->
+          <div class="p-4 rounded-2xl bg-indigo-50/80 border border-indigo-200 flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1 text-indigo-800 text-xs font-black">
+              <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-indigo-600"></i> متبقي بالترم</span>
+              <span class="font-mono">${Math.max(0, 100 - loggedPercentage)}%</span>
+            </div>
+            <div class="text-2xl sm:text-3xl font-black font-mono text-indigo-700 my-2" dir="ltr">
+              ${remainingDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
+            </div>
+            <div class="w-full h-2 bg-indigo-200/60 rounded-full overflow-hidden">
+              <div class="h-full bg-indigo-600 rounded-full" style="width: ${Math.max(0, 100 - loggedPercentage)}%;"></div>
+            </div>
+            <span class="text-[11px] font-bold text-indigo-800 mt-2 block">فرص ذهبية قادمة 🏆</span>
+          </div>
+
         </div>
-      </div>
 
-      <!-- Incomplete Days Breakdown Log or Spotless Streak Banner -->
-      ${incompleteHistory.length > 0 ? `
-        <div class="border border-rose-200 rounded-3xl bg-white overflow-hidden shadow-xs card-lift">
-          <button 
-            type="button"
-            onclick="toggleIncompleteDetailsSection()" 
-            class="w-full p-5 bg-rose-50/80 hover:bg-rose-100/80 flex items-center justify-between gap-3 text-right font-bold text-xs sm:text-sm text-rose-950 transition cursor-pointer select-none"
-          >
-            <div class="flex items-center gap-2.5">
-              <i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i>
-              <span>سجل الأيام التي وقع بها تقصير (${incompleteHistory.length} يوم) - اضغط لتشريح الأسباب وتصحيح المسار</span>
-            </div>
-            <div class="flex items-center gap-2 shrink-0">
-              <span id="toggleIncompleteText" class="text-xs text-rose-700 font-mono font-bold">عرض التفاصيل 🔍</span>
-              <i id="toggleIncompleteIcon" class="fa-solid fa-chevron-down text-rose-600 text-xs"></i>
-            </div>
-          </button>
-
-          <div id="incompleteDetailsWrapper" class="hidden divide-y divide-slate-100 p-6 space-y-3.5 bg-white">
-            ${incompleteHistory.map(day => `
-              <div class="pt-3.5 first:pt-0 space-y-2">
-                <div class="flex items-center justify-between text-xs sm:text-sm">
-                  <span class="font-bold text-slate-900 font-mono">${day.date}</span>
-                  <span class="px-3 py-0.5 rounded-lg bg-rose-100 text-rose-800 text-xs font-bold">
-                    ${day.missedCount} عناصر لم تكتمل
-                  </span>
-                </div>
-                <div class="flex flex-wrap gap-2 pt-1">
-                  ${day.missed.map(item => `
-                    <span class="px-3 py-1 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 text-xs sm:text-sm font-bold flex items-center gap-2">
-                      <i class="fa-solid fa-xmark text-rose-500 text-[10px]"></i> ${item}
-                    </span>
-                  `).join('')}
-                </div>
-              </div>
-            `).join('')}
+        <!-- Cumulative Timeline Meter -->
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <div class="flex items-center justify-between text-xs font-bold flex-wrap gap-2">
+            <span class="text-emerald-700 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+              التزام تام: ${stats.perfectDays} يوم (${stats.perfectRate}%)
+            </span>
+            <span class="text-rose-700 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>
+              أيام تقصير: ${stats.incompleteDays} يوم (${incompletePercentage}%)
+            </span>
+            <span class="text-slate-500 font-mono" dir="ltr">
+              متبقي: ${remainingDays} يوم
+            </span>
+          </div>
+          <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden flex">
+            <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500" style="width: ${stats.perfectRate}%"></div>
+            <div class="h-full bg-gradient-to-r from-rose-500 to-amber-400 transition-all duration-500" style="width: ${incompletePercentage}%"></div>
           </div>
         </div>
-      ` : `
-        <div class="p-6 rounded-3xl bg-gradient-to-r from-emerald-50 via-teal-50/50 to-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center justify-center gap-3 text-center shadow-xs card-lift">
-          <i class="fa-solid fa-crown text-amber-500 text-xl"></i>
-          <span>سجلك ناصع البياض والتزامك 100% بدون أي تقصير أو مخالفات حتى الآن! استمر في طريق المركز الأول 👑</span>
-        </div>
-      `}
 
-      <!-- Bottom Toolbar: Reset Routine History Safe Button -->
-      <div class="flex items-center justify-between pt-1">
-        <span class="text-xs sm:text-sm text-slate-400 font-medium">سجل الالتزام يُحدث لحظياً بعد كل اعتماد يومي</span>
-        <button 
-          type="button"
-          onclick="resetRoutineHistory()" 
-          class="px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs sm:text-sm border border-rose-200 flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-2xs" 
-          title="تصفير سجل الأيام والروتين فقط إلى 0 يوم"
-        >
-          <i class="fa-solid fa-rotate-left text-rose-600"></i> تصفير سجل الأيام التراكمي (0 يوم) 🔄
-        </button>
+        <!-- Incomplete Days Breakdown Log or Spotless Streak Banner -->
+        ${incompleteHistory.length > 0 ? `
+          <div class="border border-rose-200 rounded-2xl bg-white overflow-hidden shadow-xs">
+            <button 
+              type="button"
+              onclick="toggleIncompleteDetailsSection()" 
+              class="w-full p-4 bg-rose-50/80 hover:bg-rose-100/80 flex items-center justify-between gap-3 text-right font-bold text-xs sm:text-sm text-rose-950 transition cursor-pointer select-none"
+            >
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+                <span>سجل الأيام التي وقع بها تقصير (${incompleteHistory.length} يوم)</span>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span id="toggleIncompleteText" class="text-xs text-rose-700 font-mono font-bold">عرض التفاصيل 🔍</span>
+                <i id="toggleIncompleteIcon" class="fa-solid fa-chevron-down text-rose-600 text-xs"></i>
+              </div>
+            </button>
+
+            <div id="incompleteDetailsWrapper" class="hidden divide-y divide-slate-100 p-4 space-y-3 bg-white">
+              ${incompleteHistory.map(day => `
+                <div class="pt-3 first:pt-0 space-y-1.5">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="font-bold text-slate-900 font-mono">${day.date}</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-800 font-bold">
+                      ${day.missedCount} عناصر لم تكتمل
+                    </span>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5 pt-1">
+                    ${day.missed.map(item => `
+                      <span class="px-2.5 py-0.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-xmark text-rose-500 text-[10px]"></i> ${item}
+                      </span>
+                    `).join('')}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : `
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/50 to-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 text-center shadow-xs">
+            <i class="fa-solid fa-crown text-amber-500 text-lg"></i>
+            <span>سجلك ناصع البياض والتزامك 100% بدون أي تقصير حتى الآن! استمر نحو المركز الأول 👑</span>
+          </div>
+        `}
+
+        <!-- Data Operations Toolbar: Reset & Backup/Restore -->
+        <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <button 
+            type="button"
+            onclick="resetRoutineHistory()" 
+            class="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 flex items-center gap-1.5 transition active:scale-95 cursor-pointer shadow-2xs" 
+            title="تصفير سجل الأيام والروتين فقط إلى 0 يوم"
+          >
+            <i class="fa-solid fa-rotate-left text-rose-600"></i> تصفير سجل الأيام التراكمي (0 يوم) 🔄
+          </button>
+
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="exportBackupData()" class="px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs border border-indigo-200 flex items-center gap-1.5 transition cursor-pointer shadow-2xs" title="تصدير نسخة احتياطية من كافة البيانات">
+              <i class="fa-solid fa-download"></i> تصدير 📥
+            </button>
+            <label class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs border border-slate-200 flex items-center gap-1.5 cursor-pointer transition shadow-2xs" title="استرجاع نسخة احتياطية">
+              <i class="fa-solid fa-upload"></i> استرجاع 📤
+              <input type="file" id="importFileInput" accept=".json" onchange="importBackupData(event)" class="hidden" />
+            </label>
+          </div>
+        </div>
+
       </div>
     `;
   }

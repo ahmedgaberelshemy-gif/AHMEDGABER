@@ -1,14 +1,12 @@
 <!-- ========================================================================= -->
-<!-- SECTION 1: DAILY ROUTINE (المسار المتتالي المتكامل للروتين اليومي) -->
+<!-- SECTION 1: DAILY ROUTINE & CUMULATIVE DISCIPLINE (الروتين وسجل الـ 112 يوماً) -->
 <!-- ========================================================================= -->
-<section id="section-routine" class="space-y-6 sm:space-y-8 animate-slide-up">
-  
-  <!-- ========================================================================= -->
-  <!-- 🔹 المرحلة 1: بانر القيادة ورادار اليوم الفاخر (Mission Command Banner) -->
-  <!-- ========================================================================= -->
-  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-indigo-500/30 relative overflow-hidden card-lift">
-    <div class="absolute -right-16 -top-16 w-56 h-56 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+<section id="section-routine" class="space-y-6 animate-slide-up">
+
+  <!-- 1. Top Master Hero Banner (سجل ومؤشر الالتزام التراكمي 112 يوماً نحو المركز الأول) -->
+  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-indigo-500/30 relative overflow-hidden card-lift">
+    <div class="absolute -right-16 -top-16 w-56 h-56 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
       <div class="space-y-2">
@@ -21,273 +19,185 @@
           </span>
         </div>
         <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white">
-          الروتين اليومي: الأركان الأربعة للانضباط والريادة الأكاديمية
+          سجل ومؤشر الالتزام اليومي التراكمي (112 يوماً نحو الامتياز والمركز الأول 👑)
         </h2>
         <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl leading-relaxed">
-          متابعة حية ودقيقة لكل يوم دراسي؛ إقامة الصلوات الخمس في أوقاتها، الورد القرآني، تمرين الجيم، والنوم الصحي (7-9 ساعات) لضمان المركز الأول على الدفعة بامتياز مع مرتبة الشرف.
+          المتابعة اليومية الدقيقة للأركان الأربعة (الصلوات الخمس، الورد القرآني، تمرين الجيم، والنوم الصحي 7-9 ساعات) مع رصد تراكمي حي ومباشر لكل يوم في الفصل الدراسي.
         </p>
       </div>
 
-      <!-- Live Dual Capsules in Hero (Today's Pillars & Cumulative Days) -->
-      <div class="flex items-center gap-3 flex-wrap sm:flex-nowrap w-full lg:w-auto shrink-0">
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/15 text-center min-w-[140px] flex-1 sm:flex-initial shadow-sm">
-          <span class="text-xs text-slate-300 font-bold block mb-1">إنجاز اليوم الحاضر:</span>
-          <div class="text-2xl sm:text-3xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 4</div>
-          <span class="text-2xs text-emerald-200/80 font-bold block mt-1">أركان اليوم الأساسية</span>
+      <!-- Quick Metrics Counters (Matching Roadmap & Languages Layout) -->
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 w-full lg:w-auto shrink-0">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-[100px] sm:min-w-[125px]">
+          <span class="text-2xs sm:text-xs text-slate-300 font-bold block mb-1">إنجاز اليوم</span>
+          <div class="text-xl sm:text-2xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 4</div>
+          <span class="text-2xs text-emerald-200/80 font-bold block mt-0.5">أركان اليوم</span>
         </div>
-
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3.5 sm:p-4 border border-white/15 text-center min-w-[140px] flex-1 sm:flex-initial shadow-sm">
-          <span class="text-xs text-slate-300 font-bold block mb-1">رصيد الأيام التراكمي:</span>
-          <div class="text-2xl sm:text-3xl font-black font-display text-amber-300 font-mono" id="routineLoggedDaysCount" dir="ltr">0 / 112</div>
-          <span class="text-2xs text-amber-200/80 font-bold block mt-1">يوم معتمد بالترم 👑</span>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-[100px] sm:min-w-[125px]">
+          <span class="text-2xs sm:text-xs text-slate-300 font-bold block mb-1">التزام 100%</span>
+          <div class="text-xl sm:text-2xl font-black font-display text-amber-300 font-mono" id="routinePerfectDaysStat" dir="ltr">0</div>
+          <span class="text-2xs text-amber-200/80 font-bold block mt-0.5">يوم مثالي 👑</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-[100px] sm:min-w-[125px]">
+          <span class="text-2xs sm:text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة</span>
+          <div class="text-xl sm:text-2xl font-black font-display text-blue-300 font-mono" id="routineLoggedDaysCount" dir="ltr">0 / 112</div>
+          <span class="text-2xs text-blue-200/80 font-bold block mt-0.5">يوم معتمد</span>
         </div>
       </div>
     </div>
 
-    <!-- Live Progress Bar in Hero -->
+    <!-- Live Semester Progress Bar in Hero -->
     <div class="mt-5 pt-4 border-t border-white/10">
       <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-1.5">
         <span class="flex items-center gap-2">
-          <i class="fa-solid fa-bolt text-amber-400"></i> مؤشر إنجاز أركان اليوم الحالي:
+          <i class="fa-solid fa-bolt text-amber-400"></i> مؤشر الالتزام التراكمي بالترم:
         </span>
         <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono" dir="ltr">0%</span>
       </div>
       <div class="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
-        <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-amber-400 via-emerald-400 to-teal-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
+        <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
       </div>
     </div>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- 🔹 المرحلة 2: الأركان الأربعة اليومية بنظام الكروت العريضة (2 Columns) -->
-  <!-- ========================================================================= -->
-  <div class="space-y-4">
-    <!-- Header of the 4 Pillars -->
-    <div class="flex items-center justify-between pb-1 flex-wrap gap-2">
-      <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white flex items-center justify-center text-base shadow-md shadow-indigo-500/20 shrink-0">
-          <i class="fa-solid fa-list-check"></i>
-        </div>
-        <div>
-          <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
-            أركان اليوم الأربعة للانضباط والتفوق 🎯
-          </h3>
-          <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
-            علّم على مهامك المنجزة اليوم لتفعيل منصة الاعتماد واقتناص التاج الملكي
-          </span>
-        </div>
-      </div>
-      <span class="text-xs sm:text-sm font-bold text-slate-600 bg-white px-3.5 py-1.5 rounded-xl border border-slate-200 shadow-2xs">
-        4 أركان أساسية لا تقبل التهاون ⚡
-      </span>
-    </div>
+  <!-- 2. The 2 Balanced Master Columns Grid (Side-by-Side Like Roadmap & Languages) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-start">
 
-    <!-- 2 Columns Grid for the 4 Pillars (Spacious & Large) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-
-      <!-- 1. PRAYERS CARD (الصلوات الخمس) -->
-      <div class="bg-white rounded-3xl border border-slate-200 hover:border-emerald-400 p-5 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-        <div>
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md shadow-emerald-500/20 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-mosque"></i>
-              </div>
-              <div>
-                <h4 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">الصلوات الخمس</h4>
-                <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">عماد الدين ومفتاح البركة والتوفيق</span>
-              </div>
-            </div>
-            <span class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-slate-800 text-xs sm:text-sm font-black whitespace-nowrap shrink-0 shadow-2xs font-mono" id="prayersCountBadge">
-              0 / 5 صلوات
+    <!-- ========================================================================= -->
+    <!-- RIGHT COLUMN: أركان اليوم الحاضر والاعتماد (Today's Routine & Finalize) -->
+    <!-- ========================================================================= -->
+    <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-sm space-y-6 card-lift">
+      <!-- Card Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white flex items-center justify-center text-xl shadow-md shadow-indigo-500/20 shrink-0">
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
+              أركان اليوم الحاضر 🎯
+            </h3>
+            <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
+              علّم على مهامك اليومية واعتمد اليوم فور اكتماله
             </span>
           </div>
+        </div>
+        <span class="text-xs sm:text-sm font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-xl shadow-2xs" id="routineTodayCardBadge">
+          4 أركان أساسية ⚡
+        </span>
+      </div>
 
-          <!-- Prayer Checklist Container -->
-          <div class="space-y-3 pt-4" id="prayersListContainer">
-            <!-- Rendered dynamically with large typography and w-6 h-6 checkboxes -->
+      <!-- Pillar 1: الصلوات الخمس في أوقاتها -->
+      <div class="space-y-3 bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-200">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-mosque text-emerald-600 text-base"></i>
+            <span class="font-display font-black text-sm sm:text-base text-slate-900">الركن الأول: الصلوات الخمس في أوقاتها</span>
           </div>
+          <span class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-xs font-bold font-mono shadow-2xs" id="prayersCountBadge">
+            0 / 5 صلوات
+          </span>
         </div>
 
-        <!-- Spiritual Reminder Note -->
-        <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center mt-4" id="prayersStatusBox">
+        <div class="space-y-2.5 pt-1" id="prayersListContainer">
+          <!-- Rendered dynamically by RoutineView.renderPrayers -->
+        </div>
+
+        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-center mt-2" id="prayersStatusBox">
           <span class="text-xs sm:text-sm font-bold text-emerald-950" id="prayersStatusMsg">
             الصلاة عماد الدين.. ابدأ يومك بالبركة والسكينة 🌿
           </span>
         </div>
       </div>
 
-      <!-- 2. QURAN DAILY CARD (الورد القرآني) -->
-      <div class="bg-white rounded-3xl border border-slate-200 hover:border-teal-400 p-5 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-        <div>
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-cyan-600 text-white shadow-md shadow-teal-500/20 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-book-quran"></i>
-              </div>
-              <div>
-                <h4 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">الورد القرآني</h4>
-                <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">نور القلب وصفاء الذهن والذاكرة الفولاذية</span>
-              </div>
-            </div>
+      <!-- Pillar 2: الورد القرآني اليومي -->
+      <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-book-quran text-teal-600 text-base"></i>
+            <span class="font-display font-black text-sm sm:text-base text-slate-900">الركن الثاني: الورد القرآني اليومي</span>
           </div>
-
-          <div class="py-6 sm:py-8 space-y-4">
-            <!-- Large Quran Toggle Box -->
-            <div id="quranCardBox" class="p-5 sm:p-6 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-teal-50/40">
-              <div class="flex items-center gap-3.5">
-                <input type="checkbox" id="quranCheck" onchange="toggleQuran()" class="checkbox-custom w-6 h-6" />
-                <label for="quranCheck" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none">
-                  قرأت ورد القرآن اليوم 🌿
-                </label>
-              </div>
-              <span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700 whitespace-nowrap shrink-0" id="quranStatusBadge">لم يتم ⏳</span>
-            </div>
-          </div>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="quranStatusBadge">لم يتم ⏳</span>
         </div>
+        <div id="quranCardBox" class="p-3.5 sm:p-4 rounded-xl border transition flex items-center justify-between gap-3 bg-white border-slate-200 hover:bg-teal-50/40">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="quranCheck" onchange="toggleQuran()" class="checkbox-custom w-6 h-6" />
+            <label for="quranCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none">
+              قرأت ورد القرآن اليوم 🌿
+            </label>
+          </div>
+          <span class="text-2xs sm:text-xs text-teal-800 font-bold" id="quranStatusMsg">﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ ✨</span>
+        </div>
+      </div>
 
-        <!-- Spiritual Note Box -->
-        <div class="p-3.5 rounded-2xl bg-teal-50 border border-teal-200 text-center mt-4">
-          <span class="text-xs sm:text-sm font-bold text-teal-950" id="quranStatusMsg">
-            ﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ ✨
+      <!-- Pillar 3: تمرين الجيم والقوة البدنية -->
+      <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-dumbbell text-amber-600 text-base"></i>
+            <span class="font-display font-black text-sm sm:text-base text-slate-900">الركن الثالث: تمرين الجيم والقوة البدنية</span>
+          </div>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="gymStatusBadge">لم يتم ⏳</span>
+        </div>
+        <div id="gymCardBox" class="p-3.5 sm:p-4 rounded-xl border transition flex items-center justify-between gap-3 bg-white border-slate-200 hover:bg-amber-50/40">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="gymCheck" onchange="toggleGymStatus()" class="checkbox-custom w-6 h-6" />
+            <label for="gymCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none">
+              اتمرنت النهاردة في الجيم 💪
+            </label>
+          </div>
+          <span class="text-2xs sm:text-xs text-amber-800 font-bold" id="gymStatusMsg">بناء القوة والانضباط 🔥</span>
+        </div>
+      </div>
+
+      <!-- Pillar 4: النوم الصحي والاستشفاء -->
+      <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-4 sm:p-5 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2.5">
+            <i class="fa-solid fa-bed text-indigo-600 text-base"></i>
+            <span class="font-display font-black text-sm sm:text-base text-slate-900">الركن الرابع: النوم الصحي (7-9 ساعات)</span>
+          </div>
+          <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="sleepStatusBadge">لم يتم ⏳</span>
+        </div>
+        <div id="sleepCardBox" class="p-3.5 sm:p-4 rounded-xl border transition flex items-center justify-between gap-3 bg-white border-slate-200 hover:bg-indigo-50/40">
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="sleepCheck" onchange="toggleSleepStatus()" class="checkbox-custom w-6 h-6" />
+            <label for="sleepCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none">
+              نمت من 7 إلى 9 ساعات 😴
+            </label>
+          </div>
+          <span class="text-2xs sm:text-xs text-indigo-800 font-bold" id="sleepEvalText">استشفاء التركيز الذهني 🧠</span>
+        </div>
+      </div>
+
+      <!-- Integrated Finalize Action Slab -->
+      <div id="finalizeBar" class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-2xl p-4 sm:p-5 border-2 border-amber-400/40 flex flex-col sm:flex-row items-center justify-between gap-4 relative overflow-hidden shadow-lg">
+        <div class="space-y-1 text-center sm:text-right">
+          <span class="px-3 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-black inline-flex items-center gap-1.5" id="finalizeStatusPill">
+            <i class="fa-solid fa-bolt text-amber-400"></i> جاهز للتسجيل ⚡
           </span>
+          <h4 class="font-display font-black text-base sm:text-lg text-white">اعتماد إنجاز اليوم بالسجل التراكمي</h4>
+          <p class="text-2xs sm:text-xs text-slate-300 font-medium">اكتمال الأركان الأربعة يُسجل كـ <span class="text-amber-400 font-bold">يوم مثالي تام 👑</span></p>
         </div>
+        <button 
+          type="button"
+          onclick="finalizeTodayLog()" 
+          id="finalizeDayBtn"
+          class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-display font-black text-sm sm:text-base shadow-lg shadow-amber-500/30 border border-amber-200 flex items-center justify-center gap-2 transition-all duration-200 hover:scale-105 active:scale-95 shrink-0 cursor-pointer select-none"
+        >
+          <i class="fa-solid fa-crown text-slate-950" id="finalizeBtnIcon"></i>
+          <span id="finalizeBtnText">تسجيل واعتماد اليوم ✅</span>
+        </button>
       </div>
-
-      <!-- 3. GYM & WORKOUT CARD (تمرين الجيم) -->
-      <div class="bg-white rounded-3xl border border-slate-200 hover:border-amber-400 p-5 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-        <div>
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md shadow-amber-500/20 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-dumbbell"></i>
-              </div>
-              <div>
-                <h4 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">تمرين الجيم والقوة</h4>
-                <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">بناء الصلابة الجسدية والانضباط الفولاذي</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="py-6 sm:py-8 space-y-4">
-            <!-- Large Workout Toggle Box -->
-            <div id="gymCardBox" class="p-5 sm:p-6 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-amber-50/40">
-              <div class="flex items-center gap-3.5">
-                <input type="checkbox" id="gymCheck" onchange="toggleGymStatus()" class="checkbox-custom w-6 h-6" />
-                <label for="gymCheck" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none">
-                  اتمرنت النهاردة في الجيم 💪
-                </label>
-              </div>
-              <span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700 whitespace-nowrap shrink-0" id="gymStatusBadge">لم يتم ⏳</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Motivational Note Box -->
-        <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-center mt-4">
-          <span class="text-xs sm:text-sm font-bold text-amber-900" id="gymStatusMsg">
-            لا أعذار.. تمرين اليوم يبني طاقتك وصلابتك للمذاكرة! 🔥
-          </span>
-        </div>
-      </div>
-
-      <!-- 4. SLEEP 7-9 HOURS CARD (النوم الصحي) -->
-      <div class="bg-white rounded-3xl border border-slate-200 hover:border-indigo-400 p-5 sm:p-7 shadow-sm card-lift flex flex-col justify-between transition relative overflow-hidden">
-        <div>
-          <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-md shadow-indigo-500/20 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-bed"></i>
-              </div>
-              <div>
-                <h4 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">النوم الصحي والاستشفاء</h4>
-                <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">7 إلى 9 ساعات لتجديد خلايا المخ وتثبيت الحفظ</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="py-6 sm:py-8 space-y-4">
-            <!-- Large Sleep Toggle Box -->
-            <div id="sleepCardBox" class="p-5 sm:p-6 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-indigo-50/40">
-              <div class="flex items-center gap-3.5">
-                <input type="checkbox" id="sleepCheck" onchange="toggleSleepStatus()" class="checkbox-custom w-6 h-6" />
-                <label for="sleepCheck" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none">
-                  نمت من 7 إلى 9 ساعات 😴
-                </label>
-              </div>
-              <span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-600 whitespace-nowrap shrink-0" id="sleepStatusBadge">لم يتم ⏳</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sleep Rule Box -->
-        <div class="p-3.5 rounded-2xl bg-indigo-50 border border-indigo-200 text-center mt-4" id="sleepAlertBox">
-          <span class="text-xs sm:text-sm font-bold text-indigo-950" id="sleepEvalText">
-            النظام العلمي: 7 إلى 9 ساعات لاستشفاء التركيز الذهني الكامل 🧠
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 🔹 المرحلة 3: منصة الاعتماد والاحتفال (Daily Finalize Slab) -->
-  <!-- ========================================================================= -->
-  <div id="finalizeBar" class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-7 shadow-xl border-2 border-amber-400/40 flex flex-col sm:flex-row items-center justify-between gap-5 relative overflow-hidden card-lift">
-    
-    <div class="space-y-1.5 text-center sm:text-right relative z-10">
-      <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
-        <span class="px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs sm:text-sm font-black font-display inline-flex items-center gap-1.5" id="finalizeStatusPill">
-          <i class="fa-solid fa-bolt text-amber-400"></i> جاهز للتسجيل ⚡
-        </span>
-      </div>
-      <h3 class="font-display font-black text-lg sm:text-xl lg:text-2xl text-white">اعتماد إنجاز اليوم في سجل الالتزام</h3>
-      <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed">
-        إتمام الأركان الأربعة كاملة (الصلوات الخمس + القرآن + الجيم + النوم) يُسجل كـ <span class="text-amber-400 font-black">يوم مثالي تام 👑</span> ويرحل فورياً للرصيد التراكمي.
-      </p>
     </div>
 
-    <button 
-      type="button"
-      onclick="finalizeTodayLog()" 
-      id="finalizeDayBtn"
-      class="w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-display font-black text-base sm:text-lg shadow-xl shadow-amber-500/30 border border-amber-200 flex items-center justify-center gap-2.5 transition-all duration-200 hover:scale-105 active:scale-95 shrink-0 cursor-pointer select-none relative z-10"
-    >
-      <i class="fa-solid fa-crown text-slate-950 text-lg" id="finalizeBtnIcon"></i>
-      <span id="finalizeBtnText">تسجيل واعتماد اليوم ✅</span>
-    </button>
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 🔹 المرحلة 4: لوحة الأداء التراكمي والتحليل الزمني (Cumulative Dashboard) -->
-  <!-- ========================================================================= -->
-  <div id="routineDetailsContainer" class="space-y-6">
-    <!-- Rendered dynamically by AchievementsView.renderRoutineAchievements: 3 KPI Cards + Timeline + Missed Log -->
-  </div>
-
-  <!-- ========================================================================= -->
-  <!-- 🔹 النسخ الاحتياطي السحابي والمحلي (Backup & Restore Strip) -->
-  <!-- ========================================================================= -->
-  <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-5 card-lift">
-    <div>
-      <h4 class="font-display font-black text-base sm:text-lg text-slate-900 flex items-center gap-2.5">
-        <i class="fa-solid fa-shield-halved text-indigo-600"></i> حفظ واسترجاع البيانات (Backup & Restore)
-      </h4>
-      <p class="text-xs sm:text-sm text-slate-500 font-medium mt-1 leading-relaxed">
-        بياناتك محفوظة تلقائياً في المتصفح ومزامنة سحابياً مع Google Firebase. يمكنك تنزيل نسخة لجهازك أو استرجاعها في أي وقت.
-      </p>
+    <!-- ========================================================================= -->
+    <!-- LEFT COLUMN: لوحة الأداء التراكمي ومؤشر الـ 112 يوماً (Cumulative Dashboard) -->
+    <!-- ========================================================================= -->
+    <div id="routineDetailsContainer" class="space-y-6">
+      <!-- Rendered dynamically by AchievementsView.renderRoutineAchievements -->
     </div>
 
-    <div class="flex items-center gap-3 shrink-0 flex-wrap">
-      <button onclick="exportBackupData()" class="px-5 py-3 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs sm:text-sm border border-indigo-200 flex items-center gap-2 transition cursor-pointer shadow-2xs">
-        <i class="fa-solid fa-download"></i> تصدير نسخة احتياطية 📥
-      </button>
-      <label class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm border border-slate-200 flex items-center gap-2 cursor-pointer transition shadow-2xs">
-        <i class="fa-solid fa-upload"></i> استرجاع نسخة 📤
-        <input type="file" id="importFileInput" accept=".json" onchange="importBackupData(event)" class="hidden" />
-      </label>
-    </div>
   </div>
 
 </section>
