@@ -1086,85 +1086,119 @@ class RoadmapView {
       const isYearComplete = yearStats.percent === 100;
 
       const card = document.createElement('article');
-      card.className = 'bg-white rounded-3xl border ' + (isYearComplete ? 'border-emerald-300 shadow-emerald-500/10' : 'border-slate-200') + ' p-4 sm:p-5 shadow-xs flex flex-col justify-between space-y-4 card-lift relative overflow-hidden';
+      card.className = 'bg-white rounded-3xl border ' + (isYearComplete ? 'border-emerald-300 shadow-emerald-500/10' : 'border-slate-200') + ' p-4 sm:p-5 shadow-sm flex flex-col justify-between space-y-4 card-lift relative overflow-hidden';
 
+      // 1. Courses List (Stacked with Code and Name without truncation)
       let coursesHtml = '';
       (year.courses || []).forEach(c => {
         const isDone = RoadmapService.isDone(state, c.id);
         coursesHtml += `
-          <li class="flex items-center justify-between p-2.5 rounded-xl border transition gap-2 ${isDone ? 'bg-emerald-50/90 border-emerald-300' : 'bg-slate-50 border-slate-200/80'}">
-            <div class="flex items-center gap-2.5 min-w-0">
+          <li class="p-2.5 rounded-xl border transition ${isDone ? 'bg-emerald-50/90 border-emerald-300' : 'bg-slate-50 border-slate-200/80'}">
+            <div class="flex items-center justify-between mb-1.5 gap-2">
+              <span class="text-[11px] font-mono font-extrabold px-2 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200">${c.code}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : (c.type === 'إجباري' ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-amber-100 text-amber-800 border border-amber-200')}">
+                ${isDone ? 'منجز ✅' : c.type}
+              </span>
+            </div>
+            <div class="flex items-start gap-2.5 min-w-0">
               <input 
                 type="checkbox" 
                 id="roadmap-${c.id}" 
                 ${isDone ? 'checked' : ''} 
                 onchange="app.toggleRoadmapItem('${c.id}')" 
-                class="checkbox-custom w-5 h-5 shrink-0"
+                class="checkbox-custom w-5 h-5 shrink-0 mt-0.5"
               />
-              <div class="min-w-0">
-                <span class="text-[11px] font-mono font-extrabold px-1.5 py-0.5 rounded bg-blue-100 text-blue-900 border border-blue-200 mr-1">${c.code}</span>
-                <label for="roadmap-${c.id}" class="text-xs sm:text-sm font-bold text-slate-900 cursor-pointer select-none ${isDone ? 'line-through text-slate-500' : ''}">
-                  ${c.name}
-                </label>
-              </div>
+              <label for="roadmap-${c.id}" class="text-xs sm:text-sm font-bold text-slate-900 cursor-pointer select-none leading-snug ${isDone ? 'line-through text-slate-400' : ''}">
+                ${c.name}
+              </label>
             </div>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-md shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : (c.type === 'إجباري' ? 'bg-blue-100 text-blue-800' : 'bg-slate-200 text-slate-700')}">
-              ${isDone ? 'منجز ✅' : c.type}
-            </span>
           </li>
         `;
       });
 
+      // 2. Skills & Workshops List (Full details, no truncation, and ERP sub-items)
       let skillsHtml = '';
       (year.skills || []).forEach(s => {
         const isDone = RoadmapService.isDone(state, s.id);
+        
+        let erpSubHtml = '';
+        if (s.id === 'skill_09') {
+          erpSubHtml = `
+            <div class="mt-2.5 space-y-1.5 pr-2 border-r-2 border-blue-400">
+              <div class="flex items-center justify-between bg-blue-50/70 border border-blue-200/70 px-2 py-1 rounded text-[11px] gap-1.5">
+                <span class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-server text-blue-600"></i> 9.1. ساب المالي (SAP S/4HANA)</span>
+                <span class="text-[9px] font-semibold text-blue-700 bg-blue-100 px-1.5 py-0.5 rounded shrink-0">الشركات الكبرى والبترول</span>
+              </div>
+              <div class="flex items-center justify-between bg-rose-50/70 border border-rose-200/70 px-2 py-1 rounded text-[11px] gap-1.5">
+                <span class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-cloud text-rose-600"></i> 9.2. أوراكل المالي (Oracle Cloud)</span>
+                <span class="text-[9px] font-semibold text-rose-700 bg-rose-100 px-1.5 py-0.5 rounded shrink-0">البنوك والحكومة</span>
+              </div>
+              <div class="flex items-center justify-between bg-emerald-50/70 border border-emerald-200/70 px-2 py-1 rounded text-[11px] gap-1.5">
+                <span class="font-bold text-slate-800 flex items-center gap-1"><i class="fa-solid fa-network-wired text-emerald-600"></i> 9.3. داينامكس (Dynamics 365)</span>
+                <span class="text-[9px] font-semibold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">سلاسل الإمداد</span>
+              </div>
+            </div>
+          `;
+        }
+
         skillsHtml += `
-          <li class="flex items-center justify-between p-2 rounded-xl border transition gap-2 ${isDone ? 'bg-indigo-50/90 border-indigo-200' : 'bg-slate-50 border-slate-200/70'}">
-            <div class="flex items-center gap-2 min-w-0">
+          <li class="p-2.5 rounded-xl border transition ${isDone ? 'bg-indigo-50/90 border-indigo-200' : 'bg-slate-50 border-slate-200/70'}">
+            <div class="flex items-start gap-2.5 min-w-0">
               <input 
                 type="checkbox" 
                 id="roadmap-${s.id}" 
                 ${isDone ? 'checked' : ''} 
                 onchange="app.toggleRoadmapItem('${s.id}')" 
-                class="checkbox-custom w-4 h-4 shrink-0"
+                class="checkbox-custom w-4 h-4 shrink-0 mt-0.5"
               />
-              <span class="text-[10px] font-mono font-black text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded shrink-0">${s.num}</span>
-              <label for="roadmap-${s.id}" class="text-xs font-semibold text-slate-800 cursor-pointer select-none truncate ${isDone ? 'line-through text-slate-400' : ''}">
-                ${s.name}
-              </label>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-1.5 mb-1">
+                  <span class="text-[10px] font-mono font-black text-amber-800 bg-amber-100 border border-amber-200 px-1.5 py-0.5 rounded shrink-0">${s.num}</span>
+                  ${isDone ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-indigo-600 text-white shrink-0">مكتسب ✨</span>' : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 shrink-0">' + s.category + '</span>'}
+                </div>
+                <label for="roadmap-${s.id}" class="text-xs font-bold text-slate-900 cursor-pointer select-none leading-relaxed block ${isDone ? 'line-through text-slate-400' : ''}">
+                  ${s.name}
+                </label>
+                ${erpSubHtml}
+              </div>
             </div>
-            ${isDone ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-indigo-600 text-white shrink-0">مكتسب ✨</span>' : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-600 shrink-0">' + s.category + '</span>'}
           </li>
         `;
       });
 
+      // 3. Certifications List (Stacked, complete names, organizations)
       let certsHtml = '';
       (year.certifications || []).forEach(crt => {
         const isDone = RoadmapService.isDone(state, crt.id);
         certsHtml += `
-          <li class="flex items-center justify-between p-2.5 rounded-xl border transition gap-2 ${isDone ? 'bg-emerald-50 border-emerald-300 shadow-2xs' : 'bg-amber-50/40 border-amber-200/70'}">
-            <div class="flex items-center gap-2.5 min-w-0">
+          <li class="p-2.5 rounded-xl border transition ${isDone ? 'bg-emerald-50 border-emerald-300 shadow-2xs' : 'bg-amber-50/40 border-amber-200/70'}">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span class="text-[10px] font-mono font-black text-emerald-800 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded">${crt.num}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-amber-100 text-amber-900 border border-amber-200'}">
+                ${isDone ? 'معتمد 🏆' : crt.badge}
+              </span>
+            </div>
+            <div class="flex items-start gap-2.5 min-w-0">
               <input 
                 type="checkbox" 
                 id="roadmap-${crt.id}" 
                 ${isDone ? 'checked' : ''} 
                 onchange="app.toggleRoadmapItem('${crt.id}')" 
-                class="checkbox-custom w-5 h-5 shrink-0"
+                class="checkbox-custom w-5 h-5 shrink-0 mt-0.5"
               />
-              <div class="min-w-0">
-                <span class="text-[10px] font-mono font-black text-emerald-800 bg-emerald-100 border border-emerald-200 px-1.5 py-0.5 rounded mr-1">${crt.num}</span>
-                <label for="roadmap-${crt.id}" class="text-xs font-bold text-slate-900 cursor-pointer select-none block ${isDone ? 'line-through text-slate-500' : ''}">
+              <div class="min-w-0 flex-1">
+                <label for="roadmap-${crt.id}" class="text-xs sm:text-sm font-bold text-slate-900 cursor-pointer select-none block leading-snug ${isDone ? 'line-through text-slate-400' : ''}">
                   ${crt.name}
                 </label>
-                <span class="text-[10px] text-slate-500 font-medium block">${crt.org}</span>
+                <span class="text-[10px] text-slate-500 font-bold block mt-1"><i class="fa-solid fa-building-columns text-slate-400"></i> ${crt.org}</span>
               </div>
             </div>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-md shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-amber-100 text-amber-900 border border-amber-200'}">
-              ${isDone ? 'معتمد 🏆' : crt.badge}
-            </span>
           </li>
         `;
       });
+
+      const yrText = year.yearNum === 1 ? 'سنة أولى' : (year.yearNum === 2 ? 'سنة ثانية' : (year.yearNum === 3 ? 'سنة ثالثة' : 'سنة رابعة'));
+      const certBridgeText = year.yearNum === 4 ? 'الشهادات الكبرى عند التخرج:' : `الشهادات المهنية بعد ${yrText}:`;
 
       card.innerHTML = `
         <!-- Year Card Header -->
@@ -1179,43 +1213,43 @@ class RoadmapView {
           </div>
 
           <!-- Progress Bar for this Year -->
-          <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden mt-2 mb-3">
+          <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mt-2.5 mb-3.5">
             <div class="h-full bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full transition-all duration-300" style="width: ${yearStats.percent}%;"></div>
           </div>
 
           <!-- Part 1: Academic Courses -->
           <div class="space-y-2 mb-3">
-            <span class="text-xs font-black text-slate-700 flex items-center gap-1.5">
-              <i class="fa-solid fa-graduation-cap text-blue-600"></i> المقررات الدراسية:
+            <span class="text-xs font-black text-slate-800 flex items-center gap-1.5">
+              <i class="fa-solid fa-graduation-cap text-blue-600"></i> مواد ${year.stagePill}:
             </span>
-            <ul class="space-y-1.5">
+            <ul class="space-y-2">
               ${coursesHtml}
             </ul>
           </div>
 
+          <!-- Pathway Bridge 1: Skills -->
+          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white text-xs font-black py-1.5 px-3 rounded-xl my-2.5 shadow-xs">
+            <i class="fa-solid fa-arrow-down"></i> الكورسات والمهارات بعد ${yrText}:
+          </div>
+
           <!-- Part 2: Skills & Practical Workshops -->
-          <div class="space-y-2 mb-3 pt-2 border-t border-slate-100">
-            <span class="text-xs font-black text-slate-700 flex items-center gap-1.5">
-              <i class="fa-solid fa-laptop-code text-indigo-600"></i> المهارات والورش التقنية:
-            </span>
-            <ul class="space-y-1.5">
-              ${skillsHtml}
-            </ul>
+          <ul class="space-y-2 mb-3">
+            ${skillsHtml}
+          </ul>
+
+          <!-- Pathway Bridge 2: Certifications -->
+          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-800 to-emerald-600 text-white text-xs font-black py-1.5 px-3 rounded-xl my-2.5 shadow-xs">
+            <i class="fa-solid fa-award"></i> ${certBridgeText}
           </div>
 
           <!-- Part 3: Professional Certifications -->
-          <div class="space-y-2 pt-2 border-t border-slate-100">
-            <span class="text-xs font-black text-slate-700 flex items-center gap-1.5">
-              <i class="fa-solid fa-award text-amber-600"></i> الشهادات المهنية الدولية:
-            </span>
-            <ul class="space-y-1.5">
-              ${certsHtml}
-            </ul>
-          </div>
+          <ul class="space-y-2">
+            ${certsHtml}
+          </ul>
         </div>
 
         <div class="pt-3 border-t border-slate-100 text-center">
-          <span class="text-[11px] font-semibold text-slate-500">
+          <span class="text-[11px] font-bold text-slate-600">
             ${isYearComplete ? '🎉 تم إنجاز متطلبات السنة بالكامل!' : 'تتبع متطلبات التميز الأكاديمي والمهني'}
           </span>
         </div>

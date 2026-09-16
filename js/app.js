@@ -114,6 +114,9 @@ class AppController {
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);
+    if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   // ==========================================
