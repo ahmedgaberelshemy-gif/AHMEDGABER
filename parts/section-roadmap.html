@@ -1,0 +1,63 @@
+<!-- ========================================================================= -->
+<!-- SECTION: INTEGRATED ROADMAP (الخريطة السنوية المتكاملة 15 مادة والشهادات) -->
+<!-- ========================================================================= -->
+<section id="section-roadmap" class="space-y-6 hidden animate-slide-up">
+
+  <!-- Roadmap Overview Hero Banner (3D Glassmorphism) -->
+  <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-indigo-500/30 relative overflow-hidden card-lift">
+    <div class="absolute -right-16 -top-16 w-56 h-56 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-black font-display inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-compass text-blue-400"></i> خارطة الأربع سنوات المعتمدة 🏆
+          </span>
+          <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display" id="roadmapOverallBadge">
+            0% مكتمل
+          </span>
+        </div>
+        <h2 class="font-display font-black text-xl sm:text-2xl text-white">
+          الخطة الهندسية المتكاملة: 15 مادة تخصصية ⬅️ المهارات العملية ⬅️ الشهادات الدولية
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl leading-relaxed">
+          تتبع إنجازك في كل سنة جامعية بنداً ببند؛ علّم على المقررات المنجزة، المهارات والورش التقنية المكتسبة، والشهادات المهنية العالمية المؤهلة لكبرى مكاتب المحاسبة (Big 4) والتعيين معيداً.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Counters -->
+      <div class="grid grid-cols-3 gap-2.5 sm:gap-3 w-full lg:w-auto shrink-0">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/15 text-center">
+          <span class="text-xs text-slate-300 font-bold block mb-1">المواد (15)</span>
+          <span class="text-lg sm:text-xl font-black font-display text-blue-300" id="roadmapCoursesStat">0 / 15</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/15 text-center">
+          <span class="text-xs text-slate-300 font-bold block mb-1">المهارات (16)</span>
+          <span class="text-lg sm:text-xl font-black font-display text-indigo-300" id="roadmapSkillsStat">0 / 16</span>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/15 text-center">
+          <span class="text-xs text-slate-300 font-bold block mb-1">الشهادات (9)</span>
+          <span class="text-lg sm:text-xl font-black font-display text-emerald-300" id="roadmapCertsStat">0 / 9</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Overall Progress Bar -->
+    <div class="mt-5 pt-4 border-t border-white/10">
+      <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5">
+        <span>مؤشر التقدم الكلي في خارطة الطريق:</span>
+        <span id="roadmapOverallPercentText" class="text-blue-300 font-black">0%</span>
+      </div>
+      <div class="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
+        <div id="roadmapOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic 4-Year Columns Grid -->
+  <div id="roadmapYearsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+    <!-- Rendered dynamically by RoadmapView.render -->
+  </div>
+
+</section>

@@ -1,0 +1,54 @@
+<!-- ========================================================================= -->
+<!-- SECTION: LANGUAGE TRACK (المسار اللغوي - 33 كورساً بالنص) -->
+<!-- ========================================================================= -->
+<section id="section-languages" class="space-y-6 hidden animate-slide-up">
+
+  <!-- Language Track Hero Banner -->
+  <div class="bg-gradient-to-r from-slate-900 via-emerald-950 to-teal-950 text-white rounded-3xl p-5 sm:p-7 shadow-xl border border-emerald-500/30 relative overflow-hidden card-lift">
+    <div class="absolute -right-16 -top-16 w-56 h-56 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-black font-display inline-flex items-center gap-1.5">
+            <i class="fa-solid fa-language text-emerald-400"></i> ZAmericanEnglish الرسمية 🌐
+          </span>
+          <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display" id="langOverallBadge">
+            0% مكتمل
+          </span>
+        </div>
+        <h2 class="font-display font-black text-xl sm:text-2xl text-white">
+          المسار اللغوي الاحترافي: 33 كورساً تخصصياً من الصفر حتى طلاقة الـ IELTS والترجمة التجارية
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-300 font-medium max-w-3xl leading-relaxed">
+          تتبع تقدمك في كل كورس من كورسات الأستاذ إبراهيم عادل؛ علّم على الكورس المنتهي وافتح قائمة التشغيل الرسمية بضغطة زر واحدة لمشاهدة الدروس مباشرة على يوتيوب.
+        </p>
+      </div>
+
+      <!-- Live Language Progress Capsule -->
+      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15 text-center shrink-0 w-full lg:w-60">
+        <span class="text-xs text-slate-300 font-bold block mb-1">الكورسات المنجزة:</span>
+        <div class="text-2xl font-black font-display text-emerald-300" id="langCompletedCount">0 / 33</div>
+        <span class="text-2xs text-emerald-200/80 font-medium block mt-1">كورس معتمد وموثق</span>
+      </div>
+    </div>
+
+    <!-- Live Overall Progress Bar -->
+    <div class="mt-5 pt-4 border-t border-white/10">
+      <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5">
+        <span>مؤشر إتقان المسار اللغوي:</span>
+        <span id="langOverallPercentText" class="text-emerald-300 font-black">0%</span>
+      </div>
+      <div class="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
+        <div id="langOverallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-300 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic 4 Language Levels Columns Grid -->
+  <div id="languageLevelsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
+    <!-- Rendered dynamically by LanguageTrackView.render -->
+  </div>
+
+</section>

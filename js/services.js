@@ -105,7 +105,9 @@ class StorageService {
       },
       lessonProgress: {},
       lessonNotes: {},
-      programmingCourses: {}
+      programmingCourses: {},
+      roadmapProgress: {},
+      languageProgress: {}
     };
   }
 
@@ -120,8 +122,13 @@ class StorageService {
       const state = raw ? JSON.parse(raw) : this.createInitialState();
       state.programmingCourses = {};
 
-      // Safety check for active tab: Only routine and achievements are allowed
-      if (state.activeTab !== 'achievements') {
+      // Ensure progress maps exist
+      state.roadmapProgress = state.roadmapProgress || {};
+      state.languageProgress = state.languageProgress || {};
+
+      // Safety check for active tab: Allow routine, roadmap, languages, achievements
+      const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+      if (!validTabs.includes(state.activeTab)) {
         state.activeTab = 'routine';
       }
 
@@ -803,4 +810,126 @@ class AIAcademicEngine {
     }
     return 'أهلاً بك يا بطل! أنا مرشدك الأكاديمي الذكي 🎓\nيمكنني مساعدتك في اختبار معلوماتك، تلخيص المفاهيم المحاسبية والإدارية، وتحليل مستوى التزامك الدراسي. اختر أحد الأزرار السريعة أو اكتب سؤالك هنا!';
   }
+}
+
+// =========================================================================
+// 10. ROADMAP SERVICE (SRP: Business logic for 4-Year Academic Roadmap)
+// =========================================================================
+class RoadmapService {
+  static toggleItem(state, itemId) {
+    if (!state.roadmapProgress) state.roadmapProgress = {};
+    const current = Boolean(state.roadmapProgress[itemId]);
+    state.roadmapProgress[itemId] = !current;
+    return state.roadmapProgress[itemId];
+  }
+
+  static isDone(state, itemId) {
+    return Boolean(state.roadmapProgress && state.roadmapProgress[itemId]);
+  }
+
+  static getYearStats(state, yearData) {
+    let totalItems = 0;
+    let doneItems = 0;
+
+    // 1. Courses
+    (yearData.courses || []).forEach(c => {
+      totalItems++;
+      if (this.isDone(state, c.id)) doneItems++;
+    });
+
+    // 2. Skills
+    (yearData.skills || []).forEach(s => {
+      totalItems++;
+      if (this.isDone(state, s.id)) doneItems++;
+    });
+
+    // 3. Certifications
+    (yearData.certifications || []).forEach(crt => {
+      totalItems++;
+      if (this.isDone(state, crt.id)) doneItems++;
+    });
+
+    const percent = totalItems > 0 ? Math.round((doneItems / totalItems) * 100) : 0;
+    return { totalItems, doneItems, percent };
+  }
+
+  static getOverallStats(state) {
+    let totalCourses = 0, doneCourses = 0;
+    let totalSkills = 0, doneSkills = 0;
+    let totalCerts = 0, doneCerts = 0;
+
+    const years = (typeof ROADMAP_YEARS_DATA !== 'undefined') ? ROADMAP_YEARS_DATA : [];
+
+    years.forEach(year => {
+      (year.courses || []).forEach(c => {
+        totalCourses++;
+        if (this.isDone(state, c.id)) doneCourses++;
+      });
+      (year.skills || []).forEach(s => {
+        totalSkills++;
+        if (this.isDone(state, s.id)) doneSkills++;
+      });
+      (year.certifications || []).forEach(crt => {
+        totalCerts++;
+        if (this.isDone(state, crt.id)) doneCerts++;
+      });
+    });
+
+    const totalAll = totalCourses + totalSkills + totalCerts;
+    const doneAll = doneCourses + doneSkills + doneCerts;
+    const percent = totalAll > 0 ? Math.round((doneAll / totalAll) * 100) : 0;
+
+    return {
+      totalCourses, doneCourses,
+      totalSkills, doneSkills,
+      totalCerts, doneCerts,
+      totalAll, doneAll,
+      percent
+    };
+  }
+}
+
+// =========================================================================
+// 11. LANGUAGE TRACK SERVICE (SRP: Business logic for 33 Language Courses)
+// =========================================================================
+class LanguageTrackService {
+  static toggleCourse(state, courseId) {
+    if (!state.languageProgress) state.languageProgress = {};
+    const current = Boolean(state.languageProgress[courseId]);
+    state.languageProgress[courseId] = !current;
+    return state.languageProgress[courseId];
+  }
+
+  static isDone(state, courseId) {
+    return Boolean(state.languageProgress && state.languageProgress[courseId]);
+  }
+
+  static getLevelStats(state, levelData) {
+    const courses = levelData.courses || [];
+    let done = 0;
+    courses.forEach(c => {
+      if (this.isDone(state, c.id)) done++;
+    });
+    const total = courses.length;
+    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    return { total, done, percent };
+  }
+
+  static getOverallStats(state) {
+    const levels = (typeof LANGUAGE_LEVELS_DATA !== 'undefined') ? LANGUAGE_LEVELS_DATA : [];
+    let total = 0, done = 0;
+    levels.forEach(lvl => {
+      (lvl.courses || []).forEach(c => {
+        total++;
+        if (this.isDone(state, c.id)) done++;
+      });
+    });
+    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    return { total, done, percent };
+  }
+}
+
+if (typeof window !== 'undefined') {
+  window.RoadmapService = RoadmapService;
+  window.LanguageTrackService = LanguageTrackService;
 }

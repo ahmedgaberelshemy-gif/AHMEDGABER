@@ -12,6 +12,8 @@ function syncParts() {
   const header = fs.readFileSync(path.join(partsDir, 'header.html'), 'utf8').trim();
   const navigation = fs.readFileSync(path.join(partsDir, 'navigation.html'), 'utf8').trim();
   const sectionRoutine = fs.readFileSync(path.join(partsDir, 'section-routine.html'), 'utf8').trim();
+  const sectionRoadmap = fs.readFileSync(path.join(partsDir, 'section-roadmap.html'), 'utf8').trim();
+  const sectionLanguages = fs.readFileSync(path.join(partsDir, 'section-languages.html'), 'utf8').trim();
   const sectionCurriculum = fs.readFileSync(path.join(partsDir, 'section-curriculum.html'), 'utf8').trim();
   const sectionAchievements = fs.readFileSync(path.join(partsDir, 'section-achievements.html'), 'utf8').trim();
   const sectionProgramming = fs.readFileSync(path.join(partsDir, 'section-programming.html'), 'utf8').trim();
@@ -29,12 +31,18 @@ const PARTS_DATA = Object.freeze({
   header: ${JSON.stringify(header)},
   navigation: ${JSON.stringify(navigation)},
   sectionRoutine: ${JSON.stringify(sectionRoutine)},
+  sectionRoadmap: ${JSON.stringify(sectionRoadmap)},
+  sectionLanguages: ${JSON.stringify(sectionLanguages)},
   sectionCurriculum: ${JSON.stringify(sectionCurriculum)},
   sectionAchievements: ${JSON.stringify(sectionAchievements)},
   sectionProgramming: ${JSON.stringify(sectionProgramming)},
   modals: ${JSON.stringify(modals)},
   footer: ${JSON.stringify(footer)}
 });
+
+if (typeof window !== 'undefined') {
+  window.PARTS_DATA = PARTS_DATA;
+}
 
 class PartsLoader {
   static mountAll() {
@@ -45,7 +53,14 @@ class PartsLoader {
 
     setHtml('part-header', PARTS_DATA.header);
     setHtml('part-navigation', PARTS_DATA.navigation);
-    setHtml('part-main-workspace', PARTS_DATA.sectionRoutine + '\\n' + PARTS_DATA.sectionCurriculum + '\\n' + PARTS_DATA.sectionAchievements + '\\n' + PARTS_DATA.sectionProgramming);
+    setHtml('part-main-workspace', [
+      PARTS_DATA.sectionRoutine,
+      PARTS_DATA.sectionRoadmap,
+      PARTS_DATA.sectionLanguages,
+      PARTS_DATA.sectionCurriculum,
+      PARTS_DATA.sectionAchievements,
+      PARTS_DATA.sectionProgramming
+    ].join('\\n'));
     setHtml('part-modals', PARTS_DATA.modals);
     setHtml('part-footer', PARTS_DATA.footer);
   }

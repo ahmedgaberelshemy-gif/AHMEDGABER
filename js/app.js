@@ -31,7 +31,8 @@ class AppController {
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        if (cloudState.activeTab !== 'achievements') {
+        const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+        if (!validTabs.includes(cloudState.activeTab)) {
           cloudState.activeTab = 'routine';
         }
         this.state = cloudState;
@@ -47,7 +48,8 @@ class AppController {
     try {
       const cloudState = await this.cloudSyncService.pull();
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        if (cloudState.activeTab !== 'achievements') {
+        const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+        if (!validTabs.includes(cloudState.activeTab)) {
           cloudState.activeTab = 'routine';
         }
         this.state = cloudState;
@@ -418,7 +420,7 @@ class AppController {
     this.state.dailyLogs = this.state.dailyLogs || {};
     this.state.lessonProgress = this.state.lessonProgress || {};
     this.state.programmingCourses = this.state.programmingCourses || {};
-    AchievementsView.render(this.state.dailyLogs, weeksData, this.state.lessonProgress, this.state.programmingCourses);
+    AchievementsView.render(this.state.dailyLogs, weeksData, this.state.lessonProgress, this.state.programmingCourses, this.state);
   }
 
   async resetRoutineHistory() {
@@ -673,6 +675,13 @@ function copyCloudShareableUrl() { app.copyCloudShareableUrl(); }
 function connectAndSyncCloud() { app.connectAndSyncCloud(); }
 function disconnectCloudSync() { app.disconnectCloudSync(); }
 function resetEntireSystem() { app.resetEntireSystem(); }
+function toggleRoadmapItem(id) { app.toggleRoadmapItem(id); }
+function toggleLanguageCourse(id) { app.toggleLanguageCourse(id); }
+if (typeof window !== 'undefined') {
+  window.toggleRoadmapItem = toggleRoadmapItem;
+  window.toggleLanguageCourse = toggleLanguageCourse;
+}
+
 function toggleSubjectCompletion(id) { app.toggleSubjectCompletion(id); }
 function toggleProgrammingCourse(id) { app.toggleProgrammingCourse(id); }
 if (typeof window !== 'undefined') {
