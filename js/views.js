@@ -1348,3 +1348,8 @@ class LanguageTrackView {
     });
   }
 }
+
+if (typeof window !== 'undefined') {
+  window.RoadmapView = RoadmapView;
+  window.LanguageTrackView = LanguageTrackView;
+}

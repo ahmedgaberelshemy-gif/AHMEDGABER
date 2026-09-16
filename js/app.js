@@ -54,8 +54,7 @@ class AppController {
         }
         this.state = cloudState;
         this.storageService.save(this.state);
-        this.renderRoutine();
-        this.renderAchievements();
+        this.switchTab(this.state.activeTab || 'routine');
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     } catch (e) {}
@@ -66,15 +65,17 @@ class AppController {
     this.cloudSyncService.push(this.state);
     HeaderView.render(this.state);
     if (this.state.activeTab === 'routine') this.renderRoutine();
+    if (this.state.activeTab === 'roadmap') this.renderRoadmap();
+    if (this.state.activeTab === 'languages') this.renderLanguages();
     if (this.state.activeTab === 'achievements') this.renderAchievements();
   }
 
   // ==========================================
-  // Navigation: Active Tabs (Routine & Achievements)
+  // Navigation: Active Tabs (Routine, Roadmap, Languages & Achievements)
   // ==========================================
   switchTab(tabId) {
-    // Safety Fallback (OCP / LSP): Only 'routine' and 'achievements' allowed
-    if (tabId !== 'achievements') {
+    const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+    if (!validTabs.includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
@@ -93,16 +94,22 @@ class AppController {
     }
 
     const routineSec = document.getElementById('section-routine');
-    const curricSec = document.getElementById('section-curriculum');
+    const roadmapSec = document.getElementById('section-roadmap');
+    const languagesSec = document.getElementById('section-languages');
     const achieveSec = document.getElementById('section-achievements');
+    const curricSec = document.getElementById('section-curriculum');
     const progSec = document.getElementById('section-programming');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
-    if (curricSec) curricSec.classList.toggle('hidden', true);
+    if (roadmapSec) roadmapSec.classList.toggle('hidden', tabId !== 'roadmap');
+    if (languagesSec) languagesSec.classList.toggle('hidden', tabId !== 'languages');
     if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
+    if (curricSec) curricSec.classList.toggle('hidden', true);
     if (progSec) progSec.classList.toggle('hidden', true);
 
     if (tabId === 'routine') this.renderRoutine();
+    if (tabId === 'roadmap') this.renderRoadmap();
+    if (tabId === 'languages') this.renderLanguages();
     if (tabId === 'achievements') this.renderAchievements();
 
     this.storageService.save(this.state);
@@ -414,6 +421,71 @@ class AppController {
   }
 
   // ==========================================
+
+  // ==========================================
+  // Roadmap Handlers (15 Subjects + Skills + Certs)
+  // ==========================================
+  renderRoadmap() {
+    this.state.roadmapProgress = this.state.roadmapProgress || {};
+    if (typeof RoadmapView !== 'undefined' && RoadmapView.render) {
+      RoadmapView.render(this.state);
+    }
+  }
+
+  toggleRoadmapItem(itemId) {
+    if (!itemId) return;
+    try {
+      this.state.roadmapProgress = this.state.roadmapProgress || {};
+      const isNowDone = !Boolean(this.state.roadmapProgress[itemId]);
+      this.state.roadmapProgress[itemId] = isNowDone;
+
+      if (isNowDone) {
+        this.soundService.playSuccess();
+        this.celebrationService.smallPop();
+      } else {
+        this.soundService.playCheck();
+      }
+
+      this.saveAndRefreshViews();
+      this.renderRoadmap();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling roadmap item:', err);
+    }
+  }
+
+  // ==========================================
+  // Languages Track Handlers (33 Courses)
+  // ==========================================
+  renderLanguages() {
+    this.state.languageProgress = this.state.languageProgress || {};
+    if (typeof LanguageTrackView !== 'undefined' && LanguageTrackView.render) {
+      LanguageTrackView.render(this.state);
+    }
+  }
+
+  toggleLanguageCourse(courseId) {
+    if (!courseId) return;
+    try {
+      this.state.languageProgress = this.state.languageProgress || {};
+      const isNowDone = !Boolean(this.state.languageProgress[courseId]);
+      this.state.languageProgress[courseId] = isNowDone;
+
+      if (isNowDone) {
+        this.soundService.playSuccess();
+        this.celebrationService.smallPop();
+      } else {
+        this.soundService.playCheck();
+      }
+
+      this.saveAndRefreshViews();
+      this.renderLanguages();
+      this.renderAchievements();
+    } catch (err) {
+      console.error('Error toggling language course:', err);
+    }
+  }
+
   // Achievements Handlers
   // ==========================================
     renderAchievements() {
