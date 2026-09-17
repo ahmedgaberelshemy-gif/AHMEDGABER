@@ -39,6 +39,8 @@ class AppController {
         this.storageService.save(this.state);
         HeaderView.render(this.state);
         if (this.state.activeTab === 'routine') this.renderRoutine();
+        if (this.state.activeTab === 'roadmap') this.renderRoadmap();
+        if (this.state.activeTab === 'languages') this.renderLanguages();
         if (this.state.activeTab === 'achievements') this.renderAchievements();
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }

@@ -4,7 +4,7 @@
  * =========================================================================
  * Solid Principles & Clean Code Architecture:
  * - Immutable data definitions (Object.freeze)
- * - Domain-driven structure for 4 academic years (15 courses, 16 skills, 9 certs)
+ * - Domain-driven structure for 4 academic years (15 courses, 14 skills, 6 certs)
  * - Complete 33-course language curriculum with verified official playlists
  */
 
@@ -33,10 +33,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'skill_04', num: '04', name: 'تدريب: المحاسب المالي المحترف (PFA)', category: 'تأهيل مهني' },
       { id: 'skill_05', num: '05', name: 'تدريب: محاسبة التكاليف (Cost Accounting)', category: 'تدريب تخصصي' }
     ],
-    certifications: [
-      { id: 'cert_01', num: '01', name: 'Odoo Certified Functional Consultant', org: 'Odoo (بلجيكا)', badge: 'ERP سحابي' },
-      { id: 'cert_02', num: '02', name: 'Power BI Data Analyst (PL-300)', org: 'Microsoft', badge: 'تحليل بيانات' }
-    ]
+    certifications: []
   },
   {
     id: 'year-2',
@@ -60,8 +57,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'skill_10', num: '10', name: 'أودو محاسبي (Odoo Accounting)', category: 'ERP محاسبي' }
     ],
     certifications: [
-      { id: 'cert_03', num: '03', name: 'CMA (Certified Management Accountant) - Part 1', org: 'IMA (أمريكا)', badge: 'محاسبة إدارية' },
-      { id: 'cert_04', num: '04', name: 'FMVA (Financial Modeling & Valuation Analyst)', org: 'CFI (كندا)', badge: 'نمذجة مالية' }
+      { id: 'cert_01', num: '01', name: 'Microsoft Certified: Power BI Data Analyst (PL-300)', org: 'Microsoft (أمريكا)', badge: 'تحليل بيانات' },
+      { id: 'cert_02', num: '02', name: 'DipIFR (دبلومة معايير التقارير المالية الدولية)', org: 'ACCA (بريطانيا)', badge: 'معايير دولية' }
     ]
   },
   {
@@ -80,12 +77,11 @@ const ROADMAP_YEARS_DATA = Object.freeze([
     ],
     skills: [
       { id: 'skill_11', num: '11', name: 'تدريب: تحليل البيانات بالإكسل (Data Analysis with Excel)', category: 'تحليل بيانات' },
-      { id: 'skill_12', num: '12', name: 'تدريب: Power Query & Power Pivot', category: 'أدوات ذكاء أعمال' },
-      { id: 'skill_13', num: '13', name: 'تدريب: لغة الاستعلام الهيكلية (SQL)', category: 'قواعد بيانات' }
+      { id: 'skill_12', num: '12', name: 'تدريب: Power Query & Power Pivot', category: 'أدوات ذكاء أعمال' }
     ],
     certifications: [
-      { id: 'cert_05', num: '05', name: 'CertIFR / DipIFR (معايير المحاسبة الدولية IFRS)', org: 'ACCA (بريطانيا)', badge: 'معايير دولية' },
-      { id: 'cert_06', num: '06', name: 'CIA (Certified Internal Auditor)', org: 'IIA (أمريكا)', badge: 'مراجعة داخلية' }
+      { id: 'cert_03', num: '03', name: 'CIA (Certified Internal Auditor)', org: 'IIA (أمريكا)', badge: 'مراجعة داخلية' },
+      { id: 'cert_04', num: '04', name: 'CMA (Certified Management Accountant)', org: 'IMA (أمريكا)', badge: 'محاسبة إدارية' }
     ]
   },
   {
@@ -104,14 +100,12 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'ACT_11', code: 'ACT 11', name: 'محاسبة المنشآت المتخصصة', type: 'اختياري' }
     ],
     skills: [
-      { id: 'skill_14', num: '14', name: 'الفاتورة والإقرارات الإلكترونية (ETA & ZATCA)', category: 'ضرائب رقمية' },
-      { id: 'skill_15', num: '15', name: 'تدريب: النمذجة المالية المتقدمة (Financial Modeling)', category: 'تمويل واستثمار' },
-      { id: 'skill_16', num: '16', name: 'هندسة الأوامر وتوظيف الذكاء الاصطناعي (AI & Prompt Engineering)', category: 'ذكاء اصطناعي' }
+      { id: 'skill_13', num: '13', name: 'الفاتورة والإقرارات الإلكترونية (ETA & ZATCA)', category: 'ضرائب رقمية' },
+      { id: 'skill_14', num: '14', name: 'تدريب: النمذجة المالية (Financial Modeling)', category: 'تمويل واستثمار' }
     ],
     certifications: [
-      { id: 'cert_07', num: '07', name: 'CFA (Chartered Financial Analyst) - Level 1', org: 'CFA Institute', badge: 'تحليل مالي' },
-      { id: 'cert_08', num: '08', name: 'CPA (Certified Public Accountant)', org: 'AICPA (أمريكا)', badge: 'محاسب قانوني' },
-      { id: 'cert_09', num: '09', name: 'ACCA (Chartered Certified Accountant)', org: 'ACCA (بريطانيا)', badge: 'زمالة دولية' }
+      { id: 'cert_05', num: '05', name: 'CFA (Chartered Financial Analyst) - Level 1', org: 'CFA Institute (أمريكا)', badge: 'تحليل مالي' },
+      { id: 'cert_06', num: '06', name: 'CPA (Certified Public Accountant)', org: 'AICPA (أمريكا)', badge: 'محاسب قانوني' }
     ]
   }
 ]);
