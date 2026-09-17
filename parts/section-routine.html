@@ -162,29 +162,44 @@
         </div>
       </div>
 
-      <!-- Integrated Finalize Box Inside Habits Card (Balanced Height & Mobile Optimized) -->
-      <div id="finalizeBar" class="bg-slate-900 text-white rounded-2xl p-3.5 sm:p-4 border border-slate-700/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 relative shadow-xs mt-2">
-        <div class="space-y-0.5 text-center sm:text-right">
-          <div class="flex items-center justify-center sm:justify-start gap-1.5">
-            <span class="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-2xs sm:text-xs font-black" id="finalizeStatusPill">
-              <i class="fa-solid fa-bolt text-amber-400"></i> جاهز للتسجيل ⚡
-            </span>
-          </div>
-          <h4 class="font-display font-black text-xs sm:text-sm text-white">اعتماد إنجاز اليوم بالسجل التراكمي</h4>
-        </div>
-        <button 
-          type="button"
-          onclick="finalizeTodayLog()" 
-          id="finalizeDayBtn"
-          class="w-full sm:w-auto px-4 sm:px-5 py-3 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-display font-black text-xs sm:text-sm border border-amber-400 flex items-center justify-center gap-1.5 transition cursor-pointer select-none shadow-xs shrink-0"
-        >
-          <i class="fa-solid fa-crown text-slate-950 text-xs" id="finalizeBtnIcon"></i>
-          <span id="finalizeBtnText">تسجيل واعتماد اليوم ✅</span>
-        </button>
+      <!-- Habits Motivation Box (Symmetrical to Prayers Box) -->
+      <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-center mt-2">
+        <span class="text-xs sm:text-sm font-bold text-indigo-950">
+          الانضباط الفولاذي في العادات اليومية يصنع عقلية الأول على الدفعة ⚡
+        </span>
       </div>
 
     </div>
 
+  </div>
+
+  <!-- 3. Full-Width Master Finalize Bar (طويل، ممتد بكامل العرض، وفوق سجل تشريح الأداء) -->
+  <div id="finalizeBar" class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-4 sm:p-6 border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 card-lift">
+    <div class="flex items-center gap-3.5 text-center sm:text-right">
+      <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-xl text-amber-400 shrink-0 shadow-inner">
+        <i class="fa-solid fa-crown text-amber-400"></i>
+      </div>
+      <div>
+        <div class="flex items-center justify-center sm:justify-start gap-2 mb-1">
+          <span class="px-3 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-black" id="finalizeStatusPill">
+            <i class="fa-solid fa-bolt text-amber-400"></i> جاهز للتسجيل ⚡
+          </span>
+          <span class="text-xs text-slate-400 font-medium hidden sm:inline">خطوة الاعتماد الرسمي اليومي</span>
+        </div>
+        <h4 class="font-display font-black text-sm sm:text-base text-white">
+          اعتماد إنجاز اليوم وتثبيته في السجل التراكمي (مسار الـ 112 يوماً نحو المركز الأول 👑)
+        </h4>
+      </div>
+    </div>
+    <button 
+      type="button"
+      onclick="finalizeTodayLog()" 
+      id="finalizeDayBtn"
+      class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400/80 flex items-center justify-center gap-2 transition cursor-pointer select-none shadow-md shadow-amber-500/20 shrink-0"
+    >
+      <i class="fa-solid fa-crown text-slate-950 text-sm" id="finalizeBtnIcon"></i>
+      <span id="finalizeBtnText">تسجيل واعتماد اليوم ✅</span>
+    </button>
   </div>
 
   <!-- 3. Full-Width Cumulative History & Analytics Dashboard -->

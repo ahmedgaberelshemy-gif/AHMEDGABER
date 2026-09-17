@@ -184,7 +184,7 @@ class RoutineView {
 
     if (!pill || !btnText) return;
 
-    const calmBtnClass = 'px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-slate-950 font-display font-black text-xs sm:text-sm border border-amber-400 flex items-center justify-center gap-1.5 transition cursor-pointer select-none shadow-xs';
+    const calmBtnClass = 'w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400/80 flex items-center justify-center gap-2 transition cursor-pointer select-none shadow-md shadow-amber-500/20 shrink-0';
 
     if (dayLog && dayLog.submitted) {
       const prayersDone = Object.values(dayLog.prayers || {}).filter(Boolean).length;
@@ -459,7 +459,7 @@ class AchievementsView {
             </div>
           </div>
           <span class="text-xs sm:text-sm font-black text-indigo-700 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
-            الرتبة: ${stats.rank} 🎖️
+            الرتبة: ${stats.rank?.title || 'طالب منضبط 🌟'} 🎖️
           </span>
         </div>
 
