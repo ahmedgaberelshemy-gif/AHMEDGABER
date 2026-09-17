@@ -1,36 +1,45 @@
 <!-- MAIN 3-SECTION MASTER NAV TABS (Sticky Navigation: Routine, Career Roadmap & Languages) -->
-<div class="max-w-[1560px] mx-auto px-2.5 sm:px-6 lg:px-8 mt-3 sm:mt-4 sticky top-2 sm:top-3 relative z-30 no-print">
-  <div class="bg-white/95 backdrop-blur-md rounded-2xl p-1.5 sm:p-2 shadow-lg sm:shadow-xl border border-slate-200">
-    <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+<div class="max-w-[1560px] mx-auto px-2 sm:px-6 lg:px-8 mt-2 sm:mt-4 sticky top-1 sm:top-3 z-30 no-print">
+  <div class="bg-white/95 backdrop-blur-md rounded-2xl p-1 sm:p-2 shadow-lg sm:shadow-xl border border-slate-200">
+    <div class="grid grid-cols-3 gap-1 sm:gap-2">
       
       <!-- Tab 1: Routine -->
       <button 
         onclick="switchTab('routine')" 
         id="tabBtn-routine"
-        class="tab-btn py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
+        class="tab-btn py-2 sm:py-3 px-1 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
       >
         <i class="fa-solid fa-bolt text-amber-500 text-sm sm:text-base shrink-0"></i>
-        <span class="whitespace-nowrap font-bold">الروتين اليومي</span>
+        <span class="whitespace-nowrap font-bold text-[11px] sm:text-sm">
+          <span class="sm:hidden">الروتين</span>
+          <span class="hidden sm:inline">الروتين اليومي</span>
+        </span>
       </button>
 
       <!-- Tab 2: Career Roadmap (Subjects + Skills + Certs) -->
       <button 
         onclick="switchTab('roadmap')" 
         id="tabBtn-roadmap"
-        class="tab-btn py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
+        class="tab-btn py-2 sm:py-3 px-1 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
       >
         <i class="fa-solid fa-compass text-blue-600 text-sm sm:text-base shrink-0"></i>
-        <span class="whitespace-nowrap font-bold">المسار الأكاديمي والمهني</span>
+        <span class="whitespace-nowrap font-bold text-[11px] sm:text-sm">
+          <span class="sm:hidden">المسار الأكاديمي</span>
+          <span class="hidden sm:inline">المسار الأكاديمي والمهني</span>
+        </span>
       </button>
 
       <!-- Tab 3: Languages -->
       <button 
         onclick="switchTab('languages')" 
         id="tabBtn-languages"
-        class="tab-btn py-2.5 sm:py-3 px-2 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex items-center justify-center gap-1.5 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
+        class="tab-btn py-2 sm:py-3 px-1 sm:px-3 rounded-xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 active:scale-95 transition cursor-pointer"
       >
         <i class="fa-solid fa-language text-emerald-600 text-sm sm:text-base shrink-0"></i>
-        <span class="whitespace-nowrap font-bold">المسار اللغوي الشامل</span>
+        <span class="whitespace-nowrap font-bold text-[11px] sm:text-sm">
+          <span class="sm:hidden">المسار اللغوي</span>
+          <span class="hidden sm:inline">المسار اللغوي الشامل</span>
+        </span>
       </button>
 
       <!-- Hidden Legacy Tab for Safe Fallback -->

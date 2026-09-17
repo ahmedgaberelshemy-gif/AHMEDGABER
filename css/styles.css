@@ -381,8 +381,74 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   background: #94a3b8;
 }
 
+/* =========================================================================
+   6. MOBILE TOUCH ENGINE & RESPONSIVE ADAPTATIONS (Phone & Tablet Optimization)
+   ========================================================================= */
+
+/* Native Mobile App Touch Ergonomics */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, input, select, textarea, .tab-btn, .checkbox-custom, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* Touch Device Rules (Disables sticky mouse hover, enables crisp tactile feedback) */
+@media (hover: none) {
+  .card-lift:hover, .card-3d:hover {
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+  }
+
+  .tab-btn:hover:not(.tab-btn-active) {
+    transform: none !important;
+  }
+}
+
+/* Mobile Screen Tuning (< 640px) */
 @media (max-width: 640px) {
-  body { font-size: 14px; padding-bottom: env(safe-area-inset-bottom, 20px); }
-  .checkbox-custom { width: 26px; height: 26px; }
-  .tab-btn { padding-left: 0.5rem !important; padding-right: 0.5rem !important; font-size: 0.75rem !important; }
+  body {
+    font-size: 13.5px;
+    padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+  }
+
+  /* Sticky Navigation bar mobile padding */
+  .tab-btn {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  /* Checkbox mobile hit area */
+  .checkbox-custom {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+  }
+
+  /* Tactile touch active state */
+  .tab-btn:active, 
+  button:active, 
+  .checkbox-custom:active,
+  #finalizeDayBtn:active {
+    transform: scale(0.95) !important;
+  }
+
+  /* Smooth momentum scrolling for modals & lists */
+  #modalNoteText, 
+  #cloudSyncModalCard, 
+  #dailyResultModalCard,
+  #incompleteDetailsWrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Extra small screens (< 380px) */
+@media (max-width: 380px) {
+  .tab-btn span {
+    font-size: 10px !important;
+  }
+  .tab-btn i {
+    font-size: 12px !important;
+  }
 }

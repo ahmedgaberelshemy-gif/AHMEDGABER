@@ -58,6 +58,9 @@ class AppController {
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     } catch (e) {}
+
+    // 3. Mobile Touch Gestures & Swipe Engine (Smooth swipe between tabs)
+    this.initTouchGestures();
   }
 
   saveAndRefreshViews() {
@@ -120,6 +123,67 @@ class AppController {
   }
 
   // ==========================================
+  // Mobile Touch Gestures & Swipe Engine
+  // ==========================================
+  initTouchGestures() {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+
+    const workspace = document.getElementById('part-main-workspace') || document.body;
+
+    workspace.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+      }
+    }, { passive: true });
+
+    workspace.addEventListener('touchend', (e) => {
+      if (!touchStartX || !e.changedTouches || e.changedTouches.length !== 1) return;
+
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const duration = Date.now() - touchStartTime;
+
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+
+      touchStartX = 0;
+      touchStartY = 0;
+
+      // Fast horizontal swipe with minimal vertical drift
+      if (duration > 450 || Math.abs(deltaX) < 65 || Math.abs(deltaY) > 60) return;
+
+      const target = e.target;
+      if (target && target.closest('#noteModal, #cloudSyncModal, #dailyResultModal, input, textarea, select')) {
+        return;
+      }
+
+      const tabs = ['routine', 'roadmap', 'languages'];
+      const currentIndex = tabs.indexOf(this.state.activeTab || 'routine');
+      if (currentIndex === -1) return;
+
+      // RTL Direction:
+      // Tab 0 is Routine (rightmost in RTL)
+      // Tab 1 is Roadmap (center)
+      // Tab 2 is Languages (leftmost in RTL)
+      // Swiping right-to-left (deltaX < 0) advances towards left: index + 1
+      // Swiping left-to-right (deltaX > 0) goes back towards right: index - 1
+      if (deltaX < 0 && currentIndex < tabs.length - 1) {
+        if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
+        this.switchTab(tabs[currentIndex + 1]);
+      } else if (deltaX > 0 && currentIndex > 0) {
+        if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
+        this.switchTab(tabs[currentIndex - 1]);
+      }
+    }, { passive: true });
+  }
+
+  // ==========================================
   // Routine Handlers
   // ==========================================
   getTodayLog() {
@@ -136,6 +200,7 @@ class AppController {
   }
 
   togglePrayer(prayerId) {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
     const nextState = !log.prayers[prayerId];
     log.prayers[prayerId] = nextState;
@@ -156,6 +221,7 @@ class AppController {
   }
 
   toggleGym() {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
     const checkEl = document.getElementById('gymCheck');
     const isChecked = checkEl ? checkEl.checked : false;
@@ -173,6 +239,7 @@ class AppController {
   }
 
   toggleSleep() {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
     const checkEl = document.getElementById('sleepCheck');
     const isChecked = checkEl ? checkEl.checked : false;
@@ -190,6 +257,7 @@ class AppController {
   }
 
   toggleQuran() {
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
     const checkEl = document.getElementById('quranCheck');
     const isChecked = checkEl ? checkEl.checked : false;
@@ -440,6 +508,7 @@ class AppController {
 
   toggleRoadmapItem(itemId) {
     if (!itemId) return;
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     try {
       this.state.roadmapProgress = this.state.roadmapProgress || {};
       const isNowDone = !Boolean(this.state.roadmapProgress[itemId]);
@@ -472,6 +541,7 @@ class AppController {
 
   toggleLanguageCourse(courseId) {
     if (!courseId) return;
+    if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     try {
       this.state.languageProgress = this.state.languageProgress || {};
       const isNowDone = !Boolean(this.state.languageProgress[courseId]);
