@@ -831,19 +831,13 @@ class RoadmapService {
     let totalItems = 0;
     let doneItems = 0;
 
-    // 1. Courses
-    (yearData.courses || []).forEach(c => {
-      totalItems++;
-      if (this.isDone(state, c.id)) doneItems++;
-    });
-
-    // 2. Skills
+    // 1. Skills
     (yearData.skills || []).forEach(s => {
       totalItems++;
       if (this.isDone(state, s.id)) doneItems++;
     });
 
-    // 3. Certifications
+    // 2. Certifications
     (yearData.certifications || []).forEach(crt => {
       totalItems++;
       if (this.isDone(state, crt.id)) doneItems++;
@@ -854,17 +848,12 @@ class RoadmapService {
   }
 
   static getOverallStats(state) {
-    let totalCourses = 0, doneCourses = 0;
     let totalSkills = 0, doneSkills = 0;
     let totalCerts = 0, doneCerts = 0;
 
     const years = (typeof ROADMAP_YEARS_DATA !== 'undefined') ? ROADMAP_YEARS_DATA : [];
 
     years.forEach(year => {
-      (year.courses || []).forEach(c => {
-        totalCourses++;
-        if (this.isDone(state, c.id)) doneCourses++;
-      });
       (year.skills || []).forEach(s => {
         totalSkills++;
         if (this.isDone(state, s.id)) doneSkills++;
@@ -875,12 +864,11 @@ class RoadmapService {
       });
     });
 
-    const totalAll = totalCourses + totalSkills + totalCerts;
-    const doneAll = doneCourses + doneSkills + doneCerts;
+    const totalAll = totalSkills + totalCerts;
+    const doneAll = doneSkills + doneCerts;
     const percent = totalAll > 0 ? Math.round((doneAll / totalAll) * 100) : 0;
 
     return {
-      totalCourses, doneCourses,
       totalSkills, doneSkills,
       totalCerts, doneCerts,
       totalAll, doneAll,

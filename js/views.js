@@ -1140,35 +1140,7 @@ class RoadmapView {
       const card = document.createElement('article');
       card.className = 'bg-white rounded-3xl border ' + (isYearComplete ? 'border-emerald-300 shadow-emerald-500/10' : 'border-slate-200') + ' p-5 sm:p-7 shadow-sm flex flex-col justify-between space-y-5 card-lift relative overflow-hidden';
 
-      // 1. Courses List (Stacked with Large Code Badge and Large Subject Name)
-      let coursesHtml = '';
-      (year.courses || []).forEach(c => {
-        const isDone = RoadmapService.isDone(state, c.id);
-        coursesHtml += `
-          <li class="p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-emerald-50/90 border-emerald-300' : 'bg-white border-slate-200'}">
-            <div class="flex items-center justify-between mb-2 gap-2">
-              <span class="text-xs sm:text-sm font-mono font-black px-3 py-1 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 shadow-2xs">${c.code}</span>
-              <span class="text-xs sm:text-sm font-black px-3 py-1 rounded-lg ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : (c.type === 'إجباري' ? 'bg-emerald-50 text-emerald-800 border border-emerald-300' : 'bg-amber-50 text-amber-800 border border-amber-300')}">
-                ${isDone ? 'منجز ✅' : c.type}
-              </span>
-            </div>
-            <div class="flex items-center gap-3 min-w-0">
-              <input 
-                type="checkbox" 
-                id="roadmap-${c.id}" 
-                ${isDone ? 'checked' : ''} 
-                onchange="app.toggleRoadmapItem('${c.id}')" 
-                class="checkbox-custom w-6 h-6 shrink-0"
-              />
-              <label for="roadmap-${c.id}" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none leading-snug ${isDone ? 'line-through text-slate-400' : ''}">
-                ${c.name}
-              </label>
-            </div>
-          </li>
-        `;
-      });
-
-      // 2. Skills & Workshops List (Full details, ERP sub-items, large typography)
+      // 1. Skills & Workshops List (Full details, ERP sub-items, large typography)
       let skillsHtml = '';
       (year.skills || []).forEach(s => {
         const isDone = RoadmapService.isDone(state, s.id);
@@ -1218,7 +1190,7 @@ class RoadmapView {
         `;
       });
 
-      // 3. Certifications List (Stacked, complete names, organizations, large typography)
+      // 2. Certifications List (Stacked, complete names, organizations, large typography)
       let certsHtml = '';
       (year.certifications || []).forEach(crt => {
         const isDone = RoadmapService.isDone(state, crt.id);
@@ -1252,6 +1224,28 @@ class RoadmapView {
       const yrText = year.yearNum === 1 ? 'سنة أولى' : (year.yearNum === 2 ? 'سنة ثانية' : (year.yearNum === 3 ? 'سنة ثالثة' : 'سنة رابعة'));
       const certBridgeText = year.yearNum === 4 ? 'الشهادات الكبرى عند التخرج:' : `الشهادات المهنية بعد ${yrText}:`;
 
+      let certsSectionHtml = '';
+      if ((year.certifications || []).length > 0) {
+        certsSectionHtml = `
+          <!-- Pathway Bridge: Certifications -->
+          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-800 to-emerald-600 text-white text-sm sm:text-base font-black py-2.5 px-4 rounded-xl my-3.5 shadow-sm">
+            <i class="fa-solid fa-award"></i> ${certBridgeText}
+          </div>
+
+          <!-- Part 2: Professional Certifications -->
+          <ul class="space-y-3">
+            ${certsHtml}
+          </ul>
+        `;
+      } else {
+        certsSectionHtml = `
+          <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center gap-2.5 justify-center my-3.5 shadow-2xs">
+            <i class="fa-solid fa-shield-halved text-emerald-600 text-base shrink-0"></i>
+            <span>التركيز 100% في سنة أولى على المناهج وحصد المركز الأول 🏆 (الشهادات الدولية تبدأ من سنة ثانية)</span>
+          </div>
+        `;
+      }
+
       card.innerHTML = `
         <!-- Year Card Header -->
         <div>
@@ -1269,37 +1263,17 @@ class RoadmapView {
             <div class="h-full bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full transition-all duration-300" style="width: ${yearStats.percent}%;"></div>
           </div>
 
-          <!-- Part 1: Academic Courses -->
-          <div class="space-y-3 mb-4">
-            <div class="flex items-center justify-between">
-              <h3 class="text-base sm:text-xl font-black text-slate-900 flex items-center gap-2">
-                <i class="fa-solid fa-graduation-cap text-blue-600"></i> مواد ${year.stagePill}:
-              </h3>
-            </div>
-            <ul class="space-y-3">
-              ${coursesHtml}
-            </ul>
-          </div>
-
-          <!-- Pathway Bridge 1: Skills -->
+          <!-- Pathway Bridge: Skills -->
           <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-900 to-blue-700 text-white text-sm sm:text-base font-black py-2.5 px-4 rounded-xl my-3.5 shadow-sm">
-            <i class="fa-solid fa-arrow-down"></i> الكورسات والمهارات بعد ${yrText}:
+            <i class="fa-solid fa-laptop-code"></i> الكورسات والمهارات العملية (${yrText}):
           </div>
 
-          <!-- Part 2: Skills & Practical Workshops -->
+          <!-- Part 1: Skills & Practical Workshops -->
           <ul class="space-y-3 mb-4">
             ${skillsHtml}
           </ul>
 
-          <!-- Pathway Bridge 2: Certifications -->
-          <div class="flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-800 to-emerald-600 text-white text-sm sm:text-base font-black py-2.5 px-4 rounded-xl my-3.5 shadow-sm">
-            <i class="fa-solid fa-award"></i> ${certBridgeText}
-          </div>
-
-          <!-- Part 3: Professional Certifications -->
-          <ul class="space-y-3">
-            ${certsHtml}
-          </ul>
+          ${certsSectionHtml}
         </div>
 
         <div class="pt-4 border-t border-slate-100 text-center">
