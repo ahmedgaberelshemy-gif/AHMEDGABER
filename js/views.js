@@ -1194,6 +1194,21 @@ class RoadmapView {
       let certsHtml = '';
       (year.certifications || []).forEach(crt => {
         const isDone = RoadmapService.isDone(state, crt.id);
+        
+        let certSubHtml = '';
+        if (crt.id === 'cert_02') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-certificate text-blue-600"></i> CertIFR: شهادة المعايير التمهيدية (Online)
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-award text-emerald-600"></i> DipIFR: دبلومة المعايير المهنية الدولية
+              </span>
+            </div>
+          `;
+        }
+
         certsHtml += `
           <li class="p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-emerald-50/90 border-emerald-300' : 'bg-white border-slate-200'}">
             <div class="flex items-center justify-between mb-2 gap-2">
@@ -1214,6 +1229,7 @@ class RoadmapView {
                 <label for="roadmap-${crt.id}" class="text-base sm:text-lg font-black text-slate-900 cursor-pointer select-none block leading-snug ${isDone ? 'line-through text-slate-400' : ''}">
                   ${crt.name}
                 </label>
+                ${certSubHtml}
                 <span class="text-xs sm:text-sm text-slate-500 font-bold block mt-1.5"><i class="fa-solid fa-building-columns text-slate-400"></i> ${crt.org}</span>
               </div>
             </div>

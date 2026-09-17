@@ -58,7 +58,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
     ],
     certifications: [
       { id: 'cert_01', num: '01', name: 'Microsoft Certified: Power BI Data Analyst (PL-300)', org: 'Microsoft (أمريكا)', badge: 'تحليل بيانات' },
-      { id: 'cert_02', num: '02', name: 'DipIFR (دبلومة معايير التقارير المالية الدولية)', org: 'ACCA (بريطانيا)', badge: 'معايير دولية' }
+      { id: 'cert_02', num: '02', name: 'DipIFR & CertIFR (دبلومة وشهادة معايير التقارير المالية الدولية)', org: 'ACCA (بريطانيا) — المسار المزدوج: الشهادة التمهيدية والدبلومة المهنية', badge: 'معايير دولية IFRS' }
     ]
   },
   {
