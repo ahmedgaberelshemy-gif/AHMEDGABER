@@ -555,13 +555,6 @@ class ProgrammingView {
   }
 }
 
-        </div>
-
-      </div>
-    `;
-  }
-}
-
 // 4. HEADER VIEW (Live Header Metadata & Controls)
 class HeaderView {
   static render(state = {}) {
