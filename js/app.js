@@ -31,11 +31,9 @@ class AppController {
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
-        if (!validTabs.includes(cloudState.activeTab)) {
-          cloudState.activeTab = 'routine';
-        }
+        const currentTab = this.state.activeTab || 'routine';
         this.state = cloudState;
+        this.state.activeTab = currentTab;
         this.storageService.save(this.state);
         HeaderView.render(this.state);
         this.renderActiveTab();
@@ -47,13 +45,11 @@ class AppController {
     try {
       const cloudState = await this.cloudSyncService.pull();
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
-        if (!validTabs.includes(cloudState.activeTab)) {
-          cloudState.activeTab = 'routine';
-        }
+        const currentTab = this.state.activeTab || 'routine';
         this.state = cloudState;
+        this.state.activeTab = currentTab;
         this.storageService.save(this.state);
-        this.switchTab(this.state.activeTab || 'routine');
+        this.switchTab(this.state.activeTab);
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     } catch (e) {}
