@@ -126,8 +126,8 @@ class StorageService {
       state.roadmapProgress = state.roadmapProgress || {};
       state.languageProgress = state.languageProgress || {};
 
-      // Safety check for active tab: Allow routine, roadmap, languages, achievements
-      const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+      // Safety check for active tab: Allow routine, curriculum, languages, roadmap, programming
+      const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
       if (!validTabs.includes(state.activeTab)) {
         state.activeTab = 'routine';
       }
@@ -169,7 +169,7 @@ class CloudSyncService {
   constructor(storageService, options = {}) {
     this.storageService = storageService;
     this.syncKey = this.getStoredSyncKey() || 'main_user';
-    this.status = 'connecting';
+    this.status = 'local';
     this.debounceTimer = null;
     this.firestoreDb = null;
     this.unsubscribeListener = null;
@@ -210,10 +210,13 @@ class CloudSyncService {
         this.firestoreDb = firebase.firestore();
         this._notifyStatus('connected');
         console.log('✅ Google Firebase Firestore connected successfully!');
+      } else {
+        this._notifyStatus('local');
       }
     } catch (e) {
       console.warn('Firebase init warning:', e);
-      this._notifyStatus('connected');
+      this.firestoreDb = null;
+      this._notifyStatus('local');
     }
   }
 
@@ -242,7 +245,7 @@ class CloudSyncService {
       this.syncKey = key.trim().toLowerCase().replace(/[^a-z0-9_-]/gi, '');
       try { if (typeof localStorage !== 'undefined') localStorage.setItem('janaklis_cloud_sync_key', this.syncKey); } catch (e) {}
     }
-    this._notifyStatus('connected');
+    this._notifyStatus(this.firestoreDb ? 'connected' : 'local');
   }
 
   getShareableLink() {
@@ -259,6 +262,9 @@ class CloudSyncService {
     try {
       const docRef = this.firestoreDb.collection('academic_os').doc(this.syncKey || 'main_user');
       this.unsubscribeListener = docRef.onSnapshot((doc) => {
+        if (doc.metadata && doc.metadata.hasPendingWrites) {
+          return; // Ignore local pending write echoes to keep local state responsive
+        }
         if (doc.exists) {
           const cloudData = doc.data();
           if (cloudData && cloudData.state && typeof onCloudUpdate === 'function') {
@@ -272,6 +278,11 @@ class CloudSyncService {
   }
 
   async push(state) {
+    if (!this.firestoreDb) {
+      this._notifyStatus('local');
+      return;
+    }
+
     this._notifyStatus('syncing');
 
     if (this.debounceTimer) clearTimeout(this.debounceTimer);
@@ -285,15 +296,20 @@ class CloudSyncService {
             lastDevice: typeof navigator !== 'undefined' ? navigator.userAgent : 'Node/Test'
           });
         }
-        this._notifyStatus('connected');
+        this._notifyStatus(this.firestoreDb ? 'connected' : 'local');
       } catch (e) {
         console.warn('Firebase push warning:', e);
-        this._notifyStatus('connected');
+        this._notifyStatus(this.firestoreDb ? 'connected' : 'local');
       }
-    }, 800);
+    }, 600);
   }
 
   async pull() {
+    if (!this.firestoreDb) {
+      this._notifyStatus('local');
+      return null;
+    }
+
     this._notifyStatus('syncing');
 
     try {
@@ -312,7 +328,7 @@ class CloudSyncService {
       console.warn('Firebase pull note:', e);
     }
 
-    this._notifyStatus('connected');
+    this._notifyStatus(this.firestoreDb ? 'connected' : 'local');
     return null;
   }
 
@@ -321,12 +337,15 @@ class CloudSyncService {
     const badge = document.getElementById('cloudSyncHeaderBadge');
     if (!badge) return;
 
-    if (this.status === 'syncing') {
-      badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-amber-500/30 transition';
+    if (this.status === 'syncing' && this.firestoreDb) {
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
       badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-400 animate-spin"></i> <span>جاري الحفظ في Firebase...</span>';
-    } else {
-      badge.className = 'px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold font-display shadow-2xs backdrop-blur-xs flex items-center gap-1.5 cursor-pointer hover:bg-emerald-500/30 transition';
+    } else if (this.status === 'connected' && this.firestoreDb) {
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
       badge.innerHTML = '<i class="fa-solid fa-fire text-amber-400"></i> <span>فايربيز متصل 🟢</span>';
+    } else {
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-800/80 hover:bg-indigo-950/90 text-slate-200 border border-indigo-500/30 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-amber-400 text-xs sm:text-sm"></i> <span>تخزين محلي ⚪</span>';
     }
   }
 }

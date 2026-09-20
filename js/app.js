@@ -31,17 +31,14 @@ class AppController {
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const validTabs = ['routine', 'roadmap', 'languages'];
+        const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
         if (!validTabs.includes(cloudState.activeTab)) {
           cloudState.activeTab = 'routine';
         }
         this.state = cloudState;
         this.storageService.save(this.state);
         HeaderView.render(this.state);
-        if (this.state.activeTab === 'routine') this.renderRoutine();
-        if (this.state.activeTab === 'roadmap') this.renderRoadmap();
-        if (this.state.activeTab === 'languages') this.renderLanguages();
-        if (this.state.activeTab === 'achievements') this.renderAchievements();
+        this.renderActiveTab();
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     });
@@ -50,7 +47,7 @@ class AppController {
     try {
       const cloudState = await this.cloudSyncService.pull();
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const validTabs = ['routine', 'roadmap', 'languages', 'achievements'];
+        const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
         if (!validTabs.includes(cloudState.activeTab)) {
           cloudState.activeTab = 'routine';
         }
@@ -65,57 +62,60 @@ class AppController {
     this.initTouchGestures();
   }
 
+  renderActiveTab() {
+    const tab = this.state.activeTab || 'routine';
+    if (tab === 'routine') this.renderRoutine();
+    if (tab === 'curriculum') this.renderCurriculum();
+    if (tab === 'languages') this.renderLanguages();
+    if (tab === 'roadmap') this.renderRoadmap();
+    if (tab === 'programming') this.renderProgramming();
+  }
+
   saveAndRefreshViews() {
     this.storageService.save(this.state);
     this.cloudSyncService.push(this.state);
     HeaderView.render(this.state);
-    if (this.state.activeTab === 'routine') this.renderRoutine();
-    if (this.state.activeTab === 'roadmap') this.renderRoadmap();
-    if (this.state.activeTab === 'languages') this.renderLanguages();
-    if (this.state.activeTab === 'achievements') this.renderAchievements();
+    this.renderActiveTab();
   }
 
   // ==========================================
-  // Navigation: Active Tabs (Routine, Roadmap, Languages & Achievements)
+  // Navigation: Active Tabs (Routine, Curriculum, Languages, Roadmap & Programming)
   // ==========================================
   switchTab(tabId) {
-    const validTabs = ['routine', 'roadmap', 'languages'];
-    if (!validTabs.includes(tabId) || tabId === 'achievements') {
+    const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
+    if (!validTabs.includes(tabId)) {
       tabId = 'routine';
     }
     this.state.activeTab = tabId;
 
-    // 1. Reset all tabs to standard inactive look
+    // 1. Reset all tabs to sleek dark glass inactive look
     document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.remove('tab-btn-active');
-      btn.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
+      btn.classList.remove('tab-btn-active', 'bg-slate-50', 'text-slate-700', 'border-slate-200');
+      btn.classList.add('bg-slate-800/60', 'text-slate-200', 'border-slate-700/60');
     });
 
     // 2. Highlight strictly the active tab
     const activeBtn = document.getElementById(`tabBtn-${tabId}`);
     if (activeBtn) {
       activeBtn.classList.add('tab-btn-active');
-      activeBtn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
+      activeBtn.classList.remove('bg-slate-800/60', 'text-slate-200', 'border-slate-700/60');
     }
 
     const routineSec = document.getElementById('section-routine');
-    const roadmapSec = document.getElementById('section-roadmap');
-    const languagesSec = document.getElementById('section-languages');
-    const achieveSec = document.getElementById('section-achievements');
     const curricSec = document.getElementById('section-curriculum');
+    const languagesSec = document.getElementById('section-languages');
+    const roadmapSec = document.getElementById('section-roadmap');
     const progSec = document.getElementById('section-programming');
+    const achieveSec = document.getElementById('section-achievements');
 
     if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
-    if (roadmapSec) roadmapSec.classList.toggle('hidden', tabId !== 'roadmap');
+    if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
     if (languagesSec) languagesSec.classList.toggle('hidden', tabId !== 'languages');
-    if (achieveSec) achieveSec.classList.toggle('hidden', tabId !== 'achievements');
-    if (curricSec) curricSec.classList.toggle('hidden', true);
-    if (progSec) progSec.classList.toggle('hidden', true);
+    if (roadmapSec) roadmapSec.classList.toggle('hidden', tabId !== 'roadmap');
+    if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
+    if (achieveSec) achieveSec.classList.toggle('hidden', true);
 
-    if (tabId === 'routine') this.renderRoutine();
-    if (tabId === 'roadmap') this.renderRoadmap();
-    if (tabId === 'languages') this.renderLanguages();
-    if (tabId === 'achievements') this.renderAchievements();
+    this.renderActiveTab();
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);
@@ -165,16 +165,10 @@ class AppController {
         return;
       }
 
-      const tabs = ['routine', 'roadmap', 'languages'];
+      const tabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
       const currentIndex = tabs.indexOf(this.state.activeTab || 'routine');
       if (currentIndex === -1) return;
 
-      // RTL Direction:
-      // Tab 0 is Routine (rightmost in RTL)
-      // Tab 1 is Roadmap (center)
-      // Tab 2 is Languages (leftmost in RTL)
-      // Swiping right-to-left (deltaX < 0) advances towards left: index + 1
-      // Swiping left-to-right (deltaX > 0) goes back towards right: index - 1
       if (deltaX < 0 && currentIndex < tabs.length - 1) {
         if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(12);
         this.switchTab(tabs[currentIndex + 1]);

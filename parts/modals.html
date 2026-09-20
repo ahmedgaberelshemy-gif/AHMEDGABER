@@ -79,7 +79,7 @@
             <span class="text-xs text-slate-400 font-medium">مزامنة حية ولحظية بين اللابتوب والموبايل</span>
           </div>
         </div>
-        <button onclick="app.closeCloudSyncModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 flex items-center justify-center text-xs transition">
+        <button onclick="closeCloudSyncModal()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 flex items-center justify-center text-xs transition">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
@@ -113,7 +113,7 @@
           <span class="text-xs font-bold text-indigo-300 block">📱 رابط المزامنة المباشر للموبايل:</span>
           <div class="flex items-center gap-2">
             <input type="text" id="cloudShareableUrlInput" readonly class="flex-1 p-2.5 rounded-xl bg-slate-800/90 border border-indigo-700/60 text-[11px] font-mono text-slate-200 select-all" />
-            <button onclick="app.copyCloudShareableUrl()" class="px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shrink-0 flex items-center gap-1 shadow-sm">
+            <button onclick="copyCloudShareableUrl()" class="px-3.5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shrink-0 flex items-center gap-1 shadow-sm">
               <i class="fa-solid fa-copy"></i> نسخ
             </button>
           </div>
@@ -124,7 +124,7 @@
         <button onclick="resetRoutineHistory()" class="px-4 py-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-800/50 text-xs font-bold transition">
           تصفير سجل الروتين فقط 🔄
         </button>
-        <button onclick="app.connectAndSyncCloud()" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-md shadow-amber-500/20 flex items-center gap-1.5">
+        <button onclick="connectAndSyncCloud()" class="px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition shadow-md shadow-amber-500/20 flex items-center gap-1.5">
           <i class="fa-solid fa-rotate"></i> مزامنة فورية مع Firebase ⚡
         </button>
       </div>

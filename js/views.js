@@ -757,11 +757,14 @@ class HeaderView {
     if (!badge) return;
 
     if (status === 'syncing') {
-      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
-      badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-400 animate-spin"></i> <span>جاري الحفظ في Firebase...</span>';
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-400 animate-spin text-xs sm:text-sm"></i> <span>جاري الحفظ... 🔄</span>';
+    } else if (status === 'connected') {
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-emerald-400 text-xs sm:text-sm"></i> <span>مزامنة سحابية متصلة 🟢</span>';
     } else {
       badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-800/80 hover:bg-indigo-950/90 text-slate-200 border border-indigo-500/30 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
-      badge.innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-amber-400 text-xs sm:text-sm"></i> <span>تخزين محلي ⚪</span>`;
+      badge.innerHTML = '<i class="fa-solid fa-hard-drive text-amber-400 text-xs sm:text-sm"></i> <span>تخزين محلي ⚪</span>';
     }
   }
 }
