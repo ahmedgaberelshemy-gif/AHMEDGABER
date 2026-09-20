@@ -257,6 +257,10 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   overflow: hidden;
 }
 
+.tab-btn * {
+  pointer-events: none !important;
+}
+
 .tab-btn:hover:not(.tab-btn-active) {
   transform: translateY(-3px) !important;
   box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12) !important;

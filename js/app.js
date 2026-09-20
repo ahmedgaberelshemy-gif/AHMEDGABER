@@ -136,12 +136,30 @@ class AppController {
     const progSec = document.getElementById('section-programming');
     const achieveSec = document.getElementById('section-achievements');
 
-    if (routineSec) routineSec.classList.toggle('hidden', tabId !== 'routine');
-    if (curricSec) curricSec.classList.toggle('hidden', tabId !== 'curriculum');
-    if (languagesSec) languagesSec.classList.toggle('hidden', tabId !== 'languages');
-    if (roadmapSec) roadmapSec.classList.toggle('hidden', tabId !== 'roadmap');
-    if (progSec) progSec.classList.toggle('hidden', tabId !== 'programming');
-    if (achieveSec) achieveSec.classList.toggle('hidden', true);
+    if (routineSec) {
+      routineSec.style.display = (tabId === 'routine') ? 'block' : 'none';
+      routineSec.classList.toggle('hidden', tabId !== 'routine');
+    }
+    if (curricSec) {
+      curricSec.style.display = 'none';
+      curricSec.classList.toggle('hidden', true);
+    }
+    if (languagesSec) {
+      languagesSec.style.display = (tabId === 'languages') ? 'block' : 'none';
+      languagesSec.classList.toggle('hidden', tabId !== 'languages');
+    }
+    if (roadmapSec) {
+      roadmapSec.style.display = (tabId === 'roadmap') ? 'block' : 'none';
+      roadmapSec.classList.toggle('hidden', tabId !== 'roadmap');
+    }
+    if (progSec) {
+      progSec.style.display = (tabId === 'programming') ? 'block' : 'none';
+      progSec.classList.toggle('hidden', tabId !== 'programming');
+    }
+    if (achieveSec) {
+      achieveSec.style.display = 'none';
+      achieveSec.classList.toggle('hidden', true);
+    }
 
     this.renderActiveTab();
 
