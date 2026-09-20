@@ -250,47 +250,39 @@ class AppController {
   toggleGym() {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
-    const checkEl = document.getElementById('gymCheck');
-    const isChecked = checkEl ? checkEl.checked : false;
-    log.gym.done = isChecked;
+    log.gym.done = !Boolean(log.gym?.done);
 
-    if (isChecked) {
+    if (log.gym.done) {
       this.soundService.playSuccess();
       this.celebrationService.smallPop();
     } else {
       this.soundService.playCheck();
     }
 
-    this.renderRoutine();
     this.saveAndRefreshViews();
   }
 
   toggleSleep() {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
-    const checkEl = document.getElementById('sleepCheck');
-    const isChecked = checkEl ? checkEl.checked : false;
-    log.sleep.done = isChecked;
+    log.sleep.done = !Boolean(log.sleep?.done);
 
-    if (isChecked) {
+    if (log.sleep.done) {
       this.soundService.playSuccess();
       this.celebrationService.smallPop();
     } else {
       this.soundService.playCheck();
     }
 
-    this.renderRoutine();
     this.saveAndRefreshViews();
   }
 
   toggleQuran() {
     if (typeof navigator !== 'undefined' && navigator.vibrate) navigator.vibrate(10);
     const log = this.getTodayLog();
-    const checkEl = document.getElementById('quranCheck');
-    const isChecked = checkEl ? checkEl.checked : false;
-    log.quran.done = isChecked;
+    log.quran.done = !Boolean(log.quran?.done);
 
-    if (isChecked) {
+    if (log.quran.done) {
       this.soundService.playSuccess();
       this.celebrationService.smallPop();
     } else {
@@ -824,44 +816,67 @@ class AppController {
 
 // Global App Instance
 const app = new AppController();
-if (typeof window !== "undefined") { window.app = app; }
 
 // Global event delegates for HTML inline events
-function switchSubject(idx) { app.switchSubject(idx); }
-function switchTab(tabId) { app.switchTab(tabId); }
-function togglePrayer(prayerId) { app.togglePrayer(prayerId); }
-function toggleGymStatus() { app.toggleGym(); }
-function toggleSleepStatus() { app.toggleSleep(); }
-function toggleQuran() { app.toggleQuran(); }
-function saveQuranPages() { app.saveQuranPages(); }
-function toggleLessonCompletion(key) { app.toggleLesson(key); }
-function openNoteModal(key, subj, title) { app.openNoteModal(key, subj, title); }
-function closeNoteModal() { app.closeNoteModal(); }
-function saveCurrentLessonNote() { app.saveLessonNote(); }
-function exportBackupData() { app.exportBackup(); }
-function importBackupData(event) { app.importBackup(event); }
-function finalizeTodayLog() { app.finalizeTodayLog(); }
-function closeDailyResultModal() { ResultModalView.close(); }
-function resetRoutineHistory() { app.resetRoutineHistory(); }
-function openCloudSyncModal() { app.openCloudSyncModal(); }
-function closeCloudSyncModal() { app.closeCloudSyncModal(); }
-function generateRandomSyncKey() { app.generateRandomSyncKey(); }
-function copyCloudShareableUrl() { app.copyCloudShareableUrl(); }
-function connectAndSyncCloud() { app.connectAndSyncCloud(); }
-function disconnectCloudSync() { app.disconnectCloudSync(); }
-function resetEntireSystem() { app.resetEntireSystem(); }
-function toggleRoadmapItem(id) { app.toggleRoadmapItem(id); }
-function toggleLanguageCourse(id) { app.toggleLanguageCourse(id); }
+function switchSubject(idx) { if (app && app.switchSubject) app.switchSubject(idx); }
+function switchTab(tabId) { if (app && app.switchTab) app.switchTab(tabId); }
+function togglePrayer(prayerId) { if (app && app.togglePrayer) app.togglePrayer(prayerId); }
+function toggleGymStatus() { if (app && app.toggleGym) app.toggleGym(); }
+function toggleSleepStatus() { if (app && app.toggleSleep) app.toggleSleep(); }
+function toggleQuran() { if (app && app.toggleQuran) app.toggleQuran(); }
+function saveQuranPages() { if (app && app.saveQuranPages) app.saveQuranPages(); }
+function toggleLessonCompletion(key) { if (app && app.toggleLesson) app.toggleLesson(key); }
+function openNoteModal(key, subj, title) { if (app && app.openNoteModal) app.openNoteModal(key, subj, title); }
+function closeNoteModal() { if (app && app.closeNoteModal) app.closeNoteModal(); }
+function saveCurrentLessonNote() { if (app && app.saveLessonNote) app.saveLessonNote(); }
+function exportBackupData() { if (app && app.exportBackup) app.exportBackup(); }
+function importBackupData(event) { if (app && app.importBackup) app.importBackup(event); }
+function finalizeTodayLog() { if (app && app.finalizeTodayLog) app.finalizeTodayLog(); }
+function closeDailyResultModal() { if (typeof ResultModalView !== 'undefined') ResultModalView.close(); }
+function resetRoutineHistory() { if (app && app.resetRoutineHistory) app.resetRoutineHistory(); }
+function openCloudSyncModal() { if (app && app.openCloudSyncModal) app.openCloudSyncModal(); }
+function closeCloudSyncModal() { if (app && app.closeCloudSyncModal) app.closeCloudSyncModal(); }
+function generateRandomSyncKey() { if (app && app.generateRandomSyncKey) app.generateRandomSyncKey(); }
+function copyCloudShareableUrl() { if (app && app.copyCloudShareableUrl) app.copyCloudShareableUrl(); }
+function connectAndSyncCloud() { if (app && app.connectAndSyncCloud) app.connectAndSyncCloud(); }
+function disconnectCloudSync() { if (app && app.disconnectCloudSync) app.disconnectCloudSync(); }
+function resetEntireSystem() { if (app && app.resetEntireSystem) app.resetEntireSystem(); }
+function toggleRoadmapItem(id) { if (app && app.toggleRoadmapItem) app.toggleRoadmapItem(id); }
+function toggleLanguageCourse(id) { if (app && app.toggleLanguageCourse) app.toggleLanguageCourse(id); }
+function toggleProgrammingPillar(id) { if (app && app.toggleProgrammingPillar) app.toggleProgrammingPillar(id); }
+function toggleProgrammingCourse(id) { if (app && app.toggleProgrammingPillar) app.toggleProgrammingPillar(id); }
+function toggleSubjectCompletion(id) { if (app && app.toggleSubjectCompletion) app.toggleSubjectCompletion(id); }
+
 if (typeof window !== 'undefined') {
+  window.app = app;
+  window.switchSubject = switchSubject;
+  window.switchTab = switchTab;
+  window.togglePrayer = togglePrayer;
+  window.toggleGymStatus = toggleGymStatus;
+  window.toggleSleepStatus = toggleSleepStatus;
+  window.toggleQuran = toggleQuran;
+  window.saveQuranPages = saveQuranPages;
+  window.toggleLessonCompletion = toggleLessonCompletion;
+  window.openNoteModal = openNoteModal;
+  window.closeNoteModal = closeNoteModal;
+  window.saveCurrentLessonNote = saveCurrentLessonNote;
+  window.exportBackupData = exportBackupData;
+  window.importBackupData = importBackupData;
+  window.finalizeTodayLog = finalizeTodayLog;
+  window.closeDailyResultModal = closeDailyResultModal;
+  window.resetRoutineHistory = resetRoutineHistory;
+  window.openCloudSyncModal = openCloudSyncModal;
+  window.closeCloudSyncModal = closeCloudSyncModal;
+  window.generateRandomSyncKey = generateRandomSyncKey;
+  window.copyCloudShareableUrl = copyCloudShareableUrl;
+  window.connectAndSyncCloud = connectAndSyncCloud;
+  window.disconnectCloudSync = disconnectCloudSync;
+  window.resetEntireSystem = resetEntireSystem;
   window.toggleRoadmapItem = toggleRoadmapItem;
   window.toggleLanguageCourse = toggleLanguageCourse;
-}
-
-function toggleSubjectCompletion(id) { app.toggleSubjectCompletion(id); }
-function toggleProgrammingCourse(id) { app.toggleProgrammingCourse(id); }
-if (typeof window !== 'undefined') {
-  window.toggleSubjectCompletion = toggleSubjectCompletion;
+  window.toggleProgrammingPillar = toggleProgrammingPillar;
   window.toggleProgrammingCourse = toggleProgrammingCourse;
+  window.toggleSubjectCompletion = toggleSubjectCompletion;
 }
 function toggleIncompleteDetailsSection() {
   const wrapper = document.getElementById('incompleteDetailsWrapper');
