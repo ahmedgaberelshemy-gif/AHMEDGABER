@@ -120,7 +120,7 @@ class StorageService {
 
       const raw = this.provider.getItem(this.storageKey);
       const state = raw ? JSON.parse(raw) : this.createInitialState();
-      state.programmingCourses = {};
+      state.programmingCourses = state.programmingCourses || {};
 
       // Ensure progress maps exist
       state.roadmapProgress = state.roadmapProgress || {};

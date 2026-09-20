@@ -562,6 +562,7 @@ class HeaderView {
   }
 
   static updateSoundIcon() {
+    if (typeof document === 'undefined') return;
     const icon = document.getElementById('soundToggleIcon');
     const btn = document.getElementById('soundToggleBtn');
     if (!icon) return;
@@ -573,6 +574,7 @@ class HeaderView {
   }
 
   static updateSyncStatus(status) {
+    if (typeof document === 'undefined') return;
     const badge = document.getElementById('cloudSyncHeaderBadge');
     if (!badge) return;
 
@@ -997,6 +999,101 @@ class LanguageTrackView {
   }
 }
 
+// 8. AI MENTOR VIEW (SRP: Renders chat messages, typing indicator, and modal interactions)
+class AiMentorView {
+  static getContainer() {
+    return document.getElementById('aiChatContainer');
+  }
+
+  static getModalElements() {
+    return {
+      modal: document.getElementById('aiMentorModal'),
+      card: document.getElementById('aiMentorModalCard'),
+      input: document.getElementById('aiChatInput')
+    };
+  }
+
+  static openModal() {
+    const { modal, card, input } = this.getModalElements();
+    if (!modal || !card) return;
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-95');
+    card.classList.add('scale-100');
+    setTimeout(() => {
+      if (input) input.focus();
+    }, 150);
+  }
+
+  static closeModal() {
+    const { modal, card } = this.getModalElements();
+    if (!modal || !card) return;
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    card.classList.remove('scale-100');
+    card.classList.add('scale-95');
+  }
+
+  static appendMessage(sender, text) {
+    const container = this.getContainer();
+    if (!container) return;
+
+    const div = document.createElement('div');
+    div.className = `flex items-start gap-2.5 ai-bubble-in ${sender === 'user' ? 'justify-end' : ''}`;
+
+    if (sender === 'user') {
+      div.innerHTML = `
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-3.5 rounded-2xl rounded-tl-xs shadow-xs text-xs sm:text-sm max-w-[85%] leading-relaxed font-medium">
+          ${text}
+        </div>
+        <div class="w-7 h-7 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center text-xs shrink-0 font-bold">
+          <i class="fa-solid fa-user"></i>
+        </div>
+      `;
+    } else {
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xs shrink-0 shadow-xs">
+          <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="bg-white p-3.5 rounded-2xl rounded-tr-xs border border-slate-200 shadow-2xs text-slate-800 space-y-1.5 max-w-[85%] leading-relaxed text-xs sm:text-sm">
+          ${text.replace(/\n/g, '<br>')}
+        </div>
+      `;
+    }
+
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  static showTypingIndicator() {
+    const container = this.getContainer();
+    if (!container) return;
+
+    const typingDiv = document.createElement('div');
+    typingDiv.id = 'aiTypingIndicator';
+    typingDiv.className = 'flex items-center gap-2 ai-bubble-in';
+    typingDiv.innerHTML = `
+      <div class="w-7 h-7 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs shrink-0">
+        <i class="fa-solid fa-robot animate-spin"></i>
+      </div>
+      <div class="bg-white px-3.5 py-2.5 rounded-2xl border border-slate-200 shadow-2xs flex items-center gap-1.5 text-xs text-slate-500 font-bold">
+        <span>المرشد يحلل ويصيغ الإجابة</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 typing-dot"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-purple-600 typing-dot"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-pink-600 typing-dot"></span>
+      </div>
+    `;
+    container.appendChild(typingDiv);
+    container.scrollTop = container.scrollHeight;
+  }
+
+  static removeTypingIndicator() {
+    const indicator = document.getElementById('aiTypingIndicator');
+    if (indicator) {
+      if (typeof indicator.remove === 'function') indicator.remove();
+      else if (indicator.parentNode) indicator.parentNode.removeChild(indicator);
+    }
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.RoutineView = RoutineView;
   window.AchievementsView = AchievementsView;
@@ -1005,4 +1102,5 @@ if (typeof window !== 'undefined') {
   window.ResultModalView = ResultModalView;
   window.RoadmapView = RoadmapView;
   window.LanguageTrackView = LanguageTrackView;
+  window.AiMentorView = AiMentorView;
 }
