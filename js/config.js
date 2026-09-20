@@ -74,13 +74,13 @@ const APP_CONFIG = Object.freeze({
 
 const colorStyles = Object.freeze({
   blue: {
-    cardBg: 'bg-gradient-to-br from-blue-950/40 via-slate-900/80 to-slate-950',
-    border: 'border-blue-500/40 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10',
-    badge: 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs',
-    iconBg: 'bg-gradient-to-br from-blue-500 to-indigo-600 shadow-md shadow-blue-500/25',
-    iconColor: 'text-white',
-    bulletBg: 'bg-blue-950/80 text-blue-200 border-blue-800/60 font-bold',
-    progressBar: 'bg-blue-500'
+    cardBg: 'bg-gradient-to-br from-slate-900/90 via-slate-900/80 to-slate-950',
+    border: 'border-amber-500/40 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10',
+    badge: 'bg-gradient-to-r from-amber-600 to-amber-700 text-white shadow-xs',
+    iconBg: 'bg-gradient-to-br from-amber-500 to-amber-600 shadow-md shadow-amber-500/25',
+    iconColor: 'text-slate-950 font-black',
+    bulletBg: 'bg-slate-800 text-amber-200 border-slate-700 font-bold',
+    progressBar: 'bg-amber-500'
   },
   emerald: {
     cardBg: 'bg-gradient-to-br from-emerald-950/40 via-slate-900/80 to-slate-950',
