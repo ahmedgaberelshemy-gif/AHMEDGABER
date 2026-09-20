@@ -4,7 +4,7 @@
  * =========================================================================
  * Solid Principles & Clean Code Architecture:
  * - Single Responsibility Principle (SRP): Each View class manages UI rendering for its specific domain context.
- * - Open/Closed Principle (OCP): Pure Light Mode Design Token system.
+ * - Open/Closed Principle (OCP): Pure Light Mode Design Token system with rich colored badges & 3D cards.
  * - Robust Defensive Checks: Prevents null reference errors or broken DOM state.
  */
 
@@ -39,10 +39,10 @@ class RoutineView {
     if (overallBadge) {
       if (percent === 100) {
         overallBadge.innerText = '100% يوم مثالي معتمد 👑';
-        overallBadge.className = 'px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs sm:text-sm font-black font-display shadow-2xs';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm';
       } else {
         overallBadge.innerText = `${percent}% مكتمل اليوم ⚡`;
-        overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs sm:text-sm font-black font-display shadow-2xs';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
       }
     }
 
@@ -71,10 +71,10 @@ class RoutineView {
     container.innerHTML = prayerOrder.map(prayer => {
       const isDone = Boolean(prayers[prayer.id]);
       return `
-        <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${
+        <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border-2 transition shadow-2xs ${
           isDone 
-            ? 'bg-emerald-50 border-emerald-300 text-emerald-900' 
-            : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-slate-300'
+            ? 'bg-emerald-50 border-emerald-300 text-emerald-900 shadow-emerald-500/10' 
+            : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-emerald-300'
         }">
           <div class="flex items-center gap-3.5">
             <input 
@@ -91,17 +91,17 @@ class RoutineView {
               <span class="text-[11px] text-slate-500 font-bold block mt-0.5">${prayer.time}</span>
             </div>
           </div>
-          ${isDone ? '<span class="text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-xl shadow-2xs">تمت بنجاح ✅</span>' : '<span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-xl border border-slate-300">بانتظار الصلاة ⏳</span>'}
+          ${isDone ? '<span class="text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-xl shadow-2xs">تمت بنجاح ✅</span>' : '<span class="text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-xl border border-slate-300">بانتظار الصلاة ⏳</span>'}
         </div>
       `;
     }).join('');
 
     if (box && msg) {
       if (count === 5) {
-        box.className = 'p-3.5 rounded-2xl bg-emerald-100 border border-emerald-300 text-center mt-4';
+        box.className = 'p-3.5 rounded-2xl bg-emerald-100 border border-emerald-300 text-center mt-4 shadow-2xs';
         msg.innerHTML = '🎉 ما شاء الله! أتممت الصلوات الخمس كاملة في أوقاتها.. جعلها الله في ميزان حسناتك 🌿';
       } else {
-        box.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center mt-4';
+        box.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center mt-4 shadow-2xs';
         msg.innerText = 'الصلاة عماد الدين.. حافظ على كل صلاة في وقتها لتنال التوفيق الأعظم 🌿';
       }
     }
@@ -119,14 +119,14 @@ class RoutineView {
     if (badge) {
       badge.innerText = isDone ? 'تم التمارين 💪' : 'لم يتم ⏳';
       badge.className = isDone 
-        ? 'text-xs font-bold text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1 rounded-xl shadow-2xs' 
+        ? 'text-xs font-black text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1 rounded-xl shadow-2xs' 
         : 'text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-xl border border-slate-300';
     }
 
     if (box) {
       box.className = isDone 
-        ? 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-amber-50 border-amber-300 text-amber-900 shadow-2xs' 
-        : 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-amber-300 shadow-2xs';
+        ? 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-amber-50 border-amber-300 text-amber-900 shadow-2xs' 
+        : 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-amber-400 shadow-2xs';
     }
   }
 
@@ -142,14 +142,14 @@ class RoutineView {
     if (badge) {
       badge.innerText = isDone ? 'نوم صحي ممتاز 😴' : 'لم يتم ⏳';
       badge.className = isDone 
-        ? 'text-xs font-bold text-indigo-900 bg-indigo-100 border border-indigo-300 px-3 py-1 rounded-xl shadow-2xs' 
+        ? 'text-xs font-black text-indigo-900 bg-indigo-100 border border-indigo-300 px-3 py-1 rounded-xl shadow-2xs' 
         : 'text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-xl border border-slate-300';
     }
 
     if (box) {
       box.className = isDone 
-        ? 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-indigo-50 border-indigo-300 text-indigo-900 shadow-2xs' 
-        : 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-indigo-300 shadow-2xs';
+        ? 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-indigo-50 border-indigo-300 text-indigo-900 shadow-2xs' 
+        : 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-indigo-400 shadow-2xs';
     }
   }
 
@@ -165,14 +165,14 @@ class RoutineView {
     if (badge) {
       badge.innerText = isDone ? 'تم القراءة 🌿' : 'لم يتم ⏳';
       badge.className = isDone 
-        ? 'text-xs font-bold text-teal-900 bg-teal-100 border border-teal-300 px-3 py-1 rounded-xl shadow-2xs' 
+        ? 'text-xs font-black text-teal-900 bg-teal-100 border border-teal-300 px-3 py-1 rounded-xl shadow-2xs' 
         : 'text-xs font-bold text-slate-500 bg-slate-100 px-3 py-1 rounded-xl border border-slate-300';
     }
 
     if (box) {
       box.className = isDone 
-        ? 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-teal-50 border-teal-300 text-teal-900 shadow-2xs' 
-        : 'p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-teal-300 shadow-2xs';
+        ? 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-teal-50 border-teal-300 text-teal-900 shadow-2xs' 
+        : 'p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:border-teal-400 shadow-2xs';
     }
   }
 
@@ -184,7 +184,7 @@ class RoutineView {
 
     if (!pill || !btnText) return;
 
-    const calmBtnClass = 'w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400 flex items-center justify-center gap-2 transition cursor-pointer select-none shadow-md shrink-0';
+    const calmBtnClass = 'w-full sm:w-auto px-7 sm:px-9 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400 flex items-center justify-center gap-2.5 transition cursor-pointer select-none shadow-lg shadow-amber-500/25 shrink-0';
 
     if (dayLog && dayLog.submitted) {
       const prayersDone = Object.values(dayLog.prayers || {}).filter(Boolean).length;
@@ -211,197 +211,10 @@ class RoutineView {
   }
 }
 
-// 2. CURRICULUM VIEW (6 Subjects Navigation & 10 Weeks Breakdown)
-class CurriculumView {
-  static render(activeSubject, lessonProgress = {}, lessonNotes = {}) {
-    const subjIdx = (typeof activeSubject === 'number' && activeSubject >= 0 && activeSubject < (APP_CONFIG.SUBJECTS || []).length) 
-      ? activeSubject 
-      : 0;
-    this.renderSubjectPills(subjIdx, lessonProgress);
-    this.renderActiveSubjectWeeks(subjIdx, lessonProgress, lessonNotes);
-  }
-
-  static renderSubjectPills(activeSubject, lessonProgress) {
-    const container = document.getElementById('weekPillsBar');
-    if (!container) return;
-    container.innerHTML = '';
-
-    const subjects = APP_CONFIG.SUBJECTS || [];
-    subjects.forEach((subj, sIdx) => {
-      const stats = AcademicCalculator.getSubjectStats(weeksData, lessonProgress, sIdx);
-      const isActive = sIdx === activeSubject;
-      const style = colorStyles[subj.color] || colorStyles.blue;
-
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = `p-2.5 sm:p-3 rounded-2xl border transition flex flex-col justify-between gap-2 text-right cursor-pointer select-none active:scale-95 ${
-        isActive 
-          ? `${style.cardBg} ${style.border} ring-2 ring-indigo-500 shadow-md text-slate-900` 
-          : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200 shadow-2xs'
-      }`;
-
-      btn.innerHTML = `
-        <div class="flex items-center justify-between w-full gap-2">
-          <div class="w-8 h-8 rounded-xl ${isActive ? style.iconBg : 'bg-slate-100 border border-slate-300'} ${isActive ? style.iconColor : 'text-slate-700'} flex items-center justify-center text-xs shrink-0 shadow-2xs">
-            <i class="fa-solid ${subj.icon}"></i>
-          </div>
-          <span class="text-[10px] font-mono font-black px-1.5 py-0.5 rounded-md ${isActive ? style.badge : 'bg-slate-100 text-slate-800 border border-slate-300'} shrink-0">
-            ${stats.percentage}%
-          </span>
-        </div>
-        <span class="text-xs sm:text-[13px] font-black font-display leading-tight ${isActive ? 'text-slate-900' : 'text-slate-800'}">${subj.name}</span>
-      `;
-      btn.onclick = () => app.switchSubject(sIdx);
-      container.appendChild(btn);
-    });
-  }
-
-  static renderActiveSubjectWeeks(activeSubject, lessonProgress, lessonNotes) {
-    const container = document.getElementById('curriculumWeekStage');
-    if (!container) return;
-
-    const subjectMeta = [
-      { name: "مبادئ إدارة الأعمال", icon: "fa-briefcase", color: "blue", desc: "مدخل الأعمال، أنواع المنظمات، القيادة، التسويق، العمليات، والموارد البشرية" },
-      { name: "المحاسبة المالية", icon: "fa-calculator", color: "emerald", desc: "المعادلة المحاسبية، القيد المزدوج، اليومية المساعدة، القوائم المالية، والشركات" },
-      { name: "مبادئ الإقتصاد", icon: "fa-chart-line", color: "amber", desc: "العرض والطلب، المرونة، سلوك المستهلك، والتحليل الاقتصادي" },
-      { name: "مبادئ القانون", icon: "fa-scale-balanced", color: "purple", desc: "القواعد القانونية، مصادر القانون، الحقوق والالتزامات" },
-      { name: "علم النفس", icon: "fa-brain", color: "rose", desc: "السلوك الإنساني، الدوافع، الإدراك، والعمليات المعرفية" },
-      { name: "اللغة الإنجليزية", icon: "fa-language", color: "cyan", desc: "المصطلحات التجارية، القواعد اللغوية، والقراءة المتخصصة" }
-    ];
-
-    const currentMeta = subjectMeta[activeSubject] || subjectMeta[0];
-    const style = colorStyles[currentMeta.color] || colorStyles.blue;
-
-    const headerHtml = `
-      <div class="bg-white p-4 sm:p-5 rounded-3xl border ${style.border} shadow-lg mb-5 flex items-center gap-3.5 text-right">
-        <div class="w-12 h-12 rounded-2xl ${style.iconBg} ${style.iconColor} flex items-center justify-center text-xl shrink-0 shadow-xs">
-          <i class="fa-solid ${currentMeta.icon}"></i>
-        </div>
-        <div>
-          <h3 class="text-base sm:text-lg font-black font-display text-slate-900 leading-snug">${currentMeta.name}</h3>
-          <p class="text-xs text-slate-600 font-bold mt-0.5 leading-relaxed">${currentMeta.desc}</p>
-        </div>
-      </div>
-    `;
-
-    if (!weeksData || weeksData.length === 0) {
-      container.innerHTML = `
-        ${headerHtml}
-        <div class="bg-white rounded-3xl border border-dashed border-slate-300 p-8 sm:p-14 text-center text-slate-500 space-y-3 shadow-lg">
-          <div class="w-16 h-16 rounded-3xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center text-2xl mx-auto shadow-2xs">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-          <h4 class="font-display font-black text-slate-900 text-base sm:text-lg">المقرر فارغ وجاهز للتسجيل 🎓</h4>
-          <p class="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed font-bold">
-            سيتم إضافة المحاضرات والملخصات الفعلية أسبوعاً بأسبوع فور انطلاق الدراسة بالمعهد بإذن الله.
-          </p>
-        </div>
-      `;
-      return;
-    }
-
-    let weeksHtml = '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">';
-
-    weeksData.forEach((w) => {
-      const subjectData = w.subjects ? w.subjects[activeSubject] : null;
-      const lessons = subjectData ? (subjectData.lessons || []) : [];
-      const isWeekDone = lessons.length > 0 && lessons.every((_, lIdx) => Boolean(lessonProgress[`w${w.week}_s${activeSubject}_l${lIdx}`]));
-
-      weeksHtml += `
-        <div class="bg-white rounded-3xl border transition card-lift ${
-          isWeekDone ? 'border-amber-400 shadow-md' : 'border-slate-200 hover:border-slate-300 shadow-md'
-        } p-4 sm:p-5 space-y-3.5 flex flex-col justify-between">
-          
-          <div>
-            <!-- Week Header -->
-            <div class="flex items-center justify-between pb-2.5 border-b border-slate-200 gap-2">
-              <div class="flex items-center gap-2">
-                <span class="w-7 h-7 rounded-xl ${isWeekDone ? 'bg-amber-500 text-slate-950 shadow-2xs' : 'bg-slate-100 text-slate-700 border border-slate-300'} flex items-center justify-center text-xs font-black font-mono">
-                  ${w.week}
-                </span>
-                <h4 class="font-display font-black text-sm sm:text-base text-slate-900">${w.title}</h4>
-              </div>
-
-              <span class="text-xs font-black font-display px-2.5 py-1 rounded-xl ${
-                isWeekDone ? 'bg-amber-500 text-slate-950 shadow-2xs' 
-                  : (lessons.length === 0 ? 'bg-slate-100 text-slate-500 border border-slate-300' : 'bg-slate-100 text-slate-700 border border-slate-300')
-              } whitespace-nowrap shrink-0">
-                ${isWeekDone ? 'مكتمل 100% 👑' : (lessons.length === 0 ? 'قيد الإعداد ⏳' : `${lessons.length} دروس`)}
-              </span>
-            </div>
-
-            <!-- Lessons Checklist or Empty State Placeholder -->
-            <div class="space-y-2.5 pt-2.5">
-              ${lessons.length > 0 ? lessons.map((lesson, lIdx) => {
-                const lessonKey = `w${w.week}_s${activeSubject}_l${lIdx}`;
-                const isChecked = Boolean(lessonProgress[lessonKey]);
-                const hasNote = Boolean(lessonNotes && lessonNotes[lessonKey] && lessonNotes[lessonKey].trim());
-                const numStr = (lIdx + 1) < 10 ? `0${lIdx + 1}` : `${lIdx + 1}`;
-
-                return `
-                  <div class="p-2.5 sm:p-3 rounded-2xl border transition flex items-start justify-between gap-2.5 ${
-                    isChecked 
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-900' 
-                      : 'bg-slate-50 border-slate-200 text-slate-800 hover:border-slate-300'
-                  }">
-                    <div class="flex items-start gap-2.5 flex-1 min-w-0">
-                      <input 
-                        type="checkbox" 
-                        id="chk_${lessonKey}" 
-                        ${isChecked ? 'checked' : ''} 
-                        onchange="app.toggleLesson('${lessonKey}')" 
-                        class="checkbox-custom mt-0.5"
-                      />
-                      <label 
-                        for="chk_${lessonKey}" 
-                        class="text-[12px] sm:text-[13px] font-bold leading-relaxed cursor-pointer select-none ${
-                          isChecked ? 'text-emerald-800 line-through opacity-85' : 'text-slate-900'
-                        }"
-                      >
-                        <span class="font-display text-[9px] font-black px-1.5 py-0.5 rounded-md border shrink-0 bg-slate-100 text-slate-700 border-slate-300 ml-1 inline-block no-underline">${numStr}</span>
-                        ${lesson}
-                      </label>
-                    </div>
-
-                    <button 
-                      type="button"
-                      onclick="app.openNoteModal('${lessonKey}')" 
-                      title="ملاحظات وتلخيص الدرس"
-                      class="p-1.5 rounded-xl border text-xs shrink-0 transition active:scale-90 cursor-pointer ${
-                        hasNote 
-                          ? 'bg-amber-100 text-amber-800 border-amber-300 shadow-2xs' 
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-300'
-                      }"
-                    >
-                      <i class="fa-solid fa-note-sticky"></i>
-                    </button>
-                  </div>
-                `;
-              }).join('') : `
-                <div class="text-center py-6 border border-dashed border-slate-300 rounded-2xl text-slate-500 text-xs font-bold bg-slate-50 flex flex-col items-center justify-center gap-1.5">
-                  <i class="fa-solid fa-hourglass-start text-amber-600 text-base"></i>
-                  <span>قيد الإعداد والتجهيز.. سيتم إدراج دروس المقرر قريباً ⏳</span>
-                </div>
-              `}
-            </div>
-          </div>
-
-        </div>
-      `;
-    });
-
-    weeksHtml += '</div>';
-
-    container.innerHTML = headerHtml + weeksHtml;
-  }
-}
-
-// 3. ACHIEVEMENTS VIEW (Routine Discipline & Performance Diagnostics)
+// 2. ACHIEVEMENTS VIEW (Routine Discipline & Performance Diagnostics)
 class AchievementsView {
   static render(dailyLogs = {}, weeks = [], lessonProgress = {}, programmingCourses = {}) {
     this.renderRoutineAchievements(dailyLogs);
-    this.renderAcademicAchievements(weeks, lessonProgress);
-    this.renderProgrammingAchievements(programmingCourses);
   }
 
   // Routine Discipline & Performance Diagnostics Card
@@ -432,7 +245,7 @@ class AchievementsView {
 
     detailsContainer.innerHTML = `
       <!-- Performance Diagnostics & Missed Days Log Card -->
-      <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-lg space-y-6 card-lift">
+      <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 sm:p-7 shadow-lg space-y-6 card-lift">
         
         <!-- Header: Diagnostic Purpose -->
         <div class="flex items-center justify-between pb-4 border-b border-slate-200 gap-2 flex-wrap">
@@ -458,7 +271,7 @@ class AchievementsView {
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           
           <!-- Card 1: Incomplete Days -->
-          <div class="p-5 rounded-2xl bg-rose-50 border border-rose-200 flex flex-col justify-between space-y-3 shadow-2xs">
+          <div class="p-5 rounded-2xl bg-rose-50 border-2 border-rose-200 flex flex-col justify-between space-y-3 shadow-2xs">
             <div class="flex items-center justify-between gap-1 text-rose-800 text-xs sm:text-sm font-black">
               <span class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i> أيام بها تقصير</span>
               <span class="font-mono text-sm font-black text-rose-800">${incompletePercentage}%</span>
@@ -474,7 +287,7 @@ class AchievementsView {
           </div>
 
           <!-- Card 2: Remaining Days -->
-          <div class="p-5 rounded-2xl bg-indigo-50 border border-indigo-200 flex flex-col justify-between space-y-3 shadow-2xs">
+          <div class="p-5 rounded-2xl bg-indigo-50 border-2 border-indigo-200 flex flex-col justify-between space-y-3 shadow-2xs">
             <div class="flex items-center justify-between gap-1 text-indigo-800 text-xs sm:text-sm font-black">
               <span class="flex items-center gap-2"><i class="fa-solid fa-calendar-days text-indigo-600 text-base"></i> متبقي بالترم</span>
               <span class="font-mono text-sm font-black text-indigo-800">${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%</span>
@@ -490,7 +303,7 @@ class AchievementsView {
           </div>
 
           <!-- Card 3: Current Streak -->
-          <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col justify-between space-y-3 shadow-2xs">
+          <div class="p-5 rounded-2xl bg-amber-50 border-2 border-amber-200 flex flex-col justify-between space-y-3 shadow-2xs">
             <div class="flex items-center justify-between gap-1 text-amber-800 text-xs sm:text-sm font-black">
               <span class="flex items-center gap-2"><i class="fa-solid fa-fire text-amber-600 text-base"></i> سلسلة الالتزام</span>
               <span class="text-xs font-bold text-amber-700 font-mono">متواصل 🔥</span>
@@ -509,7 +322,7 @@ class AchievementsView {
 
         <!-- Incomplete Days Breakdown Log or Spotless Streak Banner -->
         ${incompleteHistory.length > 0 ? `
-          <div class="border border-rose-300 rounded-2xl bg-white overflow-hidden shadow-2xs">
+          <div class="border-2 border-rose-300 rounded-2xl bg-white overflow-hidden shadow-2xs">
             <button 
               type="button"
               onclick="toggleIncompleteDetailsSection()" 
@@ -546,7 +359,7 @@ class AchievementsView {
             </div>
           </div>
         ` : `
-          <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 text-center shadow-2xs">
+          <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-emerald-800 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 text-center shadow-2xs">
             <i class="fa-solid fa-crown text-amber-600 text-lg"></i>
             <span>سجلك ناصع البياض والتزامك 100% بدون أي تقصير حتى الآن! استمر في طريق المركز الأول 👑</span>
           </div>
@@ -577,132 +390,9 @@ class AchievementsView {
       </div>
     `;
   }
-
-  static renderAcademicAchievements(weeksList = [], lessonProgress = {}) {
-    const container = document.getElementById('academicAchievementsContainer');
-    if (!container) return;
-
-    let html = `
-      <div class="space-y-3 pt-2">
-        <div class="flex items-center justify-between flex-wrap gap-2 px-1">
-          <div class="flex items-center gap-2">
-            <i class="fa-solid fa-book-bookmark text-indigo-600"></i>
-            <span class="font-display font-black text-xs sm:text-sm text-slate-900">إنجاز المواد الدراسية الـ 6 (50 درساً لكل مادة):</span>
-          </div>
-          <span class="text-[11px] font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-lg border border-slate-300">
-            6 مواد دراسية معتمدة
-          </span>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-    `;
-
-    (APP_CONFIG.SUBJECTS || []).forEach((subj, sIdx) => {
-      const stats = AcademicCalculator.getSubjectStats(weeksList, lessonProgress, sIdx);
-      const style = colorStyles[subj.color] || colorStyles.blue;
-      const isSubject100 = (stats.totalCount > 0 && stats.completedCount === stats.totalCount);
-      const isSubjectStarted = (stats.completedCount > 0);
-
-      html += `
-        <div class="p-4 rounded-2xl border transition duration-200 ${
-          isSubject100 
-            ? 'bg-emerald-50 border-emerald-300 shadow-2xs' 
-            : 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs'
-        } space-y-3 flex flex-col justify-between">
-          
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-8 h-8 rounded-xl ${isSubject100 ? 'bg-emerald-500 text-slate-950 font-black' : style.iconBg + ' ' + style.iconColor} flex items-center justify-center text-xs shrink-0 shadow-2xs">
-                <i class="fa-solid ${subj.icon}"></i>
-              </div>
-              <span class="text-xs sm:text-sm font-black font-display text-slate-900 truncate">${subj.name}</span>
-            </div>
-            <span class="text-xs font-mono font-black px-2.5 py-1 rounded-lg ${isSubject100 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : style.badge} shrink-0">
-              ${stats.percentage}%
-            </span>
-          </div>
-
-          <div class="space-y-1.5">
-            <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden border border-slate-200 shadow-inner">
-              <div class="h-full rounded-full ${isSubject100 ? 'bg-emerald-500' : style.progressBar} transition-all duration-500" style="width: ${stats.percentage}%"></div>
-            </div>
-            <div class="flex items-center justify-between text-[11px] font-bold">
-              <span class="text-slate-500">الدروس المنجزة</span>
-              <span class="font-mono text-slate-900">${stats.completedCount} / ${stats.totalCount} درس</span>
-            </div>
-          </div>
-
-          <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[10px] font-bold">
-            <span class="text-slate-500">حالة المادة</span>
-            <span class="${
-              isSubject100 
-                ? 'text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-300' 
-                : isSubjectStarted 
-                  ? 'text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-md border border-indigo-300' 
-                  : 'text-slate-600 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-300'
-            }">
-              ${isSubject100 ? 'مكتملة 100% 👑' : isSubjectStarted ? 'قيد المذاكرة ⚡' : 'لم تبدأ بعد'}
-            </span>
-          </div>
-
-        </div>
-      `;
-    });
-
-    html += `
-        </div>
-      </div>
-    `;
-
-    container.innerHTML = html;
-  }
-
-  static renderProgrammingAchievements(programmingCourses = {}) {
-    const container = document.getElementById("programmingAchievementsContainer");
-    const badge = document.getElementById("programmingAchievementsBadge");
-    if (!container) return;
-
-    const courses = (typeof programmingCoursesData !== "undefined") ? programmingCoursesData : (APP_CONFIG.PROGRAMMING_COURSES || []);
-    let completedCount = 0;
-
-    courses.forEach(c => {
-      if (programmingCourses[c.id]) {
-        completedCount++;
-      }
-    });
-
-    const totalCourses = courses.length;
-    const percentage = totalCourses > 0 ? Math.round((completedCount / totalCourses) * 100) : 0;
-
-    if (badge) {
-      if (totalCourses === 0) {
-        badge.innerText = `مسار AI & Data Analysis (0 كورس)`;
-      } else {
-        badge.innerText = `${completedCount} من ${totalCourses} كورس مكتمل (${percentage}%)`;
-      }
-    }
-
-    if (totalCourses === 0) {
-      container.innerHTML = `
-        <div class="bg-white border border-slate-200 rounded-3xl p-6 text-center space-y-3 shadow-lg">
-          <div class="w-12 h-12 mx-auto rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xl shadow-md">
-            <i class="fa-solid fa-brain"></i>
-          </div>
-          <h4 class="font-display font-black text-base text-slate-900">مسار AI & Data Analysis</h4>
-          <p class="text-xs sm:text-sm text-slate-600 font-bold max-w-md mx-auto">
-            تم ضبط وتصفير المسار بالكامل وهو جاهز لمسارات الذكاء الاصطناعي وتحليل البيانات المتوافقة مع المحاسبة والأعمال 📊🤖
-          </p>
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold">
-            <i class="fa-solid fa-check"></i> تم التصفير (0%)
-          </div>
-        </div>
-      `;
-      return;
-    }
-  }
 }
 
-// 4. PROGRAMMING VIEW (AI & Data Analysis)
+// 3. PROGRAMMING VIEW (AI & Data Analysis)
 class ProgrammingView {
   static render(programmingCourses = {}) {
     const container = document.getElementById('programmingCoursesContainer');
@@ -714,7 +404,7 @@ class ProgrammingView {
 
     if (!coursesList.length) {
       container.innerHTML = `
-        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border border-dashed border-slate-300 shadow-lg space-y-4">
+        <div class="col-span-full py-16 px-6 text-center bg-white rounded-3xl border-2 border-dashed border-slate-300 shadow-lg space-y-4 card-lift">
           <div class="w-20 h-20 mx-auto rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-3xl shadow-2xs border border-indigo-200">
             <i class="fa-solid fa-brain"></i>
           </div>
@@ -735,7 +425,7 @@ class ProgrammingView {
   }
 }
 
-// 5. HEADER VIEW (Live Header Metadata & Controls)
+// 4. HEADER VIEW (Live Header Metadata & Controls)
 class HeaderView {
   static render(state = {}) {
     this.updateSoundIcon();
@@ -746,7 +436,7 @@ class HeaderView {
     const btn = document.getElementById('soundToggleBtn');
     if (!icon) return;
     const isMuted = typeof SoundService !== 'undefined' ? SoundService.isMuted() : false;
-    icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-600';
+    icon.className = isMuted ? 'fa-solid fa-volume-xmark text-slate-400' : 'fa-solid fa-volume-high text-amber-400';
     if (btn) {
       btn.title = isMuted ? 'تشغيل المؤثرات الصوتية الفاخرة' : 'كتم المؤثرات الصوتية';
     }
@@ -757,19 +447,19 @@ class HeaderView {
     if (!badge) return;
 
     if (status === 'syncing') {
-      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-50 text-amber-800 border border-amber-300 text-[10px] sm:text-xs font-bold font-display shadow-2xs flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
-      badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-600 animate-spin text-xs sm:text-sm"></i> <span>جاري الحفظ... 🔄</span>';
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-rotate text-amber-400 animate-spin text-xs sm:text-sm"></i> <span>جاري الحفظ... 🔄</span>';
     } else if (status === 'connected') {
-      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-50 text-emerald-800 border border-emerald-300 text-[10px] sm:text-xs font-bold font-display shadow-2xs flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
-      badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-emerald-600 text-xs sm:text-sm"></i> <span>مزامنة سحابية متصلة 🟢</span>';
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-[10px] sm:text-xs font-bold font-display shadow-sm backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-cloud-arrow-up text-emerald-400 text-xs sm:text-sm"></i> <span>مزامنة سحابية متصلة 🟢</span>';
     } else {
-      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-[10px] sm:text-xs font-bold font-display shadow-2xs flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
-      badge.innerHTML = '<i class="fa-solid fa-hard-drive text-amber-600 text-xs sm:text-sm"></i> <span>تخزين محلي ⚪</span>';
+      badge.className = 'px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-100 border border-slate-700 text-[10px] sm:text-xs font-bold font-display shadow-md backdrop-blur-md flex items-center gap-1.5 sm:gap-2 cursor-pointer transition active:scale-95';
+      badge.innerHTML = '<i class="fa-solid fa-hard-drive text-amber-400 text-xs sm:text-sm"></i> <span>تخزين محلي ⚪</span>';
     }
   }
 }
 
-// 6. RESULT MODAL VIEW (Motivational Feedback on Day Registration)
+// 5. RESULT MODAL VIEW (Motivational Feedback on Day Registration)
 class ResultModalView {
   static show(is100) {
     const modal = document.getElementById('dailyResultModal');
@@ -826,7 +516,7 @@ class ResultModalView {
   }
 }
 
-// 7. ROADMAP VIEW (SRP: Renders 15 Courses, Skills, and Certifications)
+// 6. ROADMAP VIEW (SRP: Renders 15 Courses, Skills, and Certifications)
 class RoadmapView {
   static render(state) {
     if (!state) return;
@@ -841,8 +531,8 @@ class RoadmapView {
     if (overallBadge) {
       overallBadge.innerText = stats.percent + '% مكتمل 🏆';
       overallBadge.className = stats.percent === 100 
-        ? 'px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-black font-display shadow-2xs'
-        : 'px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs font-black font-display shadow-2xs';
+        ? 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm'
+        : 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
     }
 
     const skillsStat = document.getElementById('roadmapSkillsStat');
@@ -870,7 +560,7 @@ class RoadmapView {
       const isYearComplete = yearStats.percent === 100;
 
       const card = document.createElement('article');
-      card.className = 'bg-white rounded-3xl border ' + (isYearComplete ? 'border-emerald-400 shadow-md' : 'border-slate-200') + ' p-5 sm:p-7 shadow-lg flex flex-col justify-between space-y-5 card-lift relative overflow-hidden';
+      card.className = 'bg-white rounded-3xl border-2 ' + (isYearComplete ? 'border-emerald-500 shadow-lg' : 'border-slate-200') + ' p-5 sm:p-7 shadow-lg flex flex-col justify-between space-y-5 card-lift hover-glow-blue relative overflow-hidden';
 
       // Skills & Workshops List
       let skillsHtml = '';
@@ -880,28 +570,28 @@ class RoadmapView {
         let erpSubHtml = '';
         if (s.id === 'skill_09') {
           erpSubHtml = `
-            <div class="mt-3 space-y-2 pr-3 border-r-3 border-blue-500">
-              <div class="flex items-center justify-between bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2">
+            <div class="mt-3 space-y-2 pr-3 border-r-4 border-blue-500">
+              <div class="flex items-center justify-between bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2 shadow-2xs">
                 <span class="font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-server text-blue-600"></i> 9.1. ساب المالي (SAP S/4HANA)</span>
-                <span class="text-xs font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded-lg shrink-0">الشركات الكبرى والبترول</span>
+                <span class="text-xs font-black text-blue-800 bg-blue-100 border border-blue-300 px-2 py-0.5 rounded-lg shrink-0">الشركات الكبرى والبترول</span>
               </div>
-              <div class="flex items-center justify-between bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2">
+              <div class="flex items-center justify-between bg-rose-50 border border-rose-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2 shadow-2xs">
                 <span class="font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-cloud text-rose-600"></i> 9.2. أوراكل المالي (Oracle Cloud)</span>
-                <span class="text-xs font-bold text-rose-800 bg-rose-100 px-2 py-0.5 rounded-lg shrink-0">البنوك والحكومة</span>
+                <span class="text-xs font-black text-rose-800 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-lg shrink-0">البنوك والحكومة</span>
               </div>
-              <div class="flex items-center justify-between bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2">
+              <div class="flex items-center justify-between bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2 shadow-2xs">
                 <span class="font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-network-wired text-emerald-600"></i> 9.3. داينامكس (Dynamics 365)</span>
-                <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-lg shrink-0">سلاسل الإمداد</span>
+                <span class="text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-lg shrink-0">سلاسل الإمداد</span>
               </div>
             </div>
           `;
         }
 
         skillsHtml += `
-          <li class="p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-indigo-50 border-indigo-300' : 'bg-slate-50 border-slate-200'}">
+          <li class="p-3.5 sm:p-4 rounded-2xl border-2 transition shadow-2xs ${isDone ? 'bg-indigo-50 border-indigo-300' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}">
             <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-sm font-mono font-black text-amber-800 bg-amber-100 border border-amber-300 px-3 py-1 rounded-lg shrink-0 shadow-2xs">${s.num}</span>
-              ${isDone ? '<span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-indigo-600 text-white shrink-0">مكتسب ✨</span>' : '<span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-300 shrink-0">' + s.category + '</span>'}
+              <span class="text-sm font-mono font-black text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1 rounded-lg shrink-0 shadow-2xs">${s.num}</span>
+              ${isDone ? '<span class="text-xs sm:text-sm font-black px-3 py-1 rounded-lg bg-indigo-600 text-white shrink-0 shadow-2xs">مكتسب ✨</span>' : '<span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-300 shrink-0">' + s.category + '</span>'}
             </div>
             <div class="flex items-start gap-3 min-w-0">
               <input 
@@ -942,10 +632,10 @@ class RoadmapView {
         }
 
         certsHtml += `
-          <li class="p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200'}">
+          <li class="p-3.5 sm:p-4 rounded-2xl border-2 transition shadow-2xs ${isDone ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}">
             <div class="flex items-center justify-between mb-2 gap-2">
               <span class="text-xs sm:text-sm font-mono font-black px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs">${crt.id.toUpperCase()}</span>
-              <span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-lg ${isDone ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
+              <span class="text-xs sm:text-sm font-black px-3 py-1 rounded-lg ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
                 ${isDone ? 'حاصل عليها 🎓' : 'مستهدفة 🎯'}
               </span>
             </div>
@@ -977,7 +667,7 @@ class RoadmapView {
         certsSectionHtml = `
           <!-- Pathway Bridge: Certifications -->
           <div class="flex items-center justify-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-900 text-sm sm:text-base font-black py-2.5 px-4 rounded-xl my-3.5 shadow-2xs">
-            <i class="fa-solid fa-award text-amber-600"></i> ${certBridgeText}
+            <i class="fa-solid fa-award text-amber-600 text-base"></i> ${certBridgeText}
           </div>
 
           <!-- Part 2: Professional Certifications -->
@@ -998,7 +688,7 @@ class RoadmapView {
         <!-- Year Card Header -->
         <div>
           <div class="flex items-center justify-between pb-4 border-b border-slate-200 gap-3">
-            <span class="text-sm sm:text-base font-black px-4 py-1.5 rounded-full ${year.pillColor ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-blue-50 text-blue-800 border-blue-200'} flex items-center gap-2 border shadow-2xs">
+            <span class="text-sm sm:text-base font-black px-4 py-1.5 rounded-full ${year.pillColor ? 'bg-blue-100 text-blue-900 border-blue-300' : 'bg-blue-50 text-blue-800 border-blue-200'} flex items-center gap-2 border shadow-2xs">
               <i class="fa-solid ${year.icon}"></i> ${year.stagePill}
             </span>
             <span dir="ltr" class="text-sm sm:text-base font-black font-display font-mono ${isYearComplete ? 'text-emerald-700' : 'text-blue-700'}">
@@ -1013,7 +703,7 @@ class RoadmapView {
 
           <!-- Pathway Bridge: Skills -->
           <div class="flex items-center justify-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-900 text-sm sm:text-base font-black py-2.5 px-4 rounded-xl my-3.5 shadow-2xs">
-            <i class="fa-solid fa-laptop-code text-indigo-600"></i> الكورسات والمهارات العملية (${yrText}):
+            <i class="fa-solid fa-laptop-code text-indigo-600 text-base"></i> الكورسات والمهارات العملية (${yrText}):
           </div>
 
           <!-- Part 1: Skills & Practical Workshops -->
@@ -1036,7 +726,7 @@ class RoadmapView {
   }
 }
 
-// 8. LANGUAGE TRACK VIEW (SRP: Renders 33 Language Courses with Playlists)
+// 7. LANGUAGE TRACK VIEW (SRP: Renders 33 Language Courses with Playlists)
 class LanguageTrackView {
   static render(state) {
     if (!state) return;
@@ -1051,8 +741,8 @@ class LanguageTrackView {
     if (badge) {
       badge.innerText = stats.percent + '% مكتمل 🌐';
       badge.className = stats.percent === 100
-        ? 'px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-black font-display shadow-2xs'
-        : 'px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 text-xs font-black font-display shadow-2xs';
+        ? 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm'
+        : 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
     }
 
     const countEl = document.getElementById('langCompletedCount');
@@ -1077,18 +767,18 @@ class LanguageTrackView {
       const isLevelComplete = levelStats.percent === 100;
 
       const card = document.createElement('article');
-      card.className = 'bg-white rounded-3xl border ' + (isLevelComplete ? 'border-emerald-400 shadow-md' : 'border-slate-200') + ' p-5 sm:p-7 shadow-lg flex flex-col justify-between space-y-5 card-lift relative overflow-hidden';
+      card.className = 'bg-white rounded-3xl border-2 ' + (isLevelComplete ? 'border-emerald-500 shadow-lg' : 'border-slate-200') + ' p-5 sm:p-7 shadow-lg flex flex-col justify-between space-y-5 card-lift hover-glow-emerald relative overflow-hidden';
 
       let coursesHtml = '';
       (level.courses || []).forEach(c => {
         const isDone = LanguageTrackService.isDone(state, c.id);
         coursesHtml += `
-          <li class="p-3.5 sm:p-4 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200'}">
+          <li class="p-3.5 sm:p-4 rounded-2xl border-2 transition shadow-2xs ${isDone ? 'bg-emerald-50 border-emerald-300' : 'bg-slate-50 border-slate-200 hover:border-slate-300'}">
             <div class="flex items-center justify-between mb-2 gap-2">
               <span class="text-xs sm:text-sm font-mono font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-lg shrink-0 shadow-2xs">
                 ${c.num}
               </span>
-              <span class="text-xs sm:text-sm font-bold px-3 py-1 rounded-lg ${isDone ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
+              <span class="text-xs sm:text-sm font-black px-3 py-1 rounded-lg ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
                 ${isDone ? 'مكتمل ✅' : 'قيد المتابعة ⏳'}
               </span>
             </div>
@@ -1108,19 +798,19 @@ class LanguageTrackView {
               </div>
             </div>
 
-            <!-- YouTube Official Playlist Direct Link -->
+            <!-- YouTube Official Playlist Direct Link Button -->
             <div class="flex items-center justify-between pt-2 border-t border-slate-200">
               <a 
                 href="${c.playlistUrl}" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold border border-rose-300 transition text-xs sm:text-sm cursor-pointer shadow-2xs"
+                class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold border border-rose-500 transition text-xs sm:text-sm cursor-pointer shadow-md shadow-rose-500/20 active:scale-95"
                 title="مشاهدة قائمة التشغيل الرسمية على يوتيوب"
               >
-                <i class="fa-brands fa-youtube text-rose-600 text-base"></i>
+                <i class="fa-brands fa-youtube text-white text-base"></i>
                 <span>قائمة التشغيل 🎬</span>
               </a>
-              ${isDone ? '<span class="text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-lg">تم الإنجاز ✅</span>' : '<span class="text-xs font-bold text-slate-500">اضغط للمشاهدة ↗</span>'}
+              ${isDone ? '<span class="text-xs font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-lg shadow-2xs">تم الإنجاز ✅</span>' : '<span class="text-xs font-bold text-slate-500">اضغط للمشاهدة ↗</span>'}
             </div>
           </li>
         `;
@@ -1130,7 +820,7 @@ class LanguageTrackView {
         <!-- Level Card Header -->
         <div>
           <div class="flex items-center justify-between pb-4 border-b border-slate-200 gap-3">
-            <span class="text-sm sm:text-base font-black px-4 py-1.5 rounded-full ${level.pillColor ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-emerald-50 text-emerald-800 border-emerald-200'} flex items-center gap-2 border shadow-2xs">
+            <span class="text-sm sm:text-base font-black px-4 py-1.5 rounded-full ${level.pillColor ? 'bg-emerald-100 text-emerald-900 border-emerald-300' : 'bg-emerald-50 text-emerald-800 border-emerald-200'} flex items-center gap-2 border shadow-2xs">
               <i class="fa-solid ${level.icon}"></i> ${level.title}
             </span>
             <span dir="ltr" class="text-sm sm:text-base font-black font-display font-mono ${isLevelComplete ? 'text-emerald-700' : 'text-emerald-700'}">
@@ -1167,7 +857,6 @@ class LanguageTrackView {
 
 if (typeof window !== 'undefined') {
   window.RoutineView = RoutineView;
-  window.CurriculumView = CurriculumView;
   window.AchievementsView = AchievementsView;
   window.ProgrammingView = ProgrammingView;
   window.HeaderView = HeaderView;
