@@ -41,12 +41,12 @@ class AppController {
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const currentTab = this.state.activeTab || 'routine';
+        const currentTab = this.state.activeTab || initialTab;
         this.state = cloudState;
         this.state.activeTab = currentTab;
         this.storageService.save(this.state);
         HeaderView.render(this.state);
-        this.renderActiveTab();
+        this.switchTab(currentTab);
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     });
@@ -55,16 +55,26 @@ class AppController {
     try {
       const cloudState = await this.cloudSyncService.pull();
       if (cloudState && typeof cloudState === 'object' && cloudState.dailyLogs) {
-        const currentTab = this.state.activeTab || 'routine';
+        const currentTab = this.state.activeTab || initialTab;
         this.state = cloudState;
         this.state.activeTab = currentTab;
         this.storageService.save(this.state);
-        this.switchTab(this.state.activeTab);
+        this.switchTab(currentTab);
         HeaderView.updateSyncStatus(this.cloudSyncService.status);
       }
     } catch (e) {}
 
-    // 3. Mobile Touch Gestures & Swipe Engine (Smooth swipe between tabs)
+    // 3. Dynamic URL Hash Change Listener
+    if (typeof window !== 'undefined') {
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash ? window.location.hash.replace('#', '') : '';
+        if (validTabs.includes(hash) && this.state.activeTab !== hash) {
+          this.switchTab(hash);
+        }
+      });
+    }
+
+    // 4. Mobile Touch Gestures & Swipe Engine (Smooth swipe between tabs)
     this.initTouchGestures();
   }
 
@@ -999,6 +1009,7 @@ if (typeof window !== 'undefined') {
   window.toggleQuran = toggleQuran;
   window.saveQuranPages = saveQuranPages;
   window.toggleProgrammingCourse = toggleProgrammingCourse;
+  window.toggleProgrammingPillar = toggleProgrammingPillar;
   window.finalizeTodayLog = finalizeTodayLog;
   window.closeDailyResultModal = closeDailyResultModal;
   window.resetRoutineHistory = resetRoutineHistory;
