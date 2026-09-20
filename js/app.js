@@ -24,9 +24,19 @@ class AppController {
   }
 
   async init() {
+    this.initTabClickListeners();
     HeaderView.render(this.state);
     HeaderView.updateSyncStatus(this.cloudSyncService.status);
-    this.switchTab(this.state.activeTab || 'routine');
+
+    const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const urlTab = urlParams ? urlParams.get('tab') : null;
+    const hashTab = typeof window !== 'undefined' && window.location.hash ? window.location.hash.replace('#', '') : null;
+    const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
+    const initialTab = (urlTab && validTabs.includes(urlTab)) 
+      ? urlTab 
+      : ((hashTab && validTabs.includes(hashTab)) ? hashTab : (this.state.activeTab || 'routine'));
+
+    this.switchTab(initialTab);
 
     // 1. Real-time live listener from Firebase Firestore
     this.cloudSyncService.subscribeRealtime((cloudState) => {
@@ -56,6 +66,20 @@ class AppController {
 
     // 3. Mobile Touch Gestures & Swipe Engine (Smooth swipe between tabs)
     this.initTouchGestures();
+  }
+
+  initTabClickListeners() {
+    if (typeof document === 'undefined') return;
+    const tabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
+    tabs.forEach(tabId => {
+      const btn = document.getElementById(`tabBtn-${tabId}`);
+      if (btn) {
+        btn.onclick = (e) => {
+          if (e && e.preventDefault) e.preventDefault();
+          this.switchTab(tabId);
+        };
+      }
+    });
   }
 
   renderActiveTab() {
@@ -113,6 +137,9 @@ class AppController {
 
     this.storageService.save(this.state);
     HeaderView.render(this.state);
+    if (typeof window !== "undefined" && window.history && window.history.replaceState) {
+      try { window.history.replaceState(null, '', '#' + tabId); } catch (e) {}
+    }
     if (typeof window !== "undefined" && typeof window.scrollTo === "function") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
