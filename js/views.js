@@ -401,15 +401,109 @@ class AchievementsView {
 
 // 3. PROGRAMMING VIEW (AI & Data Analysis)
 class ProgrammingView {
-  static render(programmingCourses = {}) {
+  static render(state = {}) {
     const container = document.getElementById('programmingCoursesContainer');
     if (!container) return;
+
+    const stats = typeof ProgrammingService !== 'undefined' 
+      ? ProgrammingService.getOverallStats(state) 
+      : { total: 4, done: 0, percent: 0 };
+
+    const pillars = [
+      {
+        id: 'ai_01',
+        num: 'المحور 01',
+        title: 'الذكاء الاصطناعي التوليدي',
+        subtitle: 'Generative AI & Prompt Engineering',
+        icon: 'fa-robot',
+        color: 'purple',
+        desc: 'تطبيقات (ChatGPT, Claude, Copilot) في البحث الأكاديمي، صياغة التقارير الإدارية، وتوليد الأفكار التسويقية وحل المشكلات التكتيكية.',
+        feature: 'صياغة الأوامر الاحترافية',
+        tag: 'تطبيق إداري مباشر ⚡'
+      },
+      {
+        id: 'ai_02',
+        num: 'المحور 02',
+        title: 'تحليل البيانات بـ Excel المتقدم',
+        subtitle: 'Advanced Excel for Business Analytics',
+        icon: 'fa-file-excel',
+        color: 'emerald',
+        desc: 'الدوال المركبة (VLOOKUP, XLOOKUP, INDEX/MATCH)، الجداول الديناميكية Pivot Tables، والتحليل المالي لربط القوائم المحاسبية.',
+        feature: 'النمذجة المحاسبية والمالية',
+        tag: 'أساسيات المحاسبة والإدارة 📈'
+      },
+      {
+        id: 'ai_03',
+        num: 'المحور 03',
+        title: 'لوحات القيادة بـ Power BI',
+        subtitle: 'Business Intelligence & Power BI',
+        icon: 'fa-chart-pie',
+        color: 'amber',
+        desc: 'ربط مصادر البيانات المتعددة، تنظيف البيانات بـ Power Query، وبناء لوحات المراقبة التفاعلية للمبيعات والأداء المؤسسي.',
+        feature: 'تصور البيانات التفاعلي',
+        tag: 'إشراف وقيادة المنظمات 👑'
+      },
+      {
+        id: 'ai_04',
+        num: 'المحور 04',
+        title: 'برمجة وبحوث البيانات بـ Python',
+        subtitle: 'Python for Data Analysis & Automation',
+        icon: 'fa-python',
+        isBrand: true,
+        color: 'blue',
+        desc: 'استخدام مكتبات (Pandas, NumPy, Matplotlib) للمعالجة التلقائية للبيانات الضخمة واستخلاص مؤشرات الأداء الرئيسية.',
+        feature: 'الأتمتة واستخراج الرؤى',
+        tag: 'مهارة المستقبل المطلوبة 🏆'
+      }
+    ];
+
+    const badgeText = stats.percent === 0 
+      ? '0% | انطلاقة عصر الذكاء الاصطناعي 📊' 
+      : (stats.percent === 100 ? '100% إتقان تام للمحاور 👑' : `${stats.percent}% مكتمل 📊`);
+
+    const pillarsCardsHtml = pillars.map(p => {
+      const isDone = typeof ProgrammingService !== 'undefined' ? ProgrammingService.isDone(state, p.id) : false;
+      return `
+        <div class="bg-white rounded-3xl border-2 ${isDone ? 'border-emerald-500 shadow-xl bg-emerald-50/20' : 'border-slate-200 shadow-lg'} p-5 sm:p-6 space-y-4 card-lift hover-glow-${p.color} transition-all">
+          <div class="flex items-center justify-between pb-3.5 border-b border-slate-200 gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <input 
+                type="checkbox" 
+                id="programming-${p.id}" 
+                ${isDone ? 'checked' : ''} 
+                onchange="app.toggleProgrammingPillar('${p.id}')" 
+                class="checkbox-custom w-6 h-6 shrink-0"
+              />
+              <div class="w-11 h-11 rounded-2xl bg-${p.color}-50 text-${p.color}-600 border border-${p.color}-200 flex items-center justify-center text-xl shadow-xs shrink-0">
+                <i class="${p.isBrand ? 'fa-brands' : 'fa-solid'} ${p.icon} text-${p.color}-600"></i>
+              </div>
+              <div class="min-w-0 flex-1">
+                <label for="programming-${p.id}" class="font-display font-black text-base sm:text-lg cursor-pointer select-none leading-snug block ${isDone ? 'line-through text-slate-400' : 'text-slate-900'}">
+                  ${p.title}
+                </label>
+                <span class="text-xs text-slate-500 font-bold block truncate">${p.subtitle}</span>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-xl text-xs font-black shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
+              ${isDone ? 'مكتمل ✅' : 'بانتظار الإنجاز ⏳'}
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
+            ${p.desc}
+          </p>
+          <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
+            <span><i class="fa-solid fa-circle-check text-${p.color}-600"></i> ${p.feature}</span>
+            <span class="text-${p.color}-700">${p.tag}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
 
     container.innerHTML = `
       <div class="col-span-full space-y-6">
 
         <!-- AI & Data Track Hero Banner -->
-        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-7 shadow-2xl border-b-4 border-amber-500 relative overflow-hidden card-lift">
+        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-7 shadow-2xl border-b-4 border-purple-500 relative overflow-hidden card-lift">
           <div class="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -420,7 +514,7 @@ class ProgrammingView {
                   <i class="fa-solid fa-brain text-purple-400"></i> مسار الذكاء الاصطناعي وتحليل البيانات 📊🤖
                 </span>
                 <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm">
-                  مستهدف ومجهّز للتطبيق العملي 🚀
+                  ${badgeText}
                 </span>
               </div>
               <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-normal sm:leading-relaxed">
@@ -431,108 +525,35 @@ class ProgrammingView {
               </p>
             </div>
 
+            <!-- Live Progress Metric Capsule -->
             <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 text-center shrink-0 w-full lg:w-64 shadow-inner">
-              <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">المحاور الرئيسية:</span>
-              <div class="text-2xl sm:text-3xl font-black font-display text-purple-400 font-mono">4 محاور</div>
-              <span class="text-[10px] sm:text-xs text-purple-300 font-bold block mt-0.5">تطبيقات الأعمال والإدارة</span>
+              <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">المحاور المنجزة:</span>
+              <div class="text-2xl sm:text-3xl font-black font-display text-purple-300 font-mono" dir="ltr">${stats.done} / ${stats.total}</div>
+              <span class="text-[10px] sm:text-xs text-purple-300 font-bold block mt-0.5">${stats.percent === 0 ? 'جاهزية كاملة للانطلاق 🚀' : stats.percent + '% إتقان تخصصي ⚡'}</span>
+            </div>
+          </div>
+
+          <!-- Overall AI Progress Bar -->
+          <div class="mt-6 pt-4 border-t border-white/10">
+            <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-purple-400"></i> مؤشر إتقان مسار الذكاء الاصطناعي والبيانات:</span>
+              <span class="text-purple-300 font-black font-mono text-sm">${stats.percent}%</span>
+            </div>
+            <div class="w-full h-3.5 bg-slate-900/80 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
+              <div class="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: ${stats.percent}%;"></div>
             </div>
           </div>
         </div>
 
-        <!-- 4 Core AI & Data Analysis Pillars Grid -->
+        <!-- 4 Core AI & Data Analysis Pillars Grid with Checkboxes -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          
-          <!-- Pillar 1: Generative AI -->
-          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 sm:p-6 shadow-lg space-y-4 card-lift hover-glow-purple">
-            <div class="flex items-center justify-between pb-3.5 border-b border-slate-200">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center text-xl shadow-xs shrink-0">
-                  <i class="fa-solid fa-robot text-purple-600"></i>
-                </div>
-                <div>
-                  <h4 class="font-display font-black text-base text-slate-900">الذكاء الاصطناعي التوليدي</h4>
-                  <span class="text-xs text-slate-500 font-bold">Generative AI & Prompt Engineering</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-xl bg-purple-100 text-purple-800 border border-purple-300 text-xs font-black">المحور 01</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
-              تطبيقات (ChatGPT, Claude, Copilot) في البحث الأكاديمي، صياغة التقارير الإدارية، وتوليد الأفكار التسويقية وحل المشكلات التكتيكية.
-            </p>
-            <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
-              <span><i class="fa-solid fa-circle-check text-purple-600"></i> صياغة الأوامر الاحترافية</span>
-              <span class="text-purple-700">تطبيق إداري مباشر ⚡</span>
-            </div>
-          </div>
+          ${pillarsCardsHtml}
+        </div>
 
-          <!-- Pillar 2: Advanced Business Excel -->
-          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 sm:p-6 shadow-lg space-y-4 card-lift hover-glow-emerald">
-            <div class="flex items-center justify-between pb-3.5 border-b border-slate-200">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center text-xl shadow-xs shrink-0">
-                  <i class="fa-solid fa-file-excel text-emerald-600"></i>
-                </div>
-                <div>
-                  <h4 class="font-display font-black text-base text-slate-900">تحليل البيانات بـ Excel المتقدم</h4>
-                  <span class="text-xs text-slate-500 font-bold">Advanced Excel for Business Analytics</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-black">المحور 02</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
-              الدوال المركبة (VLOOKUP, XLOOKUP, INDEX/MATCH)، الجداول الديناميكية Pivot Tables، والتحليل المالي لربط القوائم المحاسبية.
-            </p>
-            <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
-              <span><i class="fa-solid fa-circle-check text-emerald-600"></i> النمذجة المحاسبية والمالية</span>
-              <span class="text-emerald-700">أساسيات المحاسبة والإدارة 📈</span>
-            </div>
-          </div>
-
-          <!-- Pillar 3: Power BI Dashboards -->
-          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 sm:p-6 shadow-lg space-y-4 card-lift hover-glow-amber">
-            <div class="flex items-center justify-between pb-3.5 border-b border-slate-200">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center text-xl shadow-xs shrink-0">
-                  <i class="fa-solid fa-chart-pie text-amber-600"></i>
-                </div>
-                <div>
-                  <h4 class="font-display font-black text-base text-slate-900">لوحات القيادة بـ Power BI</h4>
-                  <span class="text-xs text-slate-500 font-bold">Business Intelligence & Power BI</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-800 border border-amber-300 text-xs font-black">المحور 03</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
-              ربط مصادر البيانات المتعددة، تنظيف البيانات بـ Power Query، وبناء لوحات المراقبة التفاعلية للمبيعات والأداء المؤسسي.
-            </p>
-            <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
-              <span><i class="fa-solid fa-circle-check text-amber-600"></i> تصور البيانات التفاعلي</span>
-              <span class="text-amber-700">إشراف وقيادة المنظمات 👑</span>
-            </div>
-          </div>
-
-          <!-- Pillar 4: Python for Business -->
-          <div class="bg-white rounded-3xl border-2 border-slate-200 p-5 sm:p-6 shadow-lg space-y-4 card-lift hover-glow-blue">
-            <div class="flex items-center justify-between pb-3.5 border-b border-slate-200">
-              <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-xl shadow-xs shrink-0">
-                  <i class="fa-brands fa-python text-blue-600"></i>
-                </div>
-                <div>
-                  <h4 class="font-display font-black text-base text-slate-900">برمجة وبحوث البيانات بـ Python</h4>
-                  <span class="text-xs text-slate-500 font-bold">Python for Data Analysis & Automation</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-xl bg-blue-100 text-blue-800 border border-blue-300 text-xs font-black">المحور 04</span>
-            </div>
-            <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
-              استخدام مكتبات (Pandas, NumPy, Matplotlib) للمعالجة التلقائية للبيانات الضخمة واستخلاص مؤشرات الأداء الرئيسية.
-            </p>
-            <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
-              <span><i class="fa-solid fa-circle-check text-blue-600"></i> الأتمتة واستخراج الرؤى</span>
-              <span class="text-blue-700">مهارة المستقبل المطلوبة 🏆</span>
-            </div>
-          </div>
+      </div>
+    `;
+  }
+}
 
         </div>
 

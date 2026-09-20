@@ -417,16 +417,15 @@ class AppController {
   // ==========================================
   renderProgramming() {
     this.state.programmingCourses = this.state.programmingCourses || {};
-    ProgrammingView.render(this.state.programmingCourses);
+    ProgrammingView.render(this.state);
   }
 
-  toggleProgrammingCourse(courseId) {
-    this.triggerGoldConfetti();
-    if (!courseId) return;
+  toggleProgrammingPillar(pillarId) {
+    if (!pillarId) return;
     try {
       this.state.programmingCourses = this.state.programmingCourses || {};
-      const isNowDone = !Boolean(this.state.programmingCourses[courseId]);
-      this.state.programmingCourses[courseId] = isNowDone;
+      const isNowDone = !Boolean(this.state.programmingCourses[pillarId]);
+      this.state.programmingCourses[pillarId] = isNowDone;
 
       if (isNowDone) {
         SoundService.playSuccess();
@@ -435,14 +434,15 @@ class AppController {
         SoundService.playCheck();
       }
 
-      this.storageService.save(this.state);
-      this.cloudSyncService.push(this.state);
-      HeaderView.render(this.state);
+      this.saveAndRefreshViews();
       this.renderProgramming();
-      this.renderAchievements();
     } catch (err) {
-      console.error('Error toggling course:', err);
+      console.error('Error toggling programming pillar:', err);
     }
+  }
+
+  toggleProgrammingCourse(courseId) {
+    this.toggleProgrammingPillar(courseId);
   }
 
   // ==========================================

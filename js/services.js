@@ -936,7 +936,35 @@ class LanguageTrackService {
   }
 }
 
+// =========================================================================
+// 12. PROGRAMMING SERVICE (SRP: Business logic for 4 AI & Data Analysis Pillars)
+// =========================================================================
+class ProgrammingService {
+  static togglePillar(state, pillarId) {
+    if (!state.programmingCourses) state.programmingCourses = {};
+    const current = Boolean(state.programmingCourses[pillarId]);
+    state.programmingCourses[pillarId] = !current;
+    return state.programmingCourses[pillarId];
+  }
+
+  static isDone(state, pillarId) {
+    return Boolean(state.programmingCourses && state.programmingCourses[pillarId]);
+  }
+
+  static getOverallStats(state) {
+    const pillars = ['ai_01', 'ai_02', 'ai_03', 'ai_04'];
+    let done = 0;
+    pillars.forEach(id => {
+      if (this.isDone(state, id)) done++;
+    });
+    const total = pillars.length;
+    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    return { total, done, percent };
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.RoadmapService = RoadmapService;
   window.LanguageTrackService = LanguageTrackService;
+  window.ProgrammingService = ProgrammingService;
 }
