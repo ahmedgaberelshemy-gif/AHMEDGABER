@@ -40,6 +40,9 @@ class RoutineView {
       if (percent === 100) {
         overallBadge.innerText = '100% يوم مثالي معتمد 👑';
         overallBadge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm';
+      } else if (percent === 0) {
+        overallBadge.innerText = '0% | انطلاقة اليوم والتفوق 🚀';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
       } else {
         overallBadge.innerText = `${percent}% مكتمل اليوم ⚡`;
         overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
@@ -47,7 +50,11 @@ class RoutineView {
     }
 
     const cardBadge = document.getElementById('routineTodayCardBadge');
-    if (cardBadge) cardBadge.innerText = `${donePillars} من ${totalPillars} أركان منجزة`;
+    if (cardBadge) {
+      cardBadge.innerText = donePillars === 0 
+        ? 'بانتظار إنجاز أول ركن اليوم ⚡' 
+        : `${donePillars} من ${totalPillars} أركان منجزة`;
+    }
   }
 
   static renderPrayers(prayers = {}) {
@@ -638,10 +645,16 @@ class RoadmapView {
 
     const overallBadge = document.getElementById('roadmapOverallBadge');
     if (overallBadge) {
-      overallBadge.innerText = stats.percent + '% مكتمل 🏆';
-      overallBadge.className = stats.percent === 100 
-        ? 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm'
-        : 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
+      if (stats.percent === 0) {
+        overallBadge.innerText = '0% | خطة بناء المستقبل والريادة 🏆';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/40 text-xs font-black font-display shadow-sm';
+      } else if (stats.percent === 100) {
+        overallBadge.innerText = '100% ريادة واعتماد دولي 👑';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm';
+      } else {
+        overallBadge.innerText = stats.percent + '% مكتمل 🏆';
+        overallBadge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
+      }
     }
 
     const skillsStat = document.getElementById('roadmapSkillsStat');
@@ -848,10 +861,16 @@ class LanguageTrackView {
 
     const badge = document.getElementById('langOverallBadge');
     if (badge) {
-      badge.innerText = stats.percent + '% مكتمل 🌐';
-      badge.className = stats.percent === 100
-        ? 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm'
-        : 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
+      if (stats.percent === 0) {
+        badge.innerText = '0% | انطلاقة رحلة الطلاقة 🌐';
+        badge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm';
+      } else if (stats.percent === 100) {
+        badge.innerText = '100% طلاقة تامة معتمدة 🏆';
+        badge.className = 'px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm';
+      } else {
+        badge.innerText = stats.percent + '% مكتمل 🌐';
+        badge.className = 'px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm';
+      }
     }
 
     const countEl = document.getElementById('langCompletedCount');
