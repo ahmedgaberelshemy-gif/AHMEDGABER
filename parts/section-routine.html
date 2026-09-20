@@ -4,55 +4,56 @@
 <section id="section-routine" class="space-y-6 animate-slide-up">
 
   <!-- 1. Top Master Hero Banner (سجل ومؤشر الالتزام التراكمي 112 يوماً نحو المركز الأول) -->
-  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-4 sm:p-7 shadow-2xl border border-indigo-500/30 relative overflow-hidden card-lift">
+  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-7 shadow-2xl border border-indigo-500/30 relative overflow-hidden card-lift">
     <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
+    <div class="relative z-10 space-y-6">
+      <!-- Top Row: Badges & Main Title -->
       <div class="space-y-2.5">
         <div class="flex items-center gap-2 flex-wrap">
-          <span class="px-3 sm:px-4 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-[11px] sm:text-xs font-black font-display inline-flex items-center gap-1.5 shadow-sm">
+          <span class="px-3.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-xs font-black font-display inline-flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-crown text-amber-400"></i> ميثاق الريادة والتفوق الأكاديمي 🏆
           </span>
-          <span class="px-3 sm:px-4 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[11px] sm:text-xs font-black font-display shadow-sm" id="routineOverallBadge">
+          <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-black font-display shadow-sm" id="routineOverallBadge">
             0% مكتمل اليوم ⚡
           </span>
         </div>
-        <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-normal sm:leading-relaxed">
-          بوصلة الانضباط اليومي: مسار الـ 112 يوماً نحو <span class="whitespace-nowrap text-amber-400">المركز الأول 👑</span>
+        <h2 class="font-display font-black text-lg sm:text-2xl lg:text-3xl text-white leading-relaxed">
+          بوصلة الانضباط اليومي: مسار الـ 112 يوماً نحو <span class="text-amber-400">المركز الأول 👑</span>
         </h2>
       </div>
 
-      <!-- Quick Metrics Counters -->
-      <div class="grid grid-cols-3 gap-2 sm:gap-3.5 w-full lg:w-auto shrink-0">
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">إنجاز اليوم</span>
-          <div class="text-base sm:text-2xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 4</div>
-          <span class="text-[10px] sm:text-2xs text-emerald-200/80 font-bold block mt-0.5">أركان اليوم</span>
+      <!-- Middle Row: 3 Symmetrical Stat Metric Capsules Grid -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[11px] sm:text-xs text-slate-300 font-bold block mb-1">إنجاز اليوم</span>
+          <div class="text-lg sm:text-2xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 4</div>
+          <span class="text-[10px] sm:text-xs text-emerald-200/80 font-bold block mt-0.5">أركان اليوم</span>
         </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">التزام 100%</span>
-          <div class="text-base sm:text-2xl font-black font-display text-amber-300 font-mono" id="routinePerfectDaysStat" dir="ltr">0</div>
-          <span class="text-[10px] sm:text-2xs text-amber-200/80 font-bold block mt-0.5">يوم مثالي 👑</span>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[11px] sm:text-xs text-slate-300 font-bold block mb-1">التزام 100%</span>
+          <div class="text-lg sm:text-2xl font-black font-display text-amber-300 font-mono" id="routinePerfectDaysStat" dir="ltr">0</div>
+          <span class="text-[10px] sm:text-xs text-amber-200/80 font-bold block mt-0.5">يوم مثالي 👑</span>
         </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة</span>
-          <div class="text-base sm:text-2xl font-black font-display text-blue-300 font-mono" id="routineLoggedDaysCount" dir="ltr">0 / 112</div>
-          <span class="text-[10px] sm:text-2xs text-blue-200/80 font-bold block mt-0.5">يوم معتمد</span>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[11px] sm:text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة</span>
+          <div class="text-lg sm:text-2xl font-black font-display text-blue-300 font-mono" id="routineLoggedDaysCount" dir="ltr">0 / 112</div>
+          <span class="text-[10px] sm:text-xs text-blue-200/80 font-bold block mt-0.5">يوم معتمد</span>
         </div>
       </div>
-    </div>
 
-    <!-- Live Semester Progress Bar in Hero -->
-    <div class="mt-6 pt-4 border-t border-white/10">
-      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
-        <span class="flex items-center gap-2">
-          <i class="fa-solid fa-bolt text-amber-400"></i> مؤشر الالتزام التراكمي بالترم:
-        </span>
-        <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono text-sm" dir="ltr">0%</span>
-      </div>
-      <div class="w-full h-3.5 bg-slate-900/90 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
-        <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: 0%;"></div>
+      <!-- Bottom Row: Semester Progress Bar -->
+      <div class="pt-2 border-t border-white/10">
+        <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-bolt text-amber-400"></i> مؤشر الالتزام التراكمي بالترم:
+          </span>
+          <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono text-sm" dir="ltr">0%</span>
+        </div>
+        <div class="w-full h-3.5 bg-slate-900/90 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
+          <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: 0%;"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -76,7 +77,7 @@
               <span class="text-xs text-slate-400 font-medium block mt-0.5">عماد الدين ومفتاح التوفيق والبركة</span>
             </div>
           </div>
-          <span class="px-3 py-1.5 rounded-xl bg-emerald-950/80 text-emerald-300 text-xs font-bold font-mono shadow-xs border border-emerald-700/50" id="prayersCountBadge">
+          <span class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-black font-mono shadow-sm" id="prayersCountBadge">
             0 / 5 صلوات
           </span>
         </div>
@@ -111,7 +112,7 @@
               <span class="text-xs text-slate-400 font-medium block mt-0.5">بناء التركيز الذهني والصلابة الجسدية</span>
             </div>
           </div>
-          <span class="text-xs font-bold text-indigo-300 bg-indigo-950/80 border border-indigo-700/50 px-3 py-1.5 rounded-xl shadow-xs" id="routineTodayCardBadge">
+          <span class="text-xs font-black text-indigo-300 bg-indigo-500/20 border border-indigo-400/30 px-3.5 py-1.5 rounded-xl shadow-sm" id="routineTodayCardBadge">
             3 عادات أساسية
           </span>
         </div>

@@ -373,112 +373,112 @@ class AchievementsView {
     // 2. Render BOTTOM DIAGNOSTIC CARD (Only unique diagnostics, zero repetition from top banner)
     detailsContainer.innerHTML = `
       <!-- Performance Diagnostics & Missed Days Log Card -->
-      <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-sm space-y-6 card-lift">
+      <div class="bg-slate-900/85 backdrop-blur-xl rounded-3xl border border-slate-800 p-5 sm:p-7 shadow-2xl space-y-6 card-lift">
         
-        <!-- Header: Diagnostic Purpose (Distinct from Top Banner Title) -->
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2 flex-wrap">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center text-lg shadow-md shadow-indigo-500/20 shrink-0">
+        <!-- Header: Diagnostic Purpose -->
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800 gap-2 flex-wrap">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-700 text-white flex items-center justify-center text-xl shadow-lg shadow-indigo-500/25 shrink-0">
               <i class="fa-solid fa-magnifying-glass-chart"></i>
             </div>
             <div>
-              <h3 class="font-display font-black text-lg sm:text-xl text-slate-900 leading-tight">
+              <h3 class="font-display font-black text-lg sm:text-xl text-white leading-tight">
                 سجل تشريح الأداء وتدارك التقصير 🔍
               </h3>
-              <span class="text-xs sm:text-sm text-slate-500 font-medium leading-tight block mt-0.5">
+              <span class="text-xs sm:text-sm text-slate-400 font-medium leading-tight block mt-0.5">
                 تتبع الأيام غير المكتملة وتشريح أسباب التقصير لتداركها فورياً، وأدوات إدارة البيانات
               </span>
             </div>
           </div>
-          <span class="text-xs sm:text-sm font-black text-indigo-700 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
+          <span class="text-xs sm:text-sm font-black text-indigo-300 bg-indigo-950/80 border border-indigo-700/50 px-3.5 py-1.5 rounded-xl shadow-xs">
             الرتبة: ${stats.rank?.title || 'طالب منضبط 🌟'} 🎖️
           </span>
         </div>
 
-        <!-- 3 Unique Diagnostic Metric Cards (No repetition of Perfect Days / Total Days which are in top banner) -->
+        <!-- 3 Unique Diagnostic Metric Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           
-          <!-- Card 1: Incomplete Days (أيام التقصير لتداركها) -->
-          <div class="p-5 rounded-2xl bg-rose-50/80 border border-rose-200 flex flex-col justify-between space-y-3">
-            <div class="flex items-center justify-between gap-1 text-rose-800 text-xs sm:text-sm font-black">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-rose-600 text-base"></i> أيام بها تقصير</span>
-              <span class="font-mono text-sm font-black">${incompletePercentage}%</span>
+          <!-- Card 1: Incomplete Days -->
+          <div class="p-5 rounded-2xl bg-rose-950/40 border border-rose-800/60 flex flex-col justify-between space-y-3 shadow-sm">
+            <div class="flex items-center justify-between gap-1 text-rose-300 text-xs sm:text-sm font-black">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-rose-400 text-base"></i> أيام بها تقصير</span>
+              <span class="font-mono text-sm font-black text-rose-300">${incompletePercentage}%</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium">أيام حدث بها نقص في الصلاة أو العادات</p>
-            <div class="text-3xl sm:text-4xl font-black font-mono text-rose-700 my-1" dir="ltr">
-              ${stats.incompleteDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
+            <p class="text-xs text-slate-400 font-medium">أيام حدث بها نقص في الصلاة أو العادات</p>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-rose-400 my-1" dir="ltr">
+              ${stats.incompleteDays} <span class="text-xs font-bold text-slate-400 font-cairo">يوم</span>
             </div>
-            <div class="w-full h-2.5 bg-rose-200/60 rounded-full overflow-hidden">
-              <div class="h-full bg-rose-600 rounded-full transition-all duration-300" style="width: ${incompletePercentage}%;"></div>
+            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-rose-500 rounded-full transition-all duration-300" style="width: ${incompletePercentage}%;"></div>
             </div>
-            <span class="text-xs font-bold text-rose-800 block">رصد النواقص لتداركها ومنع تكرارها</span>
+            <span class="text-xs font-bold text-rose-300 block">رصد النواقص لتداركها ومنع تكرارها</span>
           </div>
 
-          <!-- Card 2: Remaining Days (الأيام المتبقية بالترم) -->
-          <div class="p-5 rounded-2xl bg-indigo-50/80 border border-indigo-200 flex flex-col justify-between space-y-3">
-            <div class="flex items-center justify-between gap-1 text-indigo-800 text-xs sm:text-sm font-black">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-calendar-days text-indigo-600 text-base"></i> متبقي بالترم</span>
-              <span class="font-mono text-sm font-black">${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%</span>
+          <!-- Card 2: Remaining Days -->
+          <div class="p-5 rounded-2xl bg-indigo-950/40 border border-indigo-800/60 flex flex-col justify-between space-y-3 shadow-sm">
+            <div class="flex items-center justify-between gap-1 text-indigo-300 text-xs sm:text-sm font-black">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-calendar-days text-indigo-400 text-base"></i> متبقي بالترم</span>
+              <span class="font-mono text-sm font-black text-indigo-300">${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium">فرص قادمة كل يوم لتعزيز الامتياز</p>
-            <div class="text-3xl sm:text-4xl font-black font-mono text-indigo-700 my-1" dir="ltr">
-              ${remainingDays} <span class="text-xs font-bold text-slate-500 font-cairo">يوم</span>
+            <p class="text-xs text-slate-400 font-medium">فرص قادمة كل يوم لتعزيز الامتياز</p>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-indigo-400 my-1" dir="ltr">
+              ${remainingDays} <span class="text-xs font-bold text-slate-400 font-cairo">يوم</span>
             </div>
-            <div class="w-full h-2.5 bg-indigo-200/60 rounded-full overflow-hidden">
-              <div class="h-full bg-indigo-600 rounded-full transition-all duration-300" style="width: ${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%;"></div>
+            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-indigo-500 rounded-full transition-all duration-300" style="width: ${totalSemesterDays > 0 ? Math.round((remainingDays / totalSemesterDays) * 100) : 0}%;"></div>
             </div>
-            <span class="text-xs font-bold text-indigo-800 block">متبقي حتى نهاية الفصل الدراسي 🏆</span>
+            <span class="text-xs font-bold text-indigo-300 block">متبقي حتى نهاية الفصل الدراسي 🏆</span>
           </div>
 
-          <!-- Card 3: Current Streak (سلسلة الالتزام المتواصلة) -->
-          <div class="p-5 rounded-2xl bg-amber-50/80 border border-amber-200 flex flex-col justify-between space-y-3">
-            <div class="flex items-center justify-between gap-1 text-amber-900 text-xs sm:text-sm font-black">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-fire text-amber-500 text-base"></i> سلسلة الالتزام</span>
-              <span class="text-xs font-bold text-amber-700 font-mono">متواصل 🔥</span>
+          <!-- Card 3: Current Streak -->
+          <div class="p-5 rounded-2xl bg-amber-950/40 border border-amber-800/60 flex flex-col justify-between space-y-3 shadow-sm">
+            <div class="flex items-center justify-between gap-1 text-amber-300 text-xs sm:text-sm font-black">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-fire text-amber-400 text-base"></i> سلسلة الالتزام</span>
+              <span class="text-xs font-bold text-amber-400 font-mono">متواصل 🔥</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium">عدد الأيام المتتالية دون أي انقطاع</p>
-            <div class="text-3xl sm:text-4xl font-black font-mono text-amber-700 my-1" dir="ltr">
-              ${stats.streak} <span class="text-xs font-bold text-slate-500 font-cairo">أيام متتالية</span>
+            <p class="text-xs text-slate-400 font-medium">عدد الأيام المتتالية دون أي انقطاع</p>
+            <div class="text-3xl sm:text-4xl font-black font-mono text-amber-400 my-1" dir="ltr">
+              ${stats.streak} <span class="text-xs font-bold text-slate-400 font-cairo">أيام متتالية</span>
             </div>
-            <div class="w-full h-2.5 bg-amber-200/60 rounded-full overflow-hidden">
+            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
               <div class="h-full bg-amber-500 rounded-full transition-all duration-300" style="width: ${Math.min(100, (stats.streak / 14) * 100)}%;"></div>
             </div>
-            <span class="text-xs font-bold text-amber-900 block">استمر في حماية شعلة الالتزام 🔥</span>
+            <span class="text-xs font-bold text-amber-300 block">استمر في حماية شعلة الالتزام 🔥</span>
           </div>
 
         </div>
 
         <!-- Incomplete Days Breakdown Log or Spotless Streak Banner -->
         ${incompleteHistory.length > 0 ? `
-          <div class="border border-rose-200 rounded-2xl bg-white overflow-hidden shadow-xs">
+          <div class="border border-rose-800/60 rounded-2xl bg-slate-900 overflow-hidden shadow-xs">
             <button 
               type="button"
               onclick="toggleIncompleteDetailsSection()" 
-              class="w-full p-4 bg-rose-50/80 hover:bg-rose-100/80 flex items-center justify-between gap-3 text-right font-bold text-xs sm:text-sm text-rose-950 transition cursor-pointer select-none"
+              class="w-full p-4 bg-rose-950/50 hover:bg-rose-900/50 flex items-center justify-between gap-3 text-right font-bold text-xs sm:text-sm text-rose-200 transition cursor-pointer select-none"
             >
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+                <i class="fa-solid fa-triangle-exclamation text-rose-400"></i>
                 <span>سجل الأيام التي وقع بها تقصير (${incompleteHistory.length} يوم) - اضغط لتشريح الأسباب وتصحيح المسار</span>
               </div>
               <div class="flex items-center gap-2 shrink-0">
-                <span id="toggleIncompleteText" class="text-xs text-rose-700 font-mono font-bold">عرض التفاصيل 🔍</span>
-                <i id="toggleIncompleteIcon" class="fa-solid fa-chevron-down text-rose-600 text-xs"></i>
+                <span id="toggleIncompleteText" class="text-xs text-rose-300 font-mono font-bold">عرض التفاصيل 🔍</span>
+                <i id="toggleIncompleteIcon" class="fa-solid fa-chevron-down text-rose-400 text-xs"></i>
               </div>
             </button>
 
-            <div id="incompleteDetailsWrapper" class="hidden divide-y divide-slate-100 p-4 space-y-3 bg-white">
+            <div id="incompleteDetailsWrapper" class="hidden divide-y divide-slate-800 p-4 space-y-3 bg-slate-900">
               ${incompleteHistory.map(day => `
                 <div class="pt-3 first:pt-0 space-y-1.5">
                   <div class="flex items-center justify-between text-xs sm:text-sm">
-                    <span class="font-bold text-slate-900 font-mono">${day.date}</span>
-                    <span class="px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-800 text-xs font-bold">
+                    <span class="font-bold text-white font-mono">${day.date}</span>
+                    <span class="px-2.5 py-0.5 rounded-md bg-rose-950 text-rose-300 border border-rose-800 text-xs font-bold">
                       ${day.missedCount} عناصر لم تكتمل
                     </span>
                   </div>
                   <div class="flex flex-wrap gap-1.5 pt-1">
                     ${day.missed.map(item => `
-                      <span class="px-2.5 py-0.5 rounded-lg bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold flex items-center gap-1.5">
-                        <i class="fa-solid fa-xmark text-rose-500 text-[10px]"></i> ${item}
+                      <span class="px-2.5 py-0.5 rounded-lg bg-slate-800 text-rose-300 border border-rose-800/50 text-xs font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-xmark text-rose-400 text-[10px]"></i> ${item}
                       </span>
                     `).join('')}
                   </div>
@@ -487,28 +487,28 @@ class AchievementsView {
             </div>
           </div>
         ` : `
-          <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/50 to-emerald-50 border border-emerald-200 text-emerald-900 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 text-center shadow-xs">
-            <i class="fa-solid fa-crown text-amber-500 text-lg"></i>
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-teal-950/40 to-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 text-center shadow-xs">
+            <i class="fa-solid fa-crown text-amber-400 text-lg"></i>
             <span>سجلك ناصع البياض والتزامك 100% بدون أي تقصير حتى الآن! استمر في طريق المركز الأول 👑</span>
           </div>
         `}
 
         <!-- Data Operations Toolbar: Reset & Backup/Restore -->
-        <div class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <button 
             type="button"
             onclick="resetRoutineHistory()" 
-            class="w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs sm:text-sm border border-rose-200 flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-2xs" 
+            class="w-full sm:w-auto justify-center px-4 py-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 font-bold text-xs sm:text-sm border border-rose-800/60 flex items-center gap-2 transition active:scale-95 cursor-pointer shadow-xs" 
             title="تصفير سجل الأيام والروتين فقط إلى 0 يوم"
           >
-            <i class="fa-solid fa-rotate-left text-rose-600"></i> تصفير سجل الأيام التراكمي (0 يوم) 🔄
+            <i class="fa-solid fa-rotate-left text-rose-400"></i> تصفير سجل الأيام التراكمي (0 يوم) 🔄
           </button>
 
           <div class="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto shrink-0">
-            <button onclick="exportBackupData()" class="justify-center px-3 sm:px-4 py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs sm:text-sm border border-indigo-200 flex items-center gap-2 transition cursor-pointer shadow-2xs" title="تصدير نسخة احتياطية من كافة البيانات">
+            <button onclick="exportBackupData()" class="justify-center px-3 sm:px-4 py-2.5 rounded-xl bg-indigo-950/60 hover:bg-indigo-900/80 text-indigo-300 font-bold text-xs sm:text-sm border border-indigo-800/60 flex items-center gap-2 transition cursor-pointer shadow-xs" title="تصدير نسخة احتياطية من كافة البيانات">
               <i class="fa-solid fa-download"></i> تصدير نسخة 📥
             </button>
-            <label class="justify-center px-3 sm:px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm border border-slate-200 flex items-center gap-2 cursor-pointer transition shadow-2xs" title="استرجاع نسخة احتياطية">
+            <label class="justify-center px-3 sm:px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs sm:text-sm border border-slate-700 flex items-center gap-2 cursor-pointer transition shadow-xs" title="استرجاع نسخة احتياطية">
               <i class="fa-solid fa-upload"></i> استرجاع نسخة 📤
               <input type="file" id="importFileInput" accept=".json" onchange="importBackupData(event)" class="hidden" />
             </label>
@@ -519,55 +519,6 @@ class AchievementsView {
     `;
   }
 
-  static renderAcademicAchievements(weeks = [], lessonProgress = {}) {
-    const container = document.getElementById('academicAchievementsContainer');
-    const badge = document.getElementById('academicAchievementsBadge');
-    if (!container) return;
-
-    let totalLessons = 0;
-    let completedLessons = 0;
-    let completedWeeksCount = 0;
-    const weeksList = (weeks && weeks.length > 0) ? weeks : (weeksData || []);
-
-    weeksList.forEach(w => {
-      const wStats = AcademicCalculator.getWeekStats(w, lessonProgress);
-      totalLessons += wStats.totalCount;
-      completedLessons += wStats.completedCount;
-      if (wStats.totalCount > 0 && wStats.completedCount === wStats.totalCount) {
-        completedWeeksCount++;
-      }
-    });
-
-    const overallPercentage = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
-
-    if (badge) {
-      badge.innerText = `${completedLessons} من ${totalLessons} درس منجز (${overallPercentage}%)`;
-    }
-
-    let html = `
-      <!-- 1. Master Overall Academic Progress Headline -->
-      <div class="bg-gradient-to-r from-indigo-50 via-slate-50 to-purple-50 border border-indigo-100 rounded-3xl p-4 sm:p-5 shadow-2xs space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-sm shadow-sm">
-              <i class="fa-solid fa-graduation-cap"></i>
-            </span>
-            <div>
-              <h4 class="font-display font-black text-sm sm:text-base text-slate-900">التحصيل الأكاديمي الإجمالي للمقررات</h4>
-              <p class="text-xs text-slate-500 font-medium">مجموع الدروس المنجزة من جميع المواد والأسابيع</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-2 self-start sm:self-auto">
-            <span class="font-mono font-black text-xs sm:text-sm text-indigo-950 bg-white px-3 py-1.5 rounded-xl border border-indigo-200 shadow-2xs">
-              ${completedLessons} / ${totalLessons} درس (${overallPercentage}%)
-            </span>
-          </div>
-        </div>
-
-        <div class="w-full h-3 rounded-full bg-slate-200/80 overflow-hidden shadow-inner">
-          <div class="h-full rounded-full shimmer-progress-bar bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 transition-all duration-500 shadow-sm" style="width: ${overallPercentage}%"></div>
-        </div>
-      </div>
 
       <!-- 2. The 6 Subjects Section -->
       <div class="space-y-3 pt-2">
