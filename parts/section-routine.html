@@ -4,36 +4,39 @@
 <section id="section-routine" class="space-y-6 animate-slide-up">
 
   <!-- 1. Top Master Hero Banner (سجل ومؤشر الالتزام التراكمي 112 يوماً نحو المركز الأول) -->
-  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-blue-950 text-white rounded-3xl p-3.5 sm:p-7 shadow-xl border border-indigo-500/30 relative overflow-hidden card-lift">
-    <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-5">
-      <div class="space-y-2">
-        <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-          <span class="px-2.5 sm:px-3.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-[11px] sm:text-sm font-black font-display inline-flex items-center gap-1.5 shadow-2xs">
+  <div class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-4 sm:p-7 shadow-2xl border border-indigo-500/30 relative overflow-hidden card-lift">
+    <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
+      <div class="space-y-2.5">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="px-3 sm:px-4 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-[11px] sm:text-xs font-black font-display inline-flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-crown text-amber-400"></i> ميثاق الريادة والتفوق الأكاديمي 🏆
           </span>
-          <span class="px-2.5 sm:px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[11px] sm:text-sm font-black font-display shadow-2xs" id="routineOverallBadge">
+          <span class="px-3 sm:px-4 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[11px] sm:text-xs font-black font-display shadow-sm" id="routineOverallBadge">
             0% مكتمل اليوم ⚡
           </span>
         </div>
-        <h2 class="font-display font-black text-lg sm:text-2xl text-white leading-normal sm:leading-relaxed">
-          بوصلة الانضباط اليومي: مسار الـ 112 يوماً نحو <span class="whitespace-nowrap">المركز الأول 👑</span>
+        <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-normal sm:leading-relaxed">
+          بوصلة الانضباط اليومي: مسار الـ 112 يوماً نحو <span class="whitespace-nowrap text-amber-400">المركز الأول 👑</span>
         </h2>
       </div>
 
-      <!-- Quick Metrics Counters (Matching Roadmap & Languages Layout) -->
-      <div class="grid grid-cols-3 gap-2 sm:gap-3 w-full lg:w-auto shrink-0">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-white/15 text-center min-w-0">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-0.5 sm:mb-1">إنجاز اليوم</span>
+      <!-- Quick Metrics Counters -->
+      <div class="grid grid-cols-3 gap-2 sm:gap-3.5 w-full lg:w-auto shrink-0">
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">إنجاز اليوم</span>
           <div class="text-base sm:text-2xl font-black font-display text-emerald-300 font-mono" id="routineTodayDoneStat" dir="ltr">0 / 4</div>
           <span class="text-[10px] sm:text-2xs text-emerald-200/80 font-bold block mt-0.5">أركان اليوم</span>
         </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-white/15 text-center min-w-0">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-0.5 sm:mb-1">التزام 100%</span>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">التزام 100%</span>
           <div class="text-base sm:text-2xl font-black font-display text-amber-300 font-mono" id="routinePerfectDaysStat" dir="ltr">0</div>
           <span class="text-[10px] sm:text-2xs text-amber-200/80 font-bold block mt-0.5">يوم مثالي 👑</span>
         </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-2 sm:p-4 border border-white/15 text-center min-w-0">
-          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-0.5 sm:mb-1">الأيام المسجلة</span>
+        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-2.5 sm:p-4 border border-white/15 text-center min-w-0 shadow-inner">
+          <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">الأيام المسجلة</span>
           <div class="text-base sm:text-2xl font-black font-display text-blue-300 font-mono" id="routineLoggedDaysCount" dir="ltr">0 / 112</div>
           <span class="text-[10px] sm:text-2xs text-blue-200/80 font-bold block mt-0.5">يوم معتمد</span>
         </div>
@@ -41,15 +44,15 @@
     </div>
 
     <!-- Live Semester Progress Bar in Hero -->
-    <div class="mt-5 pt-4 border-t border-white/10">
-      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-1.5">
+    <div class="mt-6 pt-4 border-t border-white/10">
+      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
         <span class="flex items-center gap-2">
           <i class="fa-solid fa-bolt text-amber-400"></i> مؤشر الالتزام التراكمي بالترم:
         </span>
-        <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono" dir="ltr">0%</span>
+        <span id="routineOverallPercentText" class="text-emerald-300 font-black font-mono text-sm" dir="ltr">0%</span>
       </div>
-      <div class="w-full h-3 bg-slate-800/80 rounded-full overflow-hidden p-0.5 border border-white/10">
-        <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500" style="width: 0%;"></div>
+      <div class="w-full h-3.5 bg-slate-900/90 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
+        <div id="routineOverallProgressBar" class="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: 0%;"></div>
       </div>
     </div>
   </div>
@@ -58,12 +61,12 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
 
     <!-- RIGHT CARD: الركن الأول: الصلوات الخمس في أوقاتها -->
-    <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-sm space-y-4 card-lift flex flex-col justify-between">
+    <div class="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-7 shadow-md space-y-4 card-lift flex flex-col justify-between">
       <div>
         <!-- Header -->
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center text-lg shadow-md shadow-emerald-500/20 shrink-0">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-lg shadow-emerald-500/25 shrink-0">
               <i class="fa-solid fa-mosque"></i>
             </div>
             <div>
@@ -73,32 +76,32 @@
               <span class="text-xs text-slate-500 font-medium block mt-0.5">عماد الدين ومفتاح التوفيق والبركة</span>
             </div>
           </div>
-          <span class="px-3 py-1 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold font-mono shadow-2xs" id="prayersCountBadge">
+          <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold font-mono shadow-xs border border-emerald-200" id="prayersCountBadge">
             0 / 5 صلوات
           </span>
         </div>
 
         <!-- The 5 Prayers List -->
-        <div class="space-y-2 pt-3" id="prayersListContainer">
+        <div class="space-y-2.5 pt-3.5" id="prayersListContainer">
           <!-- Rendered dynamically by RoutineView.renderPrayers -->
         </div>
       </div>
 
       <!-- Prayer Spiritual Box -->
-      <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-center mt-2" id="prayersStatusBox">
+      <div class="p-3.5 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-center mt-3 shadow-xs" id="prayersStatusBox">
         <span class="text-xs sm:text-sm font-bold text-emerald-950" id="prayersStatusMsg">
           الصلاة عماد الدين.. ابدأ يومك بالبركة والسكينة 🌿
         </span>
       </div>
     </div>
 
-    <!-- LEFT CARD: الأركان الثلاثة (العادات اليومية) + زر الاعتماد المدمج -->
-    <div class="bg-white rounded-3xl border border-slate-200 p-5 sm:p-6 shadow-sm space-y-4 card-lift flex flex-col justify-between">
-      <div class="space-y-3">
+    <!-- LEFT CARD: الأركان الثلاثة (العادات اليومية) -->
+    <div class="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-7 shadow-md space-y-4 card-lift flex flex-col justify-between">
+      <div class="space-y-3.5">
         <!-- Header -->
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-2">
-          <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white flex items-center justify-center text-lg shadow-md shadow-indigo-500/20 shrink-0">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white flex items-center justify-center text-xl shadow-lg shadow-indigo-500/25 shrink-0">
               <i class="fa-solid fa-bolt"></i>
             </div>
             <div>
@@ -108,15 +111,15 @@
               <span class="text-xs text-slate-500 font-medium block mt-0.5">بناء التركيز الذهني والصلابة الجسدية</span>
             </div>
           </div>
-          <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-xl shadow-2xs" id="routineTodayCardBadge">
+          <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl shadow-xs" id="routineTodayCardBadge">
             3 عادات أساسية
           </span>
         </div>
 
         <!-- Habit 1: الورد القرآني -->
-        <div id="quranCardBox" class="p-3 sm:p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-teal-50/40">
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="quranCheck" onchange="toggleQuran()" class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6" />
+        <div id="quranCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-teal-50/50 shadow-xs">
+          <div class="flex items-center gap-3.5">
+            <input type="checkbox" id="quranCheck" onchange="toggleQuran()" class="checkbox-custom w-6 h-6" />
             <div>
               <label for="quranCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
                 الورد القرآني اليومي 🌿
@@ -125,14 +128,14 @@
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="quranStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="quranStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
 
         <!-- Habit 2: تمرين الجيم -->
-        <div id="gymCardBox" class="p-3 sm:p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-amber-50/40">
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="gymCheck" onchange="toggleGymStatus()" class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6" />
+        <div id="gymCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-amber-50/50 shadow-xs">
+          <div class="flex items-center gap-3.5">
+            <input type="checkbox" id="gymCheck" onchange="toggleGymStatus()" class="checkbox-custom w-6 h-6" />
             <div>
               <label for="gymCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
                 تمرين الجيم والقوة البدنية 💪
@@ -141,14 +144,14 @@
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="gymStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="gymStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
 
         <!-- Habit 3: النوم الصحي -->
-        <div id="sleepCardBox" class="p-3 sm:p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-indigo-50/40">
-          <div class="flex items-center gap-3">
-            <input type="checkbox" id="sleepCheck" onchange="toggleSleepStatus()" class="checkbox-custom w-5 h-5 sm:w-6 sm:h-6" />
+        <div id="sleepCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-indigo-50/50 shadow-xs">
+          <div class="flex items-center gap-3.5">
+            <input type="checkbox" id="sleepCheck" onchange="toggleSleepStatus()" class="checkbox-custom w-6 h-6" />
             <div>
               <label for="sleepCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
                 النوم الصحي والاستشفاء 😴
@@ -157,13 +160,13 @@
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-700" id="sleepStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="sleepStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
       </div>
 
-      <!-- Habits Motivation Box (Symmetrical to Prayers Box) -->
-      <div class="p-3 rounded-xl bg-indigo-50 border border-indigo-200 text-center mt-2">
+      <!-- Habits Motivation Box -->
+      <div class="p-3.5 rounded-2xl bg-indigo-50/90 border border-indigo-200 text-center mt-3 shadow-xs">
         <span class="text-xs sm:text-sm font-bold text-indigo-950">
           صحة البدن وصفاء الذهن.. أساس التركيز العالي والامتياز الأكاديمي 💡
         </span>
@@ -173,10 +176,10 @@
 
   </div>
 
-  <!-- 3. Full-Width Master Finalize Bar (طويل، ممتد بكامل العرض، وفوق سجل تشريح الأداء) -->
-  <div id="finalizeBar" class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-4 sm:p-6 border border-indigo-500/30 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4 card-lift">
-    <div class="flex items-center gap-3.5 text-center sm:text-right">
-      <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400/30 flex items-center justify-center text-xl text-amber-400 shrink-0 shadow-inner">
+  <!-- 3. Full-Width Master Finalize Bar -->
+  <div id="finalizeBar" class="bg-gradient-to-r from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 border border-indigo-500/30 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4 card-lift">
+    <div class="flex items-center gap-4 text-center sm:text-right">
+      <div class="w-13 h-13 rounded-2xl bg-gradient-to-br from-amber-500/20 to-amber-600/30 border border-amber-400/40 flex items-center justify-center text-2xl text-amber-400 shrink-0 shadow-lg shadow-amber-500/10">
         <i class="fa-solid fa-crown text-amber-400"></i>
       </div>
       <div>
@@ -186,7 +189,7 @@
           </span>
           <span class="text-xs text-slate-400 font-medium hidden sm:inline">خطوة الاعتماد الرسمي اليومي</span>
         </div>
-        <h4 class="font-display font-black text-sm sm:text-base text-white">
+        <h4 class="font-display font-black text-base sm:text-lg text-white">
           اعتماد إنجاز اليوم وتحديث السجل التراكمي 📊
         </h4>
       </div>
@@ -195,14 +198,14 @@
       type="button"
       onclick="finalizeTodayLog()" 
       id="finalizeDayBtn"
-      class="w-full sm:w-auto px-6 sm:px-8 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400/80 flex items-center justify-center gap-2 transition cursor-pointer select-none shadow-md shadow-amber-500/20 shrink-0"
+      class="w-full sm:w-auto px-7 sm:px-9 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-slate-950 font-display font-black text-sm sm:text-base border border-amber-400/80 flex items-center justify-center gap-2.5 transition cursor-pointer select-none shadow-lg shadow-amber-500/20 shrink-0"
     >
-      <i class="fa-solid fa-crown text-slate-950 text-sm" id="finalizeBtnIcon"></i>
+      <i class="fa-solid fa-crown text-slate-950 text-base" id="finalizeBtnIcon"></i>
       <span id="finalizeBtnText">تسجيل واعتماد اليوم ✅</span>
     </button>
   </div>
 
-  <!-- 3. Full-Width Cumulative History & Analytics Dashboard -->
+  <!-- 4. Full-Width Cumulative History & Analytics Dashboard -->
   <div id="routineDetailsContainer" class="space-y-6">
     <!-- Rendered dynamically by AchievementsView.renderRoutineAchievements -->
   </div>

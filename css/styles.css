@@ -1,13 +1,25 @@
 /* =========================================================================
-   JANAKLIS ACADEMIC OS - EYE-FRIENDLY LUXURY STYLESHEET (V56.0)
+   JANAKLIS ACADEMIC OS - ULTRA-LUXURY & MODERN DESIGN SYSTEM (V130.0)
    ========================================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;500;600;700;800;900&display=swap');
 
+:root {
+  --primary-navy: #091e3a;
+  --secondary-navy: #102a43;
+  --accent-gold: #f59e0b;
+  --accent-gold-dark: #d97706;
+  --emerald-accent: #10b981;
+  --light-bg: #f8fafc;
+  --card-border: #e2e8f0;
+}
+
 body {
   font-family: 'Cairo', sans-serif;
   background-color: #f1f5f9;
-  background-image: none;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.04) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.04) 0px, transparent 50%);
   color: #0f172a;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -15,13 +27,12 @@ body {
 }
 
 *, *::before, *::after {
-  transition: background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-              filter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 h1, h2, h3, h4, h5, .font-display {
@@ -31,13 +42,13 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   1. CALM LUXURY CHAMPAGNE & PEARL GOLD (EYE-FRIENDLY & HIGH CONTRAST)
+   1. ROYAL CHAMPAGNE GOLD & SHIMMER EFFECTS
    ========================================================================= */
 
 .gold-card-100 {
-  background: linear-gradient(135deg, #ffffff 0%, #fffdf7 50%, #fef9e8 100%) !important;
-  border: 1.5px solid #d97706 !important;
-  box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.12), 0 0 0 1px rgba(217, 119, 6, 0.18) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #fffdf5 50%, #fef3c7 100%) !important;
+  border: 2px solid #f59e0b !important;
+  box-shadow: 0 12px 30px -5px rgba(245, 158, 11, 0.22), 0 0 0 1px rgba(245, 158, 11, 0.3) !important;
   position: relative !important;
   overflow: hidden !important;
 }
@@ -52,7 +63,7 @@ h1, h2, h3, h4, h5, .font-display {
   background: linear-gradient(
     65deg,
     rgba(255, 255, 255, 0) 35%,
-    rgba(245, 158, 11, 0.1) 50%,
+    rgba(245, 158, 11, 0.15) 50%,
     rgba(255, 255, 255, 0) 65%
   ) !important;
   transform: rotate(35deg) !important;
@@ -76,10 +87,7 @@ h1, h2, h3, h4, h5, .font-display {
   100% { background-position: -200% 0; }
 }
 
-/* =========================================================================
-   2. SHIMMER PROGRESS LIGHT WAVES
-   ========================================================================= */
-
+/* Shimmer Light Waves for Progress Bars */
 .shimmer-progress-bar {
   position: relative;
   overflow: hidden;
@@ -92,7 +100,7 @@ h1, h2, h3, h4, h5, .font-display {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.5) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   animation: progressLightWave 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
@@ -105,47 +113,56 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   3. ADAPTIVE SUBJECT HOVER GLOWS
+   2. ADAPTIVE SUBJECT HOVER GLOWS & 3D CARD LIFT
    ========================================================================= */
+
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(30, 58, 138, 0.06) !important;
+}
 
 .hover-glow-blue:hover {
   border-color: #3b82f6 !important;
-  box-shadow: 0 12px 28px -6px rgba(59, 130, 246, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(59, 130, 246, 0.25) !important;
   transform: translateY(-3px);
 }
 
 .hover-glow-emerald:hover {
   border-color: #10b981 !important;
-  box-shadow: 0 12px 28px -6px rgba(16, 185, 129, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(16, 185, 129, 0.25) !important;
   transform: translateY(-3px);
 }
 
 .hover-glow-amber:hover {
   border-color: #f59e0b !important;
-  box-shadow: 0 12px 28px -6px rgba(245, 158, 11, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(245, 158, 11, 0.25) !important;
   transform: translateY(-3px);
 }
 
 .hover-glow-purple:hover {
   border-color: #a855f7 !important;
-  box-shadow: 0 12px 28px -6px rgba(168, 85, 247, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(168, 85, 247, 0.25) !important;
   transform: translateY(-3px);
 }
 
 .hover-glow-rose:hover {
   border-color: #f43f5e !important;
-  box-shadow: 0 12px 28px -6px rgba(244, 63, 94, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(244, 63, 94, 0.25) !important;
   transform: translateY(-3px);
 }
 
 .hover-glow-cyan:hover {
   border-color: #06b6d4 !important;
-  box-shadow: 0 12px 28px -6px rgba(6, 182, 212, 0.22) !important;
+  box-shadow: 0 14px 32px -6px rgba(6, 182, 212, 0.25) !important;
   transform: translateY(-3px);
 }
 
 /* =========================================================================
-   4. CHECKBOX POP & RIPPLE
+   3. CHECKBOX POP & RIPPLE
    ========================================================================= */
 
 .checkbox-custom {
@@ -161,7 +178,7 @@ h1, h2, h3, h4, h5, .font-display {
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   background-color: #ffffff;
   flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .checkbox-custom:hover {
@@ -184,7 +201,7 @@ h1, h2, h3, h4, h5, .font-display {
 @keyframes checkboxPopRipple {
   0% { transform: scale(0.88); }
   50% { transform: scale(1.18); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0.22); }
-  100% { transform: scale(1.05); box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3); }
+  100% { transform: scale(1.05); box-shadow: 0 3px 10px rgba(16, 185, 129, 0.35); }
 }
 
 .checkbox-custom:checked::before {
@@ -203,10 +220,9 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   5. LUXURY 3D HARDWARE-ACCELERATED ENGINE & TACTILE CONTROLS
+   4. NAVIGATION TABS & TACTILE CONTROLS
    ========================================================================= */
 
-/* Absolute Safety Guarantee: Clicks, inputs and buttons are NEVER obstructed */
 button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   position: relative;
   z-index: 10;
@@ -214,7 +230,7 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   cursor: pointer;
 }
 
-/* Modals: NEVER intercept pointer events when hidden (opacity-0 or pointer-events-none) */
+/* Modals: NEVER intercept pointer events when hidden */
 #cloudSyncModal.opacity-0,
 #dailyResultModal.opacity-0,
 #noteModal.opacity-0,
@@ -223,7 +239,6 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   visibility: hidden !important;
 }
 
-/* Modals top priority stacking ONLY when open and active */
 #cloudSyncModal:not(.opacity-0), 
 #dailyResultModal:not(.opacity-0), 
 #noteModal:not(.opacity-0) {
@@ -232,94 +247,15 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   visibility: visible !important;
 }
 
-
-/* 3D Dynamic Card Foundation */
-.card-lift, .card-3d {
-  position: relative;
-  transform: perspective(1200px);
-  transform-style: preserve-3d;
-  transition: transform 0.08s ease-out, box-shadow 0.28s ease, border-color 0.28s ease;
-  will-change: transform, box-shadow;
-}
-
-.card-lift.card-resetting, .card-3d.card-resetting {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease !important;
-}
-
-.card-lift:hover, .card-3d:hover {
-  box-shadow: 
-    0 22px 45px -12px rgba(15, 23, 42, 0.12),
-    0 8px 18px -4px rgba(99, 102, 241, 0.08),
-    0 0 0 1px rgba(99, 102, 241, 0.18) !important;
-}
-
-/* 3D Glossy Light Sheen (Crucial: pointer-events: none ensures zero click interference) */
-/* Gloss sheen disabled for calm, glare-free readability */
-.card-lift::after, .card-3d::after {
-  display: none !important;
-}
-
-/* Inner elements 3D Pop */
-.card-lift:hover .shrink-0.w-10.h-10,
-.card-lift:hover .shrink-0.w-9.h-9 {
-  transform: translateZ(24px) scale(1.08) rotate(-4deg);
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Routine checklist item hover elevation */
-#quranCardBox, #gymCardBox, #sleepCardBox, #prayersListContainer > div {
-  position: relative;
-  z-index: 10;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-}
-
-#quranCardBox:hover, #gymCardBox:hover, #sleepCardBox:hover, #prayersListContainer > div:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.08);
-}
-
-/* Checkbox 3D Bevel & Tactile Bounce */
-.checkbox-custom {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-.checkbox-custom:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25), 0 0 0 4px rgba(16, 185, 129, 0.15);
-}
-
-.checkbox-custom:active {
-  transform: scale(0.9) !important;
-}
-
-.checkbox-custom:checked {
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.6);
-}
-
-/* Crown Finalize Button: Calm, eye-friendly matte finish */
-#finalizeDayBtn {
-  position: relative;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
-  transition: all 0.15s ease !important;
-}
-
-#finalizeDayBtn:hover {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18) !important;
-}
-
-#finalizeDayBtn:active {
-  transform: translateY(1px) scale(0.97) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
-}
-
 /* Navigation Tabs 3D Depth & Emboss */
 .tab-btn {
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  position: relative;
 }
 
 .tab-btn:hover:not(.tab-btn-active) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 6px 16px -3px rgba(15, 23, 42, 0.08);
   background-color: #ffffff !important;
 }
 
@@ -328,30 +264,57 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
 }
 
 .tab-btn-active {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%) !important;
+  background: linear-gradient(135deg, #091e3a 0%, #102a43 50%, #1e3a8a 100%) !important;
   color: #ffffff !important;
-  box-shadow: 0 8px 22px -4px rgba(49, 46, 129, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.35) !important;
-  border-color: #4338ca !important;
-  transform: translateY(-2px) translateZ(10px);
+  box-shadow: 0 8px 24px -4px rgba(30, 58, 138, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3) !important;
+  border-color: #f59e0b !important;
+  transform: translateY(-2px);
 }
 
 .tab-btn-active i {
-  color: #fbbf24 !important;
-  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+  color: #f59e0b !important;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
 }
 
-/* Header Quick Buttons 3D Pop */
+.tab-btn-active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 3px;
+  background: #f59e0b;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Crown Finalize Button */
+#finalizeDayBtn {
+  position: relative;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+#finalizeDayBtn:hover {
+  box-shadow: 0 8px 22px rgba(217, 119, 6, 0.35) !important;
+  transform: translateY(-2px);
+}
+
+#finalizeDayBtn:active {
+  transform: translateY(1px) scale(0.97) !important;
+}
+
+/* Header Quick Buttons */
 #cloudSyncHeaderBadge, #soundToggleBtn {
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 #cloudSyncHeaderBadge:hover, #soundToggleBtn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 #cloudSyncHeaderBadge:active, #soundToggleBtn:active {
-  transform: translateY(1px) scale(0.95);
+  transform: translateY(1px) scale(0.96);
 }
 
 @keyframes smoothFadeInUp {
@@ -381,11 +344,7 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   background: #94a3b8;
 }
 
-/* =========================================================================
-   6. MOBILE TOUCH ENGINE & RESPONSIVE ADAPTATIONS (Phone & Tablet Optimization)
-   ========================================================================= */
-
-/* Native Mobile App Touch Ergonomics */
+/* Mobile Touch Tuning */
 * {
   -webkit-tap-highlight-color: transparent;
 }
@@ -394,61 +353,15 @@ button, a, input, select, textarea, .tab-btn, .checkbox-custom, [role="button"] 
   touch-action: manipulation;
 }
 
-/* Touch Device Rules (Disables sticky mouse hover, enables crisp tactile feedback) */
-@media (hover: none) {
-  .card-lift:hover, .card-3d:hover {
-    transform: none !important;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
-  }
-
-  .tab-btn:hover:not(.tab-btn-active) {
-    transform: none !important;
-  }
-}
-
-/* Mobile Screen Tuning (< 640px) */
 @media (max-width: 640px) {
   body {
     font-size: 13.5px;
     padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
   }
 
-  /* Sticky Navigation bar mobile padding */
-  .tab-btn {
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-  }
-
-  /* Checkbox mobile hit area */
   .checkbox-custom {
     width: 24px;
     height: 24px;
     min-width: 24px;
-  }
-
-  /* Tactile touch active state */
-  .tab-btn:active, 
-  button:active, 
-  .checkbox-custom:active,
-  #finalizeDayBtn:active {
-    transform: scale(0.95) !important;
-  }
-
-  /* Smooth momentum scrolling for modals & lists */
-  #modalNoteText, 
-  #cloudSyncModalCard, 
-  #dailyResultModalCard,
-  #incompleteDetailsWrapper {
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-/* Extra small screens (< 380px) */
-@media (max-width: 380px) {
-  .tab-btn span {
-    font-size: 10px !important;
-  }
-  .tab-btn i {
-    font-size: 12px !important;
   }
 }
