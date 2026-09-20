@@ -18,11 +18,10 @@ const FIREBASE_CONFIG = Object.freeze({
  */
 const TABS_CONFIG = Object.freeze({
   ROUTINE: 'routine',
-  CURRICULUM: 'curriculum',
   LANGUAGES: 'languages',
   ROADMAP: 'roadmap',
   PROGRAMMING: 'programming',
-  ALLOWED_TABS: Object.freeze(['routine', 'curriculum', 'languages', 'roadmap', 'programming'])
+  ALLOWED_TABS: Object.freeze(['routine', 'languages', 'roadmap', 'programming'])
 });
 
 /**
