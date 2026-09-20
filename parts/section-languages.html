@@ -4,41 +4,41 @@
 <section id="section-languages" class="space-y-6 hidden animate-slide-up">
 
   <!-- Language Track Hero Banner -->
-  <div class="bg-gradient-to-r from-slate-950 via-teal-950 to-slate-900 text-white rounded-3xl p-4 sm:p-7 shadow-2xl border border-emerald-500/30 relative overflow-hidden card-lift">
-    <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="bg-white text-slate-900 rounded-3xl p-4 sm:p-7 shadow-lg border border-slate-200 relative overflow-hidden card-lift">
+    <div class="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
       <div class="space-y-2.5">
         <div class="flex items-center gap-2 flex-wrap">
-          <span class="px-3 sm:px-4 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[11px] sm:text-xs font-black font-display inline-flex items-center gap-1.5 shadow-sm">
-            <i class="fa-solid fa-language text-emerald-400"></i> منهجية ZAmericanEnglish المعتمدة 🌐
+          <span class="px-3 sm:px-4 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-300 text-[11px] sm:text-xs font-black font-display inline-flex items-center gap-1.5 shadow-2xs">
+            <i class="fa-solid fa-language text-emerald-600"></i> منهجية ZAmericanEnglish المعتمدة 🌐
           </span>
-          <span class="px-3 sm:px-4 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[11px] sm:text-xs font-black font-display shadow-sm" id="langOverallBadge">
+          <span class="px-3 sm:px-4 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-300 text-[11px] sm:text-xs font-black font-display shadow-2xs" id="langOverallBadge">
             0% مكتمل
           </span>
         </div>
-        <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-normal sm:leading-relaxed">
-          المسار اللغوي الشامل: <span class="whitespace-nowrap text-emerald-400">من التأسيس</span> حتى <span class="whitespace-nowrap text-amber-400">طلاقة الـ IELTS والترجمة 🌐</span>
+        <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-slate-900 leading-normal sm:leading-relaxed">
+          المسار اللغوي الشامل: <span class="whitespace-nowrap text-emerald-600">من التأسيس</span> حتى <span class="whitespace-nowrap text-amber-600">طلاقة الـ IELTS والترجمة 🌐</span>
         </h2>
       </div>
 
       <!-- Live Language Progress Capsule -->
-      <div class="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-4 border border-white/15 text-center shrink-0 w-full lg:w-64 shadow-inner">
-        <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">الكورسات المنجزة:</span>
-        <div class="text-xl sm:text-2xl font-black font-display text-emerald-300 font-mono" id="langCompletedCount" dir="ltr">0 / 33</div>
-        <span class="text-[10px] sm:text-2xs text-emerald-200/80 font-medium block mt-0.5">مقرر معتمد وموثق</span>
+      <div class="bg-slate-50 rounded-2xl p-3 sm:p-4 border border-slate-200 text-center shrink-0 w-full lg:w-64 shadow-xs">
+        <span class="text-[10px] sm:text-xs text-slate-600 font-bold block mb-1">الكورسات المنجزة:</span>
+        <div class="text-xl sm:text-2xl font-black font-display text-emerald-700 font-mono" id="langCompletedCount" dir="ltr">0 / 33</div>
+        <span class="text-[10px] sm:text-2xs text-emerald-600 font-bold block mt-0.5">مقرر معتمد وموثق</span>
       </div>
     </div>
 
     <!-- Live Overall Progress Bar -->
-    <div class="mt-6 pt-4 border-t border-white/10">
-      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
+    <div class="mt-6 pt-4 border-t border-slate-200">
+      <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-700 mb-2">
         <span>مؤشر إتقان المسار اللغوي:</span>
-        <span id="langOverallPercentText" class="text-emerald-300 font-black font-mono text-sm">0%</span>
+        <span id="langOverallPercentText" class="text-emerald-700 font-black font-mono text-sm">0%</span>
       </div>
-      <div class="w-full h-3.5 bg-slate-900/90 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
-        <div id="langOverallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-300 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: 0%;"></div>
+      <div class="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden p-0.5 border border-slate-300 shadow-inner">
+        <div id="langOverallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: 0%;"></div>
       </div>
     </div>
   </div>
