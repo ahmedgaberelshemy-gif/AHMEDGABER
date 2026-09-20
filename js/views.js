@@ -67,7 +67,11 @@ class RoutineView {
     container.innerHTML = prayerOrder.map(prayer => {
       const isDone = prayers[prayer.id];
       return `
-        <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-2xl border transition shadow-2xs ${isDone ? 'bg-emerald-50/90 border-emerald-300' : 'bg-slate-50 border-slate-200'}">
+        <div class="flex items-center justify-between p-3.5 sm:p-4 rounded-2xl border transition shadow-sm ${
+          isDone 
+            ? 'bg-emerald-950/60 border-emerald-500/50 text-emerald-200 shadow-emerald-950/30' 
+            : 'bg-slate-800/40 border-slate-700/60 text-slate-200 hover:border-slate-600'
+        }">
           <div class="flex items-center gap-3.5">
             <input 
               type="checkbox" 
@@ -77,100 +81,28 @@ class RoutineView {
               class="checkbox-custom w-6 h-6"
             />
             <div>
-              <label for="prayer-${prayer.id}" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none leading-tight block ${isDone ? 'line-through text-slate-400' : ''}">
+              <label for="prayer-${prayer.id}" class="text-sm sm:text-base font-black text-slate-100 cursor-pointer select-none leading-tight block ${isDone ? 'line-through text-slate-400' : ''}">
                 ${prayer.name}
               </label>
-              <span class="text-[11px] text-slate-500 font-medium block mt-0.5">${prayer.time}</span>
+              <span class="text-[11px] text-slate-400 font-medium block mt-0.5">${prayer.time}</span>
             </div>
           </div>
-          ${isDone ? '<span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-lg">تمت بنجاح ✅</span>' : '<span class="text-xs font-bold text-slate-400">بانتظار الصلاة ⏳</span>'}
+          ${isDone ? '<span class="text-xs font-bold text-emerald-300 bg-emerald-900/60 border border-emerald-500/40 px-3 py-1 rounded-xl shadow-xs">تمت بنجاح ✅</span>' : '<span class="text-xs font-bold text-slate-400 bg-slate-800 px-3 py-1 rounded-xl border border-slate-700">بانتظار الصلاة ⏳</span>'}
         </div>
       `;
     }).join('');
 
     if (box && msg) {
       if (count === 5) {
-        box.className = 'p-3.5 rounded-2xl bg-emerald-100 border border-emerald-300 text-center mt-4';
+        box.className = 'p-3.5 rounded-2xl bg-emerald-950/60 border border-emerald-500/50 text-center mt-4';
         msg.innerHTML = '🎉 ما شاء الله! أتممت الصلوات الخمس كاملة في أوقاتها.. جعلها الله في ميزان حسناتك 🌿';
       } else {
-        box.className = 'p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center mt-4';
+        box.className = 'p-3.5 rounded-2xl bg-emerald-950/30 border border-emerald-800/40 text-center mt-4';
         msg.innerText = 'الصلاة عماد الدين.. حافظ على كل صلاة في وقتها لتنال التوفيق الأعظم 🌿';
       }
     }
   }
 
-  static renderGym(gym) {
-    const isDone = Boolean(gym.done);
-    const checkEl = document.getElementById('gymCheck');
-    const boxEl = document.getElementById('gymCardBox');
-    const badgeEl = document.getElementById('gymStatusBadge');
-    const msgEl = document.getElementById('gymStatusMsg');
-
-    if (checkEl) checkEl.checked = isDone;
-
-    if (isDone) {
-      if (boxEl) boxEl.className = 'p-5 rounded-2xl border transition flex items-center justify-between gap-3 bg-gradient-to-r from-amber-500/15 to-orange-500/10 border-amber-400 gold-glow-border shadow-xs';
-      if (badgeEl) {
-        badgeEl.className = 'text-xs font-black px-3 py-1 rounded-lg shimmer-gold text-slate-950 whitespace-nowrap shrink-0 shadow-md shadow-amber-500/20';
-        badgeEl.innerText = 'تم الإنجاز 💪🔥';
-      }
-      if (msgEl) msgEl.innerText = 'عاش يا وحش! بنيت قوتك وانضباطك النهاردة 🦍✨';
-    } else {
-      if (boxEl) boxEl.className = 'p-5 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200';
-      if (badgeEl) {
-        badgeEl.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-slate-200 text-slate-600 whitespace-nowrap shrink-0';
-        badgeEl.innerText = 'لم يتم ⏳';
-      }
-      if (msgEl) msgEl.innerText = 'لا أعذار.. تمرين اليوم يبني قوتك وصلابتك! 🔥';
-    }
-  }
-
-  static renderSleep(sleep) {
-    const isDone = Boolean(sleep.done);
-    const checkEl = document.getElementById('sleepCheck');
-    const boxEl = document.getElementById('sleepCardBox');
-    const badgeEl = document.getElementById('sleepStatusBadge');
-    const msgEl = document.getElementById('sleepEvalText');
-
-    if (checkEl) checkEl.checked = isDone;
-
-    if (isDone) {
-      if (boxEl) boxEl.className = 'p-4 sm:p-5 rounded-2xl border transition flex items-center justify-between gap-2 bg-gradient-to-r from-indigo-500/15 to-amber-500/10 border-indigo-400 gold-glow-border shadow-xs';
-      if (badgeEl) {
-        badgeEl.className = 'text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-600 text-white whitespace-nowrap shrink-0 shadow-2xs';
-        badgeEl.innerText = 'تم الالتزام ✅';
-      }
-      if (msgEl) msgEl.innerText = 'عاش يا بطل! أتممت ساعات النوم المثالية وجاهز للتركيز الأكاديمي 🌟';
-    } else {
-      if (boxEl) boxEl.className = 'p-4 sm:p-5 rounded-2xl border transition flex items-center justify-between gap-2 bg-slate-50 border-slate-200';
-      if (badgeEl) {
-        badgeEl.className = 'text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-200 text-slate-600 whitespace-nowrap shrink-0';
-        badgeEl.innerText = 'لم يتم ⏳';
-      }
-      if (msgEl) msgEl.innerText = 'النوم الصحي: بين 7 إلى 9 ساعات (لو أقل أو أكثر تُترك فارغة وتُحسب غير منجزة) ⚠️';
-    }
-  }
-
-  static renderQuran(quran) {
-    const checkEl = document.getElementById('quranCheck');
-    const cardBox = document.getElementById('quranCardBox');
-    const statusBadge = document.getElementById('quranStatusBadge');
-    const statusMsg = document.getElementById('quranStatusMsg');
-
-    if (checkEl) checkEl.checked = Boolean(quran.done);
-
-    if (quran.done) {
-      if (cardBox) cardBox.className = 'p-5 rounded-2xl border transition flex items-center justify-between gap-3 bg-gradient-to-r from-teal-500/15 to-amber-500/10 border-teal-400 gold-glow-border shadow-xs';
-      if (statusBadge) {
-        statusBadge.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-teal-600 text-white whitespace-nowrap shrink-0';
-        statusBadge.innerText = 'تمت التلاوة 📖';
-      }
-      if (statusMsg) statusMsg.innerText = 'تقبّل الله وردك وطاعتك.. نور وبركة لقلبك ويومك ✨';
-    } else {
-      if (cardBox) cardBox.className = 'p-5 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200';
-      if (statusBadge) {
-        statusBadge.className = 'text-xs font-bold px-3 py-1 rounded-lg bg-slate-200 text-slate-600 whitespace-nowrap shrink-0';
-        statusBadge.innerText = 'لم يتم ⏳';
       }
       if (statusMsg) statusMsg.innerText = '﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾ 🌿';
     }

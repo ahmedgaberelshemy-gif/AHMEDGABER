@@ -61,22 +61,22 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
 
     <!-- RIGHT CARD: الركن الأول: الصلوات الخمس في أوقاتها -->
-    <div class="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-7 shadow-md space-y-4 card-lift flex flex-col justify-between">
+    <div class="bg-slate-900/85 backdrop-blur-xl rounded-3xl border border-slate-800 p-5 sm:p-7 shadow-2xl space-y-4 card-lift flex flex-col justify-between">
       <div>
         <!-- Header -->
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800 gap-2">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-lg shadow-emerald-500/25 shrink-0">
               <i class="fa-solid fa-mosque"></i>
             </div>
             <div>
-              <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-tight">
+              <h3 class="font-display font-black text-base sm:text-lg text-white leading-tight">
                 الركن الأول: الصلوات الخمس في أوقاتها
               </h3>
-              <span class="text-xs text-slate-500 font-medium block mt-0.5">عماد الدين ومفتاح التوفيق والبركة</span>
+              <span class="text-xs text-slate-400 font-medium block mt-0.5">عماد الدين ومفتاح التوفيق والبركة</span>
             </div>
           </div>
-          <span class="px-3 py-1.5 rounded-xl bg-emerald-100 text-emerald-800 text-xs font-bold font-mono shadow-xs border border-emerald-200" id="prayersCountBadge">
+          <span class="px-3 py-1.5 rounded-xl bg-emerald-950/80 text-emerald-300 text-xs font-bold font-mono shadow-xs border border-emerald-700/50" id="prayersCountBadge">
             0 / 5 صلوات
           </span>
         </div>
@@ -88,86 +88,86 @@
       </div>
 
       <!-- Prayer Spiritual Box -->
-      <div class="p-3.5 rounded-2xl bg-emerald-50/90 border border-emerald-200 text-center mt-3 shadow-xs" id="prayersStatusBox">
-        <span class="text-xs sm:text-sm font-bold text-emerald-950" id="prayersStatusMsg">
+      <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-800/60 text-center mt-3 shadow-xs" id="prayersStatusBox">
+        <span class="text-xs sm:text-sm font-bold text-emerald-300" id="prayersStatusMsg">
           الصلاة عماد الدين.. ابدأ يومك بالبركة والسكينة 🌿
         </span>
       </div>
     </div>
 
     <!-- LEFT CARD: الأركان الثلاثة (العادات اليومية) -->
-    <div class="bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-7 shadow-md space-y-4 card-lift flex flex-col justify-between">
+    <div class="bg-slate-900/85 backdrop-blur-xl rounded-3xl border border-slate-800 p-5 sm:p-7 shadow-2xl space-y-4 card-lift flex flex-col justify-between">
       <div class="space-y-3.5">
         <!-- Header -->
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100 gap-2">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800 gap-2">
           <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white flex items-center justify-center text-xl shadow-lg shadow-indigo-500/25 shrink-0">
               <i class="fa-solid fa-bolt"></i>
             </div>
             <div>
-              <h3 class="font-display font-black text-base sm:text-lg text-slate-900 leading-tight">
+              <h3 class="font-display font-black text-base sm:text-lg text-white leading-tight">
                 الأركان الثلاثة: العادات اليومية للقوة والانضباط
               </h3>
-              <span class="text-xs text-slate-500 font-medium block mt-0.5">بناء التركيز الذهني والصلابة الجسدية</span>
+              <span class="text-xs text-slate-400 font-medium block mt-0.5">بناء التركيز الذهني والصلابة الجسدية</span>
             </div>
           </div>
-          <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl shadow-xs" id="routineTodayCardBadge">
+          <span class="text-xs font-bold text-indigo-300 bg-indigo-950/80 border border-indigo-700/50 px-3 py-1.5 rounded-xl shadow-xs" id="routineTodayCardBadge">
             3 عادات أساسية
           </span>
         </div>
 
         <!-- Habit 1: الورد القرآني -->
-        <div id="quranCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-teal-50/50 shadow-xs">
+        <div id="quranCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-800/50 border-slate-700/60 hover:border-teal-500/50 shadow-xs">
           <div class="flex items-center gap-3.5">
             <input type="checkbox" id="quranCheck" onchange="toggleQuran()" class="checkbox-custom w-6 h-6" />
             <div>
-              <label for="quranCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
+              <label for="quranCheck" class="text-sm sm:text-base font-black text-white cursor-pointer select-none block leading-tight">
                 الورد القرآني اليومي 🌿
               </label>
-              <span class="text-2xs sm:text-xs text-slate-500 font-medium block mt-0.5">نور القلب وصفاء الذهن والذاكرة</span>
+              <span class="text-2xs sm:text-xs text-slate-400 font-medium block mt-0.5">نور القلب وصفاء الذهن والذاكرة</span>
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="quranStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-800 text-slate-400 border border-slate-700" id="quranStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
 
         <!-- Habit 2: تمرين الجيم -->
-        <div id="gymCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-amber-50/50 shadow-xs">
+        <div id="gymCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-800/50 border-slate-700/60 hover:border-amber-500/50 shadow-xs">
           <div class="flex items-center gap-3.5">
             <input type="checkbox" id="gymCheck" onchange="toggleGymStatus()" class="checkbox-custom w-6 h-6" />
             <div>
-              <label for="gymCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
+              <label for="gymCheck" class="text-sm sm:text-base font-black text-white cursor-pointer select-none block leading-tight">
                 تمرين الجيم والقوة البدنية 💪
               </label>
-              <span class="text-2xs sm:text-xs text-slate-500 font-medium block mt-0.5">بناء القوة البدنية والنشاط الذهني المتجدد</span>
+              <span class="text-2xs sm:text-xs text-slate-400 font-medium block mt-0.5">بناء القوة البدنية والنشاط الذهني المتجدد</span>
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="gymStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-800 text-slate-400 border border-slate-700" id="gymStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
 
         <!-- Habit 3: النوم الصحي -->
-        <div id="sleepCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-50 border-slate-200 hover:bg-indigo-50/50 shadow-xs">
+        <div id="sleepCardBox" class="p-3.5 sm:p-4 rounded-2xl border transition flex items-center justify-between gap-3 bg-slate-800/50 border-slate-700/60 hover:border-indigo-500/50 shadow-xs">
           <div class="flex items-center gap-3.5">
             <input type="checkbox" id="sleepCheck" onchange="toggleSleepStatus()" class="checkbox-custom w-6 h-6" />
             <div>
-              <label for="sleepCheck" class="text-sm sm:text-base font-black text-slate-900 cursor-pointer select-none block leading-tight">
+              <label for="sleepCheck" class="text-sm sm:text-base font-black text-white cursor-pointer select-none block leading-tight">
                 النوم الصحي والاستشفاء 😴
               </label>
-              <span class="text-2xs sm:text-xs text-slate-500 font-medium block mt-0.5">7 إلى 9 ساعات لتجديد خلايا المخ وتثبيت الحفظ</span>
+              <span class="text-2xs sm:text-xs text-slate-400 font-medium block mt-0.5">7 إلى 9 ساعات لتجديد خلايا المخ وتثبيت الحفظ</span>
             </div>
           </div>
           <div class="text-left shrink-0">
-            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-200 text-slate-700" id="sleepStatusBadge">لم يتم ⏳</span>
+            <span class="text-xs font-bold px-3 py-1 rounded-xl bg-slate-800 text-slate-400 border border-slate-700" id="sleepStatusBadge">لم يتم ⏳</span>
           </div>
         </div>
       </div>
 
       <!-- Habits Motivation Box -->
-      <div class="p-3.5 rounded-2xl bg-indigo-50/90 border border-indigo-200 text-center mt-3 shadow-xs">
-        <span class="text-xs sm:text-sm font-bold text-indigo-950">
+      <div class="p-3.5 rounded-2xl bg-indigo-950/40 border border-indigo-800/60 text-center mt-3 shadow-xs">
+        <span class="text-xs sm:text-sm font-bold text-indigo-200">
           صحة البدن وصفاء الذهن.. أساس التركيز العالي والامتياز الأكاديمي 💡
         </span>
       </div>
