@@ -941,25 +941,15 @@ class LanguageTrackService {
 // =========================================================================
 class ProgrammingService {
   static togglePillar(state, pillarId) {
-    if (!state.programmingCourses) state.programmingCourses = {};
-    const current = Boolean(state.programmingCourses[pillarId]);
-    state.programmingCourses[pillarId] = !current;
-    return state.programmingCourses[pillarId];
+    return false;
   }
 
   static isDone(state, pillarId) {
-    return Boolean(state.programmingCourses && state.programmingCourses[pillarId]);
+    return false;
   }
 
   static getOverallStats(state) {
-    const pillars = ['ai_01', 'ai_02', 'ai_03', 'ai_04'];
-    let done = 0;
-    pillars.forEach(id => {
-      if (this.isDone(state, id)) done++;
-    });
-    const total = pillars.length;
-    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
-    return { total, done, percent };
+    return { total: 0, done: 0, percent: 0 };
   }
 }
 

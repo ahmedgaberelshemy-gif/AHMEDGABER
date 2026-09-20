@@ -399,155 +399,145 @@ class AchievementsView {
   }
 }
 
-// 3. PROGRAMMING VIEW (AI & Data Analysis)
+// 3. PROGRAMMING VIEW (AI & Data Analysis - Clean & Zeroed-Out State)
 class ProgrammingView {
   static render(state = {}) {
     const container = document.getElementById('programmingCoursesContainer');
     if (!container) return;
 
-    const stats = typeof ProgrammingService !== 'undefined' 
-      ? ProgrammingService.getOverallStats(state) 
-      : { total: 4, done: 0, percent: 0 };
-
-    const pillars = [
-      {
-        id: 'ai_01',
-        num: 'المحور 01',
-        title: 'الذكاء الاصطناعي التوليدي',
-        subtitle: 'Generative AI & Prompt Engineering',
-        icon: 'fa-robot',
-        color: 'purple',
-        desc: 'تطبيقات (ChatGPT, Claude, Copilot) في البحث الأكاديمي، صياغة التقارير الإدارية، وتوليد الأفكار التسويقية وحل المشكلات التكتيكية.',
-        feature: 'صياغة الأوامر الاحترافية',
-        tag: 'تطبيق إداري مباشر ⚡'
-      },
-      {
-        id: 'ai_02',
-        num: 'المحور 02',
-        title: 'تحليل البيانات بـ Excel المتقدم',
-        subtitle: 'Advanced Excel for Business Analytics',
-        icon: 'fa-file-excel',
-        color: 'emerald',
-        desc: 'الدوال المركبة (VLOOKUP, XLOOKUP, INDEX/MATCH)، الجداول الديناميكية Pivot Tables، والتحليل المالي لربط القوائم المحاسبية.',
-        feature: 'النمذجة المحاسبية والمالية',
-        tag: 'أساسيات المحاسبة والإدارة 📈'
-      },
-      {
-        id: 'ai_03',
-        num: 'المحور 03',
-        title: 'لوحات القيادة بـ Power BI',
-        subtitle: 'Business Intelligence & Power BI',
-        icon: 'fa-chart-pie',
-        color: 'amber',
-        desc: 'ربط مصادر البيانات المتعددة، تنظيف البيانات بـ Power Query، وبناء لوحات المراقبة التفاعلية للمبيعات والأداء المؤسسي.',
-        feature: 'تصور البيانات التفاعلي',
-        tag: 'إشراف وقيادة المنظمات 👑'
-      },
-      {
-        id: 'ai_04',
-        num: 'المحور 04',
-        title: 'برمجة وبحوث البيانات بـ Python',
-        subtitle: 'Python for Data Analysis & Automation',
-        icon: 'fa-python',
-        isBrand: true,
-        color: 'blue',
-        desc: 'استخدام مكتبات (Pandas, NumPy, Matplotlib) للمعالجة التلقائية للبيانات الضخمة واستخلاص مؤشرات الأداء الرئيسية.',
-        feature: 'الأتمتة واستخراج الرؤى',
-        tag: 'مهارة المستقبل المطلوبة 🏆'
-      }
-    ];
-
-    const badgeText = stats.percent === 0 
-      ? '0% | انطلاقة عصر الذكاء الاصطناعي 📊' 
-      : (stats.percent === 100 ? '100% إتقان تام للمحاور 👑' : `${stats.percent}% مكتمل 📊`);
-
-    const pillarsCardsHtml = pillars.map(p => {
-      const isDone = typeof ProgrammingService !== 'undefined' ? ProgrammingService.isDone(state, p.id) : false;
-      return `
-        <div class="bg-white rounded-3xl border-2 ${isDone ? 'border-emerald-500 shadow-xl bg-emerald-50/20' : 'border-slate-200 shadow-lg'} p-5 sm:p-6 space-y-4 card-lift hover-glow-${p.color} transition-all">
-          <div class="flex items-center justify-between pb-3.5 border-b border-slate-200 gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <input 
-                type="checkbox" 
-                id="programming-${p.id}" 
-                ${isDone ? 'checked' : ''} 
-                onchange="app.toggleProgrammingPillar('${p.id}')" 
-                class="checkbox-custom w-6 h-6 shrink-0"
-              />
-              <div class="w-11 h-11 rounded-2xl bg-${p.color}-50 text-${p.color}-600 border border-${p.color}-200 flex items-center justify-center text-xl shadow-xs shrink-0">
-                <i class="${p.isBrand ? 'fa-brands' : 'fa-solid'} ${p.icon} text-${p.color}-600"></i>
-              </div>
-              <div class="min-w-0 flex-1">
-                <label for="programming-${p.id}" class="font-display font-black text-base sm:text-lg cursor-pointer select-none leading-snug block ${isDone ? 'line-through text-slate-400' : 'text-slate-900'}">
-                  ${p.title}
-                </label>
-                <span class="text-xs text-slate-500 font-bold block truncate">${p.subtitle}</span>
-              </div>
-            </div>
-            <span class="px-3 py-1 rounded-xl text-xs font-black shrink-0 ${isDone ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
-              ${isDone ? 'مكتمل ✅' : 'بانتظار الإنجاز ⏳'}
-            </span>
-          </div>
-          <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
-            ${p.desc}
-          </p>
-          <div class="pt-2 flex items-center justify-between text-xs font-bold text-slate-500 border-t border-slate-100">
-            <span><i class="fa-solid fa-circle-check text-${p.color}-600"></i> ${p.feature}</span>
-            <span class="text-${p.color}-700">${p.tag}</span>
-          </div>
-        </div>
-      `;
-    }).join('');
-
     container.innerHTML = `
       <div class="col-span-full space-y-6">
 
-        <!-- AI & Data Track Hero Banner -->
-        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 sm:p-7 shadow-2xl border-b-4 border-purple-500 relative overflow-hidden card-lift">
+        <!-- AI & Data Track Hero Banner (Zeroed State) -->
+        <div class="bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border-b-4 border-purple-500 relative overflow-hidden card-lift">
           <div class="absolute -right-20 -top-20 w-64 h-64 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
           <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-          <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 sm:gap-6">
-            <div class="space-y-2.5">
+          <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div class="space-y-3 max-w-2xl">
               <div class="flex items-center gap-2 flex-wrap">
                 <span class="px-3.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-400/40 text-xs font-black font-display inline-flex items-center gap-1.5 shadow-sm">
                   <i class="fa-solid fa-brain text-purple-400"></i> مسار الذكاء الاصطناعي وتحليل البيانات 📊🤖
                 </span>
-                <span class="px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 text-xs font-black font-display shadow-sm">
-                  ${badgeText}
+                <span class="px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 text-xs font-black font-display shadow-sm">
+                  0% | صفاء ذهني وجاهزية تامة 🚀
                 </span>
               </div>
               <h2 class="font-display font-black text-xl sm:text-2xl lg:text-3xl text-white leading-normal sm:leading-relaxed">
-                دعم اتخاذ القرار الإداري <span class="text-purple-400">بأدوات الـ AI</span> و <span class="text-amber-400">تكنولوچيا البيانات 📊</span>
+                تطويع أدوات العصر الحديث <span class="text-purple-400">بذكاء ورؤية واضحة 💡</span>
               </h2>
-              <p class="text-xs sm:text-sm text-slate-300 font-medium">
-                إتقان أدوات الذكاء الاصطناعي التوليدي، تحليل البيانات المالية والإدارية، ولوحات التقرير التفاعلية (Power BI & Advanced Excel)
+              <p class="text-xs sm:text-sm text-slate-300 font-medium leading-relaxed">
+                هنا مساحتك الخاصة لاكتساب مهارات المستقبل دون ضغوط أو أعباء متراكمة. المسار متصفر بالكامل لتبدأ رحلتك بصفحة بيضاء وبخطوات واثقة وهدوء تام عندما تقرر الانطلاق.
               </p>
             </div>
 
-            <!-- Live Progress Metric Capsule -->
-            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 text-center shrink-0 w-full lg:w-64 shadow-inner">
-              <span class="text-[10px] sm:text-xs text-slate-300 font-bold block mb-1">المحاور المنجزة:</span>
-              <div class="text-2xl sm:text-3xl font-black font-display text-purple-300 font-mono" dir="ltr">${stats.done} / ${stats.total}</div>
-              <span class="text-[10px] sm:text-xs text-purple-300 font-bold block mt-0.5">${stats.percent === 0 ? 'جاهزية كاملة للانطلاق 🚀' : stats.percent + '% إتقان تخصصي ⚡'}</span>
+            <!-- Live Zero Metric Capsule -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15 text-center shrink-0 w-full lg:w-72 shadow-inner space-y-2">
+              <span class="text-[11px] sm:text-xs text-slate-300 font-bold block">مؤشر الإنجاز الحالي:</span>
+              <div class="text-3xl sm:text-4xl font-black font-display text-purple-300 font-mono" dir="ltr">0%</div>
+              <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-400/30 px-3 py-1 rounded-full">
+                <i class="fa-solid fa-circle-check text-xs"></i> متصفر ونظيف وجاهز 🎯
+              </div>
             </div>
           </div>
 
-          <!-- Overall AI Progress Bar -->
+          <!-- Subtle Clean Progress Line (0%) -->
           <div class="mt-6 pt-4 border-t border-white/10">
             <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-300 mb-2">
-              <span class="flex items-center gap-2"><i class="fa-solid fa-chart-line text-purple-400"></i> مؤشر إتقان مسار الذكاء الاصطناعي والبيانات:</span>
-              <span class="text-purple-300 font-black font-mono text-sm">${stats.percent}%</span>
+              <span class="flex items-center gap-2"><i class="fa-solid fa-sparkles text-purple-400"></i> جاهزية المسار للبدء:</span>
+              <span class="text-purple-300 font-black font-mono text-sm">0%</span>
             </div>
-            <div class="w-full h-3.5 bg-slate-900/80 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
-              <div class="h-full bg-gradient-to-r from-purple-500 via-indigo-500 to-emerald-400 rounded-full transition-all duration-500 shimmer-progress-bar" style="width: ${stats.percent}%;"></div>
+            <div class="w-full h-3 bg-slate-900/80 rounded-full overflow-hidden p-0.5 border border-white/15 shadow-inner">
+              <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
             </div>
           </div>
         </div>
 
-        <!-- 4 Core AI & Data Analysis Pillars Grid with Checkboxes -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-          ${pillarsCardsHtml}
+        <!-- Inspiring Cards Grid ("شوية كلام حلو") -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          
+          <!-- Card 1: الصفاء والبداية -->
+          <div class="bg-white rounded-3xl border-2 border-slate-200 p-6 shadow-md card-lift hover-glow-purple flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center text-2xl shadow-xs">
+                <i class="fa-solid fa-compass-drafting"></i>
+              </div>
+              <h3 class="font-display font-black text-lg text-slate-900">
+                صفاء ذهني وبداية نقية 🌿
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
+                «أعظم الإنجازات تبدأ دائماً بصفحة بيضاء وعزيمة صادقة». هذا المسار مفرغ تماماً من أي التزامات قديمة لتتحرك فيه بحرية ومرونة تناسب جدولك وطاقتك.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-700">
+              <span><i class="fa-solid fa-feather text-purple-500"></i> انطلاقة مرنة</span>
+              <span class="bg-purple-50 px-2.5 py-1 rounded-lg border border-purple-200">راحة بال 🕊️</span>
+            </div>
+          </div>
+
+          <!-- Card 2: التفكير الذكي -->
+          <div class="bg-white rounded-3xl border-2 border-slate-200 p-6 shadow-md card-lift hover-glow-blue flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-2xl shadow-xs">
+                <i class="fa-solid fa-lightbulb"></i>
+              </div>
+              <h3 class="font-display font-black text-lg text-slate-900">
+                قوة العقل والأدوات 💡
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
+                الذكاء الاصطناعي لا يستبدل العقول المفكرة، بل يمنحها أجنحة لتصل لأهدافها أسرع. خطوتك القادمة ستكون مبنية على الوعي والاختيار الأنسب لرحلتك.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
+              <span><i class="fa-solid fa-bolt text-blue-500"></i> مهارة مضاعفة</span>
+              <span class="bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">رؤية مستقبلية 🚀</span>
+            </div>
+          </div>
+
+          <!-- Card 3: التدرج والريادة -->
+          <div class="bg-white rounded-3xl border-2 border-slate-200 p-6 shadow-md card-lift hover-glow-emerald flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center text-2xl shadow-xs">
+                <i class="fa-solid fa-mountain-sun"></i>
+              </div>
+              <h3 class="font-display font-black text-lg text-slate-900">
+                قليل دائم خير من كثير منقطع 🌱
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 font-bold leading-relaxed">
+                النجاح التراكمي سر التفوق. كل يوم تكتسب فيه معلومة جديدة أو تتقن فكرة إدارية ذكية يقربك خطوات نحو القمة والامتياز الحقيقي المستدام.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+              <span><i class="fa-solid fa-seedling text-emerald-500"></i> نمو مستمر</span>
+              <span class="bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">القمة هدفنا 👑</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive AI Mentor Banner Button -->
+        <div class="bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 border-2 border-purple-200/80 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-4 text-right">
+            <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl shadow-md shrink-0 animate-pulse">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <div>
+              <h4 class="font-display font-black text-slate-900 text-base sm:text-lg">
+                هل تريد استشارة أو مناقشة فكرة مع المرشد الذكي؟ 🤖
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 font-medium">
+                المرشد الأكاديمي والمهني جاهز دائماً للإجابة على تساؤلاتك ومساعدتك في أي وقت.
+              </p>
+            </div>
+          </div>
+          <button 
+            type="button"
+            onclick="openAiMentorModal()" 
+            class="px-5 py-3 rounded-2xl font-display font-black text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-md shadow-purple-500/20 active:scale-95 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+          >
+            <i class="fa-solid fa-comments"></i>
+            <span>تحدث مع المرشد الذكي 💬</span>
+          </button>
         </div>
 
       </div>
