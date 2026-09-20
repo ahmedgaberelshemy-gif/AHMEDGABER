@@ -71,51 +71,57 @@ const APP_CONFIG = Object.freeze({
 
 const colorStyles = Object.freeze({
   blue: {
-    cardBg: 'bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent',
-    border: 'border-blue-200/90 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10',
+    cardBg: 'bg-gradient-to-br from-blue-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-blue-500/40 hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/10',
     badge: 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-blue-500 to-indigo-600 shadow-md shadow-blue-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-blue-100/80 text-blue-950 border-blue-200 font-bold'
+    bulletBg: 'bg-blue-950/80 text-blue-200 border-blue-800/60 font-bold',
+    progressBar: 'bg-blue-500'
   },
   emerald: {
-    cardBg: 'bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent',
-    border: 'border-emerald-200/90 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10',
+    cardBg: 'bg-gradient-to-br from-emerald-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-emerald-500/40 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-500/10',
     badge: 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-emerald-500 to-teal-600 shadow-md shadow-emerald-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-emerald-100/80 text-emerald-950 border-emerald-200 font-bold'
+    bulletBg: 'bg-emerald-950/80 text-emerald-200 border-emerald-800/60 font-bold',
+    progressBar: 'bg-emerald-500'
   },
   amber: {
-    cardBg: 'bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent',
-    border: 'border-amber-200/90 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10',
+    cardBg: 'bg-gradient-to-br from-amber-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-amber-500/40 hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/10',
     badge: 'bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-amber-500 to-orange-600 shadow-md shadow-amber-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-amber-100/80 text-amber-950 border-amber-200 font-bold'
+    bulletBg: 'bg-amber-950/80 text-amber-200 border-amber-800/60 font-bold',
+    progressBar: 'bg-amber-500'
   },
   purple: {
-    cardBg: 'bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent',
-    border: 'border-purple-200/90 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10',
+    cardBg: 'bg-gradient-to-br from-purple-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-purple-500/40 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-500/10',
     badge: 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-purple-500 to-indigo-600 shadow-md shadow-purple-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-purple-100/80 text-purple-950 border-purple-200 font-bold'
+    bulletBg: 'bg-purple-950/80 text-purple-200 border-purple-800/60 font-bold',
+    progressBar: 'bg-purple-500'
   },
   rose: {
-    cardBg: 'bg-gradient-to-br from-rose-500/10 via-rose-500/5 to-transparent',
-    border: 'border-rose-200/90 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-500/10',
+    cardBg: 'bg-gradient-to-br from-rose-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-rose-500/40 hover:border-rose-400 hover:shadow-lg hover:shadow-rose-500/10',
     badge: 'bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-rose-500 to-pink-600 shadow-md shadow-rose-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-rose-100/80 text-rose-950 border-rose-200 font-bold'
+    bulletBg: 'bg-rose-950/80 text-rose-200 border-rose-800/60 font-bold',
+    progressBar: 'bg-rose-500'
   },
   cyan: {
-    cardBg: 'bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent',
-    border: 'border-cyan-200/90 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/10',
+    cardBg: 'bg-gradient-to-br from-cyan-950/40 via-slate-900/80 to-slate-950',
+    border: 'border-cyan-500/40 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/10',
     badge: 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xs',
     iconBg: 'bg-gradient-to-br from-cyan-600 to-blue-600 shadow-md shadow-cyan-500/25',
     iconColor: 'text-white',
-    bulletBg: 'bg-cyan-100/80 text-cyan-950 border-cyan-200 font-bold'
+    bulletBg: 'bg-cyan-950/80 text-cyan-200 border-cyan-800/60 font-bold',
+    progressBar: 'bg-cyan-500'
   }
 });
