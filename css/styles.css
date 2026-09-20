@@ -220,7 +220,7 @@ h1, h2, h3, h4, h5, .font-display {
 }
 
 /* =========================================================================
-   4. NAVIGATION TABS & TACTILE CONTROLS (BRIGHT ELEGANT LIGHT THEME)
+   4. NAVIGATION TABS DYNAMIC COLOR-MATCHED ACTIVE SYSTEM
    ========================================================================= */
 
 button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
@@ -247,50 +247,140 @@ button, input, label, a, select, textarea, .checkbox-custom, .tab-btn {
   visibility: visible !important;
 }
 
-/* Navigation Tabs 3D Depth & Bright Light Colors */
 .tab-btn {
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
   position: relative;
   background-color: #ffffff !important;
   color: #334155 !important;
-  border: 1px solid #cbd5e1 !important;
-  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+  border: 2px solid #e2e8f0 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03) !important;
+  overflow: hidden;
 }
 
 .tab-btn:hover:not(.tab-btn-active) {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.1) !important;
-  background-color: #f8fafc !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12) !important;
+  background-color: #ffffff !important;
   color: #0f172a !important;
-  border-color: #94a3b8 !important;
+  border-color: #cbd5e1 !important;
 }
 
 .tab-btn:active {
   transform: translateY(1px) scale(0.97) !important;
 }
 
+/* Base Active Fallback */
 .tab-btn-active {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-  color: #0f172a !important;
-  box-shadow: 0 10px 24px -4px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-3px) scale(1.01) !important;
+  font-weight: 900 !important;
+}
+
+/* 1. ROUTINE TAB ACTIVE (Amber Gold Royalty) */
+.tab-active-routine,
+#tabBtn-routine.tab-btn-active {
+  background: linear-gradient(135deg, #fffdf5 0%, #fff7ed 100%) !important;
+  color: #78350f !important;
   border: 2px solid #f59e0b !important;
-  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.35), 0 0 0 3px rgba(245, 158, 11, 0.15) !important;
 }
-
-.tab-btn-active i {
-  color: #d97706 !important;
-  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
-}
-
-.tab-btn-active::before {
+.tab-active-routine::before,
+#tabBtn-routine.tab-btn-active::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 15%;
-  right: 15%;
-  height: 3px;
-  background: #f59e0b;
-  border-radius: 0 0 4px 4px;
+  top: 0; left: 10%; right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, #fbbf24, #f59e0b, #d97706);
+  border-radius: 0 0 6px 6px;
+}
+#tabBtn-routine.tab-btn-active > div:first-child {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  border-color: #b45309 !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
+  transform: scale(1.08);
+}
+#tabBtn-routine.tab-btn-active i {
+  color: #0f172a !important;
+}
+
+/* 2. LANGUAGES TAB ACTIVE (Emerald Teal Mastery) */
+.tab-active-languages,
+#tabBtn-languages.tab-btn-active {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  color: #064e3b !important;
+  border: 2px solid #10b981 !important;
+  box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.35), 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+}
+.tab-active-languages::before,
+#tabBtn-languages.tab-btn-active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, #34d399, #10b981, #059669);
+  border-radius: 0 0 6px 6px;
+}
+#tabBtn-languages.tab-btn-active > div:first-child {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-color: #047857 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+  transform: scale(1.08);
+}
+#tabBtn-languages.tab-btn-active i {
+  color: #ffffff !important;
+}
+
+/* 3. ROADMAP TAB ACTIVE (Royal Blue Sapphire) */
+.tab-active-roadmap,
+#tabBtn-roadmap.tab-btn-active {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+  color: #1e3a8a !important;
+  border: 2px solid #3b82f6 !important;
+  box-shadow: 0 12px 28px -4px rgba(59, 130, 246, 0.35), 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+}
+.tab-active-roadmap::before,
+#tabBtn-roadmap.tab-btn-active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, #60a5fa, #3b82f6, #1d4ed8);
+  border-radius: 0 0 6px 6px;
+}
+#tabBtn-roadmap.tab-btn-active > div:first-child {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  border-color: #1e40af !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+  transform: scale(1.08);
+}
+#tabBtn-roadmap.tab-btn-active i {
+  color: #ffffff !important;
+}
+
+/* 4. PROGRAMMING TAB ACTIVE (Amethyst Purple Vision) */
+.tab-active-programming,
+#tabBtn-programming.tab-btn-active {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%) !important;
+  color: #581c87 !important;
+  border: 2px solid #a855f7 !important;
+  box-shadow: 0 12px 28px -4px rgba(168, 85, 247, 0.35), 0 0 0 3px rgba(168, 85, 247, 0.15) !important;
+}
+.tab-active-programming::before,
+#tabBtn-programming.tab-btn-active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 4px;
+  background: linear-gradient(90deg, #c084fc, #a855f7, #7e22ce);
+  border-radius: 0 0 6px 6px;
+}
+#tabBtn-programming.tab-btn-active > div:first-child {
+  background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%) !important;
+  border-color: #6b21a8 !important;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4) !important;
+  transform: scale(1.08);
+}
+#tabBtn-programming.tab-btn-active i {
+  color: #ffffff !important;
 }
 
 /* Crown Finalize Button */

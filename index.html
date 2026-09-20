@@ -23,7 +23,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   
-  <link rel="stylesheet" href="css/styles.css?v=1700.0" />
+  <link rel="stylesheet" href="css/styles.css?v=1800.0" />
 
   <style>
     /* Fail-Safe Light Mode Base Overrides */
@@ -67,22 +67,59 @@
       background-color: #ffffff !important;
       background-image: none !important;
       color: #334155 !important;
-      border: 1px solid #cbd5e1 !important;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+      border: 2px solid #e2e8f0 !important;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03) !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      position: relative;
     }
 
     html body .tab-btn:hover:not(.tab-btn-active) {
-      background-color: #f8fafc !important;
+      background-color: #ffffff !important;
       color: #0f172a !important;
-      border-color: #94a3b8 !important;
-      box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.1) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12) !important;
+      transform: translateY(-3px) !important;
     }
 
     html body .tab-btn-active {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
-      color: #0f172a !important;
+      transform: translateY(-3px) scale(1.01) !important;
+      font-weight: 900 !important;
+    }
+
+    /* 1. ROUTINE TAB ACTIVE (Amber Gold Royalty) */
+    html body .tab-active-routine,
+    html body #tabBtn-routine.tab-btn-active {
+      background: linear-gradient(135deg, #fffdf5 0%, #fff7ed 100%) !important;
+      color: #78350f !important;
       border: 2px solid #f59e0b !important;
-      box-shadow: 0 10px 24px -4px rgba(245, 158, 11, 0.35) !important;
+      box-shadow: 0 12px 28px -4px rgba(245, 158, 11, 0.35), 0 0 0 3px rgba(245, 158, 11, 0.15) !important;
+    }
+
+    /* 2. LANGUAGES TAB ACTIVE (Emerald Teal Mastery) */
+    html body .tab-active-languages,
+    html body #tabBtn-languages.tab-btn-active {
+      background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+      color: #064e3b !important;
+      border: 2px solid #10b981 !important;
+      box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.35), 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+    }
+
+    /* 3. ROADMAP TAB ACTIVE (Royal Blue Sapphire) */
+    html body .tab-active-roadmap,
+    html body #tabBtn-roadmap.tab-btn-active {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+      color: #1e3a8a !important;
+      border: 2px solid #3b82f6 !important;
+      box-shadow: 0 12px 28px -4px rgba(59, 130, 246, 0.35), 0 0 0 3px rgba(59, 130, 246, 0.15) !important;
+    }
+
+    /* 4. PROGRAMMING TAB ACTIVE (Amethyst Purple Vision) */
+    html body .tab-active-programming,
+    html body #tabBtn-programming.tab-btn-active {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%) !important;
+      color: #581c87 !important;
+      border: 2px solid #a855f7 !important;
+      box-shadow: 0 12px 28px -4px rgba(168, 85, 247, 0.35), 0 0 0 3px rgba(168, 85, 247, 0.15) !important;
     }
   </style>
 </head>
@@ -114,11 +151,11 @@
   <div id="part-footer"></div>
 
   <!-- Application Modular Scripts & Parts Loader -->
-  <script src="js/config.js?v=1700.0"></script>
-  <script src="js/data.js?v=1700.0"></script>
-  <script src="js/services.js?v=1700.0"></script>
-  <script src="parts/parts-data.js?v=1700.0"></script>
-  <script src="js/views.js?v=1700.0"></script>
-  <script src="js/app.js?v=1700.0"></script>
+  <script src="js/config.js?v=1800.0"></script>
+  <script src="js/data.js?v=1800.0"></script>
+  <script src="js/services.js?v=1800.0"></script>
+  <script src="parts/parts-data.js?v=1800.0"></script>
+  <script src="js/views.js?v=1800.0"></script>
+  <script src="js/app.js?v=1800.0"></script>
 </body>
 </html>
