@@ -88,17 +88,15 @@ class AppController {
     }
     this.state.activeTab = tabId;
 
-    // 1. Reset all tabs to sleek dark glass inactive look
+    // 1. Reset all tabs to dark glass look
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.classList.remove('tab-btn-active', 'bg-slate-50', 'text-slate-700', 'border-slate-200');
-      btn.classList.add('bg-slate-800/60', 'text-slate-200', 'border-slate-700/60');
     });
 
     // 2. Highlight strictly the active tab
     const activeBtn = document.getElementById(`tabBtn-${tabId}`);
     if (activeBtn) {
       activeBtn.classList.add('tab-btn-active');
-      activeBtn.classList.remove('bg-slate-800/60', 'text-slate-200', 'border-slate-700/60');
     }
 
     const routineSec = document.getElementById('section-routine');
