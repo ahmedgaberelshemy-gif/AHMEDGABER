@@ -515,31 +515,6 @@ class ProgrammingView {
 
         </div>
 
-        <!-- Interactive AI Mentor Banner Button -->
-        <div class="bg-gradient-to-r from-purple-50 via-indigo-50 to-blue-50 border-2 border-purple-200/80 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-4 text-right">
-            <div class="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl shadow-md shrink-0 animate-pulse">
-              <i class="fa-solid fa-robot"></i>
-            </div>
-            <div>
-              <h4 class="font-display font-black text-slate-900 text-base sm:text-lg">
-                هل تريد استشارة أو مناقشة فكرة مع المرشد الذكي؟ 🤖
-              </h4>
-              <p class="text-xs sm:text-sm text-slate-600 font-medium">
-                المرشد الأكاديمي والمهني جاهز دائماً للإجابة على تساؤلاتك ومساعدتك في أي وقت.
-              </p>
-            </div>
-          </div>
-          <button 
-            type="button"
-            onclick="openAiMentorModal()" 
-            class="px-5 py-3 rounded-2xl font-display font-black text-xs sm:text-sm text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-md shadow-purple-500/20 active:scale-95 transition-all flex items-center gap-2 shrink-0 cursor-pointer"
-          >
-            <i class="fa-solid fa-comments"></i>
-            <span>تحدث مع المرشد الذكي 💬</span>
-          </button>
-        </div>
-
       </div>
     `;
   }
