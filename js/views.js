@@ -230,7 +230,7 @@ class AchievementsView {
 
     const stats = DisciplineCalculator.calculateHistoryStats(dailyLogs);
     const incompleteHistory = DisciplineCalculator.getIncompleteDaysDetails(dailyLogs);
-    const totalSemesterDays = APP_CONFIG.TOTAL_SEMESTER_DAYS || 112;
+    const totalSemesterDays = APP_CONFIG.TOTAL_SEMESTER_DAYS || 98;
     const perfectSemesterPercentage = totalSemesterDays > 0 ? Math.round((stats.perfectDays / totalSemesterDays) * 100) : 0;
     const remainingDays = Math.max(0, totalSemesterDays - stats.totalLoggedDays);
     const incompletePercentage = stats.totalLoggedDays > 0 ? Math.round((stats.incompleteDays / stats.totalLoggedDays) * 100) : 0;

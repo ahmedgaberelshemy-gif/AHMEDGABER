@@ -50,7 +50,7 @@ const HABITS_CONFIG = Object.freeze({
 const APP_CONFIG = Object.freeze({
   STORAGE_KEY: 'janaklis_life_academic_os_v56',
   SOUND_MUTED_KEY: 'janaklis_sound_muted',
-  TOTAL_SEMESTER_DAYS: 112,
+  TOTAL_SEMESTER_DAYS: 98,
   WEIGHTS: HABITS_CONFIG.WEIGHTS,
   PRAYERS: HABITS_CONFIG.PRAYERS
 });
