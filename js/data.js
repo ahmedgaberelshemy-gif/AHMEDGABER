@@ -4,7 +4,7 @@
  * =========================================================================
  * Solid Principles & Clean Code Architecture:
  * - Immutable data definitions (Object.freeze)
- * - Domain-driven structure for 4 academic years (15 courses, 14 skills, 6 certs)
+ * - Domain-driven structure for 4 academic years (15 courses, 12 skills, 6 certs)
  * - Complete 33-course language curriculum with verified official playlists
  */
 
@@ -27,11 +27,9 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'INS_09', code: 'INS 09', name: 'رياضيات الأعمال', type: 'إجباري' }
     ],
     skills: [
-      { id: 'skill_01', num: '01', name: 'تعلم الـ WORD', category: 'مهارات مكتبية' },
-      { id: 'skill_02', num: '02', name: 'تعلم الـ PowerPoint', category: 'مهارات العرض' },
-      { id: 'skill_03', num: '03', name: 'تدريب: المحاسبة المالية (Financial Accounting)', category: 'تدريب عملي' },
-      { id: 'skill_04', num: '04', name: 'تدريب: المحاسب المالي المحترف (PFA)', category: 'تأهيل مهني' },
-      { id: 'skill_05', num: '05', name: 'تدريب: محاسبة التكاليف (Cost Accounting)', category: 'تدريب تخصصي' }
+      { id: 'skill_01', num: '01', name: 'تدريب: المحاسبة المالية (Financial Accounting)', category: 'تدريب عملي' },
+      { id: 'skill_02', num: '02', name: 'تدريب: المحاسب المالي المحترف (PFA)', category: 'تأهيل مهني' },
+      { id: 'skill_03', num: '03', name: 'تدريب: محاسبة التكاليف (Cost Accounting)', category: 'تدريب تخصصي' }
     ],
     certifications: []
   },
@@ -50,11 +48,11 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'MGT_07', code: 'MGT 07', name: 'مبادئ الإدارة المالية', type: 'إجباري' }
     ],
     skills: [
-      { id: 'skill_06', num: '06', name: 'إكسيل محاسبي متقدم (Accounting Excel)', category: 'إكسيل متقدم' },
-      { id: 'skill_07', num: '07', name: 'التطبيق العملي للمحاسبة - جزء 1', category: 'تطبيق عملي' },
-      { id: 'skill_08', num: '08', name: 'التطبيق العملي للمحاسبة - جزء 2', category: 'تطبيق عملي' },
-      { id: 'skill_09', num: '09', name: 'أنظمة تخطيط موارد المؤسسات (ERP: SAP + Oracle + Dynamics 365)', category: 'أنظمة ERP' },
-      { id: 'skill_10', num: '10', name: 'أودو محاسبي (Odoo Accounting)', category: 'ERP محاسبي' }
+      { id: 'skill_04', num: '04', name: 'إكسيل محاسبي متقدم (Accounting Excel)', category: 'إكسيل متقدم' },
+      { id: 'skill_05', num: '05', name: 'تعلم الـ WORD', category: 'مهارات مكتبية' },
+      { id: 'skill_06', num: '06', name: 'تعلم الـ PowerPoint', category: 'مهارات العرض' },
+      { id: 'skill_07', num: '07', name: 'أنظمة تخطيط موارد المؤسسات (ERP: SAP + Oracle + Dynamics 365)', category: 'أنظمة ERP' },
+      { id: 'skill_08', num: '08', name: 'أودو محاسبي (Odoo Accounting)', category: 'ERP محاسبي' }
     ],
     certifications: [
       { id: 'cert_01', num: '01', name: 'Microsoft Certified: Power BI Data Analyst (PL-300)', org: 'Microsoft (أمريكا)', badge: 'تحليل بيانات' },
@@ -76,8 +74,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'ACT_15', code: 'ACT 15', name: 'محاسبة حكومية ومنشآت غير ربحية', type: 'اختياري' }
     ],
     skills: [
-      { id: 'skill_11', num: '11', name: 'تدريب: تحليل البيانات بالإكسل (Data Analysis with Excel)', category: 'تحليل بيانات' },
-      { id: 'skill_12', num: '12', name: 'تدريب: Power Query & Power Pivot', category: 'أدوات ذكاء أعمال' }
+      { id: 'skill_09', num: '09', name: 'تدريب: تحليل البيانات بالإكسل (Data Analysis with Excel)', category: 'تحليل بيانات' },
+      { id: 'skill_10', num: '10', name: 'تدريب: Power Query & Power Pivot', category: 'أدوات ذكاء أعمال' }
     ],
     certifications: [
       { id: 'cert_03', num: '03', name: 'CIA (Certified Internal Auditor)', org: 'IIA (أمريكا)', badge: 'مراجعة داخلية' },
@@ -100,8 +98,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'ACT_11', code: 'ACT 11', name: 'محاسبة المنشآت المتخصصة', type: 'اختياري' }
     ],
     skills: [
-      { id: 'skill_13', num: '13', name: 'الفاتورة والإقرارات الإلكترونية (ETA & ZATCA)', category: 'ضرائب رقمية' },
-      { id: 'skill_14', num: '14', name: 'تدريب: النمذجة المالية (Financial Modeling)', category: 'تمويل واستثمار' }
+      { id: 'skill_11', num: '11', name: 'الفاتورة والإقرارات الإلكترونية (ETA & ZATCA)', category: 'ضرائب رقمية' },
+      { id: 'skill_12', num: '12', name: 'تدريب: النمذجة المالية (Financial Modeling)', category: 'تمويل واستثمار' }
     ],
     certifications: [
       { id: 'cert_05', num: '05', name: 'CFA (Chartered Financial Analyst) - Level 1', org: 'CFA Institute (أمريكا)', badge: 'تحليل مالي' },
