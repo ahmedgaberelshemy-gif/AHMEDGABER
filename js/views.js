@@ -718,7 +718,18 @@ class RoadmapView {
         const isDone = RoadmapService.isDone(state, crt.id);
         
         let certSubHtml = '';
-        if (crt.id === 'cert_02') {
+        if (crt.id === 'cert_01') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-yellow-50 text-yellow-800 border border-yellow-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-chart-simple text-yellow-600"></i> إعداد لوحات البيانات التفاعلية (Dashboards)
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-brain text-blue-600"></i> نمذجة البيانات بلغة DAX المتقدمة
+              </span>
+            </div>
+          `;
+        } else if (crt.id === 'cert_02') {
           certSubHtml = `
             <div class="mt-2.5 flex items-center gap-2 flex-wrap">
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
@@ -733,10 +744,21 @@ class RoadmapView {
           certSubHtml = `
             <div class="mt-2.5 flex items-center gap-2 flex-wrap">
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-server text-blue-600"></i> موديول المالية SAP S/4HANA (FI)
+                <i class="fa-solid fa-chart-pie text-blue-600"></i> Part 1: الأداء المالي والرقابة الداخلية
               </span>
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-800 border border-indigo-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-shield-halved text-indigo-600"></i> الاعتماد الرسمي للشركات الكبرى والبترول
+                <i class="fa-solid fa-calculator text-indigo-600"></i> Part 2: اتخاذ القرارات المالية الاستراتيجية
+              </span>
+            </div>
+          `;
+        } else if (crt.id === 'cert_04') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-stamp text-emerald-600"></i> القيد الرسمي بسجل المحاسبين والمراجعين (مصر)
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-building-columns text-blue-600"></i> تمهيد وإعفاء ماجستير المحاسبة بالجامعات
               </span>
             </div>
           `;
@@ -744,10 +766,10 @@ class RoadmapView {
           certSubHtml = `
             <div class="mt-2.5 flex items-center gap-2 flex-wrap">
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-chart-pie text-amber-600"></i> إعداد الموازنات والنماذج المالية للشركات
+                <i class="fa-solid fa-globe text-amber-600"></i> الزمالة البريطانية الدولية (ACCA UK)
               </span>
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-purple-50 text-purple-800 border border-purple-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-calculator text-purple-600"></i> التقييم المالي المتقدم (Valuation)
+                <i class="fa-solid fa-graduation-cap text-purple-600"></i> تمنح ماجستير مباشر من جامعة لندن (MSc)
               </span>
             </div>
           `;
@@ -755,10 +777,10 @@ class RoadmapView {
           certSubHtml = `
             <div class="mt-2.5 flex items-center gap-2 flex-wrap">
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-crown text-blue-600"></i> سقف الاعتماد المحاسبي القانوني عالمياً
+                <i class="fa-solid fa-crown text-blue-600"></i> سقف الاعتماد المحاسبي القانوني عالمياً (AICPA)
               </span>
               <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
-                <i class="fa-solid fa-graduation-cap text-emerald-600"></i> البوابة المباشرة للماجستير والدكتوراه
+                <i class="fa-solid fa-user-graduate text-emerald-600"></i> الإعداد الأقوى لدكتوراه الفلسفة (PhD)
               </span>
             </div>
           `;
