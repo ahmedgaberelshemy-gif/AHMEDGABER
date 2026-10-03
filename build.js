@@ -14,8 +14,6 @@ function syncParts() {
   const sectionRoutine = fs.readFileSync(path.join(partsDir, 'section-routine.html'), 'utf8').trim();
   const sectionRoadmap = fs.readFileSync(path.join(partsDir, 'section-roadmap.html'), 'utf8').trim();
   const sectionLanguages = fs.readFileSync(path.join(partsDir, 'section-languages.html'), 'utf8').trim();
-  const sectionCurriculum = fs.readFileSync(path.join(partsDir, 'section-curriculum.html'), 'utf8').trim();
-  const sectionAchievements = fs.readFileSync(path.join(partsDir, 'section-achievements.html'), 'utf8').trim();
   const sectionProgramming = fs.readFileSync(path.join(partsDir, 'section-programming.html'), 'utf8').trim();
   const modals = fs.readFileSync(path.join(partsDir, 'modals.html'), 'utf8').trim();
   const footer = fs.readFileSync(path.join(partsDir, 'footer.html'), 'utf8').trim();
@@ -33,8 +31,6 @@ const PARTS_DATA = Object.freeze({
   sectionRoutine: ${JSON.stringify(sectionRoutine)},
   sectionRoadmap: ${JSON.stringify(sectionRoadmap)},
   sectionLanguages: ${JSON.stringify(sectionLanguages)},
-  sectionCurriculum: ${JSON.stringify(sectionCurriculum)},
-  sectionAchievements: ${JSON.stringify(sectionAchievements)},
   sectionProgramming: ${JSON.stringify(sectionProgramming)},
   modals: ${JSON.stringify(modals)},
   footer: ${JSON.stringify(footer)}
@@ -57,8 +53,6 @@ class PartsLoader {
       PARTS_DATA.sectionRoutine,
       PARTS_DATA.sectionRoadmap,
       PARTS_DATA.sectionLanguages,
-      PARTS_DATA.sectionCurriculum,
-      PARTS_DATA.sectionAchievements,
       PARTS_DATA.sectionProgramming
     ].join('\\n'));
     setHtml('part-modals', PARTS_DATA.modals);

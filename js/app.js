@@ -47,14 +47,6 @@ class TabRegistry {
       activeClass: 'tab-active-programming',
       render: (controller) => controller.renderProgramming()
     });
-
-    // Legacy fallback (hidden by default)
-    this.register('curriculum', {
-      sectionId: 'section-curriculum',
-      buttonId: 'tabBtn-curriculum',
-      activeClass: 'tab-active-curriculum',
-      render: (controller) => controller.renderCurriculum()
-    });
   }
 
   register(tabId, config) {
@@ -216,75 +208,7 @@ class CardTiltEngine {
 }
 
 // =========================================================================
-// 4. AI MENTOR CONTROLLER (Single Responsibility: AI Academic Interaction)
-// =========================================================================
-class AiMentorController {
-  constructor(appController) {
-    this.app = appController;
-  }
-
-  openModal() {
-    if (typeof AiMentorView !== 'undefined' && AiMentorView.openModal) {
-      AiMentorView.openModal();
-    }
-  }
-
-  closeModal() {
-    if (typeof AiMentorView !== 'undefined' && AiMentorView.closeModal) {
-      AiMentorView.closeModal();
-    }
-  }
-
-  sendQuickPrompt(type) {
-    let userText = '🎯 اختبرني بأسئلة امتحانات';
-    if (type === 'explain') userText = '💡 اشرح ولخص لي مفهوماً دراسياً مهماً';
-    if (type === 'coding') userText = '📊 أعطني نصيحة في مسار AI & Data Analysis';
-    if (type === 'progress') userText = '📈 حلل مستوى أدائي وإنجازي الدراسي';
-
-    if (typeof AiMentorView !== 'undefined' && AiMentorView.appendMessage) {
-      AiMentorView.appendMessage('user', userText);
-    }
-    this._processQuery(type);
-  }
-
-  sendMessage() {
-    const inp = document.getElementById('aiChatInput');
-    if (!inp || !inp.value.trim()) return;
-    const text = inp.value.trim();
-    inp.value = '';
-
-    if (typeof AiMentorView !== 'undefined' && AiMentorView.appendMessage) {
-      AiMentorView.appendMessage('user', text);
-    }
-    this._processQuery(text);
-  }
-
-  _processQuery(query) {
-    if (typeof AiMentorView !== 'undefined' && AiMentorView.showTypingIndicator) {
-      AiMentorView.showTypingIndicator();
-    }
-
-    setTimeout(() => {
-      if (typeof AiMentorView !== 'undefined' && AiMentorView.removeTypingIndicator) {
-        AiMentorView.removeTypingIndicator();
-      }
-
-      const currentState = (this.app && this.app.state) ? this.app.state : {};
-      const response = (typeof AIAcademicEngine !== 'undefined') ? AIAcademicEngine.getResponse(query, currentState) : 'أهلاً بك! معك المرشد الأكاديمي والمهني لمنظومة الامتياز 🚀';
-      
-      if (typeof AiMentorView !== 'undefined' && AiMentorView.appendMessage) {
-        AiMentorView.appendMessage('ai', response);
-      }
-
-      if (typeof confetti === 'function' && (query === 'quiz' || (typeof query === 'string' && query.includes('اختبرني')))) {
-        CelebrationService.fire('prayers');
-      }
-    }, 600);
-  }
-}
-
-// =========================================================================
-// 5. APPLICATION CONTROLLER (Mediator Pattern & High-Level Orchestrator)
+// 4. APPLICATION CONTROLLER (Mediator Pattern & High-Level Orchestrator)
 // =========================================================================
 class AppController {
   constructor(dependencies = {}) {
@@ -299,7 +223,6 @@ class AppController {
     });
     this.soundService = dependencies.soundService || SoundService;
     this.celebrationService = dependencies.celebrationService || CelebrationService;
-    this.aiMentor = new AiMentorController(this);
     this.state = this.storageService.load();
     this.currentEditingLessonKey = null;
   }
@@ -733,37 +656,6 @@ class AppController {
   }
 
   // ==========================================
-  // Curriculum Handlers (Backward Compatibility)
-  // ==========================================
-  renderCurriculum() {
-    if (typeof CurriculumView !== 'undefined' && CurriculumView.render) {
-      CurriculumView.render(this.state.activeSubject || 0, this.state.lessonProgress || {}, this.state.lessonNotes || {});
-    }
-  }
-
-  switchSubject(subjectIdx) {
-    this.state.activeSubject = subjectIdx;
-    this.renderCurriculum();
-    this.storageService.save(this.state);
-  }
-
-  toggleLesson(lessonKey) {
-    if (!lessonKey) return;
-    this.state.lessonProgress = this.state.lessonProgress || {};
-    this.state.lessonProgress[lessonKey] = !Boolean(this.state.lessonProgress[lessonKey]);
-    this.saveAndRefreshViews();
-    this.renderCurriculum();
-  }
-
-  toggleSubjectCompletion(subjectId) {
-    if (subjectId === undefined || subjectId === null) return;
-    this.state.subjectsProgress = this.state.subjectsProgress || {};
-    this.state.subjectsProgress[subjectId] = !Boolean(this.state.subjectsProgress[subjectId]);
-    this.saveAndRefreshViews();
-    this.renderCurriculum();
-  }
-
-  // ==========================================
   // Notes Modal Domain Actions
   // ==========================================
   openNoteModal(lessonKey) {
@@ -1072,11 +964,6 @@ const globalBindings = {
   // AI & Data Track
   toggleProgrammingPillar: (id) => app.toggleProgrammingPillar(id),
   toggleProgrammingCourse: (id) => app.toggleProgrammingPillar(id),
-  // AI Academic Mentor
-  openAiMentorModal: () => app.aiMentor.openModal(),
-  closeAiMentorModal: () => app.aiMentor.closeModal(),
-  sendAiQuickPrompt: (type) => app.aiMentor.sendQuickPrompt(type),
-  sendAiMessage: () => app.aiMentor.sendMessage(),
   // Notes Modal
   openNoteModal: (key) => app.openNoteModal(key),
   closeNoteModal: () => app.closeNoteModal(),
@@ -1092,11 +979,7 @@ const globalBindings = {
   exportBackupData: () => app.exportBackup(),
   importBackupData: (e) => app.importBackup(e),
   resetEntireSystem: () => app.resetEntireSystem(),
-  toggleSoundMute,
-  // Backward compatibility
-  switchSubject: (idx) => app.switchSubject(idx),
-  toggleLessonCompletion: (key) => app.toggleLesson(key),
-  toggleSubjectCompletion: (id) => app.toggleSubjectCompletion(id)
+  toggleSoundMute
 };
 
 if (typeof window !== 'undefined') {

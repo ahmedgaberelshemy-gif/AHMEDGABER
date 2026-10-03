@@ -126,8 +126,10 @@ class StorageService {
       state.roadmapProgress = state.roadmapProgress || {};
       state.languageProgress = state.languageProgress || {};
 
-      // Safety check for active tab: Allow routine, curriculum, languages, roadmap, programming
-      const validTabs = ['routine', 'curriculum', 'languages', 'roadmap', 'programming'];
+      // Safety check for active tab: Allow routine, languages, roadmap, programming
+      const validTabs = (typeof TABS_CONFIG !== 'undefined' && TABS_CONFIG.ALLOWED_TABS) 
+        ? TABS_CONFIG.ALLOWED_TABS 
+        : ['routine', 'languages', 'roadmap', 'programming'];
       if (!validTabs.includes(state.activeTab)) {
         state.activeTab = 'routine';
       }
@@ -540,73 +542,7 @@ class DisciplineCalculator {
   }
 }
 
-// 5. ACADEMIC CALCULATOR (Subject & Semester Progress)
-class AcademicCalculator {
-  static getSubjectStats(weeks, lessonProgress, subjectIndex) {
-    let total = 0;
-    let completed = 0;
-
-    (weeks || []).forEach(weekObj => {
-      const subject = weekObj.subjects ? weekObj.subjects[subjectIndex] : null;
-      if (subject && Array.isArray(subject.lessons)) {
-        subject.lessons.forEach((_, lessonIndex) => {
-          total++;
-          const key = 'w' + weekObj.week + '_s' + subjectIndex + '_l' + lessonIndex;
-          if (lessonProgress && lessonProgress[key] === true) {
-            completed++;
-          }
-        });
-      }
-    });
-
-    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, totalCount: total, completedCount: completed, percentage };
-  }
-
-  static getWeekStats(weekObj, lessonProgress) {
-    let total = 0;
-    let completed = 0;
-    if (weekObj && Array.isArray(weekObj.subjects)) {
-      weekObj.subjects.forEach((subject, subjectIndex) => {
-        if (subject && Array.isArray(subject.lessons)) {
-          subject.lessons.forEach((_, lessonIndex) => {
-            total++;
-            const key = 'w' + weekObj.week + '_s' + subjectIndex + '_l' + lessonIndex;
-            if (lessonProgress && lessonProgress[key] === true) {
-              completed++;
-            }
-          });
-        }
-      });
-    }
-    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, totalCount: total, completedCount: completed, percentage };
-  }
-
-  static getSemesterStats(weeks, lessonProgress) {
-    let total = 0;
-    let completed = 0;
-
-    (weeks || []).forEach(weekObj => {
-      (weekObj.subjects || []).forEach((subject, subjectIndex) => {
-        if (subject && Array.isArray(subject.lessons)) {
-          subject.lessons.forEach((_, lessonIndex) => {
-            total++;
-            const key = 'w' + weekObj.week + '_s' + subjectIndex + '_l' + lessonIndex;
-            if (lessonProgress && lessonProgress[key] === true) {
-              completed++;
-            }
-          });
-        }
-      });
-    });
-
-    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { total, completed, totalCount: total, completedCount: completed, percentage };
-  }
-}
-
-// 6. CELEBRATION SERVICE (Confetti & Visual Fireworks)
+// 5. CELEBRATION SERVICE (Confetti & Visual Fireworks)
 class CelebrationService {
   static fire(type = 'default') {
     if (typeof window === 'undefined' || !window.confetti) return;
@@ -808,27 +744,6 @@ function animateRollingCounter(elementId, targetValue, duration = 800, suffix = 
     }
   }
   requestAnimationFrame(update);
-}
-
-// 9. AI ACADEMIC ENGINE (Domain mentor logic)
-class AIAcademicEngine {
-  static getResponse(query, state = {}) {
-    const q = (query || '').toLowerCase();
-    if (q === 'quiz' || q.includes('اختبرني') || q.includes('امتحان')) {
-      return '🎯 **اختبار تفاعلي سريع في المواد الأساسية:**\n1. ما الفرق بين الإدارة العامة وإدارة الأعمال؟\n2. ما هي المعادلة المحاسبية الأساسية (الأصول = الخصوم + حقوق الملكية)؟\n3. ما هو تعريف قانون الطلب في الاقتصاد؟\nراجع إجاباتك وركز على الفهم العميق للربط بين المواد 🌟';
-    }
-    if (q === 'explain' || q.includes('اشرح') || q.includes('مفهوم')) {
-      return '💡 **مفهوم أكاديمي ريادي:**\nالمعادلة المحاسبية هي حجر الأساس للمحاسبة المالية:\n**الأصول = الخصوم + حقوق الملكية**\nكل عملية مالية تؤثر على طرفي هذه المعادلة بالتساوي للحفاظ على توازن المركز المالي 📊';
-    }
-    if (q === 'coding' || q.includes('ai') || q.includes('data') || q.includes('تحليل')) {
-      return '📊 **نصيحة مسار AI & Data Analysis:**\nالجمع بين فهم الأعمال والبيانات يمنحك ميزة تنافسية خارقة. ركز على إتقان Excel متقدم وSQL وتحليل القوائم المالية، ثم انطلق في لغة Python ومكتبات Pandas للتنبؤ المالي الذكي 🤖📈';
-    }
-    if (q === 'progress' || q.includes('أداء') || q.includes('مستوى') || q.includes('حلل')) {
-      const stats = DisciplineCalculator.calculateHistoryStats(state.dailyLogs || {});
-      return '📈 **تحليل مستوى الانضباط:**\n- إجمالي الأيام المسجلة: ' + stats.totalLoggedDays + ' يوم\n- نسبة الأيام المثالية 100%: ' + stats.perfectRate + '%\n- سلسلة الالتزام الحالية: ' + stats.streak + ' أيام متواصلة\n' + (stats.streak >= 3 ? 'أداء ممتاز واستمرارية رائعة! واصل الانضباط للوصول للامتياز 👑' : 'بداية جيدة.. ركز على استمرارية الصلوات الخمس والورد القرآني يومياً 🌿');
-    }
-    return 'أهلاً بك يا بطل! أنا مرشدك الأكاديمي الذكي 🎓\nيمكنني مساعدتك في اختبار معلوماتك، تلخيص المفاهيم المحاسبية والإدارية، وتحليل مستوى التزامك الدراسي. اختر أحد الأزرار السريعة أو اكتب سؤالك هنا!';
-  }
 }
 
 // =========================================================================
