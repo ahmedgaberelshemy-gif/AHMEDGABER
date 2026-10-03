@@ -683,10 +683,6 @@ class RoadmapView {
                 <span class="font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-cloud text-rose-600"></i> ${mainNum}.2. أوراكل المالي (Oracle Cloud)</span>
                 <span class="text-xs font-black text-rose-800 bg-rose-100 border border-rose-300 px-2 py-0.5 rounded-lg shrink-0">البنوك والحكومة</span>
               </div>
-              <div class="flex items-center justify-between bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs sm:text-sm gap-2 shadow-2xs">
-                <span class="font-bold text-slate-900 flex items-center gap-1.5"><i class="fa-solid fa-network-wired text-emerald-600"></i> ${mainNum}.3. داينامكس (Dynamics 365)</span>
-                <span class="text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-lg shrink-0">سلاسل الإمداد</span>
-              </div>
             </div>
           `;
         }

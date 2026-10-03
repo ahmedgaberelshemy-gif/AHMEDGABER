@@ -51,7 +51,7 @@ const ROADMAP_YEARS_DATA = Object.freeze([
     skills: [
       { id: 'skill_05', num: '05', name: 'تعلم الـ WORD', category: 'مهارات مكتبية' },
       { id: 'skill_06', num: '06', name: 'تعلم الـ PowerPoint', category: 'مهارات العرض' },
-      { id: 'skill_07', num: '07', name: 'أنظمة تخطيط موارد المؤسسات (ERP: SAP + Oracle + Dynamics 365)', category: 'أنظمة ERP' },
+      { id: 'skill_07', num: '07', name: 'أنظمة تخطيط موارد المؤسسات (ERP: SAP + Oracle)', category: 'أنظمة ERP' },
       { id: 'skill_08', num: '08', name: 'أودو محاسبي (Odoo Accounting)', category: 'ERP محاسبي' }
     ],
     certifications: [
