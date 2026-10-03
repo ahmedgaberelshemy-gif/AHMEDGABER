@@ -78,8 +78,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'skill_10', num: '10', name: 'تدريب: Power Query & Power Pivot', category: 'أدوات ذكاء أعمال' }
     ],
     certifications: [
-      { id: 'cert_03', num: '03', name: 'CIA (Certified Internal Auditor)', org: 'IIA (أمريكا)', badge: 'مراجعة داخلية' },
-      { id: 'cert_04', num: '04', name: 'CMA (Certified Management Accountant)', org: 'IMA (أمريكا)', badge: 'محاسبة إدارية' }
+      { id: 'cert_03', num: '03', name: 'SAP Certified Associate - SAP S/4HANA Finance (FI)', org: 'SAP SE (ألمانيا)', badge: 'أنظمة ERP العالمية' },
+      { id: 'cert_04', num: '04', name: 'CMA (Certified Management Accountant)', org: 'IMA (أمريكا)', badge: 'محاسبة إدارية وتكاليف' }
     ]
   },
   {
@@ -102,8 +102,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'skill_12', num: '12', name: 'تدريب: النمذجة المالية (Financial Modeling)', category: 'تمويل واستثمار' }
     ],
     certifications: [
-      { id: 'cert_05', num: '05', name: 'CFA (Chartered Financial Analyst) - Level 1', org: 'CFA Institute (أمريكا)', badge: 'تحليل مالي' },
-      { id: 'cert_06', num: '06', name: 'CPA (Certified Public Accountant)', org: 'AICPA (أمريكا)', badge: 'محاسب قانوني' }
+      { id: 'cert_05', num: '05', name: 'FMVA (Financial Modeling & Valuation Analyst)', org: 'CFI (كندا)', badge: 'نمذجة وتخطيط مالي' },
+      { id: 'cert_06', num: '06', name: 'CPA & ACCA (المسار المزدوج للمحاسب القانوني والزمالة الدولية)', org: 'AICPA (أمريكا) & ACCA (بريطانيا)', badge: 'محاسب قانوني وزمالة دولية' }
     ]
   }
 ]);

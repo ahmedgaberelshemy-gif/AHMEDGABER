@@ -729,6 +729,39 @@ class RoadmapView {
               </span>
             </div>
           `;
+        } else if (crt.id === 'cert_03') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-server text-blue-600"></i> موديول المالية SAP S/4HANA (FI)
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-800 border border-indigo-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-shield-halved text-indigo-600"></i> الاعتماد الرسمي للشركات الكبرى والبترول
+              </span>
+            </div>
+          `;
+        } else if (crt.id === 'cert_05') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-chart-pie text-amber-600"></i> إعداد الموازنات والنماذج المالية للشركات
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-purple-50 text-purple-800 border border-purple-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-calculator text-purple-600"></i> التقييم المالي المتقدم (Valuation)
+              </span>
+            </div>
+          `;
+        } else if (crt.id === 'cert_06') {
+          certSubHtml = `
+            <div class="mt-2.5 flex items-center gap-2 flex-wrap">
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-blue-50 text-blue-800 border border-blue-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-crown text-blue-600"></i> سقف الاعتماد المحاسبي القانوني عالمياً
+              </span>
+              <span class="text-[11px] sm:text-xs font-black px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-graduation-cap text-emerald-600"></i> البوابة المباشرة للماجستير والدكتوراه
+              </span>
+            </div>
+          `;
         }
 
         certsHtml += `
