@@ -419,7 +419,6 @@ class DisciplineCalculator {
 
     const perfectRate = totalLoggedDays > 0 ? Math.round((perfectDays / totalLoggedDays) * 100) : 0;
     const streak = this.calculateStreak(dailyLogs);
-    const rank = this.getRank(perfectDays);
 
     return {
       totalLoggedDays,
@@ -427,7 +426,6 @@ class DisciplineCalculator {
       incompleteDays,
       perfectRate,
       streak,
-      rank,
       totalPrayersFullDays,
       totalGymDays,
       totalSleepDays,
@@ -532,13 +530,6 @@ class DisciplineCalculator {
       }
     }
     return streak;
-  }
-
-  static getRank(perfectDays = 0) {
-    if (perfectDays >= 60) return { title: 'أسطورة الامتياز 👑', level: 4, next: 'القمة المطلقة 🏆', badge: 'shimmer-gold text-slate-950 font-black' };
-    if (perfectDays >= 30) return { title: 'جنرال الالتزام 🏆', level: 3, next: 'أسطورة الامتياز (60 يوم)', badge: 'bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black' };
-    if (perfectDays >= 10) return { title: 'فارس التحصيل ⚡', level: 2, next: 'جنرال الالتزام (30 يوم)', badge: 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-black' };
-    return { title: 'طالب منضبط 🌟', level: 1, next: 'فارس التحصيل (10 أيام)', badge: 'bg-indigo-500/20 text-indigo-200 border border-indigo-400/30 font-bold' };
   }
 }
 

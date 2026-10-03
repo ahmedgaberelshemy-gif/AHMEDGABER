@@ -269,9 +269,6 @@ class AchievementsView {
               </span>
             </div>
           </div>
-          <span class="text-xs sm:text-sm font-black text-indigo-800 bg-indigo-50 border border-indigo-200 px-3.5 py-1.5 rounded-xl shadow-2xs">
-            الرتبة: ${stats.rank?.title || 'طالب منضبط 🌟'} 🎖️
-          </span>
         </div>
 
         <!-- 3 Unique Diagnostic Metric Cards -->
