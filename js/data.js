@@ -29,7 +29,8 @@ const ROADMAP_YEARS_DATA = Object.freeze([
     skills: [
       { id: 'skill_01', num: '01', name: 'تدريب: المحاسبة المالية (Financial Accounting)', category: 'تدريب عملي' },
       { id: 'skill_02', num: '02', name: 'تدريب: المحاسب المالي المحترف (PFA)', category: 'تأهيل مهني' },
-      { id: 'skill_03', num: '03', name: 'تدريب: محاسبة التكاليف (Cost Accounting)', category: 'تدريب تخصصي' }
+      { id: 'skill_03', num: '03', name: 'تدريب: محاسبة التكاليف (Cost Accounting)', category: 'تدريب تخصصي' },
+      { id: 'skill_04', num: '04', name: 'إكسيل محاسبي متقدم (Accounting Excel)', category: 'إكسيل متقدم' }
     ],
     certifications: []
   },
@@ -48,7 +49,6 @@ const ROADMAP_YEARS_DATA = Object.freeze([
       { id: 'MGT_07', code: 'MGT 07', name: 'مبادئ الإدارة المالية', type: 'إجباري' }
     ],
     skills: [
-      { id: 'skill_04', num: '04', name: 'إكسيل محاسبي متقدم (Accounting Excel)', category: 'إكسيل متقدم' },
       { id: 'skill_05', num: '05', name: 'تعلم الـ WORD', category: 'مهارات مكتبية' },
       { id: 'skill_06', num: '06', name: 'تعلم الـ PowerPoint', category: 'مهارات العرض' },
       { id: 'skill_07', num: '07', name: 'أنظمة تخطيط موارد المؤسسات (ERP: SAP + Oracle + Dynamics 365)', category: 'أنظمة ERP' },
