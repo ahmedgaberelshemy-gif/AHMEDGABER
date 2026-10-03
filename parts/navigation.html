@@ -1,21 +1,21 @@
-<!-- MAIN 4-SECTION MASTER NAV TABS (Inspired by Reference Main Nav Cards) -->
-<div class="max-w-[1560px] mx-auto px-2 sm:px-6 lg:px-8 mt-3 sm:mt-4 sticky top-1 sm:top-3 z-30 no-print">
-  <div class="bg-white/95 backdrop-blur-xl rounded-2xl p-1.5 sm:p-2 shadow-lg border border-slate-200">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+<!-- MAIN 4-SECTION MASTER NAV TABS (Responsive Desktop & Mobile Engine) -->
+<div class="max-w-[1560px] mx-auto px-2 sm:px-6 lg:px-8 mt-2 sm:mt-4 sticky top-1 sm:top-3 z-30 no-print">
+  <div class="bg-white/95 backdrop-blur-xl rounded-2xl p-1 sm:p-2 shadow-lg border border-slate-200">
+    <div class="grid grid-cols-3 gap-1.5 sm:gap-3">
       
       <!-- Tab 1: Routine -->
       <button 
         type="button"
         onclick="switchTab('routine')" 
         id="tabBtn-routine"
-        class="tab-btn py-3 px-3 rounded-2xl text-xs sm:text-sm font-display font-black flex items-center justify-between gap-2.5 cursor-pointer text-right transition-all duration-200 select-none"
+        class="tab-btn py-2 px-1.5 sm:py-3 sm:px-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 cursor-pointer text-center sm:text-right transition-all duration-200 select-none min-w-0"
       >
-        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center text-base sm:text-lg shrink-0 shadow-2xs pointer-events-none">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-amber-50 text-amber-600 border border-amber-200 flex items-center justify-center text-xs sm:text-base shrink-0 shadow-2xs pointer-events-none">
           <i class="fa-solid fa-bolt text-amber-600 pointer-events-none"></i>
         </div>
-        <div class="min-w-0 flex-1 pointer-events-none">
-          <span class="block font-black text-xs sm:text-sm text-slate-900 leading-snug truncate pointer-events-none">الانضباط اليومي ⚡</span>
-          <span class="block text-[10px] text-slate-500 font-bold truncate pointer-events-none">بوصلة الأداء والـ 98 يوماً 👑</span>
+        <div class="min-w-0 flex-1 w-full pointer-events-none">
+          <span class="block font-black text-[11px] sm:text-xs md:text-sm text-slate-900 leading-tight sm:leading-snug truncate pointer-events-none">الانضباط اليومي ⚡</span>
+          <span class="hidden sm:block text-[10px] text-slate-500 font-bold truncate pointer-events-none">بوصلة الأداء والـ 98 يوماً 👑</span>
         </div>
       </button>
 
@@ -24,14 +24,14 @@
         type="button"
         onclick="switchTab('languages')" 
         id="tabBtn-languages"
-        class="tab-btn py-3 px-3 rounded-2xl text-xs sm:text-sm font-display font-black flex items-center justify-between gap-2.5 cursor-pointer text-right transition-all duration-200 select-none"
+        class="tab-btn py-2 px-1.5 sm:py-3 sm:px-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 cursor-pointer text-center sm:text-right transition-all duration-200 select-none min-w-0"
       >
-        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center text-base sm:text-lg shrink-0 shadow-2xs pointer-events-none">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center text-xs sm:text-base shrink-0 shadow-2xs pointer-events-none">
           <i class="fa-solid fa-language text-emerald-600 pointer-events-none"></i>
         </div>
-        <div class="min-w-0 flex-1 pointer-events-none">
-          <span class="block font-black text-xs sm:text-sm text-slate-900 leading-snug truncate pointer-events-none">إتقان الإنجليزية (English Mastery) 🌐</span>
-          <span class="block text-[10px] text-slate-500 font-bold truncate pointer-events-none">منهجية الـ 33 كورساً الرسمية</span>
+        <div class="min-w-0 flex-1 w-full pointer-events-none">
+          <span class="block font-black text-[11px] sm:text-xs md:text-sm text-slate-900 leading-tight sm:leading-snug truncate pointer-events-none">إتقان الإنجليزية 🌐</span>
+          <span class="hidden sm:block text-[10px] text-slate-500 font-bold truncate pointer-events-none">منهجية الـ 33 كورساً الرسمية</span>
         </div>
       </button>
 
@@ -40,14 +40,14 @@
         type="button"
         onclick="switchTab('roadmap')" 
         id="tabBtn-roadmap"
-        class="tab-btn py-3 px-3 rounded-2xl text-xs sm:text-sm font-display font-black flex items-center justify-between gap-2.5 cursor-pointer text-right transition-all duration-200 select-none"
+        class="tab-btn py-2 px-1.5 sm:py-3 sm:px-3.5 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-display font-black flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-1 sm:gap-3 cursor-pointer text-center sm:text-right transition-all duration-200 select-none min-w-0"
       >
-        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-base sm:text-lg shrink-0 shadow-2xs pointer-events-none">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-blue-50 text-blue-600 border border-blue-200 flex items-center justify-center text-xs sm:text-base shrink-0 shadow-2xs pointer-events-none">
           <i class="fa-solid fa-compass text-blue-600 pointer-events-none"></i>
         </div>
-        <div class="min-w-0 flex-1 pointer-events-none">
-          <span class="block font-black text-xs sm:text-sm text-slate-900 leading-snug truncate pointer-events-none">المسار المهني والاعتمادات 🏆</span>
-          <span class="block text-[10px] text-slate-500 font-bold truncate pointer-events-none">المهارات العملية والشهادات الدولية</span>
+        <div class="min-w-0 flex-1 w-full pointer-events-none">
+          <span class="block font-black text-[11px] sm:text-xs md:text-sm text-slate-900 leading-tight sm:leading-snug truncate pointer-events-none">المسار المهني 🏆</span>
+          <span class="hidden sm:block text-[10px] text-slate-500 font-bold truncate pointer-events-none">المهارات والشهادات الدولية</span>
         </div>
       </button>
 
@@ -56,10 +56,10 @@
         type="button"
         onclick="switchTab('programming')" 
         id="tabBtn-programming"
-        class="tab-btn hidden py-3 px-3 rounded-2xl text-xs sm:text-sm font-display font-black items-center justify-between gap-2.5 cursor-pointer text-right transition-all duration-200 select-none"
+        class="tab-btn hidden py-2 px-1.5 sm:py-3 sm:px-3 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-display font-black items-center justify-between gap-2.5 cursor-pointer text-right transition-all duration-200 select-none"
         style="display: none !important;"
       >
-        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center text-base sm:text-lg shrink-0 shadow-2xs pointer-events-none">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-50 text-purple-600 border border-purple-200 flex items-center justify-center text-base sm:text-lg shrink-0 shadow-2xs pointer-events-none">
           <i class="fa-solid fa-brain text-purple-600 pointer-events-none"></i>
         </div>
         <div class="min-w-0 flex-1 pointer-events-none">

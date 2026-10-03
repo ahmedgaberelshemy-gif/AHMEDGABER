@@ -456,12 +456,28 @@ button, a, input, select, textarea, .tab-btn, .checkbox-custom, [role="button"] 
 @media (max-width: 640px) {
   body {
     font-size: 13.5px;
-    padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 16px);
+    padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 20px);
+  }
+
+  /* Prevent sticky hover effects on touch devices */
+  .card-lift:hover {
+    transform: none !important;
+  }
+
+  .card-lift:active {
+    transform: scale(0.985) !important;
   }
 
   .checkbox-custom {
     width: 24px;
     height: 24px;
     min-width: 24px;
+  }
+
+  /* Sleek top indicator for active tabs on mobile */
+  .tab-btn::before {
+    height: 3px !important;
+    left: 15% !important;
+    right: 15% !important;
   }
 }
