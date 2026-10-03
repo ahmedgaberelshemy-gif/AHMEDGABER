@@ -252,9 +252,9 @@ class AppController {
     const urlTab = urlParams ? urlParams.get('tab') : null;
     const hashTab = (typeof window !== 'undefined' && window.location.hash) ? window.location.hash.replace('#', '') : null;
 
-    if (urlTab && this.tabRegistry.has(urlTab)) return urlTab;
-    if (hashTab && this.tabRegistry.has(hashTab)) return hashTab;
-    return this.state.activeTab && this.tabRegistry.has(this.state.activeTab) ? this.state.activeTab : 'routine';
+    if (urlTab && this.tabRegistry.has(urlTab) && urlTab !== 'programming') return urlTab;
+    if (hashTab && this.tabRegistry.has(hashTab) && hashTab !== 'programming') return hashTab;
+    return this.state.activeTab && this.tabRegistry.has(this.state.activeTab) && this.state.activeTab !== 'programming' ? this.state.activeTab : 'routine';
   }
 
   _initTabClickListeners() {
@@ -271,7 +271,7 @@ class AppController {
   }
 
   _initGestureEngine() {
-    const tabs = ['routine', 'languages', 'roadmap', 'programming'];
+    const tabs = ['routine', 'languages', 'roadmap'];
     this.gestureEngine = new TouchGestureEngine(
       () => {
         const currentIndex = tabs.indexOf(this.state.activeTab || 'routine');
@@ -336,6 +336,7 @@ class AppController {
   // Navigation & Tab Switching (Open/Closed)
   // ==========================================
   switchTab(tabId) {
+    if (tabId === 'programming') tabId = 'routine';
     const targetTab = this.tabRegistry.has(tabId) ? tabId : 'routine';
     this.state.activeTab = targetTab;
 
