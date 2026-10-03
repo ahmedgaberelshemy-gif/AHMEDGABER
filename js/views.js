@@ -671,7 +671,7 @@ class RoadmapView {
         const isDone = RoadmapService.isDone(state, s.id);
         
         let erpSubHtml = '';
-        if (s.id === 'skill_07' || s.id === 'skill_09' || (s.name && s.name.includes('ERP'))) {
+        if (s.id === 'skill_07' || (s.name && s.name.includes('ERP'))) {
           const mainNum = parseInt(s.num, 10) || 7;
           erpSubHtml = `
             <div class="mt-3 space-y-2 pr-3 border-r-4 border-blue-500">
