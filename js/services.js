@@ -126,10 +126,10 @@ class StorageService {
       state.roadmapProgress = state.roadmapProgress || {};
       state.languageProgress = state.languageProgress || {};
 
-      // Safety check for active tab: Allow routine, languages, roadmap, programming
-      const validTabs = (typeof TABS_CONFIG !== 'undefined' && TABS_CONFIG.ALLOWED_TABS) 
-        ? TABS_CONFIG.ALLOWED_TABS 
-        : ['routine', 'languages', 'roadmap', 'programming'];
+      // Safety check for active tab: Validate against active visible tabs
+      const validTabs = (typeof TABS_CONFIG !== 'undefined' && TABS_CONFIG.VISIBLE_TABS) 
+        ? TABS_CONFIG.VISIBLE_TABS 
+        : ['routine', 'languages', 'roadmap'];
       if (!validTabs.includes(state.activeTab)) {
         state.activeTab = 'routine';
       }

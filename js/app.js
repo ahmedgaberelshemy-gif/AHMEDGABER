@@ -24,6 +24,7 @@ class TabRegistry {
       sectionId: 'section-routine',
       buttonId: 'tabBtn-routine',
       activeClass: 'tab-active-routine',
+      visible: true,
       render: (controller) => controller.renderRoutine()
     });
 
@@ -31,6 +32,7 @@ class TabRegistry {
       sectionId: 'section-languages',
       buttonId: 'tabBtn-languages',
       activeClass: 'tab-active-languages',
+      visible: true,
       render: (controller) => controller.renderLanguages()
     });
 
@@ -38,6 +40,7 @@ class TabRegistry {
       sectionId: 'section-roadmap',
       buttonId: 'tabBtn-roadmap',
       activeClass: 'tab-active-roadmap',
+      visible: true,
       render: (controller) => controller.renderRoadmap()
     });
 
@@ -45,12 +48,13 @@ class TabRegistry {
       sectionId: 'section-programming',
       buttonId: 'tabBtn-programming',
       activeClass: 'tab-active-programming',
+      visible: false, // Preserved but hidden per user request
       render: (controller) => controller.renderProgramming()
     });
   }
 
   register(tabId, config) {
-    this._tabs.set(tabId, config);
+    this._tabs.set(tabId, { visible: true, ...config });
   }
 
   get(tabId) {
@@ -61,8 +65,19 @@ class TabRegistry {
     return this._tabs.has(tabId);
   }
 
+  isTabVisible(tabId) {
+    const cfg = this._tabs.get(tabId);
+    return Boolean(cfg && cfg.visible !== false);
+  }
+
   getValidTabIds() {
     return Array.from(this._tabs.keys());
+  }
+
+  getVisibleTabIds() {
+    return Array.from(this._tabs.entries())
+      .filter(([_, cfg]) => cfg.visible !== false)
+      .map(([id]) => id);
   }
 
   getAllSectionIds() {
@@ -252,9 +267,9 @@ class AppController {
     const urlTab = urlParams ? urlParams.get('tab') : null;
     const hashTab = (typeof window !== 'undefined' && window.location.hash) ? window.location.hash.replace('#', '') : null;
 
-    if (urlTab && this.tabRegistry.has(urlTab) && urlTab !== 'programming') return urlTab;
-    if (hashTab && this.tabRegistry.has(hashTab) && hashTab !== 'programming') return hashTab;
-    return this.state.activeTab && this.tabRegistry.has(this.state.activeTab) && this.state.activeTab !== 'programming' ? this.state.activeTab : 'routine';
+    if (urlTab && this.tabRegistry.isTabVisible(urlTab)) return urlTab;
+    if (hashTab && this.tabRegistry.isTabVisible(hashTab)) return hashTab;
+    return this.state.activeTab && this.tabRegistry.isTabVisible(this.state.activeTab) ? this.state.activeTab : 'routine';
   }
 
   _initTabClickListeners() {
@@ -271,7 +286,7 @@ class AppController {
   }
 
   _initGestureEngine() {
-    const tabs = ['routine', 'languages', 'roadmap'];
+    const tabs = this.tabRegistry.getVisibleTabIds();
     this.gestureEngine = new TouchGestureEngine(
       () => {
         const currentIndex = tabs.indexOf(this.state.activeTab || 'routine');
@@ -293,7 +308,7 @@ class AppController {
     if (typeof window !== 'undefined') {
       window.addEventListener('hashchange', () => {
         const hash = window.location.hash ? window.location.hash.replace('#', '') : '';
-        if (this.tabRegistry.has(hash) && this.state.activeTab !== hash) {
+        if (this.tabRegistry.isTabVisible(hash) && this.state.activeTab !== hash) {
           this.switchTab(hash);
         }
       });
@@ -336,8 +351,7 @@ class AppController {
   // Navigation & Tab Switching (Open/Closed)
   // ==========================================
   switchTab(tabId) {
-    if (tabId === 'programming') tabId = 'routine';
-    const targetTab = this.tabRegistry.has(tabId) ? tabId : 'routine';
+    const targetTab = this.tabRegistry.isTabVisible(tabId) ? tabId : 'routine';
     this.state.activeTab = targetTab;
 
     // 1. Reset all tab button highlight states

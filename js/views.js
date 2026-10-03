@@ -30,7 +30,9 @@ class RoutineView {
     // Count the 4 core pillars: Prayers, Quran, Gym, Sleep
     const donePillars = (isPrayersComplete ? 1 : 0) + (quranDone ? 1 : 0) + (gymDone ? 1 : 0) + (sleepDone ? 1 : 0);
     const totalPillars = 4;
-    const percent = Math.round(((prayersDone * 6) + (quranDone ? 20 : 0) + (gymDone ? 25 : 0) + (sleepDone ? 25 : 0)));
+    const percent = (typeof DisciplineCalculator !== 'undefined' && DisciplineCalculator.calculateDailyScore)
+      ? DisciplineCalculator.calculateDailyScore(dayLog)
+      : Math.round(((prayersDone * 6) + (quranDone ? 20 : 0) + (gymDone ? 25 : 0) + (sleepDone ? 25 : 0)));
 
     const todayDoneStat = document.getElementById('routineTodayDoneStat');
     if (todayDoneStat) todayDoneStat.innerText = `${donePillars} / ${totalPillars}`;

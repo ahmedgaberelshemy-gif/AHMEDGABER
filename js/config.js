@@ -21,6 +21,7 @@ const TABS_CONFIG = Object.freeze({
   LANGUAGES: 'languages',
   ROADMAP: 'roadmap',
   PROGRAMMING: 'programming',
+  VISIBLE_TABS: Object.freeze(['routine', 'languages', 'roadmap']),
   ALLOWED_TABS: Object.freeze(['routine', 'languages', 'roadmap', 'programming'])
 });
 
